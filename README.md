@@ -1,120 +1,53 @@
-Warehouse Management System (OOP Project)
+#Warehouse Management System
+Description
 
-📦 Overview
+A Warehouse Management System developed as an Object-Oriented Programming (OOP) course project.
+The system supports core warehouse operations such as inventory tracking, import/export processing, and reporting, focusing on real-world warehouse business logic.
 
-This project is a Warehouse Management System developed as part of an Object-Oriented Programming (OOP) course project.
+Features
 
-The system focuses on core warehouse business logic, supporting product management, inventory tracking, import/export processing, reporting, and data persistence.
-Sales, payment, and logistics functionalities are intentionally excluded to keep the scope aligned with warehouse operations.
-
-✨ Main Features
-
-Product management
-
-Food
-
-Electronic
-
-Consumable
+Product and category management
 
 Batch-based inventory tracking
 
-Import & export warehouse operations
+Import and export warehouse operations (FIFO)
 
-FIFO (First In – First Out) method
+Supplier and employee management
 
-Supplier & employee management
+Warehouse documents (import/export invoices)
 
-Role-based access control
+Inventory reports and statistics
 
-Warehouse documents
+Data persistence and backup (Binary / XML / JSON / CSV)
 
-Import invoices
+Console and Windows Forms user interfaces
 
-Export invoices
+OOP Design
 
-Inventory reports & statistics
+Encapsulation: Private fields with properties
 
-Data storage, backup, and restore
+Abstraction: Abstract classes (Product, Report)
 
-Binary
+Inheritance: Specialized product types
 
-XML
+Polymorphism: Import and export processing
 
-JSON
+Composition: Warehouse–Inventory–Batch structure
 
-CSV
+Technologies
 
-User interfaces
-
-Console Application
-
-Windows Forms Application
-
-🧠 OOP Concepts Applied
-
-Encapsulation
-
-Private fields with public properties
-
-Abstraction
-
-Abstract base classes (e.g. Product, Report)
-
-Inheritance
-
-Specialized product subclasses
-
-Polymorphism
-
-Unified import/export processing
-
-Composition
-
-Warehouse → InventoryItem → Batch structure
-
-🛠 Technologies
-
-Programming Language: C#
+Language: C#
 
 Framework: .NET
 
-User Interface:
+UI: Console Application, Windows Forms
 
-Console
+Data Storage: Binary, XML, JSON, CSV
 
-Windows Forms
+Scope
 
-Data Storage Formats:
+This system focuses solely on warehouse management and does not include sales, payment, or logistics functionalities.
 
-Binary
+Purpose
 
-XML
-
-JSON
-
-CSV
-
-👥 Contributors
-
-This project was developed by a group of 4 members:
-
-Nguyễn Đinh Thảo Nhi
-
-Nguyễn Hữu Thông
-
-Lê Minh Anh
-
-Đinh Thị Anh Thư
-
-All members collaborated in system analysis, design, implementation, testing, and documentation of the Warehouse Management System.
-
-🎯 Purpose
-
-The project demonstrates:
-
-Application of object-oriented design principles
-
-Modeling of real-world warehouse workflows
-
-Development of a structured, extensible, and maintainable software system using C#
+The project demonstrates the application of object-oriented principles and structured system design in a practical warehouse management scenario.
