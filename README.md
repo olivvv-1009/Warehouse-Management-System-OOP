@@ -4,7 +4,7 @@ Description
 A Warehouse Management System developed as an Object-Oriented Programming (OOP) course project.
 The system supports core warehouse operations such as inventory tracking, import/export processing, and reporting, focusing on real-world warehouse business logic.
 
-Features
+#Features
 
 Product and category management
 
@@ -22,7 +22,7 @@ Data persistence and backup (Binary / XML / JSON / CSV)
 
 Console and Windows Forms user interfaces
 
-OOP Design
+#OOP Design
 
 Encapsulation: Private fields with properties
 
@@ -44,10 +44,8 @@ UI: Console Application, Windows Forms
 
 Data Storage: Binary, XML, JSON, CSV
 
-Scope
-
+#Scope
 This system focuses solely on warehouse management and does not include sales, payment, or logistics functionalities.
 
-Purpose
-
+#Purpose
 The project demonstrates the application of object-oriented principles and structured system design in a practical warehouse management scenario.
