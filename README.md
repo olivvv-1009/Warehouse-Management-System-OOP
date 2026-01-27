@@ -1,40 +1,38 @@
-# Warehouse-Management-System-OOP
-Overview
+# Warehouse-Management-System-OOPWarehouse Management System
+Description
 
-This project is a Warehouse Management System developed as an Object-Oriented Programming (OOP) course project.
-The system supports core warehouse operations such as product management, inventory tracking, import/export processing, reporting, and data persistence.
+A Warehouse Management System developed as an Object-Oriented Programming (OOP) course project.
+The system supports core warehouse operations such as inventory tracking, import/export processing, and reporting, focusing on real-world warehouse business logic.
 
-The project focuses only on warehouse business logic and does not include sales, payment, or logistics features.
+#Features
 
-Main Features
-
-Product management (Food, Electronic, Consumable)
+Product and category management
 
 Batch-based inventory tracking
 
 Import and export warehouse operations (FIFO)
 
-Supplier and employee management with role-based access
+Supplier and employee management
 
 Warehouse documents (import/export invoices)
 
 Inventory reports and statistics
 
-Data storage, backup, and restore (Binary / XML / JSON / CSV)
+Data persistence and backup (Binary / XML / JSON / CSV)
 
 Console and Windows Forms user interfaces
 
-OOP Concepts Applied
+OOP Design
 
 Encapsulation: Private fields with properties
 
 Abstraction: Abstract classes (Product, Report)
 
-Inheritance: Product subclasses
+Inheritance: Specialized product types
 
-Polymorphism: Import/Export processing
+Polymorphism: Import and export processing
 
-Composition: Warehouse – InventoryItem – Batch structure
+Composition: Warehouse–Inventory–Batch structure
 
 Technologies
 
@@ -42,10 +40,14 @@ Language: C#
 
 Framework: .NET
 
-UI: Console & Windows Forms
+UI: Console Application, Windows Forms
 
-Data Storage: Binary / XML / JSON / CSV
+Data Storage: Binary, XML, JSON, CSV
+
+#Scope
+
+This system focuses solely on warehouse management and does not include sales, payment, or logistics functionalities.
 
 Purpose
 
-The project demonstrates the application of object-oriented design principles and real-world warehouse workflows in a structured and extensible software system.
+The project demonstrates the application of object-oriented principles and structured system design in a practical warehouse management scenario.
