@@ -8,17 +8,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Models\Inventory\" />
-    <Folder Include="Models\Users\" />
-    <Folder Include="Models\Transactions\" />
-    <Folder Include="Models\Orders\" />
-    <Folder Include="Models\Products\" />
-    <Folder Include="UI\ConsoleUI\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Reports\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
