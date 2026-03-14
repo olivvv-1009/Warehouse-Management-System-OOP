@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WarehouseManagementSystem.WinForms.Models.Products
+﻿[Serializable]
+public abstract class Product
 {
-    internal class Product
-    {
-    }
+    public string ProductId { get; set; }
+    public string Name { get; set; }
+    public double ImportPrice { get; set; }
+    public double ExportPrice { get; set; }
+
+    public abstract Product GetCategory();
 }
