@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using WMS.Models.Inventory;
 
-namespace WarehouseManagementSystem.WinForms.Models.Orders
+namespace WMS.Models.Orders
 {
-    internal class Order
+    public class Order
     {
+        public List<OrderDetail> Details { get; set; }
+
+        public Order()
+        {
+            Details = new List<OrderDetail>();
+        }
+
+        public virtual void Process(Warehouse warehouse)
+        {
+        }
     }
 }
