@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WarehouseManagementSystem.WinForms.Models.Transactions
+namespace WMS.Models.Transactions
 {
-    internal class Transaction
+    public class Transaction
     {
+        public string Type { get; set; } = "";
+        public DateTime TimeStamp { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }
