@@ -1,12 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WarehouseManagementSystem.WinForms.Models.Inventory
+namespace WMS.Models.Inventory
 {
-    internal class Batch
+    public class Batch
     {
+        public int BatchId { get; set; }
+
+        public DateTime ImportDate { get; set; }
+
+        public DateTime ExpiryDate { get; set; }
+
+        public List<InventoryItem> Items { get; set; }
+
+        public Batch()
+        {
+            Items = new List<InventoryItem>();
+        }
+
+        public void AddItem(InventoryItem item)
+        {
+            Items.Add(item);
+        }
     }
 }
