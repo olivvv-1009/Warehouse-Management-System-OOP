@@ -12,6 +12,9 @@ namespace WarehouseManagementSystem.WinForms.Models.Products
         public string ProductName { get; set; }
         public double ImportPrice { get; set; }
         public double ExportPrice { get; set; }
-        public virtual string GetCategory();
+        public virtual string GetCategory()
+        {
+            return null;
+        }
     }
 }
