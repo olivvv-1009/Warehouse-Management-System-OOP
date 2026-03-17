@@ -4,16 +4,12 @@ namespace WMS.Models.Inventory
 {
     public class Shelf : StorageUnit
     {
-        public List<Batch> Batches { get; set; }
+        public List<InventoryItem> InventoryItems { get; private set; } = new List<InventoryItem>();
 
-        public Shelf()
+        public void AddItem(InventoryItem item)
         {
-            Batches = new List<Batch>();
-        }
-
-        public void AddBatch(Batch batch)
-        {
-            Batches.Add(batch);
+            if (item != null)
+                InventoryItems.Add(item);
         }
     }
 }
