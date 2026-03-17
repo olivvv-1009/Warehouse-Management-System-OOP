@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagementSystem.WinForms", "WarehouseManagementSystem.WinForms\WarehouseManagementSystem.WinForms.csproj", "{D5AB402F-F2A8-40F4-944E-7332D9B426EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS", "WMS\WMS.csproj", "{5ED87908-0474-44F6-B205-F06ED2011B7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D5AB402F-F2A8-40F4-944E-7332D9B426EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5AB402F-F2A8-40F4-944E-7332D9B426EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5AB402F-F2A8-40F4-944E-7332D9B426EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ED87908-0474-44F6-B205-F06ED2011B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED87908-0474-44F6-B205-F06ED2011B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED87908-0474-44F6-B205-F06ED2011B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED87908-0474-44F6-B205-F06ED2011B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
