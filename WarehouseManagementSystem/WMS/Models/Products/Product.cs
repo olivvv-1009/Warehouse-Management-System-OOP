@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarehouseManagementSystem.WinForms.Models.Products
+namespace WMS.Models.Products
 {
     public abstract class Product
     {
