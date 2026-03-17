@@ -16,6 +16,12 @@ namespace WMS.Services
         {
             item.AddStock(quantity);
         }
+        
 
+        // Dependency: xử lý dữ liệu từ object truyền vào
+        public int GetTotalQuantity(InventoryItem item)
+        {
+            return item.GetTotalQuantity();
+        }
     }
 }
