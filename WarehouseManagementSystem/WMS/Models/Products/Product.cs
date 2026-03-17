@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models.Products
 {
-    internal class Product
+    public abstract class Product
     {
+        public string ProductId { get; set; }
+        public string ProductName { get; set; }
+        public double ImportPrice { get; set; }
+        public double ExportPrice { get; set; }
+        public virtual string GetCategory();
     }
 }
