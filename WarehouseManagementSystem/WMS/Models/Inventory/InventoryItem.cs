@@ -9,9 +9,8 @@ namespace WMS.Models.Inventory
     {
         public int InventoryItemId { get; set; }
 
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
 
-        // 👉 thêm navigation (nếu module khác cần)
         public Product Product { get; set; }
 
         public int Quantity { get; private set; }
@@ -20,16 +19,14 @@ namespace WMS.Models.Inventory
 
         public List<Batch> Batches { get; private set; } = new List<Batch>();
 
-        // ✅ Constructor mới (an toàn)
         public InventoryItem(Product product)
         {
             Product = product;
-            ProductId = product?.ProductId ?? 0;
+            ProductId = product?.ProductId;
         }
 
         public InventoryItem() { }
 
-        // ✅ Method cũ (giữ)
         public void AddBatch(Batch batch)
         {
             if (batch == null) return;
@@ -38,7 +35,6 @@ namespace WMS.Models.Inventory
             Quantity += batch.Quantity;
         }
 
-        // ✅ SỬA AddStock để hợp với Batch
         public void AddStock(int quantity)
         {
             if (quantity <= 0) return;
@@ -47,7 +43,7 @@ namespace WMS.Models.Inventory
             {
                 Quantity = quantity,
                 ImportDate = DateTime.Now,
-                ExpiryDate = DateTime.Now.AddMonths(6) // hoặc truyền từ ngoài
+                ExpiryDate = DateTime.Now.AddMonths(6) 
             };
 
             AddBatch(batch);
@@ -82,7 +78,6 @@ namespace WMS.Models.Inventory
             Quantity -= amount;
         }
 
-        // ✅ Method mới (OK)
         public int GetTotalQuantity()
         {
             return Batches.Sum(b => b.Quantity);
