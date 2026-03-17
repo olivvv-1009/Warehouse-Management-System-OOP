@@ -9,7 +9,6 @@ namespace WMS.Models.Inventory
     public abstract class StorageUnit
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
     }
 }

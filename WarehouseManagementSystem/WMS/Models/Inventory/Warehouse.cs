@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WMS.Models.Inventory
 {
     public class Warehouse : StorageUnit
     {
-        public List<Zone> Zones { get; set; }
-
-        public Warehouse()
-        {
-            Zones = new List<Zone>();
-        }
+        public List<Zone> Zones { get; private set; } = new List<Zone>();
 
         public void AddZone(Zone zone)
         {
-            Zones.Add(zone);
+            if (zone != null)
+                Zones.Add(zone);
         }
 
         public List<InventoryItem> GetAllInventory()
@@ -25,7 +22,7 @@ namespace WMS.Models.Inventory
                 items.AddRange(zone.GetInventoryItems());
             }
 
-            return items;
+            return items.Distinct().ToList(); 
         }
     }
 }
