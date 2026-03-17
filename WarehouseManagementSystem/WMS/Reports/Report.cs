@@ -4,9 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarehouseManagementSystem.WinForms.Reports
+namespace WMS.Reports
 {
-    internal class Report
+    public abstract class Report
     {
+        public string ReportName { get; set; }
+
+        public Report(string name)
+        {
+            ReportName = name;
+        }
+
+        public abstract string Generate();
     }
 }
