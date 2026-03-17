@@ -16,7 +16,7 @@ namespace WMS.Services
         {
             order.Process(warehouse);
         }
-          
+
     }
 }
 
