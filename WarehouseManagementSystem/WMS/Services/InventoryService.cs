@@ -4,9 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarehouseManagementSystem.WinForms.Services
+using WMS.Models.Inventory;
+using WMS.Models.Products;
+
+namespace WMS.Services
 {
-    internal class InventoryService
+    public class InventoryService
     {
+        // Dependency: nhận InventoryItem từ ngoài
+        public void AddStock(InventoryItem item, int quantity)
+        {
+            item.AddStock(quantity);
+        }
+        
+
+        // Dependency: xử lý dữ liệu từ object truyền vào
+        public int GetTotalQuantity(InventoryItem item)
+        {
+            return item.GetTotalQuantity();
+        }
     }
 }
