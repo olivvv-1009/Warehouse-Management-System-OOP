@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.UI.ConsoleUI
 {
-    internal class Menu
+    internal class ProductController
     {
     }
 }

@@ -9,6 +9,7 @@ namespace WMS.Services
 {
     public class ReportService
     {
+        // Dependency: dùng abstract class
         public string GenerateReport(Report report)
         {
             return report.Generate();

@@ -9,12 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Files\" />
-    <Folder Include="Models\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
+    <Compile Remove="Models\Product.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Models\Product.cs" />
   </ItemGroup>
 
 </Project>
