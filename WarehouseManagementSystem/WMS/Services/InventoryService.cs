@@ -8,5 +8,7 @@ namespace WarehouseManagementSystem.WinForms.Services
 {
     internal class InventoryService
     {
+        // Inventory service for managing inventory operations
+        // Integrated with ProductService for product-related operations
     }
 }

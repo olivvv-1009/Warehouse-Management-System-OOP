@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models.Products
 {
-    public abstract class Product
+    public class Product
     {
         public string ProductId { get; set; }
         public string ProductName { get; set; }
+        public string Category { get; set; }
         public double ImportPrice { get; set; }
         public double ExportPrice { get; set; }
-        public virtual string GetCategory();
+        public DateTime CreatedAt { get; set; }
     }
 }
