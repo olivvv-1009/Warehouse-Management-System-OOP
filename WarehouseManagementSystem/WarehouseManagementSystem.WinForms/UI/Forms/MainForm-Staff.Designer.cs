@@ -37,13 +37,13 @@
             btnImport = new Button();
             btnExport = new Button();
             btnSupplier = new Button();
-            btnTransactions = new Button();
             tableLayoutPanel3 = new TableLayoutPanel();
             label1 = new Label();
             label2 = new Label();
             tableLayoutPanel4 = new TableLayoutPanel();
             label3 = new Label();
             label4 = new Label();
+            btnTransactions = new Button();
             tableLayoutPanel5 = new TableLayoutPanel();
             mainpanel = new Panel();
             tableLayoutPanel6 = new TableLayoutPanel();
@@ -145,6 +145,7 @@
             btnProducts.TabIndex = 1;
             btnProducts.Text = "Products";
             btnProducts.UseVisualStyleBackColor = false;
+            btnProducts.Click += btnProducts_Click;
             // 
             // btnInventory
             // 
@@ -193,17 +194,6 @@
             btnSupplier.TabIndex = 5;
             btnSupplier.Text = "Suppliers";
             btnSupplier.UseVisualStyleBackColor = false;
-            // 
-            // btnTransactions
-            // 
-            btnTransactions.BackColor = Color.SlateGray;
-            btnTransactions.Dock = DockStyle.Fill;
-            btnTransactions.Location = new Point(3, 321);
-            btnTransactions.Name = "btnTransactions";
-            btnTransactions.Size = new Size(194, 37);
-            btnTransactions.TabIndex = 7;
-            btnTransactions.Text = "Transactions";
-            btnTransactions.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel3
             // 
@@ -284,6 +274,17 @@
             label4.TabIndex = 1;
             label4.Text = "© 2026 WMS System";
             label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnTransactions
+            // 
+            btnTransactions.BackColor = Color.SlateGray;
+            btnTransactions.Dock = DockStyle.Fill;
+            btnTransactions.Location = new Point(3, 321);
+            btnTransactions.Name = "btnTransactions";
+            btnTransactions.Size = new Size(194, 37);
+            btnTransactions.TabIndex = 7;
+            btnTransactions.Text = "Transactions";
+            btnTransactions.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel5
             // 
