@@ -8,12 +8,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Models\Product.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Models\Product.cs" />
-  </ItemGroup>
-
 </Project>

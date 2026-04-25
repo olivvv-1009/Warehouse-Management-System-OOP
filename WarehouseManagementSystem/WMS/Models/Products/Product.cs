@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WMS.Models.Products
+namespace WarehouseManagementSystem.WinForms.Models.Products
 {
     public abstract class Product
     {
@@ -12,9 +12,6 @@ namespace WMS.Models.Products
         public string ProductName { get; set; }
         public double ImportPrice { get; set; }
         public double ExportPrice { get; set; }
-        public virtual string GetCategory()
-        {
-            return null;
-        }
+        public virtual string GetCategory();
     }
 }

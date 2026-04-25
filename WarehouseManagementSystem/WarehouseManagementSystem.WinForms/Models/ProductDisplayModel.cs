@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +6,17 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    internal class Product
+    /// <summary>
+    /// Display model for showing product information with inventory details
+    /// </summary>
+    public class ProductDisplayModel
     {
         public string ProductID { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
+        public int MinStock { get; set; }
+        public int TotalStock { get; set; }
+        public decimal AvgImportPrice { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        public Product()
-        {
-            CreatedAt = DateTime.Now;
-        }
-
-        public Product(string productId, string name, string category)
-        {
-            ProductID = productId;
-            Name = name;
-            Category = category;
-            CreatedAt = DateTime.Now;
-        }
     }
 }
