@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Interfaces
 {
-    internal class IRepository
+    public interface IRepository<T>
     {
+        List<T> GetAll();
+        void Save(List<T> items);
     }
 }
