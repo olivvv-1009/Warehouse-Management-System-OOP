@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 
 namespace WarehouseManagementSystem.WinForms.Utils
 {
@@ -11,19 +7,18 @@ namespace WarehouseManagementSystem.WinForms.Utils
     {
         public static string Hash(string input)
         {
-            using (SHA256 sha256 = SHA256.Create())
+            SHA256 sha = SHA256.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(input);
+            byte[] hash = sha.ComputeHash(bytes);
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < hash.Length; i++)
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(input);
-                byte[] hash = sha256.ComputeHash(bytes);
-
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in hash)
-                {
-                    sb.Append(b.ToString("x2"));
-                }
-
-                return sb.ToString();
+                sb.Append(hash[i].ToString("x2")); // lowercase
             }
+
+            return sb.ToString();
         }
     }
 }
