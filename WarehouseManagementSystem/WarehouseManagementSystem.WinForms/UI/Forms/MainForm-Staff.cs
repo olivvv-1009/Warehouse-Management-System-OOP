@@ -14,9 +14,12 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
 {
     public partial class MainForm_Staff : Form
     {
+        private ProductForm _productForm;
         public MainForm_Staff()
         {
             InitializeComponent();
+            _productForm = new ProductForm();
+            _productForm.ProductAdded += ProductForm_ProductAdded;
         }
         private void LoadView(UserControl view)
         {
@@ -27,7 +30,12 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
-            LoadView(new ProductForm());
+            LoadView(_productForm);
+        }
+        private void ProductForm_ProductAdded(object sender, ProductAddedEventArgs e)
+        {
+            // For now, just show a notification. In future, update other UI parts if needed.
+            MessageBox.Show($"Product '{e.ProductName}' added!", "Product Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
