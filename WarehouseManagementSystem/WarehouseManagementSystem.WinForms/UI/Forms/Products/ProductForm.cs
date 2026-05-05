@@ -7,72 +7,90 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WarehouseManagementSystem.WinForms.UI.Forms.Products;
+using WarehouseManagementSystem.WinForms.Services;
+using WarehouseManagementSystem.WinForms.Models;
 
-namespace WarehouseManagementSystem.WinForms.UI.Forms
+namespace WarehouseManagementSystem.WinForms.UI.Forms.Products
 {
-	public class ProductAddedEventArgs : EventArgs
+public partial class ProductForm : UserControl
+{
+	private readonly ProductService _productService = new ProductService();
+	private List<ProductDisplayModel> _allProducts = new List<ProductDisplayModel>();
+
+	public ProductForm()
 	{
-		public string ProductCode { get; set; }
-		public string ProductName { get; set; }
-		public string Category { get; set; }
-		public int MinimumStock { get; set; }
-		public string Status { get; set; }
+		InitializeComponent();
+		Load += ProductForm_Load;
+		addproductBtn.Click += addproductBtn_Click;
+		searchBtn.Click += searchBtn_Click;
+		categoryCB.SelectedIndexChanged += categoryCB_SelectedIndexChanged;
 	}
 
-	public partial class ProductForm : UserControl
+	private void ProductForm_Load(object sender, EventArgs e)
 	{
-		public event EventHandler<ProductAddedEventArgs> ProductAdded;
+		LoadProducts();
+	}
 
-		public ProductForm()
+	private void LoadProducts()
+	{
+		_allProducts = _productService.GetAllProducts();
+		dataGridView1.DataSource = null;
+		dataGridView1.DataSource = _allProducts;
+		dataGridView1.AutoGenerateColumns = true;
+		// Populate category filter
+        var categories = _allProducts.Select(p => p.Category).Distinct().ToList();
+		categoryCB.Items.Clear();
+		categoryCB.Items.Add("All");
+		if (categories.Count > 0)
+			categoryCB.Items.AddRange(categories.Cast<object>().ToArray());
+		categoryCB.SelectedIndex = 0;
+	}
+
+	private void addproductBtn_Click(object sender, EventArgs e)
+	{
+		using (var f = new AddProductForm())
 		{
-			InitializeComponent();
-			if (!DesignMode)
+			if (f.ShowDialog() == DialogResult.OK)
 			{
-				LoadSampleData();
-				btnAddProduct.Click += btnAddProduct_Click;
-			}
-		}
-
-		private void ProductForm_Load(object sender, EventArgs e)
-		{
-			// Optionally reload data or refresh UI
-		}
-
-		private void LoadSampleData()
-		{
-			dgvProducts.Rows.Clear();
-			dgvProducts.Rows.Add("PRD0001", "Laptop Dell XPS 13", "Electronics", "$1200.00", 10, "Active");
-			dgvProducts.Rows.Add("PRD0002", "iPhone 15 Pro", "Electronics", "$1000.00", 15, "Active");
-			dgvProducts.Rows.Add("PRD0003", "Samsung Galaxy S24", "Electronics", "$800.00", 20, "Active");
-			dgvProducts.Rows.Add("PRD0004", "Sony Headphones WH-1000XM5", "Electronics", "$300.00", 25, "Active");
-			dgvProducts.Rows.Add("PRD0005", "Apple Watch Series 9", "Electronics", "$350.00", 15, "Active");
-		}
-
-		private void btnAddProduct_Click(object sender, EventArgs e)
-		{
-			using (var addForm = new AddProductForm())
-			{
-				if (addForm.ShowDialog(this) == DialogResult.OK)
+				try
 				{
-					var code = "PRD" + (dgvProducts.Rows.Count + 1).ToString("D4");
-					dgvProducts.Rows.Add(
-						code,
-						addForm.ProductName,
-						addForm.Category,
-						"$0.00", // Avg Import Price is calculated elsewhere
-						addForm.MinimumStock,
-						"Active"
-					);
-					ProductAdded?.Invoke(this, new ProductAddedEventArgs
-					{
-						ProductCode = code,
-						ProductName = addForm.ProductName,
-						Category = addForm.Category,
-						MinimumStock = addForm.MinimumStock,
-						Status = "Active"
-					});
+					_productService.AddProduct(f.ProductName, f.Category, f.MinimumStock);
+					LoadProducts();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Failed to add product: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 		}
 	}
+
+	private void searchBtn_Click(object sender, EventArgs e)
+	{
+		ApplyFilters();
+	}
+
+	private void categoryCB_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		ApplyFilters();
+	}
+
+	private void ApplyFilters()
+	{
+		string search = searchTB.Text.Trim().ToLower();
+		string category = categoryCB.SelectedItem?.ToString();
+		var filtered = _allProducts.AsEnumerable();
+		if (!string.IsNullOrEmpty(search))
+		{
+			filtered = filtered.Where(p => p.Name.ToLower().Contains(search) || p.ProductID.ToLower().Contains(search));
+		}
+		if (!string.IsNullOrEmpty(category) && category != "All")
+		{
+			filtered = filtered.Where(p => p.Category == category);
+		}
+		dataGridView1.DataSource = null;
+		dataGridView1.DataSource = filtered.ToList();
+	}
+}
 }

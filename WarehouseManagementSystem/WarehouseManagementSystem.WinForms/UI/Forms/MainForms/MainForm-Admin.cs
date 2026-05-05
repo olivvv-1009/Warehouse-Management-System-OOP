@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.UI.Forms;
+using WarehouseManagementSystem.WinForms.UI.Forms.Products;
 
 namespace WarehouseManagementSystem.WinForms
 {

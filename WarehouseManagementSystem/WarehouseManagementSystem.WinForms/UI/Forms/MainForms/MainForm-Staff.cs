@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System;
 using WarehouseManagementSystem.WinForms.UI.Forms;
-
+using WarehouseManagementSystem.WinForms.UI.Forms.Products;
 namespace WarehouseManagementSystem.WinForms.UI.Forms
 {
     public partial class MainForm_Staff : Form
@@ -19,7 +19,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
         {
             InitializeComponent();
             _productForm = new ProductForm();
-            _productForm.ProductAdded += ProductForm_ProductAdded;
+            
         }
         private void LoadView(UserControl view)
         {
@@ -30,12 +30,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
-            LoadView(_productForm);
+            LoadView(new ProductForm());
         }
-        private void ProductForm_ProductAdded(object sender, ProductAddedEventArgs e)
-        {
-            // For now, just show a notification. In future, update other UI parts if needed.
-            MessageBox.Show($"Product '{e.ProductName}' added!", "Product Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        
     }
 }
