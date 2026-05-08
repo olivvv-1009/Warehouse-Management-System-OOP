@@ -96,6 +96,11 @@ namespace WarehouseManagementSystem.WinForms.Services
             }
         }
 
+        public void UpdateProduct(ProductDisplayModel model)
+        {
+            UpdateProduct(model.ProductID, model.Name, model.Category, model.MinStock);
+        }
+
         /// <summary>
         /// Delete a product
         /// Only delete products that have never had imports
@@ -130,25 +135,20 @@ namespace WarehouseManagementSystem.WinForms.Services
         public List<ProductDisplayModel> GetAllProducts()
         {
             var products = _productRepository.GetAll();
-            var result = new List<ProductDisplayModel>();
-
-            foreach (var product in products)
+            var inventory = _inventoryRepository.GetAll();
+            // If you have price info, fetch it here. For now, set AvgImportPrice = null.
+            var result = products.Select(p =>
             {
-                var inventoryItem = _inventoryRepository.GetByProductId(product.ProductID);
-                decimal avgImportPrice = _batchRepository.GetAverageImportPrice(product.ProductID);
-
-                result.Add(new ProductDisplayModel
+                var inv = inventory.FirstOrDefault(i => i.ProductID == p.ProductID);
+                return new ProductDisplayModel
                 {
-                    ProductID = product.ProductID,
-                    Name = product.Name,
-                    Category = product.Category,
-                    MinStock = inventoryItem?.MinStock ?? 0,
-                    TotalStock = inventoryItem?.TotalStock ?? 0,
-                    AvgImportPrice = avgImportPrice,
-                    CreatedAt = product.CreatedAt
-                });
-            }
-
+                    ProductID = p.ProductID,
+                    Name = p.Name,
+                    Category = p.Category,
+                    MinStock = inv?.MinStock ?? 0,
+                    AvgImportPrice = null // TODO: Set actual price if available
+                };
+            }).ToList();
             return result;
         }
 
@@ -170,9 +170,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 Name = product.Name,
                 Category = product.Category,
                 MinStock = inventoryItem?.MinStock ?? 0,
-                TotalStock = inventoryItem?.TotalStock ?? 0,
-                AvgImportPrice = avgImportPrice,
-                CreatedAt = product.CreatedAt
+                
             };
         }
 
@@ -184,6 +182,12 @@ namespace WarehouseManagementSystem.WinForms.Services
         public bool ProductExists(string productId)
         {
             return _productRepository.Exists(productId);
+        }
+
+        public ProductDisplayModel GetProductDisplayById(string productId)
+        {
+            var all = GetAllProducts();
+            return all.FirstOrDefault(p => p.ProductID == productId);
         }
     }
 }

@@ -26,7 +26,7 @@
 		/// Required method for Designer support - do not modify 
 		/// the contents of this method with the code editor.
 		/// </summary>
-		private void InitializeComponent()
+      private void InitializeComponent()
 		{
 			label1 = new Label();
 			searchTB = new TextBox();
@@ -34,62 +34,83 @@
 			categoryCB = new ComboBox();
 			dataGridView1 = new DataGridView();
 			addproductBtn = new Button();
+
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
 			SuspendLayout();
-			// 
+
 			// label1
-			// 
 			label1.AutoSize = true;
+			label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			label1.ForeColor = Color.FromArgb(51, 51, 51);
 			label1.Location = new Point(32, 25);
 			label1.Name = "label1";
-			label1.Size = new Size(67, 15);
+			label1.Size = new Size(110, 30);
 			label1.TabIndex = 0;
-			label1.Text = "PRODUCTS";
-			// 
+			label1.Text = "Products";
+
 			// searchTB
-			// 
-			searchTB.Location = new Point(37, 60);
+			searchTB.Location = new Point(37, 70);
 			searchTB.Name = "searchTB";
-			searchTB.Size = new Size(361, 23);
+			searchTB.Size = new Size(340, 28);
 			searchTB.TabIndex = 1;
-			// 
+			searchTB.Font = new Font("Segoe UI", 11F);
+			searchTB.PlaceholderText = "Search by name or code...";
+
 			// searchBtn
-			// 
-			searchBtn.Location = new Point(421, 60);
+			searchBtn.Location = new Point(385, 70);
 			searchBtn.Name = "searchBtn";
-			searchBtn.Size = new Size(75, 23);
+			searchBtn.Size = new Size(40, 28);
 			searchBtn.TabIndex = 2;
-			searchBtn.Text = "Search";
-			searchBtn.UseVisualStyleBackColor = true;
-			// 
+			searchBtn.Text = "🔍";
+			searchBtn.Font = new Font("Segoe UI", 11F);
+			searchBtn.BackColor = Color.WhiteSmoke;
+			searchBtn.FlatStyle = FlatStyle.Flat;
+
 			// categoryCB
-			// 
 			categoryCB.FormattingEnabled = true;
-			categoryCB.Location = new Point(502, 61);
+			categoryCB.Location = new Point(440, 70);
 			categoryCB.Name = "categoryCB";
-			categoryCB.Size = new Size(121, 23);
+			categoryCB.Size = new Size(180, 28);
 			categoryCB.TabIndex = 3;
-			// 
-			// dataGridView1
-			// 
-			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridView1.Location = new Point(40, 115);
-			dataGridView1.Name = "dataGridView1";
-			dataGridView1.Size = new Size(583, 287);
-			dataGridView1.TabIndex = 4;
-			// 
+			categoryCB.Font = new Font("Segoe UI", 11F);
+
 			// addproductBtn
-			// 
-			addproductBtn.Location = new Point(502, 17);
+			addproductBtn.Location = new Point(540, 20);
 			addproductBtn.Name = "addproductBtn";
-			addproductBtn.Size = new Size(121, 23);
+			addproductBtn.Size = new Size(180, 36);
 			addproductBtn.TabIndex = 5;
-			addproductBtn.Text = "Add Product";
-			addproductBtn.UseVisualStyleBackColor = true;
-			addproductBtn.Click += addproductBtn_Click;
-			// 
+			addproductBtn.Text = "+ Add Product";
+			addproductBtn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+			addproductBtn.BackColor = Color.FromArgb(0, 123, 255);
+			addproductBtn.ForeColor = Color.White;
+			addproductBtn.FlatStyle = FlatStyle.Flat;
+
+			// dataGridView1
+			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridView1.Location = new Point(37, 120);
+			dataGridView1.Name = "dataGridView1";
+			dataGridView1.Size = new Size(683, 350);
+			dataGridView1.TabIndex = 4;
+			dataGridView1.Font = new Font("Segoe UI", 11F);
+			dataGridView1.BackgroundColor = Color.White;
+			dataGridView1.EnableHeadersVisualStyles = false;
+			dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Gainsboro;
+			dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+			dataGridView1.RowTemplate.Height = 32;
+
+			// Add Actions column (Edit/Delete)
+			var actionsCol = new DataGridViewButtonColumn();
+			actionsCol.Name = "Actions";
+			actionsCol.HeaderText = "Actions";
+			actionsCol.Text = "✏️ / 🗑️";
+			actionsCol.UseColumnTextForButtonValue = true;
+			actionsCol.Width = 90;
+			if (!dataGridView1.Columns.Contains("Actions"))
+			{
+				dataGridView1.Columns.Add(actionsCol);
+			}
+
 			// ProductForm
-			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			Controls.Add(addproductBtn);
@@ -99,7 +120,7 @@
 			Controls.Add(searchTB);
 			Controls.Add(label1);
 			Name = "ProductForm";
-			Size = new Size(638, 417);
+			Size = new Size(760, 500);
 			((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
