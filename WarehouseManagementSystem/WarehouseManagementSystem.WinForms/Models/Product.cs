@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    internal class Product
+public class Product
     {
         public string ProductID { get; set; }
         public string Name { get; set; }

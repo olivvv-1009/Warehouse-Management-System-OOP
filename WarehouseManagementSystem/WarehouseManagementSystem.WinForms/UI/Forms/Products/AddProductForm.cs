@@ -1,4 +1,6 @@
 using System;
+using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.Files;
 using System.Windows.Forms;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms
@@ -30,6 +32,26 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
             base.OnLoad(e);
             btnAdd.Click += btnAdd_Click;
             txtProductName.Focus();
+
+            // Load categories from products.json
+            try
+            {
+                var products = FileHelper.ReadJsonList<Product>("products.json");
+                var categories = products
+                    .Where(p => !string.IsNullOrWhiteSpace(p.Category))
+                    .Select(p => p.Category.Trim())
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .ToList();
+                txtCategory.Items.Clear();
+                txtCategory.Items.AddRange(categories.ToArray());
+                txtCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtCategory.AutoCompleteSource = AutoCompleteSource.ListItems;
+            }
+            catch
+            {
+                // Ignore errors, just leave ComboBox empty
+            }
         }
     }
 }

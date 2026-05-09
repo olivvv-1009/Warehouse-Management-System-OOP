@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Files
 {
-    internal class FileHelper
+public class FileHelper
     {
         private static readonly string BaseDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
