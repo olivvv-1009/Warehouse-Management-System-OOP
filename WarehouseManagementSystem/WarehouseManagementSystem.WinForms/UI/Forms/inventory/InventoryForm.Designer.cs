@@ -33,8 +33,8 @@
             label1 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel2 = new Panel();
-            panel3 = new Panel();
             textBox1 = new TextBox();
+            panel3 = new Panel();
             comboBox1 = new ComboBox();
             dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
@@ -70,8 +70,8 @@
             tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 53F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(807, 525);
             tableLayoutPanel1.TabIndex = 0;
@@ -83,7 +83,7 @@
             label1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(159, 75);
+            label1.Size = new Size(159, 41);
             label1.TabIndex = 0;
             label1.Text = "Inventory";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -97,12 +97,12 @@
             tableLayoutPanel2.Controls.Add(panel2, 0, 0);
             tableLayoutPanel2.Controls.Add(panel3, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 78);
+            tableLayoutPanel2.Location = new Point(3, 44);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(801, 94);
+            tableLayoutPanel2.Size = new Size(801, 47);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // panel2
@@ -112,8 +112,18 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(516, 88);
+            panel2.Size = new Size(516, 41);
             panel2.TabIndex = 0;
+            // 
+            // textBox1
+            // 
+            textBox1.Dock = DockStyle.Fill;
+            textBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(0, 0);
+            textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Search product";
+            textBox1.Size = new Size(516, 39);
+            textBox1.TabIndex = 0;
             // 
             // panel3
             // 
@@ -122,25 +132,17 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(525, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(273, 88);
+            panel3.Size = new Size(273, 41);
             panel3.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            textBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(3, 26);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Search product";
-            textBox1.Size = new Size(490, 39);
-            textBox1.TabIndex = 0;
             // 
             // comboBox1
             // 
+            comboBox1.Dock = DockStyle.Fill;
             comboBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(17, 26);
+            comboBox1.Location = new Point(0, 0);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(243, 39);
+            comboBox1.Size = new Size(273, 39);
             comboBox1.TabIndex = 0;
             // 
             // dataGridView1
@@ -148,10 +150,10 @@
             dataGridView1.BackgroundColor = Color.White;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 178);
+            dataGridView1.Location = new Point(3, 97);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(801, 344);
+            dataGridView1.Size = new Size(801, 425);
             dataGridView1.TabIndex = 2;
             // 
             // InventoryForm
