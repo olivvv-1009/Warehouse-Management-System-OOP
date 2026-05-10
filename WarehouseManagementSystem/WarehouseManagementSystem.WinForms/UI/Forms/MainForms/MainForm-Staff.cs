@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System;
 using WarehouseManagementSystem.WinForms.UI.Forms;
 using WarehouseManagementSystem.WinForms.UI.Forms.Products;
+using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
 namespace WarehouseManagementSystem.WinForms.UI.Forms
 {
     public partial class MainForm_Staff : Form
@@ -19,7 +20,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
         {
             InitializeComponent();
             _productForm = new ProductForm();
-            
+
         }
         private void LoadView(UserControl view)
         {
@@ -32,6 +33,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
         {
             LoadView(new ProductForm());
         }
-        
+
+        private void btnInventory_Click(object sender, EventArgs e)
+        {
+            LoadView(new InventoryForm());
+        }
     }
 }

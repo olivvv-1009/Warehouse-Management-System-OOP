@@ -158,6 +158,7 @@
             btnInventory.TabIndex = 2;
             btnInventory.Text = "Inventory";
             btnInventory.UseVisualStyleBackColor = false;
+            btnInventory.Click += btnInventory_Click;
             // 
             // btnImport
             // 
