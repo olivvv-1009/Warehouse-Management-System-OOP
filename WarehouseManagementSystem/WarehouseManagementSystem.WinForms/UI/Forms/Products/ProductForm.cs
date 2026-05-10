@@ -62,12 +62,24 @@ public ProductForm()
 				row.Cells["Status"].Style.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 			}
 		}
-		// Populate category filter
-		var categories = _allProducts.Select(p => p.Category).Distinct().ToList();
+     // Populate category filter without LINQ
+		List<string> categories = new List<string>();
+		foreach (var p in _allProducts)
+		{
+			if (!categories.Contains(p.Category))
+			{
+				categories.Add(p.Category);
+			}
+		}
 		categoryCB.Items.Clear();
 		categoryCB.Items.Add("All Categories");
 		if (categories.Count > 0)
-			categoryCB.Items.AddRange(categories.Cast<object>().ToArray());
+		{
+			foreach (var cat in categories)
+			{
+				categoryCB.Items.Add(cat);
+			}
+		}
 		categoryCB.SelectedIndex = 0;
 	}
 
@@ -102,16 +114,30 @@ public ProductForm()
 
     private void ApplyFilters()
 	{
-		string search = searchTB.Text.Trim().ToLower();
+     string search = searchTB.Text.Trim().ToLower();
 		string category = categoryCB.SelectedItem?.ToString();
-		var filtered = _allProducts.AsEnumerable();
-		if (!string.IsNullOrEmpty(search))
+		List<ProductDisplayModel> filtered = new List<ProductDisplayModel>();
+		foreach (var p in _allProducts)
 		{
-			filtered = filtered.Where(p => p.Name.ToLower().Contains(search) || p.ProductID.ToLower().Contains(search));
-		}
-		if (!string.IsNullOrEmpty(category) && category != "All Categories")
-		{
-			filtered = filtered.Where(p => p.Category == category);
+			bool matches = true;
+			if (!string.IsNullOrEmpty(search))
+			{
+				if (!(p.Name != null && p.Name.ToLower().Contains(search)) && !(p.ProductID != null && p.ProductID.ToLower().Contains(search)))
+				{
+					matches = false;
+				}
+			}
+			if (!string.IsNullOrEmpty(category) && category != "All Categories")
+			{
+				if (p.Category != category)
+				{
+					matches = false;
+				}
+			}
+			if (matches)
+			{
+				filtered.Add(p);
+			}
 		}
 		// Rebuild DataTable for filtered results
 		var dt = new DataTable();
@@ -147,25 +173,33 @@ public ProductForm()
             if (result == DialogResult.Yes)
             {
                 // Edit
-                var product = _allProducts.FirstOrDefault(p => p.ProductID == productCode);
-                if (product != null)
-                {
-                    using (var f = new AddProductForm())
-                    {
-                        // Pre-fill fields (assume AddProductForm allows this)
-                        f.Controls["txtProductName"].Text = product.Name;
-                        f.Controls["txtCategory"].Text = product.Category;
-                        f.Controls["txtMinStock"].Text = product.MinStock.ToString();
-                        if (f.ShowDialog() == DialogResult.OK)
-                        {
-                            product.Name = f.ProductName;
-                            product.Category = f.Category;
-                            product.MinStock = f.MinimumStock;
-                            _productService.UpdateProduct(product);
-                            LoadProducts();
-                        }
-                    }
-                }
+            ProductDisplayModel product = null;
+			foreach (var p in _allProducts)
+			{
+				if (p.ProductID == productCode)
+				{
+					product = p;
+					break;
+				}
+			}
+			if (product != null)
+			{
+				using (var f = new AddProductForm())
+				{
+					// Pre-fill fields (assume AddProductForm allows this)
+					f.Controls["txtProductName"].Text = product.Name;
+					f.Controls["txtCategory"].Text = product.Category;
+					f.Controls["txtMinStock"].Text = product.MinStock.ToString();
+					if (f.ShowDialog() == DialogResult.OK)
+					{
+						product.Name = f.ProductName;
+						product.Category = f.Category;
+						product.MinStock = f.MinimumStock;
+						_productService.UpdateProduct(product);
+						LoadProducts();
+					}
+				}
+			}
             }
             else if (result == DialogResult.No)
             {
