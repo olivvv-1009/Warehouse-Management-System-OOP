@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.UI.Forms;
 using WarehouseManagementSystem.WinForms.UI.Forms.Products;
 using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
+using WarehouseManagementSystem.WinForms.UI.Forms.Import;
 
 
 namespace WarehouseManagementSystem.WinForms
@@ -29,6 +30,11 @@ namespace WarehouseManagementSystem.WinForms
         private void btnInventory_Click(object sender, EventArgs e)
         {
             LoadView(new InventoryForm());
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            LoadView(new ImportForm());
         }
     }
 }

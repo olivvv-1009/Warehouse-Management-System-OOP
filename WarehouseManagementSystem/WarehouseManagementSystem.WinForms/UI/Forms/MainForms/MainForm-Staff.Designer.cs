@@ -171,6 +171,7 @@
             btnImport.TabIndex = 3;
             btnImport.Text = "Import Orders";
             btnImport.UseVisualStyleBackColor = false;
+            btnImport.Click += btnImport_Click;
             // 
             // btnExport
             // 
