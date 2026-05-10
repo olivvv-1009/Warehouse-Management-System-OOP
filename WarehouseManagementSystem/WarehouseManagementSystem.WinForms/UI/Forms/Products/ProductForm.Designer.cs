@@ -98,18 +98,6 @@
 			dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
 			dataGridView1.RowTemplate.Height = 32;
 
-			// Add Actions column (Edit/Delete)
-			var actionsCol = new DataGridViewButtonColumn();
-			actionsCol.Name = "Actions";
-			actionsCol.HeaderText = "Actions";
-			actionsCol.Text = "✏️ / 🗑️";
-			actionsCol.UseColumnTextForButtonValue = true;
-			actionsCol.Width = 90;
-			if (!dataGridView1.Columns.Contains("Actions"))
-			{
-				dataGridView1.Columns.Add(actionsCol);
-			}
-
 			// ProductForm
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;

@@ -50,19 +50,10 @@ public ProductForm()
 			dt.Rows.Add(p.ProductID, p.Name, p.Category, p.AvgImportPrice?.ToString("C") ?? "$0.00", p.MinStock, "Active");
 		}
 		dataGridView1.DataSource = dt;
-		// Add Actions column if not present
-		if (!dataGridView1.Columns.Contains("Actions"))
-		{
-			var actionsCol = new DataGridViewButtonColumn();
-			actionsCol.Name = "Actions";
-			actionsCol.HeaderText = "Actions";
-			actionsCol.Text = "✏️ / 🗑️";
-			actionsCol.UseColumnTextForButtonValue = true;
-			actionsCol.Width = 90;
-			dataGridView1.Columns.Add(actionsCol);
-		}
-		// Style Status column
-		foreach (DataGridViewRow row in dataGridView1.Rows)
+            // Add Actions column if not present
+            AddActionColumn();
+            // Style Status column
+            foreach (DataGridViewRow row in dataGridView1.Rows)
 		{
 			if (row.Cells["Status"].Value?.ToString() == "Active")
 			{
@@ -161,17 +152,8 @@ public ProductForm()
 			dt.Rows.Add(p.ProductID, p.Name, p.Category, p.AvgImportPrice?.ToString("C") ?? "$0.00", p.MinStock, "Active");
 		}
 		dataGridView1.DataSource = dt;
-		if (!dataGridView1.Columns.Contains("Actions"))
-		{
-			var actionsCol = new DataGridViewButtonColumn();
-			actionsCol.Name = "Actions";
-			actionsCol.HeaderText = "Actions";
-			actionsCol.Text = "✏️ / 🗑️";
-			actionsCol.UseColumnTextForButtonValue = true;
-			actionsCol.Width = 90;
-			dataGridView1.Columns.Add(actionsCol);
-		}
-		foreach (DataGridViewRow row in dataGridView1.Rows)
+            AddActionColumn();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
 		{
 			if (row.Cells["Status"].Value?.ToString() == "Active")
 			{
@@ -230,5 +212,20 @@ public ProductForm()
             }
         }
     }
-}
+        private void AddActionColumn()
+        {
+            if (!dataGridView1.Columns.Contains("Actions"))
+            {
+                var actionsCol = new DataGridViewButtonColumn();
+
+                actionsCol.Name = "Actions";
+                actionsCol.HeaderText = "Actions";
+                actionsCol.Text = "✏️ / 🗑️";
+                actionsCol.UseColumnTextForButtonValue = true;
+                actionsCol.Width = 90;
+
+                dataGridView1.Columns.Add(actionsCol);
+            }
+        }
+    }
 }
