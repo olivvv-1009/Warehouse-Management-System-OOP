@@ -41,7 +41,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         public InventoryItem GetByProductId(string productId)
         {
-            return _inventory.FirstOrDefault(i => i.ProductID == productId);
+            foreach (var i in _inventory)
+            {
+                if (i.ProductID == productId)
+                    return i;
+            }
+            return null;
         }
 
         public void Add(InventoryItem item)
@@ -49,8 +54,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            if (_inventory.Any(i => i.ProductID == item.ProductID))
-                throw new InvalidOperationException($"Inventory item for product {item.ProductID} already exists");
+
+            foreach (var i in _inventory)
+            {
+                if (i.ProductID == item.ProductID)
+                    throw new InvalidOperationException($"Inventory item for product {item.ProductID} already exists");
+            }
 
             _inventory.Add(item);
             Save();
