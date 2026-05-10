@@ -16,5 +16,18 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CreateImportOrder form = new CreateImportOrder();
+
+            form.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReturnSupplier form = new ReturnSupplier();
+            form.ShowDialog();
+        }
     }
 }
