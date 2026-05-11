@@ -1,23 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Files
 {
-public class FileHelper
+    public static class FileHelper
     {
-        private static readonly string BaseDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "WarehouseManagementSystem"
-        );
+        // Folder Paths
 
-        private static readonly string DataDirectory = Path.Combine(BaseDirectory, "Data", "Files");
+        private static readonly string BaseDirectory =
+            Path.Combine(
+                Environment.GetFolderPath(
+                    Environment.SpecialFolder.ApplicationData),
+                "WarehouseManagementSystem"
+            );
 
-        public FileHelper()
+        private static readonly string DataDirectory =
+            Path.Combine(
+                BaseDirectory,
+                "Data",
+                "Files"
+            );
+
+        // JSON Options
+
+        private static readonly JsonSerializerOptions JsonOptions =
+            new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+        // Create Directories
+
+        static FileHelper()
         {
             EnsureDirectoriesExist();
         }
@@ -30,101 +46,207 @@ public class FileHelper
             }
         }
 
+        // File Path
+
         public static string GetFilePath(string fileName)
         {
             return Path.Combine(DataDirectory, fileName);
         }
 
-        public static string ReadJsonFile(string fileName)
+        // ================================
+        // File Exists
+        // ================================
+
+        public static bool FileExists(string fileName)
         {
             string filePath = GetFilePath(fileName);
-            try
+
+            return File.Exists(filePath);
+        }
+
+        // Delete File
+    
+
+        public static void DeleteFile(string fileName)
+        {
+            string filePath = GetFilePath(fileName);
+
+            if (File.Exists(filePath))
             {
-                if (File.Exists(filePath))
-                {
-                    return File.ReadAllText(filePath);
-                }
-                return "[]";
-            }
-            catch (Exception ex)
-            {
-                throw new IOException($"Error reading file {fileName}: {ex.Message}", ex);
+                File.Delete(filePath);
             }
         }
 
-        public static void WriteJsonFile(string fileName, string jsonContent)
+        // Read Raw JSON
+
+        public static string ReadJsonFile(string fileName)
         {
             string filePath = GetFilePath(fileName);
+
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return "[]";
+                }
+
+                return File.ReadAllText(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new IOException(
+                    $"Error reading file: {fileName}",
+                    ex
+                );
+            }
+        }
+
+        // Write Raw JSON
+
+        public static void WriteJsonFile(
+            string fileName,
+            string jsonContent)
+        {
+            string filePath = GetFilePath(fileName);
+
             try
             {
                 EnsureDirectoriesExist();
+
                 File.WriteAllText(filePath, jsonContent);
             }
             catch (Exception ex)
             {
-                throw new IOException($"Error writing file {fileName}: {ex.Message}", ex);
+                throw new IOException(
+                    $"Error writing file: {fileName}",
+                    ex
+                );
             }
         }
 
-        public static T ReadJsonObject<T>(string fileName) where T : class
+        // Read Object
+
+        public static T ReadJsonObject<T>(
+            string fileName)
+            where T : class
         {
-            string jsonContent = ReadJsonFile(fileName);
-            if (string.IsNullOrWhiteSpace(jsonContent) || jsonContent == "[]")
-            {
-                return null;
-            }
             try
             {
-                return JsonSerializer.Deserialize<T>(jsonContent);
+                string jsonContent =
+                    ReadJsonFile(fileName);
+
+                if (string.IsNullOrWhiteSpace(jsonContent)
+                    || jsonContent == "[]")
+                {
+                    return null;
+                }
+
+                return JsonSerializer.Deserialize<T>(
+                    jsonContent
+                );
             }
             catch (Exception ex)
             {
-                throw new IOException($"Error deserializing JSON from {fileName}: {ex.Message}", ex);
+                throw new IOException(
+                    $"Error deserializing object from: {fileName}",
+                    ex
+                );
             }
         }
 
-        public static List<T> ReadJsonList<T>(string fileName) where T : class
+        // Write Object
+
+        public static void WriteJsonObject<T>(
+            string fileName,
+            T item)
+            where T : class
         {
-            string jsonContent = ReadJsonFile(fileName);
             try
             {
-                if (string.IsNullOrWhiteSpace(jsonContent) || jsonContent == "[]")
+                string jsonContent =
+                    JsonSerializer.Serialize(
+                        item,
+                        JsonOptions
+                    );
+
+                WriteJsonFile(
+                    fileName,
+                    jsonContent
+                );
+            }
+            catch (Exception ex)
+            {
+                throw new IOException(
+                    $"Error serializing object to: {fileName}",
+                    ex
+                );
+            }
+        }
+
+        // Read List
+
+        public static List<T> ReadJsonList<T>(
+            string fileName)
+            where T : class
+        {
+            try
+            {
+                string jsonContent =
+                    ReadJsonFile(fileName);
+
+                if (string.IsNullOrWhiteSpace(jsonContent)
+                    || jsonContent == "[]")
                 {
                     return new List<T>();
                 }
-                return JsonSerializer.Deserialize<List<T>>(jsonContent) ?? new List<T>();
+
+                List<T> items =
+                    JsonSerializer.Deserialize<List<T>>(
+                        jsonContent
+                    );
+
+                if (items == null)
+                {
+                    return new List<T>();
+                }
+
+                return items;
             }
             catch (Exception ex)
             {
-                throw new IOException($"Error deserializing JSON list from {fileName}: {ex.Message}", ex);
+                throw new IOException(
+                    $"Error deserializing list from: {fileName}",
+                    ex
+                );
             }
         }
 
-        public static void WriteJsonList<T>(string fileName, List<T> items) where T : class
-        {
-            try
-            {
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string jsonContent = JsonSerializer.Serialize(items, options);
-                WriteJsonFile(fileName, jsonContent);
-            }
-            catch (Exception ex)
-            {
-                throw new IOException($"Error serializing list to {fileName}: {ex.Message}", ex);
-            }
-        }
+        // Write List
 
-        public static void WriteJsonObject<T>(string fileName, T item) where T : class
+        public static void WriteJsonList<T>(
+            string fileName,
+            List<T> items)
+            where T : class
         {
             try
             {
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string jsonContent = JsonSerializer.Serialize(item, options);
-                WriteJsonFile(fileName, jsonContent);
+                string jsonContent =
+                    JsonSerializer.Serialize(
+                        items,
+                        JsonOptions
+                    );
+
+                WriteJsonFile(
+                    fileName,
+                    jsonContent
+                );
             }
             catch (Exception ex)
             {
-                throw new IOException($"Error serializing object to {fileName}: {ex.Message}", ex);
+                throw new IOException(
+                    $"Error serializing list to: {fileName}",
+                    ex
+                );
             }
         }
     }
