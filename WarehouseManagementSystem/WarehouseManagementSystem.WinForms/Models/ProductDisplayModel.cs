@@ -15,6 +15,6 @@ namespace WarehouseManagementSystem.WinForms.Models
         public string Name { get; set; }
         public string Category { get; set; }
         public int MinStock { get; set; }
-        public decimal? AvgImportPrice { get; set; } // For display in grid
+        public decimal? AvgImportPrice { get; set; } 
     }
 }
