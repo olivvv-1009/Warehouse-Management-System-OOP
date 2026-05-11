@@ -8,20 +8,25 @@ namespace WarehouseManagementSystem.WinForms.Models
 {
     internal class InventoryItem
     {
-        public string ProductID { get; set; }
+        public string ProductId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public int TotalQuantity { get; set; }
+
         public int MinStock { get; set; }
-        public int TotalStock { get; set; }
+
+        public string StockStatus { get; set; }
 
         public InventoryItem()
         {
-            TotalStock = 0;
-        }
+            ProductId = string.Empty;
+            ProductName = string.Empty;
 
-        public InventoryItem(string productId, int minStock)
-        {
-            ProductID = productId;
-            MinStock = minStock;
-            TotalStock = 0;
+            TotalQuantity = 0;
+            MinStock = 0;
+
+            StockStatus = "OK";
         }
     }
 }

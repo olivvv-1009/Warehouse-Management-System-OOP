@@ -132,7 +132,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.PaleTurquoise;
+            panel2.BackColor = Color.Azure;
             panel2.Controls.Add(tableLayoutPanel5);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(13, 13);
@@ -247,7 +247,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.PeachPuff;
+            panel3.BackColor = Color.LemonChiffon;
             panel3.Controls.Add(lbRule);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(13, 13);
@@ -294,6 +294,7 @@
             // 
             // tableLayoutPanel6
             // 
+            tableLayoutPanel6.BackColor = Color.Honeydew;
             tableLayoutPanel6.ColumnCount = 1;
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
@@ -365,9 +366,9 @@
             // 
             // button3
             // 
-            button3.BackColor = Color.IndianRed;
+            button3.BackColor = Color.Linen;
             button3.Dock = DockStyle.Fill;
-            button3.ForeColor = SystemColors.ButtonHighlight;
+            button3.ForeColor = SystemColors.ActiveCaptionText;
             button3.Location = new Point(182, 3);
             button3.Name = "button3";
             button3.Size = new Size(84, 29);
@@ -377,7 +378,7 @@
             // 
             // button4
             // 
-            button4.BackColor = Color.Khaki;
+            button4.BackColor = Color.Linen;
             button4.Dock = DockStyle.Fill;
             button4.Location = new Point(272, 3);
             button4.Name = "button4";

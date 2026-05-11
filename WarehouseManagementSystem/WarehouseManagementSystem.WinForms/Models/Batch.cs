@@ -6,26 +6,45 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    internal class Batch
+    public class Batch
     {
-        public string BatchID { get; set; }
-        public string ProductID { get; set; }
+        public string BatchId { get; set; }
+
+        public string ProductId { get; set; }
+
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
+
+        public int RemainingQuantity { get; set; }
+
+        public decimal ImportPrice { get; set; }
+
         public DateTime ImportDate { get; set; }
+
+        public string Zone { get; set; }
+
+        public string Shelf { get; set; }
+
+        public string Bin { get; set; }
+
+        public string Status { get; set; }
 
         public Batch()
         {
-            ImportDate = DateTime.Now;
-        }
+            BatchId = string.Empty;
+            ProductId = string.Empty;
 
-        public Batch(string batchId, string productId, int quantity, decimal price)
-        {
-            BatchID = batchId;
-            ProductID = productId;
-            Quantity = quantity;
-            Price = price;
+            Quantity = 0;
+            RemainingQuantity = 0;
+
+            ImportPrice = 0;
+
             ImportDate = DateTime.Now;
+
+            Zone = string.Empty;
+            Shelf = string.Empty;
+            Bin = string.Empty;
+
+            Status = "Stored";
         }
     }
 }

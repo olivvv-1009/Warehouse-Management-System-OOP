@@ -235,6 +235,7 @@
             textBox1.Dock = DockStyle.Fill;
             textBox1.Location = new Point(340, 39);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Enter the reason returning to supplier";
             textBox1.Size = new Size(331, 30);
             textBox1.TabIndex = 3;
             // 
