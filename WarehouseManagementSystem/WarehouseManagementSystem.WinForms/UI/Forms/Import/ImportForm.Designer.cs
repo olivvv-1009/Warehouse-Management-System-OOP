@@ -32,8 +32,8 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             label1 = new Label();
-            button2 = new Button();
-            button1 = new Button();
+            btnCreate = new Button();
+            btnReturn = new Button();
             dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -77,8 +77,8 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.6205635F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.76377F));
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
-            tableLayoutPanel2.Controls.Add(button2, 2, 0);
-            tableLayoutPanel2.Controls.Add(button1, 1, 0);
+            tableLayoutPanel2.Controls.Add(btnCreate, 2, 0);
+            tableLayoutPanel2.Controls.Add(btnReturn, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -100,31 +100,31 @@
             label1.Text = "Import Orders";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // button2
+            // btnCreate
             // 
-            button2.BackColor = Color.LimeGreen;
-            button2.Dock = DockStyle.Fill;
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(585, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(229, 39);
-            button2.TabIndex = 2;
-            button2.Text = "Create Import Order";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            btnCreate.BackColor = Color.LimeGreen;
+            btnCreate.Dock = DockStyle.Fill;
+            btnCreate.ForeColor = Color.White;
+            btnCreate.Location = new Point(585, 3);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(229, 39);
+            btnCreate.TabIndex = 2;
+            btnCreate.Text = "Create Import Order";
+            btnCreate.UseVisualStyleBackColor = false;
+            btnCreate.Click += btnCreate_Click;
             // 
-            // button1
+            // btnReturn
             // 
-            button1.BackColor = Color.DarkOrange;
-            button1.Dock = DockStyle.Fill;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(343, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(236, 39);
-            button1.TabIndex = 1;
-            button1.Text = "Return to Supplier";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            btnReturn.BackColor = Color.DarkOrange;
+            btnReturn.Dock = DockStyle.Fill;
+            btnReturn.ForeColor = Color.White;
+            btnReturn.Location = new Point(343, 3);
+            btnReturn.Name = "btnReturn";
+            btnReturn.Size = new Size(236, 39);
+            btnReturn.TabIndex = 1;
+            btnReturn.Text = "Return to Supplier";
+            btnReturn.UseVisualStyleBackColor = false;
+            btnReturn.Click += btnReturn_Click;
             // 
             // dataGridView1
             // 
@@ -160,7 +160,7 @@
         private Label label1;
         private DataGridView dataGridView1;
         private TableLayoutPanel tableLayoutPanel2;
-        private Button button2;
-        private Button button1;
+        private Button btnCreate;
+        private Button btnReturn;
     }
 }

@@ -1,1 +1,62 @@
-﻿
+﻿[
+    {
+        "BatchId": "BAT-PR0001-01",
+        "ProductId": "PR0001",
+        "Quantity": 120,
+        "RemainingQuantity": 120,
+        "ImportPrice": 4500,
+        "ImportDate": "2026-05-10T08:30:00",
+        "LocationCode": "Z1-R01-S01",
+        "Status": "Stored"
+    },
+    {
+        "BatchId": "BAT-PR0002-01",
+        "ProductId": "PR0002",
+        "Quantity": 80,
+        "RemainingQuantity": 80,
+        "ImportPrice": 3900,
+        "ImportDate": "2026-05-10T10:00:00",
+        "LocationCode": "Z1-R01-S02",
+        "Status": "Stored"
+    },
+    {
+        "BatchId": "BAT-PR0003-01",
+        "ProductId": "PR0003",
+        "Quantity": 350,
+        "RemainingQuantity": 350,
+        "ImportPrice": 120,
+        "ImportDate": "2026-05-11T09:15:00",
+        "LocationCode": "Z2-R01-S01",
+        "Status": "Stored"
+    },
+    {
+        "BatchId": "BAT-PR0004-01",
+        "ProductId": "PR0004",
+        "Quantity": 200,
+        "RemainingQuantity": 200,
+        "ImportPrice": 140,
+        "ImportDate": "2026-05-11T11:00:00",
+        "LocationCode": "Z2-R01-S02",
+        "Status": "Stored"
+    },
+    {
+        "BatchId": "BAT-PR0005-01",
+        "ProductId": "PR0005",
+        "Quantity": 150,
+        "RemainingQuantity": 150,
+        "ImportPrice": 1600,
+        "ImportDate": "2026-05-12T08:00:00",
+        "LocationCode": "Z3-R01-S01",
+        "Status": "Stored"
+    },
+    {
+        "BatchId": "BAT-PR0006-01",
+        "ProductId": "PR0006",
+        "Quantity": 75,
+        "RemainingQuantity": 75,
+        "ImportPrice": 1450,
+        "ImportDate": "2026-05-12T09:30:00",
+        "LocationCode": "Z3-R01-S02",
+        "Status": "Stored"
+    }
+]

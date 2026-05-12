@@ -1,1 +1,159 @@
-﻿
+﻿[
+  {
+    "LocationCode": "Z1-R01-S01",
+    "Zone": "Z1",
+    "Rack": "R01",
+    "Shelf": "S01",
+    "AdjacentLocations": [
+      "Z1-R01-S02",
+      "Z1-R02-S01"
+    ],
+    "Priority": 1
+  },
+  {
+    "LocationCode": "Z1-R01-S02",
+    "Zone": "Z1",
+    "Rack": "R01",
+    "Shelf": "S02",
+    "AdjacentLocations": [
+      "Z1-R01-S01",
+      "Z1-R01-S03"
+    ],
+    "Priority": 2
+  },
+  {
+    "LocationCode": "Z1-R01-S03",
+    "Zone": "Z1",
+    "Rack": "R01",
+    "Shelf": "S03",
+    "AdjacentLocations": [
+      "Z1-R01-S02",
+      "Z1-R01-S04"
+    ],
+    "Priority": 3
+  },
+  {
+    "LocationCode": "Z1-R01-S04",
+    "Zone": "Z1",
+    "Rack": "R01",
+    "Shelf": "S04",
+    "AdjacentLocations": [
+      "Z1-R01-S03",
+      "Z1-R01-S05"
+    ],
+    "Priority": 4
+  },
+  {
+    "LocationCode": "Z1-R01-S05",
+    "Zone": "Z1",
+    "Rack": "R01",
+    "Shelf": "S05",
+    "AdjacentLocations": [
+      "Z1-R01-S04",
+      "Z1-R02-S05"
+    ],
+    "Priority": 5
+  },
+
+  {
+    "LocationCode": "Z1-R02-S01",
+    "Zone": "Z1",
+    "Rack": "R02",
+    "Shelf": "S01",
+    "AdjacentLocations": [
+      "Z1-R01-S01",
+      "Z1-R02-S02"
+    ],
+    "Priority": 6
+  },
+  {
+    "LocationCode": "Z1-R02-S02",
+    "Zone": "Z1",
+    "Rack": "R02",
+    "Shelf": "S02",
+    "AdjacentLocations": [
+      "Z1-R02-S01",
+      "Z1-R02-S03"
+    ],
+    "Priority": 7
+  },
+
+  {
+    "LocationCode": "Z2-R01-S01",
+    "Zone": "Z2",
+    "Rack": "R01",
+    "Shelf": "S01",
+    "AdjacentLocations": [
+      "Z2-R01-S02",
+      "Z2-R02-S01"
+    ],
+    "Priority": 1
+  },
+  {
+    "LocationCode": "Z2-R01-S02",
+    "Zone": "Z2",
+    "Rack": "R01",
+    "Shelf": "S02",
+    "AdjacentLocations": [
+      "Z2-R01-S01",
+      "Z2-R01-S03"
+    ],
+    "Priority": 2
+  },
+  {
+    "LocationCode": "Z2-R01-S03",
+    "Zone": "Z2",
+    "Rack": "R01",
+    "Shelf": "S03",
+    "AdjacentLocations": [
+      "Z2-R01-S02",
+      "Z2-R01-S04"
+    ],
+    "Priority": 3
+  },
+
+  {
+    "LocationCode": "Z3-R01-S01",
+    "Zone": "Z3",
+    "Rack": "R01",
+    "Shelf": "S01",
+    "AdjacentLocations": [
+      "Z3-R01-S02",
+      "Z3-R02-S01"
+    ],
+    "Priority": 1
+  },
+  {
+    "LocationCode": "Z3-R01-S02",
+    "Zone": "Z3",
+    "Rack": "R01",
+    "Shelf": "S02",
+    "AdjacentLocations": [
+      "Z3-R01-S01",
+      "Z3-R01-S03"
+    ],
+    "Priority": 2
+  },
+  {
+    "LocationCode": "Z3-R01-S03",
+    "Zone": "Z3",
+    "Rack": "R01",
+    "Shelf": "S03",
+    "AdjacentLocations": [
+      "Z3-R01-S02",
+      "Z3-R01-S04"
+    ],
+    "Priority": 3
+  },
+
+  {
+    "LocationCode": "Z4-R01-S01",
+    "Zone": "Z4",
+    "Rack": "R01",
+    "Shelf": "S01",
+    "AdjacentLocations": [
+      "Z4-R01-S02"
+    ],
+    "Priority": 1
+  }
+]

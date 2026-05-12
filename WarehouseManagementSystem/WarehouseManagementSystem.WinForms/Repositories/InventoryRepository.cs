@@ -1,118 +1,95 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Files;
+using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
     internal class InventoryRepository
     {
-        private const string FileName = "inventory.json";
-        private List<InventoryItem> _inventory;
+        private const string FilePath =
+            "inventory.json";
+
+        private List<InventoryItem> _inventoryItems;
 
         public InventoryRepository()
         {
-            LoadInventory();
+            LoadData();
         }
 
-        private void LoadInventory()
+        private void LoadData()
         {
-            try
-            {
-                _inventory = FileHelper.ReadJsonList<InventoryItem>(FileName);
-                if (_inventory == null)
-                {
-                    _inventory = new List<InventoryItem>();
-                }
-            }
-            catch
-            {
-                _inventory = new List<InventoryItem>();
-            }
+            _inventoryItems =
+                FileHelper.ReadJsonList<InventoryItem>(
+                    FilePath
+                );
+        }
+
+        private void SaveData()
+        {
+            FileHelper.WriteJsonList(
+                FilePath,
+                _inventoryItems
+            );
         }
 
         public List<InventoryItem> GetAll()
         {
-            return new List<InventoryItem>(_inventory);
-        }
-
-        public InventoryItem GetByProductId(string productId)
-        {
-            foreach (var i in _inventory)
-            {
-                if (i.ProductId == productId)
-                    return i;
-            }
-            return null;
+            return _inventoryItems;
         }
 
         public void Add(InventoryItem item)
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            _inventoryItems.Add(item);
 
-
-       foreach (var i in _inventory)
-            {
-                if (i.ProductId == item.ProductId)
-                    throw new InvalidOperationException($"Inventory item for product {item.ProductId} already exists");
-            }
-
-            _inventory.Add(item);
-            Save();
+            SaveData();
         }
 
-        public void Update(InventoryItem item)
+        public void Update()
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            var existingItem = GetByProductId(item.ProductId);
-            if (existingItem == null)
-                throw new InvalidOperationException($"Inventory item for product {item.ProductId} not found");
-
-            existingItem.MinStock = item.MinStock;
-            existingItem.TotalQuantity = item.TotalQuantity;
-            Save();
+            SaveData();
         }
 
-        public void Delete(string productId)
+        public InventoryItem Find(
+            string productId,
+            string batchId,
+            string locationCode)
         {
-            var item = GetByProductId(productId);
-            if (item != null)
+            int i;
+
+            for (i = 0; i < _inventoryItems.Count; i++)
             {
-                _inventory.Remove(item);
-                Save();
+                if (_inventoryItems[i].ProductId
+                    == productId
+                    && _inventoryItems[i].BatchId
+                    == batchId
+                    && _inventoryItems[i].LocationCode
+                    == locationCode)
+                {
+                    return _inventoryItems[i];
+                }
             }
+
+            return null;
         }
 
-        public void UpdateTotalStock(string productId, int quantity)
+        public int GetTotalQuantity(
+            string productId)
         {
-            var item = GetByProductId(productId);
-            if (item != null)
-            {
-                item.TotalQuantity += quantity;
-                Save();
-            }
-        }
+            int total = 0;
 
-        public void Save()
-        {
-            try
-            {
-                FileHelper.WriteJsonList(FileName, _inventory);
-            }
-            catch (Exception ex)
-            {
-                throw new IOException($"Error saving inventory: {ex.Message}", ex);
-            }
-        }
+            int i;
 
-        public bool Exists(string productId)
-        {
-            return _inventory.Any(i => i.ProductId == productId);
+            for (i = 0; i < _inventoryItems.Count; i++)
+            {
+                if (_inventoryItems[i].ProductId
+                    == productId)
+                {
+                    total +=
+                        _inventoryItems[i].Quantity;
+                }
+            }
+
+            return total;
         }
     }
 }

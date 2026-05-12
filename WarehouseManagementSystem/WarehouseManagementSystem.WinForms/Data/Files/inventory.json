@@ -1,1 +1,38 @@
-﻿
+﻿[
+    {
+        "ProductId": "PR0001",
+        "ProductName": "Razer Blade 18",
+        "TotalQuantity": 10,
+        "Status": "Available"
+    },
+    {
+        "ProductId": "PR0002",
+        "ProductName": "Razer Blade 16",
+        "TotalQuantity": 8,
+        "Status": "Available"
+    },
+    {
+        "ProductId": "PR0003",
+        "ProductName": "Razer Viper V3 Pro",
+        "TotalQuantity": 20,
+        "Status": "Available"
+    },
+    {
+        "ProductId": "PR0004",
+        "ProductName": "RAZER DEATHADDER V4 PRO",
+        "TotalQuantity": 15,
+        "Status": "Available"
+    },
+    {
+        "ProductId": "PR0005",
+        "ProductName": "IPHONE 17 PRO",
+        "TotalQuantity": 12,
+        "Status": "Available"
+    },
+    {
+        "ProductId": "PR0006",
+        "ProductName": "SAMSUNG Z FLIP7",
+        "TotalQuantity": 5,
+        "Status": "Low Stock"
+    }
+]

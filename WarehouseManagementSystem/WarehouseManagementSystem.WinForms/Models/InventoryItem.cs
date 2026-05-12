@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
@@ -12,28 +8,53 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public string ProductName { get; set; }
 
-        public int TotalQuantity { get; set; }
+        public string BatchId { get; set; }
+
+        public string LocationCode { get; set; }
+
+        public int Quantity { get; set; }
 
         public int MinStock { get; set; }
 
-        public string StockStatus { get; set; }
+        public DateTime ImportDate { get; set; }
+
+        public DateTime LastUpdated { get; set; }
+
+        public string StockStatus
+        {
+            get
+            {
+                if (Quantity <= 0)
+                {
+                    return "Out Of Stock";
+                }
+
+                if (Quantity <= MinStock)
+                {
+                    return "Low Stock";
+                }
+
+                return "In Stock";
+            }
+        }
 
         public InventoryItem()
         {
             ProductId = string.Empty;
-            ProductName = string.Empty;
-            TotalQuantity = 0;
-            MinStock = 0;
-            StockStatus = "OK";
-        }
 
-        public InventoryItem(string productId, int minStock)
-        {
-            ProductId = productId;
             ProductName = string.Empty;
-            TotalQuantity = 0;
-            MinStock = minStock;
-            StockStatus = "OK";
+
+            BatchId = string.Empty;
+
+            LocationCode = string.Empty;
+
+            Quantity = 0;
+
+            MinStock = 0;
+
+            ImportDate = DateTime.Now;
+
+            LastUpdated = DateTime.Now;
         }
     }
 }

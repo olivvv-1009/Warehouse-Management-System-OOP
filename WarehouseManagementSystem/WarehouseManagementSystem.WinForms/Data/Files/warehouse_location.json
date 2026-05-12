@@ -1,1 +1,62 @@
-﻿
+﻿[
+    {
+        "LocationCode": "Z1-R01-S01",
+        "Zone": "Z1",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "CurrentProductId": "PR0001",
+        "CurrentQuantity": 120,
+        "MaxCapacity": 200,
+        "IsAvailable": true
+    },
+    {
+        "LocationCode": "Z1-R01-S02",
+        "Zone": "Z1",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "CurrentProductId": "PR0002",
+        "CurrentQuantity": 80,
+        "MaxCapacity": 200,
+        "IsAvailable": true
+    },
+    {
+        "LocationCode": "Z2-R01-S01",
+        "Zone": "Z2",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "CurrentProductId": "PR0003",
+        "CurrentQuantity": 350,
+        "MaxCapacity": 500,
+        "IsAvailable": true
+    },
+    {
+        "LocationCode": "Z2-R01-S02",
+        "Zone": "Z2",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "CurrentProductId": "PR0004",
+        "CurrentQuantity": 200,
+        "MaxCapacity": 500,
+        "IsAvailable": true
+    },
+    {
+        "LocationCode": "Z3-R01-S01",
+        "Zone": "Z3",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "CurrentProductId": "PR0005",
+        "CurrentQuantity": 150,
+        "MaxCapacity": 300,
+        "IsAvailable": true
+    },
+    {
+        "LocationCode": "Z3-R01-S02",
+        "Zone": "Z3",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "CurrentProductId": "PR0006",
+        "CurrentQuantity": 75,
+        "MaxCapacity": 300,
+        "IsAvailable": true
+    }
+]
