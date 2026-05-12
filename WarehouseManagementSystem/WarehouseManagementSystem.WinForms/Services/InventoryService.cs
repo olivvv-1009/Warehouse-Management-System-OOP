@@ -1,131 +1,89 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
-using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.Services
 {
     internal class InventoryService
     {
-        private readonly InventoryRepository _inventoryRepository;
-        private readonly BatchRepository _batchRepository;
-        private readonly ProductRepository _productRepository;
+        private readonly InventoryRepository
+            _inventoryRepository;
+
+        private readonly ProductRepository
+            _productRepository;
 
         public InventoryService()
         {
-            _inventoryRepository = new InventoryRepository();
-            _batchRepository = new BatchRepository();
-            _productRepository = new ProductRepository();
+            _inventoryRepository =
+                new InventoryRepository();
+
+            _productRepository =
+                new ProductRepository();
         }
 
-        /// <summary>
-        /// Add a batch (import) to the system
-        /// Updates inventory total stock accordingly
-        /// </summary>
-        public Batch AddBatch(string productId, int quantity, decimal price)
+        public List<InventoryItem>
+            GetAllInventory()
         {
-            if (string.IsNullOrWhiteSpace(productId))
-                throw new ArgumentException("Product ID cannot be empty");
+            List<InventoryItem> inventoryItems =
+                _inventoryRepository.GetAll();
 
-            if (quantity <= 0)
-                throw new ArgumentException("Quantity must be greater than 0");
+            List<Product> products =
+                _productRepository.GetAll();
 
-            if (price < 0)
-                throw new ArgumentException("Price cannot be negative");
-
-            // Check if product exists
-            var product = _productRepository.GetById(productId);
-            if (product == null)
-                throw new InvalidOperationException($"Product with ID {productId} not found");
-
-            // Generate Batch ID
-            var allBatches = _batchRepository.GetAll();
-            int nextNumber = IdGenerator.GetNextNumber(allBatches.Select(b => b.BatchId).ToList(), "BA");
-            string batchId = IdGenerator.GenerateBatchId(nextNumber);
-
-            // Create batch
-            var batch = new Batch(batchId, productId, quantity, price)
+            foreach (InventoryItem item
+                in inventoryItems)
             {
-                ImportDate = DateTime.Now
-            };
+                foreach (Product product
+                    in products)
+                {
+                    if (product.ProductID
+                        == item.ProductId)
+                    {
+                        item.ProductName =
+                            product.Name;
 
-            // Add batch to repository
-            _batchRepository.Add(batch);
+                        break;
+                    }
+                }
+            }
 
-            // Update inventory total stock
-            _inventoryRepository.UpdateTotalStock(productId, quantity);
-
-            return batch;
+            return inventoryItems;
         }
 
-        /// <summary>
-        /// Get inventory details for a specific product
-        /// </summary>
-        public InventoryItem GetInventory(string productId)
+        public void AddInventoryItem(
+            InventoryItem item)
         {
-            return _inventoryRepository.GetByProductId(productId);
+            _inventoryRepository.Add(item);
         }
 
-        /// <summary>
-        /// Get all inventory items
-        /// </summary>
-        public List<InventoryItem> GetAllInventory()
+        public int GetTotalQuantity(
+            string productId)
         {
-            return _inventoryRepository.GetAll();
+            return _inventoryRepository
+                .GetTotalQuantity(productId);
         }
 
-        /// <summary>
-        /// Get all batches for a specific product
-        /// </summary>
-        public List<Batch> GetBatchesByProduct(string productId)
+        public List<InventoryItem>
+            GetLowStockItems()
         {
-            return _batchRepository.GetByProductId(productId);
-        }
+            List<InventoryItem> lowStockItems =
+                new List<InventoryItem>();
 
-        /// <summary>
-        /// Get all batches
-        /// </summary>
-        public List<Batch> GetAllBatches()
-        {
-            return _batchRepository.GetAll();
-        }
+            List<InventoryItem> inventoryItems =
+                GetAllInventory();
 
-        /// <summary>
-        /// Calculate average import price for a product
-        /// Recalculated each run based on batch data:
-        /// - Load batches.json
-        /// - Filter by ProductID
-        /// - Loop: totalValue += price * quantity, totalQty += quantity
-        /// - avg = totalValue / totalQty
-        /// </summary>
-        public decimal CalculateAverageImportPrice(string productId)
-        {
-            return _batchRepository.GetAverageImportPrice(productId);
-        }
+            foreach (InventoryItem item
+                in inventoryItems)
+            {
+                if (item.Quantity
+                    <= item.MinStock)
+                {
+                    lowStockItems.Add(item);
+                }
+            }
 
-        /// <summary>
-        /// Check if inventory is below minimum stock
-        /// </summary>
-        public bool IsLowStock(string productId)
-        {
-            var inventory = GetInventory(productId);
-            if (inventory == null)
-                return false;
-
-            return inventory.TotalQuantity < inventory.MinStock;
-        }
-
-        /// <summary>
-        /// Get all products with low stock
-        /// </summary>
-        public List<InventoryItem> GetLowStockProducts()
-        {
-            var allInventory = GetAllInventory();
-            return allInventory.Where(i => i.TotalQuantity < i.MinStock).ToList();
+            return lowStockItems;
         }
     }
 }

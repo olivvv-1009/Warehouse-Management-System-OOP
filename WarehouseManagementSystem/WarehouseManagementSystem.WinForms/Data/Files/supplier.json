@@ -1,1 +1,27 @@
-﻿
+﻿// suppliers.json
+[
+    {
+        "SupplierId": "SP0001",
+        "SupplierName": "Razer Vietnam Distribution",
+        "PhoneNumber": "0909123456",
+        "Address": "285 Cách Mạng Tháng 8, Phường 12, Quận 10, TP. Hồ Chí Minh",
+        "Email": "contact@razervn.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0002",
+        "SupplierName": "Apple Authorized Distributor HCM",
+        "PhoneNumber": "0909888777",
+        "Address": "92 Nguyễn Hữu Cảnh, Phường 22, Quận Bình Thạnh, TP. Hồ Chí Minh",
+        "Email": "appledist.hcm@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0003",
+        "SupplierName": "Samsung Electronics Đồng Nai",
+        "PhoneNumber": "0933444555",
+        "Address": "KCN Amata, Phường Long Bình, TP. Biên Hòa, Đồng Nai",
+        "Email": "samsung.dn@supplier.com",
+        "IsActive": true
+    }
+]

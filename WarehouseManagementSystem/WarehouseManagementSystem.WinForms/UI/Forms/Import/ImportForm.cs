@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WarehouseManagementSystem.WinForms.UI.Controllers;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 {
@@ -17,14 +18,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnCreate_Click(object sender, EventArgs e)
         {
             CreateImportOrder form = new CreateImportOrder();
 
             form.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnReturn_Click(object sender, EventArgs e)
         {
             ReturnSupplier form = new ReturnSupplier();
             form.ShowDialog();
