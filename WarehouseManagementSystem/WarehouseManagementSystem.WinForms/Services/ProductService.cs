@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.WinForms.Models;
@@ -139,7 +138,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             // If you have price info, fetch it here. For now, set AvgImportPrice = null.
             var result = products.Select(p =>
             {
-                var inv = inventory.FirstOrDefault(i => i.ProductID == p.ProductID);
+                var inv = inventory.FirstOrDefault(i => i.ProductId == p.ProductID);
                 return new ProductDisplayModel
                 {
                     ProductID = p.ProductID,

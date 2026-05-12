@@ -22,10 +22,17 @@ namespace WarehouseManagementSystem.WinForms.Models
         {
             ProductId = string.Empty;
             ProductName = string.Empty;
-
             TotalQuantity = 0;
             MinStock = 0;
+            StockStatus = "OK";
+        }
 
+        public InventoryItem(string productId, int minStock)
+        {
+            ProductId = productId;
+            ProductName = string.Empty;
+            TotalQuantity = 0;
+            MinStock = minStock;
             StockStatus = "OK";
         }
     }

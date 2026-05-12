@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.WinForms.Models;
@@ -43,7 +42,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         {
             foreach (var i in _inventory)
             {
-                if (i.ProductID == productId)
+                if (i.ProductId == productId)
                     return i;
             }
             return null;
@@ -55,10 +54,10 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                 throw new ArgumentNullException(nameof(item));
 
 
-            foreach (var i in _inventory)
+       foreach (var i in _inventory)
             {
-                if (i.ProductID == item.ProductID)
-                    throw new InvalidOperationException($"Inventory item for product {item.ProductID} already exists");
+                if (i.ProductId == item.ProductId)
+                    throw new InvalidOperationException($"Inventory item for product {item.ProductId} already exists");
             }
 
             _inventory.Add(item);
@@ -70,12 +69,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            var existingItem = GetByProductId(item.ProductID);
+            var existingItem = GetByProductId(item.ProductId);
             if (existingItem == null)
-                throw new InvalidOperationException($"Inventory item for product {item.ProductID} not found");
+                throw new InvalidOperationException($"Inventory item for product {item.ProductId} not found");
 
             existingItem.MinStock = item.MinStock;
-            existingItem.TotalStock = item.TotalStock;
+            existingItem.TotalQuantity = item.TotalQuantity;
             Save();
         }
 
@@ -94,7 +93,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             var item = GetByProductId(productId);
             if (item != null)
             {
-                item.TotalStock += quantity;
+                item.TotalQuantity += quantity;
                 Save();
             }
         }
@@ -113,7 +112,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         public bool Exists(string productId)
         {
-            return _inventory.Any(i => i.ProductID == productId);
+            return _inventory.Any(i => i.ProductId == productId);
         }
     }
 }

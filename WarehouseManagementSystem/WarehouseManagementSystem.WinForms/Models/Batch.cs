@@ -32,18 +32,27 @@ namespace WarehouseManagementSystem.WinForms.Models
         {
             BatchId = string.Empty;
             ProductId = string.Empty;
-
             Quantity = 0;
             RemainingQuantity = 0;
-
             ImportPrice = 0;
-
             ImportDate = DateTime.Now;
-
             Zone = string.Empty;
             Shelf = string.Empty;
             Bin = string.Empty;
+            Status = "Stored";
+        }
 
+        public Batch(string batchId, string productId, int quantity, decimal importPrice)
+        {
+            BatchId = batchId;
+            ProductId = productId;
+            Quantity = quantity;
+            RemainingQuantity = quantity;
+            ImportPrice = importPrice;
+            ImportDate = DateTime.Now;
+            Zone = string.Empty;
+            Shelf = string.Empty;
+            Bin = string.Empty;
             Status = "Stored";
         }
     }

@@ -41,12 +41,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         public List<Batch> GetByProductId(string productId)
         {
-            return _batches.Where(b => b.ProductID == productId).ToList();
+            return _batches.Where(b => b.ProductId == productId).ToList();
         }
 
         public Batch GetById(string batchId)
         {
-            return _batches.FirstOrDefault(b => b.BatchID == batchId);
+            return _batches.FirstOrDefault(b => b.BatchId == batchId);
         }
 
         public void Add(Batch batch)
@@ -54,8 +54,8 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             if (batch == null)
                 throw new ArgumentNullException(nameof(batch));
 
-            if (_batches.Any(b => b.BatchID == batch.BatchID))
-                throw new InvalidOperationException($"Batch with ID {batch.BatchID} already exists");
+            if (_batches.Any(b => b.BatchId == batch.BatchId))
+                throw new InvalidOperationException($"Batch with ID {batch.BatchId} already exists");
 
             _batches.Add(batch);
             Save();
@@ -85,7 +85,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         public bool ProductHasImports(string productId)
         {
-            return _batches.Any(b => b.ProductID == productId);
+            return _batches.Any(b => b.ProductId == productId);
         }
 
         public decimal GetAverageImportPrice(string productId)
@@ -99,7 +99,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             foreach (var batch in batches)
             {
-                totalValue += batch.Price * batch.Quantity;
+                totalValue += batch.ImportPrice * batch.Quantity;
                 totalQty += batch.Quantity;
             }
 

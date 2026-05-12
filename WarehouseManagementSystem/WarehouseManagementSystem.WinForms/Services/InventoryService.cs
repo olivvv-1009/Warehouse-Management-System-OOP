@@ -44,7 +44,7 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             // Generate Batch ID
             var allBatches = _batchRepository.GetAll();
-            int nextNumber = IdGenerator.GetNextNumber(allBatches.Select(b => b.BatchID).ToList(), "BA");
+            int nextNumber = IdGenerator.GetNextNumber(allBatches.Select(b => b.BatchId).ToList(), "BA");
             string batchId = IdGenerator.GenerateBatchId(nextNumber);
 
             // Create batch
@@ -116,7 +116,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             if (inventory == null)
                 return false;
 
-            return inventory.TotalStock < inventory.MinStock;
+            return inventory.TotalQuantity < inventory.MinStock;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         public List<InventoryItem> GetLowStockProducts()
         {
             var allInventory = GetAllInventory();
-            return allInventory.Where(i => i.TotalStock < i.MinStock).ToList();
+            return allInventory.Where(i => i.TotalQuantity < i.MinStock).ToList();
         }
     }
 }
