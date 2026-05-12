@@ -91,5 +91,19 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             return total;
         }
+
+        public InventoryItem GetByProductId(string productId)
+        {
+            foreach (InventoryItem item
+                in _inventoryItems)
+            {
+                if (item.ProductId == productId)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
     }
 }

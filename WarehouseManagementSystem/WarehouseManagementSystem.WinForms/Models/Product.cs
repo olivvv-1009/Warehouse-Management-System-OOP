@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-public class Product
+    public class Product
     {
         public string ProductID { get; set; }
+
         public string Name { get; set; }
+
         public string Category { get; set; }
+
+        public int MinStock { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public Product()
@@ -18,11 +19,36 @@ public class Product
             CreatedAt = DateTime.Now;
         }
 
-        public Product(string productId, string name, string category)
+        // Constructor cũ
+        public Product(
+            string productId,
+            string name,
+            string category)
         {
             ProductID = productId;
+
             Name = name;
+
             Category = category;
+
+            CreatedAt = DateTime.Now;
+        }
+
+        // Constructor mới
+        public Product(
+            string productId,
+            string name,
+            string category,
+            int minStock)
+        {
+            ProductID = productId;
+
+            Name = name;
+
+            Category = category;
+
+            MinStock = minStock;
+
             CreatedAt = DateTime.Now;
         }
     }

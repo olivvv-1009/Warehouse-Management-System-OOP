@@ -4,11 +4,12 @@ using System.IO;
 using System.Text.Json;
 
 namespace WarehouseManagementSystem.WinForms.Files
-
 {
     public static class FileHelper
     {
-        // Folder Paths
+        // =====================================
+        // Local AppData Folder
+        // =====================================
 
         private static readonly string BaseDirectory =
             Path.Combine(
@@ -24,53 +25,106 @@ namespace WarehouseManagementSystem.WinForms.Files
                 "Files"
             );
 
+        // =====================================
+        // Project Template Folder
+        // =====================================
+
+        private static readonly string TemplateDirectory =
+            Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Data",
+                "Files"
+            );
+
+        // =====================================
         // JSON Options
+        // =====================================
 
-        private static readonly JsonSerializerOptions JsonOptions =
-            new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
+        private static readonly JsonSerializerOptions
+            JsonOptions =
+                new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                };
 
-        // Create Directories
+        // =====================================
+        // Static Constructor
+        // =====================================
 
         static FileHelper()
         {
             EnsureDirectoriesExist();
         }
 
+        // =====================================
+        // Create Directories
+        // =====================================
+
         public static void EnsureDirectoriesExist()
         {
             if (!Directory.Exists(DataDirectory))
             {
-                Directory.CreateDirectory(DataDirectory);
+                Directory.CreateDirectory(
+                    DataDirectory);
             }
         }
 
-        // File Path
+        // =====================================
+        // Get Local File Path
+        // =====================================
 
-        public static string GetFilePath(string fileName)
+        public static string GetFilePath(
+            string fileName)
         {
-            return Path.Combine(DataDirectory, fileName);
+            return Path.Combine(
+                DataDirectory,
+                fileName);
         }
 
-        // ================================
-        // File Exists
-        // ================================
+        // =====================================
+        // Create Local File From Template
+        // =====================================
 
-        public static bool FileExists(string fileName)
+        public static void EnsureDataFileExists(
+            string fileName)
         {
-            string filePath = GetFilePath(fileName);
+            string localPath =
+                GetFilePath(fileName);
 
-            return File.Exists(filePath);
+            string templatePath =
+                Path.Combine(
+                    TemplateDirectory,
+                    fileName);
+
+            // Local file chưa tồn tại
+            if (!File.Exists(localPath))
+            {
+                // Nếu project có template
+                if (File.Exists(templatePath))
+                {
+                    File.Copy(
+                        templatePath,
+                        localPath);
+                }
+                else
+                {
+                    // Không có template
+                    File.WriteAllText(
+                        localPath,
+                        "[]");
+                }
+            }
         }
 
+        // =====================================
         // Delete File
-    
+        // =====================================
 
-        public static void DeleteFile(string fileName)
+        public static void DeleteFile(
+            string fileName)
         {
-            string filePath = GetFilePath(fileName);
+            string filePath =
+                GetFilePath(fileName);
 
             if (File.Exists(filePath))
             {
@@ -78,54 +132,61 @@ namespace WarehouseManagementSystem.WinForms.Files
             }
         }
 
+        // =====================================
         // Read Raw JSON
+        // =====================================
 
-        public static string ReadJsonFile(string fileName)
+        public static string ReadJsonFile(
+            string fileName)
         {
-            string filePath = GetFilePath(fileName);
+            EnsureDataFileExists(fileName);
+
+            string filePath =
+                GetFilePath(fileName);
 
             try
             {
-                if (!File.Exists(filePath))
-                {
-                    return "[]";
-                }
-
-                return File.ReadAllText(filePath);
+                return File.ReadAllText(
+                    filePath);
             }
             catch (Exception ex)
             {
                 throw new IOException(
                     $"Error reading file: {fileName}",
-                    ex
-                );
+                    ex);
             }
         }
 
+        // =====================================
         // Write Raw JSON
+        // =====================================
 
         public static void WriteJsonFile(
             string fileName,
             string jsonContent)
         {
-            string filePath = GetFilePath(fileName);
+            string filePath =
+                GetFilePath(fileName);
 
             try
             {
                 EnsureDirectoriesExist();
 
-                File.WriteAllText(filePath, jsonContent);
+                File.WriteAllText(
+                    filePath,
+                    jsonContent);
             }
             catch (Exception ex)
             {
                 throw new IOException(
                     $"Error writing file: {fileName}",
-                    ex
-                );
+                    ex);
             }
         }
 
+        // =====================================
         // Read Object
+        // =====================================
 
         public static T ReadJsonObject<T>(
             string fileName)
@@ -143,19 +204,19 @@ namespace WarehouseManagementSystem.WinForms.Files
                 }
 
                 return JsonSerializer.Deserialize<T>(
-                    jsonContent
-                );
+                    jsonContent);
             }
             catch (Exception ex)
             {
                 throw new IOException(
                     $"Error deserializing object from: {fileName}",
-                    ex
-                );
+                    ex);
             }
         }
 
+        // =====================================
         // Write Object
+        // =====================================
 
         public static void WriteJsonObject<T>(
             string fileName,
@@ -167,24 +228,23 @@ namespace WarehouseManagementSystem.WinForms.Files
                 string jsonContent =
                     JsonSerializer.Serialize(
                         item,
-                        JsonOptions
-                    );
+                        JsonOptions);
 
                 WriteJsonFile(
                     fileName,
-                    jsonContent
-                );
+                    jsonContent);
             }
             catch (Exception ex)
             {
                 throw new IOException(
                     $"Error serializing object to: {fileName}",
-                    ex
-                );
+                    ex);
             }
         }
 
+        // =====================================
         // Read List
+        // =====================================
 
         public static List<T> ReadJsonList<T>(
             string fileName)
@@ -203,8 +263,7 @@ namespace WarehouseManagementSystem.WinForms.Files
 
                 List<T> items =
                     JsonSerializer.Deserialize<List<T>>(
-                        jsonContent
-                    );
+                        jsonContent);
 
                 if (items == null)
                 {
@@ -217,12 +276,13 @@ namespace WarehouseManagementSystem.WinForms.Files
             {
                 throw new IOException(
                     $"Error deserializing list from: {fileName}",
-                    ex
-                );
+                    ex);
             }
         }
 
+        // =====================================
         // Write List
+        // =====================================
 
         public static void WriteJsonList<T>(
             string fileName,
@@ -234,20 +294,17 @@ namespace WarehouseManagementSystem.WinForms.Files
                 string jsonContent =
                     JsonSerializer.Serialize(
                         items,
-                        JsonOptions
-                    );
+                        JsonOptions);
 
                 WriteJsonFile(
                     fileName,
-                    jsonContent
-                );
+                    jsonContent);
             }
             catch (Exception ex)
             {
                 throw new IOException(
                     $"Error serializing list to: {fileName}",
-                    ex
-                );
+                    ex);
             }
         }
     }

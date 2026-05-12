@@ -2,7 +2,7 @@
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    internal class InventoryItem
+    public class InventoryItem
     {
         public string ProductId { get; set; }
 

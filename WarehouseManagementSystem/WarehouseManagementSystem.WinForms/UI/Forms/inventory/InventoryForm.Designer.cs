@@ -36,13 +36,12 @@
             textBox1 = new TextBox();
             panel3 = new Panel();
             comboBox1 = new ComboBox();
-            dataGridView1 = new DataGridView();
+            flowInventory = new FlowLayoutPanel();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -65,7 +64,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
-            tableLayoutPanel1.Controls.Add(dataGridView1, 0, 2);
+            tableLayoutPanel1.Controls.Add(flowInventory, 0, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -145,16 +144,18 @@
             comboBox1.Size = new Size(273, 39);
             comboBox1.TabIndex = 0;
             // 
-            // dataGridView1
+            // flowInventory
             // 
-            dataGridView1.BackgroundColor = Color.White;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 97);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(801, 425);
-            dataGridView1.TabIndex = 2;
+            flowInventory.AutoScroll = true;
+            flowInventory.BackColor = Color.White;
+            flowInventory.Dock = DockStyle.Fill;
+            flowInventory.FlowDirection = FlowDirection.TopDown;
+            flowInventory.Location = new Point(3, 97);
+            flowInventory.Name = "flowInventory";
+            flowInventory.Padding = new Padding(20);
+            flowInventory.Size = new Size(801, 425);
+            flowInventory.TabIndex = 2;
+            flowInventory.WrapContents = false;
             // 
             // InventoryForm
             // 
@@ -171,7 +172,6 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -185,6 +185,6 @@
         private TextBox textBox1;
         private Panel panel3;
         private ComboBox comboBox1;
-        private DataGridView dataGridView1;
+        private FlowLayoutPanel flowInventory;
     }
 }

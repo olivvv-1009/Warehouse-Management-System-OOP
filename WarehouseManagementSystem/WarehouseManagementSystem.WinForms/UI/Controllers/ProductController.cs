@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WarehouseManagementSystem.WinForms.Services;
 using WarehouseManagementSystem.WinForms.Models;
 
@@ -10,128 +7,128 @@ namespace WarehouseManagementSystem.WinForms.UI.ConsoleUI
 {
     internal class ProductController
     {
-        private readonly ProductService _productService;
-        private readonly InventoryService _inventoryService;
+        private readonly ProductService
+            _productService;
 
         public ProductController()
         {
-            _productService = new ProductService();
-            _inventoryService = new InventoryService();
+            _productService =
+                new ProductService();
         }
 
         /// <summary>
-        /// Handle add product request
+        /// Add product
         /// </summary>
-        public bool AddProduct(string name, string category, int minimumStock)
+        public bool AddProduct(
+            string name,
+            string category,
+            int minimumStock)
         {
             try
             {
-                var product = _productService.AddProduct(name, category, minimumStock);
+                _productService.AddProduct(
+                    name,
+                    category,
+                    minimumStock);
+
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding product: {ex.Message}");
+                Console.WriteLine(
+                    $"Error adding product: {ex.Message}");
+
                 return false;
             }
         }
 
         /// <summary>
-        /// Handle update product request
+        /// Update product
         /// </summary>
-        public bool UpdateProduct(string productId, string name, string category, int minimumStock)
+        public bool UpdateProduct(
+            string productId,
+            string name,
+            string category,
+            int minimumStock)
         {
             try
             {
-                _productService.UpdateProduct(productId, name, category, minimumStock);
+                _productService.UpdateProduct(
+                    productId,
+                    name,
+                    category,
+                    minimumStock);
+
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating product: {ex.Message}");
+                Console.WriteLine(
+                    $"Error updating product: {ex.Message}");
+
                 return false;
             }
         }
 
         /// <summary>
-        /// Handle delete product request
+        /// Delete product
         /// </summary>
-        public bool DeleteProduct(string productId)
+        public bool DeleteProduct(
+            string productId)
         {
             try
             {
-                _productService.DeleteProduct(productId);
+                _productService.DeleteProduct(
+                    productId);
+
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting product: {ex.Message}");
+                Console.WriteLine(
+                    $"Error deleting product: {ex.Message}");
+
                 return false;
             }
         }
 
         /// <summary>
-        /// Get all products for display
+        /// Get all products
         /// </summary>
-        public List<ProductDisplayModel> GetAllProducts()
+        public List<ProductDisplayModel>
+            GetAllProducts()
         {
             try
             {
-                return _productService.GetAllProducts();
+                return _productService
+                    .GetAllProducts();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving products: {ex.Message}");
+                Console.WriteLine(
+                    $"Error retrieving products: {ex.Message}");
+
                 return new List<ProductDisplayModel>();
             }
         }
 
         /// <summary>
-        /// Get a specific product
+        /// Get single product
         /// </summary>
-        public ProductDisplayModel GetProduct(string productId)
+        public ProductDisplayModel
+            GetProduct(string productId)
         {
             try
             {
-                return _productService.GetProduct(productId);
+                return _productService
+                    .GetProduct(productId);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving product: {ex.Message}");
+                Console.WriteLine(
+                    $"Error retrieving product: {ex.Message}");
+
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Add batch/import
-        /// </summary>
-        public bool AddBatch(string productId, int quantity, decimal price)
-        {
-            try
-            {
-                _inventoryService.AddBatch(productId, quantity, price);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error adding batch: {ex.Message}");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Get low stock products
-        /// </summary>
-        public List<InventoryItem> GetLowStockProducts()
-        {
-            try
-            {
-                return _inventoryService.GetLowStockProducts();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving low stock products: {ex.Message}");
-                return new List<InventoryItem>();
             }
         }
     }

@@ -14,77 +14,22 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
 {
     public partial class InventoryForm : UserControl
     {
-        private readonly InventoryService _inventoryService;
+        private readonly InventoryService
+           _inventoryService;
+
         public InventoryForm()
         {
             InitializeComponent();
 
-            _inventoryService = new InventoryService();
+            _inventoryService =
+                new InventoryService();
 
-            SetupDataGridView();
-
-            LoadInventoryData();
-        }
-        private void SetupDataGridView()
-        {
-            dataGridView1.AutoGenerateColumns =
-                false;
-
-            dataGridView1.Columns.Clear();
-
-            dataGridView1.Columns.Add(
-                "colProductId",
-                "Product Code");
-
-            dataGridView1.Columns.Add(
-                "colProductName",
-                "Product Name");
-
-            dataGridView1.Columns.Add(
-                "colQuantity",
-                "Quantity");
-
-            dataGridView1.Columns.Add(
-                "colMinStock",
-                "Min Stock");
-
-            dataGridView1.Columns.Add(
-                "colStatus",
-                "Status");
-
-            dataGridView1.RowTemplate.Height =
-                40;
-
-            dataGridView1.AllowUserToAddRows =
-                false;
-
-            dataGridView1.ReadOnly = true;
-
-            dataGridView1.SelectionMode =
-                DataGridViewSelectionMode
-                .FullRowSelect;
-
-            dataGridView1.BorderStyle =
-                BorderStyle.None;
-
-            dataGridView1.EnableHeadersVisualStyles =
-                false;
-
-            dataGridView1.ColumnHeadersDefaultCellStyle
-                .Font = new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold);
-
-            dataGridView1.DefaultCellStyle.Font =
-                new Font(
-                    "Segoe UI",
-                    10);
+            LoadInventory();
         }
 
-        private void LoadInventoryData()
+        private void LoadInventory()
         {
-            dataGridView1.Rows.Clear();
+            flowInventory.Controls.Clear();
 
             List<InventoryItem> inventoryItems =
                 _inventoryService
@@ -93,13 +38,26 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             foreach (InventoryItem item
                 in inventoryItems)
             {
-                dataGridView1.Rows.Add(
-                    item.ProductId,
-                    item.ProductName,
-                    item.Quantity,
-                    item.MinStock,
-                    item.StockStatus
-                );
+                InventoryCardControl card =
+                    new InventoryCardControl();
+
+                card.Width =
+                    flowInventory.Width - 30;
+
+                // Main Row
+                card.SetData(item);
+
+                // Batch Table
+                List<InventoryItem> batches =
+                    inventoryItems
+                    .Where(x =>
+                        x.ProductId
+                        == item.ProductId)
+                    .ToList();
+
+                card.LoadBatchData(batches);
+
+                flowInventory.Controls.Add(card);
             }
         }
     }
