@@ -4,7 +4,7 @@ using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    internal class ImportRepository
+    public class ImportRepository
     {
         private const string FilePath =
             "import.json";
@@ -22,6 +22,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                 FileHelper.ReadJsonList<ImportInvoice>(
                     FilePath
                 );
+
+            if (_invoices == null)
+            {
+                _invoices =
+                    new List<ImportInvoice>();
+            }
         }
 
         private void SaveData()
@@ -40,6 +46,14 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         public void Add(ImportInvoice invoice)
         {
             _invoices.Add(invoice);
+
+            SaveData();
+        }
+
+        public void Update(
+            List<ImportInvoice> invoices)
+        {
+            _invoices = invoices;
 
             SaveData();
         }

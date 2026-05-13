@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Rule
 {
-    internal class CapacityRule
+    public class CapacityRule
     {
+        public bool CheckCapacity(
+            WarehouseLocation location,
+            int quantity)
+        {
+            int remainingCapacity =
+                location.Capacity -
+                location.UsedCapacity;
+
+            if (quantity <= remainingCapacity)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

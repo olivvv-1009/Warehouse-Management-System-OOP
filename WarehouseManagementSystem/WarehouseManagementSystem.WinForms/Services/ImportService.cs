@@ -53,7 +53,8 @@ namespace WarehouseManagementSystem.WinForms.Services
                 return false;
             }
 
-            Batch batch = new Batch();
+            Batch batch =
+                new Batch();
 
             batch.BatchId =
                 Guid.NewGuid().ToString();
@@ -61,8 +62,14 @@ namespace WarehouseManagementSystem.WinForms.Services
             batch.ProductId =
                 item.ProductId;
 
+            batch.LocationCode =
+                locationCode;
+
             batch.Quantity =
                 item.Quantity;
+
+            batch.ImportDate =
+                DateTime.Now;
 
             item.BatchId =
                 batch.BatchId;
