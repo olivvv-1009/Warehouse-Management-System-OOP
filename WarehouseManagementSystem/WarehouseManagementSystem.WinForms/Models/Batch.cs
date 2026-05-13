@@ -8,6 +8,8 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public string ProductId { get; set; }
 
+        public string LocationCode { get; set; }
+
         public int Quantity { get; set; }
 
         public DateTime ImportDate { get; set; }
@@ -15,7 +17,10 @@ namespace WarehouseManagementSystem.WinForms.Models
         public Batch()
         {
             BatchId = string.Empty;
+
             ProductId = string.Empty;
+
+            LocationCode = string.Empty;
 
             Quantity = 0;
 
