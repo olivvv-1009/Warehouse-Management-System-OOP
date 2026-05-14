@@ -7,13 +7,16 @@ namespace WarehouseManagementSystem.WinForms.Services
     internal class InventoryService
     {
         private readonly InventoryRepository
-            _inventoryRepository;
+    _inventoryRepository;
 
         private readonly ProductRepository
             _productRepository;
 
         private readonly BatchRepository
             _batchRepository;
+
+        private readonly BatchService
+            _batchService;
 
         private readonly LocationService
             _locationService;
@@ -28,6 +31,9 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _batchRepository =
                 new BatchRepository();
+
+            _batchService =
+                new BatchService();
 
             _locationService =
                 new LocationService();
@@ -124,6 +130,15 @@ namespace WarehouseManagementSystem.WinForms.Services
             return _locationService
                 .FindLocationByCode(
                     locationCode
+                );
+        }
+
+        public string GetSupplierNameByBatch(
+    string batchId)
+        {
+            return _batchService
+                .GetSupplierNameByBatch(
+                    batchId
                 );
         }
     }

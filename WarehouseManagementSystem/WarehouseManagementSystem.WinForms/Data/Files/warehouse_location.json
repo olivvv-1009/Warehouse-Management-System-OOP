@@ -1,165 +1,181 @@
 ﻿[
-  {
-    "LocationCode": "A-R01-S01",
-    "Zone": "A",
-    "Rack": "R01",
-    "Shelf": "S01",
-    "Category": "Laptop",
-    "Capacity": 150,
-    "CurrentQuantity": 120,
-    "Status": "Occupied"
-  },
-  {
-    "LocationCode": "A-R01-S02",
-    "Zone": "A",
-    "Rack": "R01",
-    "Shelf": "S02",
-    "Category": "Laptop",
-    "Capacity": 150,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "A-R01-S03",
-    "Zone": "A",
-    "Rack": "R01",
-    "Shelf": "S03",
-    "Category": "Laptop",
-    "Capacity": 150,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "A-R02-S01",
-    "Zone": "A",
-    "Rack": "R02",
-    "Shelf": "S01",
-    "Category": "Laptop",
-    "Capacity": 150,
-    "CurrentQuantity": 80,
-    "Status": "Occupied"
-  },
+    {
+        "LocationCode": "A-R01-S01",
+        "Zone": "A",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "Category": "Laptop",
+        "ProductId": "PR0001",
+        "Capacity": 150,
+        "CurrentQuantity": 120,
+        "Status": "Occupied"
+    },
+    {
+        "LocationCode": "A-R01-S02",
+        "Zone": "A",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "Category": "Laptop",
+        "ProductId": null,
+        "Capacity": 150,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "A-R01-S03",
+        "Zone": "A",
+        "Rack": "R01",
+        "Shelf": "S03",
+        "Category": "Laptop",
+        "ProductId": null,
+        "Capacity": 150,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "A-R02-S01",
+        "Zone": "A",
+        "Rack": "R02",
+        "Shelf": "S01",
+        "Category": "Laptop",
+        "ProductId": "PR0002",
+        "Capacity": 150,
+        "CurrentQuantity": 80,
+        "Status": "Occupied"
+    },
 
-  {
-    "LocationCode": "B-R01-S01",
-    "Zone": "B",
-    "Rack": "R01",
-    "Shelf": "S01",
-    "Category": "Smartphone",
-    "Capacity": 200,
-    "CurrentQuantity": 150,
-    "Status": "Occupied"
-  },
-  {
-    "LocationCode": "B-R01-S02",
-    "Zone": "B",
-    "Rack": "R01",
-    "Shelf": "S02",
-    "Category": "Smartphone",
-    "Capacity": 200,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "B-R01-S03",
-    "Zone": "B",
-    "Rack": "R01",
-    "Shelf": "S03",
-    "Category": "Smartphone",
-    "Capacity": 200,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "B-R02-S01",
-    "Zone": "B",
-    "Rack": "R02",
-    "Shelf": "S01",
-    "Category": "Smartphone",
-    "Capacity": 200,
-    "CurrentQuantity": 75,
-    "Status": "Occupied"
-  },
+    {
+        "LocationCode": "B-R01-S01",
+        "Zone": "B",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "Category": "Smartphone",
+        "ProductId": "PR0005",
+        "Capacity": 200,
+        "CurrentQuantity": 150,
+        "Status": "Occupied"
+    },
+    {
+        "LocationCode": "B-R01-S02",
+        "Zone": "B",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "Category": "Smartphone",
+        "ProductId": null,
+        "Capacity": 200,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "B-R01-S03",
+        "Zone": "B",
+        "Rack": "R01",
+        "Shelf": "S03",
+        "Category": "Smartphone",
+        "ProductId": null,
+        "Capacity": 200,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "B-R02-S01",
+        "Zone": "B",
+        "Rack": "R02",
+        "Shelf": "S01",
+        "Category": "Smartphone",
+        "ProductId": "PR0006",
+        "Capacity": 200,
+        "CurrentQuantity": 75,
+        "Status": "Occupied"
+    },
 
-  {
-    "LocationCode": "C-R01-S01",
-    "Zone": "C",
-    "Rack": "R01",
-    "Shelf": "S01",
-    "Category": "Accessory",
-    "Capacity": 500,
-    "CurrentQuantity": 350,
-    "Status": "Occupied"
-  },
-  {
-    "LocationCode": "C-R01-S02",
-    "Zone": "C",
-    "Rack": "R01",
-    "Shelf": "S02",
-    "Category": "Accessory",
-    "Capacity": 500,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "C-R01-S03",
-    "Zone": "C",
-    "Rack": "R01",
-    "Shelf": "S03",
-    "Category": "Accessory",
-    "Capacity": 500,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "C-R02-S01",
-    "Zone": "C",
-    "Rack": "R02",
-    "Shelf": "S01",
-    "Category": "Accessory",
-    "Capacity": 500,
-    "CurrentQuantity": 200,
-    "Status": "Occupied"
-  },
+    {
+        "LocationCode": "C-R01-S01",
+        "Zone": "C",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "Category": "Accessory",
+        "ProductId": "PR0003",
+        "Capacity": 500,
+        "CurrentQuantity": 350,
+        "Status": "Occupied"
+    },
+    {
+        "LocationCode": "C-R01-S02",
+        "Zone": "C",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "Category": "Accessory",
+        "ProductId": null,
+        "Capacity": 500,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "C-R01-S03",
+        "Zone": "C",
+        "Rack": "R01",
+        "Shelf": "S03",
+        "Category": "Accessory",
+        "ProductId": null,
+        "Capacity": 500,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "C-R02-S01",
+        "Zone": "C",
+        "Rack": "R02",
+        "Shelf": "S01",
+        "Category": "Accessory",
+        "ProductId": "PR0004",
+        "Capacity": 500,
+        "CurrentQuantity": 200,
+        "Status": "Occupied"
+    },
 
-  {
-    "LocationCode": "D-R01-S01",
-    "Zone": "D",
-    "Rack": "R01",
-    "Shelf": "S01",
-    "Category": "Tablet",
-    "Capacity": 150,
-    "CurrentQuantity": 90,
-    "Status": "Occupied"
-  },
-  {
-    "LocationCode": "D-R01-S02",
-    "Zone": "D",
-    "Rack": "R01",
-    "Shelf": "S02",
-    "Category": "Tablet",
-    "Capacity": 150,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "D-R01-S03",
-    "Zone": "D",
-    "Rack": "R01",
-    "Shelf": "S03",
-    "Category": "Tablet",
-    "Capacity": 150,
-    "CurrentQuantity": 0,
-    "Status": "Available"
-  },
-  {
-    "LocationCode": "D-R02-S01",
-    "Zone": "D",
-    "Rack": "R02",
-    "Shelf": "S01",
-    "Category": "Tablet",
-    "Capacity": 150,
-    "CurrentQuantity": 100,
-    "Status": "Occupied"
-  }
+    {
+        "LocationCode": "D-R01-S01",
+        "Zone": "D",
+        "Rack": "R01",
+        "Shelf": "S01",
+        "Category": "Tablet",
+        "ProductId": "PR0007",
+        "Capacity": 150,
+        "CurrentQuantity": 90,
+        "Status": "Occupied"
+    },
+    {
+        "LocationCode": "D-R01-S02",
+        "Zone": "D",
+        "Rack": "R01",
+        "Shelf": "S02",
+        "Category": "Tablet",
+        "ProductId": null,
+        "Capacity": 150,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "D-R01-S03",
+        "Zone": "D",
+        "Rack": "R01",
+        "Shelf": "S03",
+        "Category": "Tablet",
+        "ProductId": null,
+        "Capacity": 150,
+        "CurrentQuantity": 0,
+        "Status": "Available"
+    },
+    {
+        "LocationCode": "D-R02-S01",
+        "Zone": "D",
+        "Rack": "R02",
+        "Shelf": "S01",
+        "Category": "Tablet",
+        "ProductId": "PR0008",
+        "Capacity": 150,
+        "CurrentQuantity": 100,
+        "Status": "Occupied"
+    }
 ]

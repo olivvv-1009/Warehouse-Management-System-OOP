@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using WarehouseManagementSystem.WinForms.Interfaces;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
+using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.Services
 {
@@ -18,6 +21,9 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly ImportRepository
             _importRepository;
 
+        private readonly SupplierService
+            _supplierService;
+
         public ImportService()
         {
             _inventoryRepository =
@@ -31,24 +37,36 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _importRepository =
                 new ImportRepository();
+
+            _supplierService =
+                new SupplierService();
+        }
+
+        public List<Supplier>
+            GetAllSuppliers()
+        {
+            return _supplierService
+                .GetAllSuppliers();
         }
 
         public bool ImportProduct(
-            InventoryItem item,
-            string locationCode)
+    InventoryItem item,
+    string locationCode)
         {
             WarehouseLocation location =
                 _locationRepository
-                .FindByCode(locationCode);
+                    .FindByCode(locationCode);
 
             if (location == null)
             {
                 return false;
             }
 
-            if (location.UsedCapacity
+            if (
+                location.UsedCapacity
                 + item.Quantity
-                > location.Capacity)
+                > location.Capacity
+            )
             {
                 return false;
             }
@@ -57,7 +75,8 @@ namespace WarehouseManagementSystem.WinForms.Services
                 new Batch();
 
             batch.BatchId =
-                Guid.NewGuid().ToString();
+                Guid.NewGuid()
+                    .ToString();
 
             batch.ProductId =
                 item.ProductId;
@@ -77,37 +96,110 @@ namespace WarehouseManagementSystem.WinForms.Services
             item.LocationCode =
                 locationCode;
 
-            _batchRepository.Add(batch);
+            _batchRepository
+                .Add(batch);
 
-            _inventoryRepository.Add(item);
+            _inventoryRepository
+                .Add(item);
 
             location.UsedCapacity +=
                 item.Quantity;
 
-            _locationRepository.Update();
+            _locationRepository
+                .Update();
 
             ImportInvoice invoice =
                 new ImportInvoice();
 
             invoice.ImportId =
-                Guid.NewGuid().ToString();
+                Guid.NewGuid()
+                    .ToString();
 
-            invoice.ProductId =
-                item.ProductId;
+            invoice.SupplierId =
+                string.Empty;
 
-            invoice.BatchId =
-                batch.BatchId;
-
-            invoice.LocationCode =
-                locationCode;
-
-            invoice.Quantity =
-                item.Quantity;
+            invoice.EmployeeName =
+                string.Empty;
 
             invoice.ImportDate =
                 DateTime.Now;
 
-            _importRepository.Add(invoice);
+            OrderDetail detail =
+                new OrderDetail();
+
+            detail.ProductId =
+                item.ProductId;
+
+            detail.BatchId =
+                batch.BatchId;
+
+            detail.Quantity =
+                item.Quantity;
+
+            detail.UnitPrice =
+                0;
+
+            detail.TotalPrice =
+                0;
+
+            detail.LocationCode =
+                locationCode;
+
+            invoice.OrderDetails
+                .Add(detail);
+
+            _importRepository
+                .Add(invoice);
+
+            return true;
+        }
+
+        public bool CreateImportOrder(
+    string supplierId,
+    string employeeName,
+    List<OrderDetail> items)
+        {
+            List<ImportInvoice> invoices =
+                _importRepository.GetAll();
+
+            List<string> ids =
+                invoices
+                    .Select(x => x.ImportId)
+                    .ToList();
+
+            int nextNumber =
+                IdGenerator.GetNextNumber(
+                    ids,
+                    "IMP"
+                );
+
+            ImportInvoice invoice =
+                new ImportInvoice();
+
+            invoice.ImportId =
+                IdGenerator.GenerateImportId(
+                    nextNumber
+                );
+
+            invoice.SupplierId =
+                supplierId;
+
+            invoice.EmployeeName =
+                employeeName;
+
+            invoice.ImportDate =
+                DateTime.Now;
+
+            invoice.OrderDetails =
+                items;
+
+            invoice.TotalAmount =
+                items.Sum(
+                    x => x.TotalPrice
+                );
+
+            _importRepository
+                .Add(invoice);
 
             return true;
         }

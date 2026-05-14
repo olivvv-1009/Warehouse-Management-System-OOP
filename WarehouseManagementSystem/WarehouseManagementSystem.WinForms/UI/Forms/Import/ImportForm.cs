@@ -312,7 +312,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             EventArgs e)
         {
             CreateImportOrder form =
-                new CreateImportOrder();
+        new CreateImportOrder();
 
             form.ShowDialog();
 

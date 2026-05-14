@@ -48,5 +48,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Controllers
                     locationCode
                 );
         }
+
+        public string GetSupplierNameByBatch(
+    string batchId)
+        {
+            return _inventoryService
+                .GetSupplierNameByBatch(
+                    batchId
+                );
+        }
     }
 }

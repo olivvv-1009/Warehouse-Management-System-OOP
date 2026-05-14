@@ -19,6 +19,23 @@ namespace WarehouseManagementSystem.WinForms.Utils
             return $"BA{nextNumber:D4}";
         }
 
+        // Generate Import Order ID
+        // IMP0001, IMP0002, ...
+        public static string GenerateImportId(
+            int nextNumber)
+        {
+            return $"IMP{nextNumber:D4}";
+        }
+
+        // Generate Export Order ID
+        // EXP0001, EXP0002, ...
+        public static string GenerateExportId(
+            int nextNumber)
+        {
+            return $"EXP{nextNumber:D4}";
+        }
+
+
         // Get the next number from a list of IDs
         public static int GetNextNumber(List<string> existingIds, string prefix)
         {

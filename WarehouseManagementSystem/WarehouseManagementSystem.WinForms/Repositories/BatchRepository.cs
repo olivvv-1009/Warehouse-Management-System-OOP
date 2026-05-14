@@ -8,8 +8,13 @@ namespace WarehouseManagementSystem.WinForms.Repositories
     {
         private const string FilePath =
             "batch.json";
-
         private List<Batch> _batches;
+        private const string ImportFilePath =
+            "import.json";
+        private List<ImportInvoice> _imports;
+        private const string SupplierFilePath =
+           "supplier.json";
+        private List<Supplier> _suppliers;
 
         public BatchRepository()
         {
@@ -27,6 +32,29 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             {
                 _batches =
                     new List<Batch>();
+            }
+
+            _imports =
+                FileHelper.ReadJsonList
+                    <ImportInvoice>(
+                        ImportFilePath
+                    );
+
+            if (_imports == null)
+            {
+                _imports =
+                    new List<ImportInvoice>();
+            }
+
+            _suppliers =
+              FileHelper.ReadJsonList<Supplier>(
+        SupplierFilePath
+    );
+
+            if (_suppliers == null)
+            {
+                _suppliers =
+                    new List<Supplier>();
             }
         }
 
@@ -91,6 +119,62 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             }
 
             return result;
+        }
+
+        public string GetSupplierIdByBatch(
+    string batchId)
+        {
+            Batch batch =
+                FindById(batchId);
+
+            if (batch == null)
+            {
+                return string.Empty;
+            }
+
+            foreach (ImportInvoice invoice
+                in _imports)
+            {
+                foreach (OrderDetail detail
+                    in invoice.OrderDetails)
+                {
+                    if (detail.ProductId
+                        == batch.ProductId)
+                    {
+                        return invoice
+                            .SupplierId;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
+        public string GetSupplierNameByBatch(
+            string batchId)
+        {
+            string supplierId =
+                GetSupplierIdByBatch(
+                    batchId
+                );
+
+            if (supplierId == string.Empty)
+            {
+                return string.Empty;
+            }
+
+            foreach (Supplier supplier
+                in _suppliers)
+            {
+                if (supplier.SupplierId
+                    == supplierId)
+                {
+                    return supplier
+                        .SupplierName;
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

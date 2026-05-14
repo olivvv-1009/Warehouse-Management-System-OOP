@@ -31,5 +31,23 @@ namespace WarehouseManagementSystem.WinForms.Services
             return _batchRepository
                 .FindById(batchId);
         }
+
+        public string GetSupplierIdByBatch(
+            string batchId)
+        {
+            return _batchRepository
+                .GetSupplierIdByBatch(
+                    batchId
+                );
+        }
+
+        public string GetSupplierNameByBatch(
+    string batchId)
+        {
+            return _batchRepository
+                .GetSupplierNameByBatch(
+                    batchId
+                );
+        }
     }
 }

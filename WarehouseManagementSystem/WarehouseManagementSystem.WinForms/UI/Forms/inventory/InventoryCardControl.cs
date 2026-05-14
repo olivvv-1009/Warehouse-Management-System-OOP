@@ -174,8 +174,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             );
 
             dgvBatch.Columns.Add(
-                "colProductId",
-                "Product ID"
+                 "colSupplier",
+                 "Supplier"
             );
 
             dgvBatch.Columns.Add(
@@ -296,22 +296,31 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                                 batch.LocationCode
                             );
 
+                string supplierName =
+                    controller
+                        .GetSupplierNameByBatch(
+                            batch.BatchId
+                        );
+
                 string zone = "";
                 string rack = "";
                 string shelf = "";
 
                 if (location != null)
                 {
-                    zone = location.Zone;
+                    zone =
+                        location.Zone;
 
-                    rack = location.Rack;
+                    rack =
+                        location.Rack;
 
-                    shelf = location.Shelf;
+                    shelf =
+                        location.Shelf;
                 }
 
                 dgvBatch.Rows.Add(
                     batch.BatchId,
-                    batch.ProductId,
+                    supplierName,
                     batch.RemainingQuantity,
                     batch.ImportDate
                         .ToString(
