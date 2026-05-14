@@ -22,33 +22,39 @@ namespace WarehouseManagementSystem.WinForms.Services
                 new ProductRepository();
         }
 
-        public List<InventoryItem>
-            GetAllInventory()
+        public List<InventoryItem> GetAllInventory()
         {
-            List<InventoryItem> inventoryItems =
-                _inventoryRepository.GetAll();
+            List<InventoryItem> result =
+                new List<InventoryItem>();
 
             List<Product> products =
                 _productRepository.GetAll();
 
-            foreach (InventoryItem item
-                in inventoryItems)
+            foreach (Product product
+                in products)
             {
-                foreach (Product product
-                    in products)
-                {
-                    if (product.ProductID
-                        == item.ProductId)
-                    {
-                        item.ProductName =
-                            product.Name;
+                InventoryItem item =
+                    new InventoryItem();
 
-                        break;
-                    }
-                }
+                item.ProductId =
+                    product.ProductID;
+
+                item.ProductName =
+                    product.Name;
+
+                item.MinStock =
+                    product.MinStock;
+
+                item.Quantity =
+                    _inventoryRepository
+                        .GetTotalQuantity(
+                            product.ProductID
+                        );
+
+                result.Add(item);
             }
 
-            return inventoryItems;
+            return result;
         }
 
         public void AddInventoryItem(
@@ -64,10 +70,9 @@ namespace WarehouseManagementSystem.WinForms.Services
                 .GetTotalQuantity(productId);
         }
 
-        public List<InventoryItem>
-            GetLowStockItems()
+        public List<InventoryItem> GetLowStockItems()
         {
-            List<InventoryItem> lowStockItems =
+            List<InventoryItem> result =
                 new List<InventoryItem>();
 
             List<InventoryItem> inventoryItems =
@@ -79,11 +84,11 @@ namespace WarehouseManagementSystem.WinForms.Services
                 if (item.Quantity
                     <= item.MinStock)
                 {
-                    lowStockItems.Add(item);
+                    result.Add(item);
                 }
             }
 
-            return lowStockItems;
+            return result;
         }
     }
 }
