@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 {
@@ -17,5 +18,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             InitializeComponent();
         }
 
+        private void CreateImportOrder_Load(object sender, EventArgs e)
+        {
+            if (Session.CurrentProfile != null)
+            {
+                lbCreateby.Text = Session.CurrentProfile.FullName;
+            }
+
+        }
     }
 }

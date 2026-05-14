@@ -1,0 +1,42 @@
+﻿[
+  {
+    "AccountId": "ACC001",
+    "FullName": "Lê Minh Anh",
+    "DateOfBirth": "2006-01-29",
+    "Gender": "Female",
+    "Phone": "0901000001",
+    "Email": "minhanh@gmail.com",
+    "Address": "Bà Rịa - Vũng Tàu",
+    "Position": "System Admin"
+  },
+  {
+    "AccountId": "ACC002",
+    "FullName": "Nguyễn Anh Thư",
+    "DateOfBirth": "2005-08-12",
+    "Gender": "Female",
+    "Phone": "0902000002",
+    "Email": "anhthu@gmail.com",
+    "Address": "TP. Hồ Chí Minh",
+    "Position": "Warehouse Staff"
+  },
+  {
+    "AccountId": "ACC003",
+    "FullName": "Trần Hữu Thông",
+    "DateOfBirth": "2005-11-03",
+    "Gender": "Male",
+    "Phone": "0903000003",
+    "Email": "huuthong@gmail.com",
+    "Address": "Đồng Nai",
+    "Position": "Warehouse Staff"
+  },
+  {
+    "AccountId": "ACC004",
+    "FullName": "Lê Thảo Nhi",
+    "DateOfBirth": "2006-02-18",
+    "Gender": "Female",
+    "Phone": "0904000004",
+    "Email": "thaonhi@gmail.com",
+    "Address": "Bình Dương",
+    "Position": "Warehouse Staff"
+  }
+]

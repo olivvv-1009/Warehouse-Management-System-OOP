@@ -32,6 +32,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            btnSettings = new Button();
             btnDashboard = new Button();
             btnProducts = new Button();
             btnInventory = new Button();
@@ -107,6 +108,7 @@
             // 
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(btnSettings, 0, 11);
             tableLayoutPanel2.Controls.Add(btnDashboard, 0, 1);
             tableLayoutPanel2.Controls.Add(btnProducts, 0, 2);
             tableLayoutPanel2.Controls.Add(btnInventory, 0, 3);
@@ -139,6 +141,17 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10.3264771F));
             tableLayoutPanel2.Size = new Size(199, 589);
             tableLayoutPanel2.TabIndex = 0;
+            // 
+            // btnSettings
+            // 
+            btnSettings.BackColor = Color.SlateGray;
+            btnSettings.Dock = DockStyle.Fill;
+            btnSettings.Location = new Point(3, 493);
+            btnSettings.Name = "btnSettings";
+            btnSettings.Size = new Size(193, 34);
+            btnSettings.TabIndex = 14;
+            btnSettings.Text = "Settings";
+            btnSettings.UseVisualStyleBackColor = false;
             // 
             // btnDashboard
             // 
@@ -447,6 +460,7 @@
             Controls.Add(mainpanel);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             mainpanel.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -493,5 +507,6 @@
         private Label lbName;
         private Label lbRole;
         private Label label5;
+        private Button btnSettings;
     }
 }

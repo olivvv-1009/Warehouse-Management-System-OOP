@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System;
 using WarehouseManagementSystem.WinForms.UI.Forms;
-using WarehouseManagementSystem.WinForms.UI.Forms.Products;
-using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
 using WarehouseManagementSystem.WinForms.UI.Forms.Import;
+using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
+using WarehouseManagementSystem.WinForms.UI.Forms.Products;
+using WarehouseManagementSystem.WinForms.Utils;
 namespace WarehouseManagementSystem.WinForms.UI.Forms
 {
     public partial class MainForm_Staff : Form
@@ -22,6 +23,16 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
             InitializeComponent();
             _productForm = new ProductForm();
 
+        }
+        private void MainForm_Staff_Load(object sender, EventArgs e)
+        {
+            var user = Session.CurrentUser;
+
+            if (user != null)
+            {
+                lbName.Text = user.Username;
+                lbRole.Text = user.Role;
+            }
         }
         private void LoadView(UserControl view)
         {

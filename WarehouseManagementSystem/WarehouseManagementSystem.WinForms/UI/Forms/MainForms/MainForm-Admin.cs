@@ -1,9 +1,11 @@
 using System;
 using System.Windows.Forms;
+using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.UI.Forms;
-using WarehouseManagementSystem.WinForms.UI.Forms.Products;
-using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
 using WarehouseManagementSystem.WinForms.UI.Forms.Import;
+using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
+using WarehouseManagementSystem.WinForms.UI.Forms.Products;
+using WarehouseManagementSystem.WinForms.Utils;
 
 
 namespace WarehouseManagementSystem.WinForms
@@ -21,7 +23,16 @@ namespace WarehouseManagementSystem.WinForms
             view.Dock = DockStyle.Fill;
             panel1.Controls.Add(view);
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var user = Session.CurrentUser;
 
+            if (user != null)
+            {
+                lbName.Text = user.Username;
+                lbRole.Text = user.Role;
+            }
+        }
         private void btnProducts_Click(object sender, EventArgs e)
         {
             LoadView(new ProductForm());

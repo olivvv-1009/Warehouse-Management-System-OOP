@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    internal class Account
+    public class Account
     {
         private string accountId = "";
         private string username = "";

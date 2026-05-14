@@ -4,6 +4,7 @@ namespace WarehouseManagementSystem.WinForms.Utils
 {
     internal static class Session
     {
-        public static Account? CurrentUser;
+        public static Account? CurrentUser { get; set; }
+        public static Profile? CurrentProfile { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                 if (acc.Username == username)
                     return acc;
             }
+
             return null;
         }
 

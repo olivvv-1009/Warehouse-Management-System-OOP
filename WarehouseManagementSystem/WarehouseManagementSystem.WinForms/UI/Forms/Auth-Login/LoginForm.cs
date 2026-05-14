@@ -1,5 +1,6 @@
 ﻿using WarehouseManagementSystem.WinForms.Files;
 using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.Services;
 using WarehouseManagementSystem.WinForms.UI.Controllers;
 using WarehouseManagementSystem.WinForms.UI.Forms;
 using WarehouseManagementSystem.WinForms.UI.Forms.Auth_Login;
@@ -20,6 +21,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
             string password = txtPassword.Text.Trim();
 
             AuthController controller = new AuthController();
+            ProfileService profileService = new ProfileService();
 
             int remaining = 0;
 
@@ -30,6 +32,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
                 if (user != null)
                 {
                     Session.CurrentUser = user;
+                    Session.CurrentProfile = profileService.GetByAccountId(user.AccountId);
 
                     MessageBox.Show("Login successful!");
 

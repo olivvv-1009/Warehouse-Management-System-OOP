@@ -227,7 +227,7 @@
             lbCreateby.Name = "lbCreateby";
             lbCreateby.Size = new Size(144, 39);
             lbCreateby.TabIndex = 5;
-            lbCreateby.TextAlign = ContentAlignment.MiddleCenter;
+            lbCreateby.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel3
             // 
@@ -407,6 +407,7 @@
             Controls.Add(panel1);
             Name = "CreateImportOrder";
             Text = "CreateImportOrder";
+            Load += CreateImportOrder_Load;
             panel1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();

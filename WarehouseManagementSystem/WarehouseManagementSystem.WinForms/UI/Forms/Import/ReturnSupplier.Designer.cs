@@ -228,7 +228,7 @@
             lbCreatedby.Name = "lbCreatedby";
             lbCreatedby.Size = new Size(331, 37);
             lbCreatedby.TabIndex = 2;
-            lbCreatedby.TextAlign = ContentAlignment.MiddleCenter;
+            lbCreatedby.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // textBox1
             // 
@@ -288,6 +288,7 @@
             Controls.Add(panel1);
             Name = "ReturnSupplier";
             Text = "ReturnSupplier";
+            Load += ReturnSupplier_Load;
             panel1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
