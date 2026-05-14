@@ -134,7 +134,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             List<Batch> batches =
                 FileHelper.ReadJsonList<Batch>(
-                    "batches.json"
+                    "batch.json"
                 );
 
             if (batches == null)

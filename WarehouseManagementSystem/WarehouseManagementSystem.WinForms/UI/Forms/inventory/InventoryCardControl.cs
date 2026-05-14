@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.UI.Controllers;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
 {
     public partial class InventoryCardControl
         : UserControl
     {
-        private bool _isExpanded = false;
+        private bool _isExpanded =
+            false;
 
         public InventoryCardControl()
         {
@@ -28,34 +30,27 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             }
         }
 
-        // =====================================
-        // Setup UI
-        // =====================================
-
         private void SetupUI()
         {
-            // =========================
-            // Card
-            // =========================
-
-            this.BackColor =
+            BackColor =
                 Color.White;
 
-            this.Margin =
-                new Padding(0, 0, 0, 15);
+            Margin =
+                new Padding(
+                    0,
+                    0,
+                    0,
+                    15
+                );
 
-            this.Padding =
+            Padding =
                 new Padding(0);
 
-            this.Height =
+            Height =
                 70;
 
-            this.BorderStyle =
+            BorderStyle =
                 BorderStyle.FixedSingle;
-
-            // =========================
-            // Header
-            // =========================
 
             panelHeader.Height =
                 70;
@@ -65,10 +60,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
 
             panelHeader.Cursor =
                 Cursors.Hand;
-
-            // =========================
-            // Batch Panel
-            // =========================
 
             panelBatch.Visible =
                 false;
@@ -81,10 +72,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
 
             panelBatch.BackColor =
                 Color.WhiteSmoke;
-
-            // =========================
-            // DataGridView
-            // =========================
 
             dgvBatch.Dock =
                 DockStyle.Fill;
@@ -128,8 +115,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             dgvBatch.GridColor =
                 Color.Gainsboro;
 
-            // Header Style
-
             dgvBatch.ColumnHeadersHeight =
                 40;
 
@@ -137,7 +122,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                 DataGridViewHeaderBorderStyle.None;
 
             dgvBatch.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(33, 150, 243);
+                Color.FromArgb(
+                    33,
+                    150,
+                    243
+                );
 
             dgvBatch.ColumnHeadersDefaultCellStyle.ForeColor =
                 Color.White;
@@ -146,30 +135,34 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                 new Font(
                     "Segoe UI",
                     10,
-                    FontStyle.Bold);
-
-            // Row Style
+                    FontStyle.Bold
+                );
 
             dgvBatch.DefaultCellStyle.Font =
                 new Font(
                     "Segoe UI",
-                    10);
+                    10
+                );
 
             dgvBatch.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(230, 240, 255);
+                Color.FromArgb(
+                    230,
+                    240,
+                    255
+                );
 
             dgvBatch.DefaultCellStyle.SelectionForeColor =
                 Color.Black;
 
             dgvBatch.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 248, 248);
+                Color.FromArgb(
+                    248,
+                    248,
+                    248
+                );
 
             SetupBatchColumns();
         }
-
-        // =====================================
-        // Setup Batch Columns
-        // =====================================
 
         private void SetupBatchColumns()
         {
@@ -177,48 +170,54 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
 
             dgvBatch.Columns.Add(
                 "colBatchId",
-                "Product ID");
+                "Batch ID"
+            );
 
             dgvBatch.Columns.Add(
-                "colProductName",
-                "Product Name");
+                "colProductId",
+                "Product ID"
+            );
 
             dgvBatch.Columns.Add(
                 "colQuantity",
-                "Quantity");
+                "Quantity"
+            );
 
             dgvBatch.Columns.Add(
                 "colImportDate",
-                "Import Date");
+                "Import Date"
+            );
 
             dgvBatch.Columns.Add(
                 "colImportPrice",
-                "Import Price");
+                "Import Price"
+            );
 
             dgvBatch.Columns.Add(
                 "colZone",
-                "Zone");
+                "Zone"
+            );
 
             dgvBatch.Columns.Add(
                 "colRack",
-                "Rack");
+                "Rack"
+            );
 
             dgvBatch.Columns.Add(
                 "colShelf",
-                "Shelf");
+                "Shelf"
+            );
 
             dgvBatch.Columns.Add(
                 "colStatus",
-                "Status");
+                "Status"
+            );
 
             dgvBatch.Columns.Add(
                 "colAction",
-                "Action");
+                "Action"
+            );
         }
-
-        // =====================================
-        // Set Main Data
-        // =====================================
 
         public void SetData(
             InventoryItem item)
@@ -230,29 +229,39 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                 item.ProductName;
 
             lblQuantity.Text =
-                item.Quantity.ToString();
+                item.Quantity
+                    .ToString();
 
             lblMinStock.Text =
-                item.ImportDate
-                    .ToString("yyyy-MM-dd");
+                item.MinStock
+                    .ToString();
 
             lblStatus.Text =
                 item.StockStatus;
 
-            // Status Color
-
-            if (item.StockStatus == "In Stock")
+            if (item.StockStatus
+                == "In Stock")
             {
                 lblStatus.BackColor =
-                    Color.FromArgb(76, 175, 80);
+                    Color.FromArgb(
+                        76,
+                        175,
+                        80
+                    );
 
                 lblStatus.ForeColor =
                     Color.White;
             }
-            else if (item.StockStatus == "Low Stock")
+            else if (
+                item.StockStatus
+                == "Low Stock")
             {
                 lblStatus.BackColor =
-                    Color.FromArgb(255, 193, 7);
+                    Color.FromArgb(
+                        255,
+                        193,
+                        7
+                    );
 
                 lblStatus.ForeColor =
                     Color.Black;
@@ -260,48 +269,67 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             else
             {
                 lblStatus.BackColor =
-                    Color.FromArgb(244, 67, 54);
+                    Color.FromArgb(
+                        244,
+                        67,
+                        54
+                    );
 
                 lblStatus.ForeColor =
                     Color.White;
             }
         }
 
-        // =====================================
-        // Load Batch Data
-        // =====================================
-
         public void LoadBatchData(
-            List<InventoryItem> batches)
+    List<Batch> batches,
+    InventoryController controller)
         {
             dgvBatch.Rows.Clear();
 
-            foreach (InventoryItem item
+            foreach (Batch batch
                 in batches)
             {
+                WarehouseLocation
+                    location =
+                        controller
+                            .GetLocationByCode(
+                                batch.LocationCode
+                            );
+
+                string zone = "";
+                string rack = "";
+                string shelf = "";
+
+                if (location != null)
+                {
+                    zone = location.Zone;
+
+                    rack = location.Rack;
+
+                    shelf = location.Shelf;
+                }
+
                 dgvBatch.Rows.Add(
-                    item.ProductId,
-                    item.ProductName,
-                    item.Quantity,
-                    item.ImportDate
-                        .ToString("yyyy-MM-dd"),
-                    "$1200",
-                    "Z1",
-                    "R1",
-                    item.LocationCode,
-                    item.StockStatus,
-                    "Re-arrange"
+                    batch.BatchId,
+                    batch.ProductId,
+                    batch.RemainingQuantity,
+                    batch.ImportDate
+                        .ToString(
+                            "yyyy-MM-dd"
+                        ),
+                    batch.ImportPrice,
+                    zone,
+                    rack,
+                    shelf,
+                    batch.Status,
+                    "View"
                 );
             }
         }
 
-        // =====================================
-        // Expand / Collapse
-        // =====================================
-
         private void Header_Click(
-    object sender,
-    EventArgs e)
+            object sender,
+            EventArgs e)
         {
             _isExpanded =
                 !_isExpanded;
@@ -309,7 +337,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             panelBatch.Visible =
                 _isExpanded;
 
-            this.Height =
+            Height =
                 _isExpanded
                 ? 260
                 : 70;
