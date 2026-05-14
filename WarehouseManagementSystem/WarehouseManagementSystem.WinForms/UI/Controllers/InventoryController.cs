@@ -1,13 +1,13 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Services;
 
 namespace WarehouseManagementSystem.WinForms.UI.Controllers
 {
-    internal class InventoryController
+    public class InventoryController
     {
         private readonly InventoryService
-        _inventoryService;
+            _inventoryService;
 
         public InventoryController()
         {
@@ -27,6 +27,26 @@ namespace WarehouseManagementSystem.WinForms.UI.Controllers
         {
             return _inventoryService
                 .GetLowStockItems();
+        }
+
+        public List<Batch>
+            GetBatchesByProductId(
+                string productId)
+        {
+            return _inventoryService
+                .GetBatchesByProductId(
+                    productId
+                );
+        }
+
+        public WarehouseLocation
+    GetLocationByCode(
+        string locationCode)
+        {
+            return _inventoryService
+                .GetLocationByCode(
+                    locationCode
+                );
         }
     }
 }

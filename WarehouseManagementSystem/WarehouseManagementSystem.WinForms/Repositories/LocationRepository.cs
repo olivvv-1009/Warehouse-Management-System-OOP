@@ -19,9 +19,16 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         private void LoadData()
         {
             _locations =
-                FileHelper.ReadJsonList<WarehouseLocation>(
-                    FilePath
-                );
+                FileHelper.ReadJsonList<
+                    WarehouseLocation
+                >(FilePath);
+
+            if (_locations == null)
+            {
+                _locations =
+                    new List<
+                        WarehouseLocation>();
+            }
         }
 
         private void SaveData()
@@ -34,7 +41,10 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         public List<WarehouseLocation> GetAll()
         {
-            return _locations;
+            return new List<
+    WarehouseLocation>(
+        _locations
+    );
         }
 
         public WarehouseLocation FindByCode(

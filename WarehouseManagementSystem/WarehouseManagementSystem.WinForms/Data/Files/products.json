@@ -3,36 +3,42 @@
     "ProductID": "PR0001",
     "Name": "Razer Blade 18",
     "Category": "Laptop",
+    "MinStock": 50,
     "CreatedAt": "2026-05-09T09:32:32.3619065+07:00"
   },
   {
     "ProductID": "PR0002",
     "Name": "Razer Blade 16",
     "Category": "Laptop",
+    "MinStock": 50,
     "CreatedAt": "2026-05-09T09:33:03.9144648+07:00"
   },
   {
     "ProductID": "PR0003",
     "Name": "Razer Viper V3 Pro",
     "Category": "Mice",
+    "MinStock": 120,
     "CreatedAt": "2026-05-09T09:33:36.2732229+07:00"
   },
   {
     "ProductID": "PR0004",
     "Name": "RAZER DEATHADDER V4 PRO",
     "Category": "Mice",
+    "MinStock": 120,
     "CreatedAt": "2026-05-09T09:34:29.6077416+07:00"
   },
   {
     "ProductID": "PR0005",
     "Name": "IPHONE 17 PRO",
     "Category": "Smartphone",
+    "MinStock": 80,
     "CreatedAt": "2026-05-09T09:35:43.9654703+07:00"
   },
   {
     "ProductID": "PR0006",
     "Name": "SAMSUNG Z FLIP7",
     "Category": "Smartphone",
+    "MinStock": 80,
     "CreatedAt": "2026-05-09T09:36:30.4112627+07:00"
   }
 ]

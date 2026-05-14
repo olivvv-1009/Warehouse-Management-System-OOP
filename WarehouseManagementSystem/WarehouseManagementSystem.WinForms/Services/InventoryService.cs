@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
@@ -13,6 +12,12 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly ProductRepository
             _productRepository;
 
+        private readonly BatchRepository
+            _batchRepository;
+
+        private readonly LocationService
+            _locationService;
+
         public InventoryService()
         {
             _inventoryRepository =
@@ -20,9 +25,16 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _productRepository =
                 new ProductRepository();
+
+            _batchRepository =
+                new BatchRepository();
+
+            _locationService =
+                new LocationService();
         }
 
-        public List<InventoryItem> GetAllInventory()
+        public List<InventoryItem>
+            GetAllInventory()
         {
             List<InventoryItem> result =
                 new List<InventoryItem>();
@@ -67,16 +79,20 @@ namespace WarehouseManagementSystem.WinForms.Services
             string productId)
         {
             return _inventoryRepository
-                .GetTotalQuantity(productId);
+                .GetTotalQuantity(
+                    productId
+                );
         }
 
-        public List<InventoryItem> GetLowStockItems()
+        public List<InventoryItem>
+            GetLowStockItems()
         {
             List<InventoryItem> result =
                 new List<InventoryItem>();
 
-            List<InventoryItem> inventoryItems =
-                GetAllInventory();
+            List<InventoryItem>
+                inventoryItems =
+                    GetAllInventory();
 
             foreach (InventoryItem item
                 in inventoryItems)
@@ -89,6 +105,26 @@ namespace WarehouseManagementSystem.WinForms.Services
             }
 
             return result;
+        }
+
+        public List<Batch>
+            GetBatchesByProductId(
+                string productId)
+        {
+            return _batchRepository
+                .GetByProductId(
+                    productId
+                );
+        }
+
+        public WarehouseLocation
+            GetLocationByCode(
+                string locationCode)
+        {
+            return _locationService
+                .FindLocationByCode(
+                    locationCode
+                );
         }
     }
 }

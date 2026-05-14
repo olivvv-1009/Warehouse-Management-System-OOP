@@ -102,6 +102,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
 
                 card.SetData(item);
 
+                List<Batch> batches =
+                    _inventoryController
+                        .GetBatchesByProductId(
+                            item.ProductId
+                        );
+
+                card.LoadBatchData(batches,_inventoryController);
+
                 flowInventory.Controls
                     .Add(card);
             }

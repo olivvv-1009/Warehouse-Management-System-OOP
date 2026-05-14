@@ -22,6 +22,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                 FileHelper.ReadJsonList<Batch>(
                     FilePath
                 );
+
+            if (_batches == null)
+            {
+                _batches =
+                    new List<Batch>();
+            }
         }
 
         private void SaveData()
@@ -34,7 +40,9 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         public List<Batch> GetAll()
         {
-            return _batches;
+            return new List<Batch>(
+                _batches
+            );
         }
 
         public void Add(Batch batch)
@@ -44,19 +52,45 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             SaveData();
         }
 
-        public Batch FindById(string batchId)
+        public void Update()
         {
-            int i;
+            SaveData();
+        }
 
-            for (i = 0; i < _batches.Count; i++)
+        public Batch FindById(
+            string batchId)
+        {
+            foreach (Batch batch
+                in _batches)
             {
-                if (_batches[i].BatchId == batchId)
+                if (batch.BatchId
+                    == batchId)
                 {
-                    return _batches[i];
+                    return batch;
                 }
             }
 
             return null;
+        }
+
+        public List<Batch>
+            GetByProductId(
+                string productId)
+        {
+            List<Batch> result =
+                new List<Batch>();
+
+            foreach (Batch batch
+                in _batches)
+            {
+                if (batch.ProductId
+                    == productId)
+                {
+                    result.Add(batch);
+                }
+            }
+
+            return result;
         }
     }
 }
