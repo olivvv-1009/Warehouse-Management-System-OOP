@@ -57,5 +57,24 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             SaveData();
         }
+
+        public bool AddImportInvoice(
+    ImportInvoice invoice)
+        {
+            List<ImportInvoice> invoices =
+                FileHelper
+                    .ReadJsonList<ImportInvoice>(
+                        "import.json"
+                    );
+
+            invoices.Add(invoice);
+
+            FileHelper.WriteJsonList(
+                "import.json",
+                invoices
+            );
+
+            return true;
+        }
     }
 }

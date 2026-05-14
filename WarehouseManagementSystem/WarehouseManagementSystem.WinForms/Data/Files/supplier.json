@@ -3,7 +3,7 @@
         "SupplierId": "SP0001",
         "SupplierName": "Razer Vietnam Distribution",
         "PhoneNumber": "0909123456",
-        "Address": "285 Cách Mạng Tháng 8, Phường 12, Quận 10, TP. Hồ Chí Minh",
+        "Address": "285 Cách Mạng Tháng 8, Quận 10, TP. Hồ Chí Minh",
         "Email": "contact@razervn.com",
         "IsActive": true
     },
@@ -11,7 +11,7 @@
         "SupplierId": "SP0002",
         "SupplierName": "Apple Authorized Distributor HCM",
         "PhoneNumber": "0909888777",
-        "Address": "92 Nguyễn Hữu Cảnh, Phường 22, Quận Bình Thạnh, TP. Hồ Chí Minh",
+        "Address": "92 Nguyễn Hữu Cảnh, Bình Thạnh, TP. Hồ Chí Minh",
         "Email": "appledist.hcm@gmail.com",
         "IsActive": true
     },
@@ -19,7 +19,7 @@
         "SupplierId": "SP0003",
         "SupplierName": "Samsung Electronics Đồng Nai",
         "PhoneNumber": "0933444555",
-        "Address": "KCN Amata, Phường Long Bình, TP. Biên Hòa, Đồng Nai",
+        "Address": "KCN Amata, Biên Hòa, Đồng Nai",
         "Email": "samsung.dn@supplier.com",
         "IsActive": true
     },
@@ -27,7 +27,7 @@
         "SupplierId": "SP0004",
         "SupplierName": "Logitech Vietnam Supplier",
         "PhoneNumber": "0911222333",
-        "Address": "45 Điện Biên Phủ, Quận Bình Thạnh, TP. Hồ Chí Minh",
+        "Address": "45 Điện Biên Phủ, Bình Thạnh, TP. Hồ Chí Minh",
         "Email": "logitech.vn@gmail.com",
         "IsActive": true
     },
@@ -61,6 +61,62 @@
         "PhoneNumber": "0988111222",
         "Address": "66 Phạm Văn Đồng, TP. Thủ Đức, TP. Hồ Chí Minh",
         "Email": "hpvn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0009",
+        "SupplierName": "Lenovo Vietnam Wholesale",
+        "PhoneNumber": "0903456789",
+        "Address": "Nguyễn Văn Trỗi, Phú Nhuận, TP. Hồ Chí Minh",
+        "Email": "lenovo.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0010",
+        "SupplierName": "Acer Distribution Vietnam",
+        "PhoneNumber": "0915678123",
+        "Address": "Xa Lộ Hà Nội, TP. Thủ Đức, TP. Hồ Chí Minh",
+        "Email": "acer.dist@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0011",
+        "SupplierName": "Gigabyte Gaming Vietnam",
+        "PhoneNumber": "0932123456",
+        "Address": "Lý Thường Kiệt, Quận 10, TP. Hồ Chí Minh",
+        "Email": "gigabyte.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0012",
+        "SupplierName": "Huawei Device Supplier",
+        "PhoneNumber": "0945566778",
+        "Address": "Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
+        "Email": "huawei.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0013",
+        "SupplierName": "Xiaomi Official Distribution",
+        "PhoneNumber": "0971234567",
+        "Address": "Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh",
+        "Email": "xiaomi.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0014",
+        "SupplierName": "Corsair Vietnam Supplier",
+        "PhoneNumber": "0983344556",
+        "Address": "Cộng Hòa, Tân Bình, TP. Hồ Chí Minh",
+        "Email": "corsair.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0015",
+        "SupplierName": "SteelSeries Vietnam",
+        "PhoneNumber": "0922113344",
+        "Address": "Pasteur, Quận 3, TP. Hồ Chí Minh",
+        "Email": "steelseries.vn@gmail.com",
         "IsActive": true
     }
 ]

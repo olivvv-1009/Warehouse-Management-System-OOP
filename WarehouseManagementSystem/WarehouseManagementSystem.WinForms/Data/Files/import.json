@@ -3,7 +3,7 @@
         "ImportId": "IMP20260001",
         "SupplierId": "SP0001",
         "ImportDate": "2026-05-10T08:30:00",
-        "TotalAmount": 852000,
+        "TotalAmount": 922000,
         "EmployeeName": "Lê Minh Anh",
         "OrderDetails": [
             {
@@ -19,17 +19,7 @@
                 "UnitPrice": 3900,
                 "TotalPrice": 312000,
                 "LocationCode": "A-R02-S01"
-            }
-        ]
-    },
-
-    {
-        "ImportId": "IMP20260002",
-        "SupplierId": "SP0004",
-        "ImportDate": "2026-05-11T09:15:00",
-        "TotalAmount": 70000,
-        "EmployeeName": "Đinh Thị Anh Thư",
-        "OrderDetails": [
+            },
             {
                 "ProductId": "PR0003",
                 "Quantity": 350,
@@ -48,11 +38,11 @@
     },
 
     {
-        "ImportId": "IMP20260003",
-        "SupplierId": "SP0005",
-        "ImportDate": "2026-05-12T08:00:00",
-        "TotalAmount": 348750,
-        "EmployeeName": "Nguyễn Hữu Thông",
+        "ImportId": "IMP20260002",
+        "SupplierId": "SP0002",
+        "ImportDate": "2026-05-12T09:00:00",
+        "TotalAmount": 325500,
+        "EmployeeName": "Đinh Thị Anh Thư",
         "OrderDetails": [
             {
                 "ProductId": "PR0005",
@@ -62,49 +52,35 @@
                 "LocationCode": "B-R01-S01"
             },
             {
-                "ProductId": "PR0006",
-                "Quantity": 75,
-                "UnitPrice": 1450,
-                "TotalPrice": 108750,
-                "LocationCode": "B-R02-S01"
-            }
-        ]
-    },
-
-    {
-        "ImportId": "IMP20260004",
-        "SupplierId": "SP0007",
-        "ImportDate": "2026-05-13T10:45:00",
-        "TotalAmount": 310480,
-        "EmployeeName": "Nguyễn Đinh Thảo Nhi",
-        "OrderDetails": [
-            {
-                "ProductId": "PR0003",
-                "Quantity": 150,
-                "UnitPrice": 120,
-                "TotalPrice": 18000,
-                "LocationCode": "C-R01-S02"
-            },
-            {
-                "ProductId": "PR0005",
-                "Quantity": 120,
-                "UnitPrice": 1600,
-                "TotalPrice": 192000,
-                "LocationCode": "B-R01-S02"
-            },
-            {
-                "ProductId": "PR0004",
-                "Quantity": 107,
-                "UnitPrice": 140,
-                "TotalPrice": 14980,
-                "LocationCode": "C-R02-S02"
-            },
-            {
                 "ProductId": "PR0007",
                 "Quantity": 90,
                 "UnitPrice": 950,
                 "TotalPrice": 85500,
                 "LocationCode": "D-R01-S01"
+            }
+        ]
+    },
+
+    {
+        "ImportId": "IMP20260003",
+        "SupplierId": "SP0003",
+        "ImportDate": "2026-05-13T10:15:00",
+        "TotalAmount": 196750,
+        "EmployeeName": "Nguyễn Hữu Thông",
+        "OrderDetails": [
+            {
+                "ProductId": "PR0006",
+                "Quantity": 75,
+                "UnitPrice": 1450,
+                "TotalPrice": 108750,
+                "LocationCode": "B-R02-S01"
+            },
+            {
+                "ProductId": "PR0008",
+                "Quantity": 100,
+                "UnitPrice": 880,
+                "TotalPrice": 88000,
+                "LocationCode": "D-R02-S01"
             }
         ]
     }
