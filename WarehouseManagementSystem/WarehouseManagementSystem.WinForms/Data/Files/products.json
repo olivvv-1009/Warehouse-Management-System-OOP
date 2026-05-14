@@ -16,14 +16,14 @@
   {
     "ProductID": "PR0003",
     "Name": "Razer Viper V3 Pro",
-    "Category": "Mice",
+    "Category": "Accessory",
     "MinStock": 120,
     "CreatedAt": "2026-05-09T09:33:36.2732229+07:00"
   },
   {
     "ProductID": "PR0004",
     "Name": "RAZER DEATHADDER V4 PRO",
-    "Category": "Mice",
+    "Category": "Accessory",
     "MinStock": 120,
     "CreatedAt": "2026-05-09T09:34:29.6077416+07:00"
   },
@@ -40,5 +40,19 @@
     "Category": "Smartphone",
     "MinStock": 80,
     "CreatedAt": "2026-05-09T09:36:30.4112627+07:00"
+  },
+  {
+    "ProductID": "PR0007",
+    "Name": "iPad Pro M5",
+    "Category": "Tablet",
+    "MinStock": 60,
+    "CreatedAt": "2026-05-09T09:37:15.0000000+07:00"
+  },
+  {
+    "ProductID": "PR0008",
+    "Name": "Samsung Galaxy Tab S11",
+    "Category": "Tablet",
+    "MinStock": 60,
+    "CreatedAt": "2026-05-09T09:38:00.0000000+07:00"
   }
 ]

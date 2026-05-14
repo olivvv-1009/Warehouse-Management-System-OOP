@@ -7,7 +7,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
     internal class LocationRepository
     {
         private const string FilePath =
-            "warehouse_map.json";
+            "warehouse_location.json";
 
         private List<WarehouseLocation> _locations;
 
