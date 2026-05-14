@@ -142,11 +142,10 @@ namespace WarehouseManagementSystem.WinForms.Services
                     "Product ID cannot be empty");
             }
 
-            InventoryItem inventoryItem =
-                _inventoryRepository
-                .GetByProductId(productId);
+            List<InventoryItem> inventoryItems = _inventoryRepository
+        .GetByProductId(productId);
 
-            if (inventoryItem != null)
+            if (inventoryItems.Count > 0)
             {
                 throw new InvalidOperationException(
                     "Cannot delete product with inventory");
