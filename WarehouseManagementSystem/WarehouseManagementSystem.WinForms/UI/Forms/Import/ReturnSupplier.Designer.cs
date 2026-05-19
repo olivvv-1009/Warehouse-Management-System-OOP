@@ -37,7 +37,7 @@
             label4 = new Label();
             lbSupplier = new Label();
             Date = new DateTimePicker();
-            comboBox1 = new ComboBox();
+            cboImportInvoice = new ComboBox();
             tableLayoutPanel3 = new TableLayoutPanel();
             label5 = new Label();
             label6 = new Label();
@@ -46,11 +46,13 @@
             tableLayoutPanel4 = new TableLayoutPanel();
             btnCancel = new Button();
             btnSubmit = new Button();
+            dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -61,7 +63,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(15);
-            panel1.Size = new Size(710, 279);
+            panel1.Size = new Size(710, 528);
             panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -71,18 +73,18 @@
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 0, 2);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel4, 0, 3);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel4, 0, 4);
+            tableLayoutPanel1.Controls.Add(dataGridView1, 0, 3);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.7142868F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 66.28571F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 79F));
+            tableLayoutPanel1.RowCount = 5;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 71F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(680, 249);
+            tableLayoutPanel1.Size = new Size(680, 498);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -92,7 +94,7 @@
             label1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(674, 42);
+            label1.Size = new Size(674, 50);
             label1.TabIndex = 0;
             label1.Text = "Return to Supplier";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -108,14 +110,14 @@
             tableLayoutPanel2.Controls.Add(label4, 2, 0);
             tableLayoutPanel2.Controls.Add(lbSupplier, 1, 1);
             tableLayoutPanel2.Controls.Add(Date, 2, 1);
-            tableLayoutPanel2.Controls.Add(comboBox1, 0, 1);
+            tableLayoutPanel2.Controls.Add(cboImportInvoice, 0, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 45);
+            tableLayoutPanel2.Location = new Point(3, 53);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(674, 77);
+            tableLayoutPanel2.Size = new Size(674, 74);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // label2
@@ -124,7 +126,7 @@
             label2.Dock = DockStyle.Fill;
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new Size(198, 38);
+            label2.Size = new Size(198, 37);
             label2.TabIndex = 0;
             label2.Text = "Import Invoice";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -135,7 +137,7 @@
             label3.Dock = DockStyle.Fill;
             label3.Location = new Point(207, 0);
             label3.Name = "label3";
-            label3.Size = new Size(198, 38);
+            label3.Size = new Size(198, 37);
             label3.TabIndex = 1;
             label3.Text = "Supplier";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -146,7 +148,7 @@
             label4.Dock = DockStyle.Fill;
             label4.Location = new Point(411, 0);
             label4.Name = "label4";
-            label4.Size = new Size(260, 38);
+            label4.Size = new Size(260, 37);
             label4.TabIndex = 2;
             label4.Text = "Date";
             label4.TextAlign = ContentAlignment.MiddleLeft;
@@ -155,30 +157,30 @@
             // 
             lbSupplier.AutoSize = true;
             lbSupplier.Dock = DockStyle.Fill;
-            lbSupplier.Location = new Point(207, 38);
+            lbSupplier.Location = new Point(207, 37);
             lbSupplier.Name = "lbSupplier";
-            lbSupplier.Size = new Size(198, 39);
+            lbSupplier.Size = new Size(198, 37);
             lbSupplier.TabIndex = 3;
             lbSupplier.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Date
             // 
             Date.Dock = DockStyle.Fill;
-            Date.Location = new Point(411, 41);
+            Date.Location = new Point(411, 40);
             Date.MaxDate = new DateTime(2026, 5, 11, 0, 0, 0, 0);
             Date.Name = "Date";
             Date.Size = new Size(260, 30);
             Date.TabIndex = 4;
             Date.Value = new DateTime(2026, 5, 11, 0, 0, 0, 0);
             // 
-            // comboBox1
+            // cboImportInvoice
             // 
-            comboBox1.Dock = DockStyle.Fill;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(3, 41);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(198, 30);
-            comboBox1.TabIndex = 5;
+            cboImportInvoice.Dock = DockStyle.Fill;
+            cboImportInvoice.FormattingEnabled = true;
+            cboImportInvoice.Location = new Point(3, 40);
+            cboImportInvoice.Name = "cboImportInvoice";
+            cboImportInvoice.Size = new Size(198, 30);
+            cboImportInvoice.TabIndex = 5;
             // 
             // tableLayoutPanel3
             // 
@@ -190,12 +192,12 @@
             tableLayoutPanel3.Controls.Add(lbCreatedby, 0, 1);
             tableLayoutPanel3.Controls.Add(textBox1, 1, 1);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(3, 128);
+            tableLayoutPanel3.Location = new Point(3, 133);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(674, 73);
+            tableLayoutPanel3.Size = new Size(674, 65);
             tableLayoutPanel3.TabIndex = 2;
             // 
             // label5
@@ -204,7 +206,7 @@
             label5.Dock = DockStyle.Fill;
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
-            label5.Size = new Size(331, 36);
+            label5.Size = new Size(331, 32);
             label5.TabIndex = 0;
             label5.Text = "Created by";
             label5.TextAlign = ContentAlignment.MiddleLeft;
@@ -215,7 +217,7 @@
             label6.Dock = DockStyle.Fill;
             label6.Location = new Point(340, 0);
             label6.Name = "label6";
-            label6.Size = new Size(331, 36);
+            label6.Size = new Size(331, 32);
             label6.TabIndex = 1;
             label6.Text = "Reason";
             label6.TextAlign = ContentAlignment.MiddleLeft;
@@ -224,16 +226,16 @@
             // 
             lbCreatedby.AutoSize = true;
             lbCreatedby.Dock = DockStyle.Fill;
-            lbCreatedby.Location = new Point(3, 36);
+            lbCreatedby.Location = new Point(3, 32);
             lbCreatedby.Name = "lbCreatedby";
-            lbCreatedby.Size = new Size(331, 37);
+            lbCreatedby.Size = new Size(331, 33);
             lbCreatedby.TabIndex = 2;
             lbCreatedby.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // textBox1
             // 
             textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(340, 39);
+            textBox1.Location = new Point(340, 35);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Enter the reason returning to supplier";
             textBox1.Size = new Size(331, 30);
@@ -248,12 +250,12 @@
             tableLayoutPanel4.Controls.Add(btnCancel, 1, 0);
             tableLayoutPanel4.Controls.Add(btnSubmit, 2, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(3, 207);
+            tableLayoutPanel4.Location = new Point(3, 457);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(674, 39);
+            tableLayoutPanel4.Size = new Size(674, 38);
             tableLayoutPanel4.TabIndex = 3;
             // 
             // btnCancel
@@ -263,7 +265,7 @@
             btnCancel.ForeColor = SystemColors.Control;
             btnCancel.Location = new Point(456, 3);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(97, 33);
+            btnCancel.Size = new Size(97, 32);
             btnCancel.TabIndex = 0;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
@@ -275,16 +277,28 @@
             btnSubmit.ForeColor = SystemColors.ActiveCaptionText;
             btnSubmit.Location = new Point(559, 3);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(112, 33);
+            btnSubmit.Size = new Size(112, 32);
             btnSubmit.TabIndex = 1;
             btnSubmit.Text = "Submit";
             btnSubmit.UseVisualStyleBackColor = false;
+            btnSubmit.Click += btnSubmit_Click;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = SystemColors.Control;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 204);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(674, 247);
+            dataGridView1.TabIndex = 4;
             // 
             // ReturnSupplier
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(710, 279);
+            ClientSize = new Size(710, 528);
             Controls.Add(panel1);
             Name = "ReturnSupplier";
             Text = "ReturnSupplier";
@@ -297,6 +311,7 @@
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -313,12 +328,13 @@
         private Label label4;
         private Label lbSupplier;
         private DateTimePicker Date;
-        private ComboBox comboBox1;
+        private ComboBox cboImportInvoice;
         private Label label5;
         private Label label6;
         private Label lbCreatedby;
         private TextBox textBox1;
         private Button btnCancel;
         private Button btnSubmit;
+        private DataGridView dataGridView1;
     }
 }
