@@ -42,6 +42,42 @@ namespace WarehouseManagementSystem.WinForms.Services
                 new SupplierService();
         }
 
+        public List<ImportInvoice>
+    GetAll()
+        {
+            return _importRepository
+                .GetAll();
+        }
+
+        public ImportInvoice
+            FindById(
+                string importId)
+        {
+            List<ImportInvoice> invoices =
+                _importRepository
+                    .GetAll();
+
+            int i;
+
+            for (
+                i = 0;
+                i < invoices.Count;
+                i++
+            )
+            {
+                if (
+                    invoices[i]
+                        .ImportId ==
+                    importId
+                )
+                {
+                    return invoices[i];
+                }
+            }
+
+            return null;
+        }
+
         public List<Supplier>
             GetAllSuppliers()
         {

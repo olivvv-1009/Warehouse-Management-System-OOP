@@ -127,5 +127,22 @@ namespace WarehouseManagementSystem.WinForms.Controllers
                     items
                 );
         }
+
+        public List<ImportInvoice>
+    GetAll()
+        {
+            return _importService
+                .GetAll();
+        }
+
+        public ImportInvoice
+            FindById(
+                string importInvoiceId)
+        {
+            return _importService
+                .FindById(
+                    importInvoiceId
+                );
+        }
     }
 }
