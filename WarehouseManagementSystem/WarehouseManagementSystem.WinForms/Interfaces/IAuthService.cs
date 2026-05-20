@@ -15,5 +15,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         bool ChangePassword(string username, string oldPass, string newPass);
 
         bool AdminReset(string accountId, string newPass);
+
+        bool UpdateSecurity(string username, string question, string answer);
     }
 }

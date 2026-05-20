@@ -2,13 +2,13 @@
     {
         "AccountId": "ACC001",
         "Username": "MinhAnh",
-        "PasswordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+        "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
         "Role": "Admin",
         "IsActive": true,
         "FailedLoginAttempts": 0,
         "IsLocked": false,
         "SecurityQuestion": "Tên thú cưng?",
-        "SecurityAnswerHash": "1ecc5d05708a46525683eafb5b1c01b760c096530b6b7fa628bb496da531ff72"
+        "SecurityAnswerHash": "07a08ff37f24f835b9bc78292754e7497bb87a70eae4d56e10707de93656b274"
     },
     {
         "AccountId": "ACC002",

@@ -4,12 +4,12 @@ using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    internal class SupplierRepository
+    public class SupplierRepository
     {
         private const string FilePath =
             "supplier.json";
 
-        private List<Supplier> _suppliers;
+        private List<Supplier> suppliers;
 
         public SupplierRepository()
         {
@@ -18,14 +18,14 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         private void LoadData()
         {
-            _suppliers =
+            suppliers =
                 FileHelper.ReadJsonList<Supplier>(
                     FilePath
                 );
 
-            if (_suppliers == null)
+            if (suppliers == null)
             {
-                _suppliers =
+                suppliers =
                     new List<Supplier>();
             }
         }
@@ -34,41 +34,74 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         {
             FileHelper.WriteJsonList(
                 FilePath,
-                _suppliers
+                suppliers
             );
         }
 
         public List<Supplier> GetAll()
         {
-            return _suppliers;
+            List<Supplier> list =
+                FileHelper.ReadJsonList<Supplier>(FilePath);
+
+            if (list == null)
+                list = new List<Supplier>();
+
+            suppliers = list; // optional sync
+            return list;
         }
 
-        public void Add(Supplier supplier)
-        {
-            _suppliers.Add(supplier);
-
-            SaveData();
-        }
-
-        public Supplier FindById(
-            string supplierId)
+        public Supplier GetById(string id)
         {
             for (int i = 0;
-                i < _suppliers.Count;
+                i < suppliers.Count;
                 i++)
             {
-                if (_suppliers[i].SupplierId
-                    == supplierId)
+                if (suppliers[i].SupplierId == id)
                 {
-                    return _suppliers[i];
+                    return suppliers[i];
                 }
             }
 
             return null;
         }
 
-        public void Update()
+        public void Add(Supplier supplier)
         {
+            suppliers.Add(supplier);
+
+            SaveData();
+        }
+
+        public void Update(Supplier supplier)
+        {
+            for (int i = 0;
+                i < suppliers.Count;
+                i++)
+            {
+                if (suppliers[i].SupplierId
+                    == supplier.SupplierId)
+                {
+                    suppliers[i] = supplier;
+                    break;
+                }
+            }
+
+            SaveData();
+        }
+
+        public void Delete(string id)
+        {
+            for (int i = 0;
+                i < suppliers.Count;
+                i++)
+            {
+                if (suppliers[i].SupplierId == id)
+                {
+                    suppliers.RemoveAt(i);
+                    break;
+                }
+            }
+
             SaveData();
         }
     }

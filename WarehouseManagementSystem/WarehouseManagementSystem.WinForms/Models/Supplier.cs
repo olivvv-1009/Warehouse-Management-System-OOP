@@ -1,31 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
     public class Supplier
     {
-        public string SupplierId { get; set; }
+        private string supplierId;
+        private string supplierName;
+        private string phoneNumber;
+        private string address;
+        private string email;
+        private bool isActive;
 
-        public string SupplierName { get; set; }
+        public string SupplierId
+        {
+            get { return supplierId; }
+            set { supplierId = value; }
+        }
 
-        public string PhoneNumber { get; set; }
+        public string SupplierName
+        {
+            get { return supplierName; }
+            set { supplierName = value; }
+        }
 
-        public string Address { get; set; }
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
+        }
 
-        public string Email { get; set; }
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
 
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
 
         public Supplier()
         {
-            SupplierId = string.Empty;
-            SupplierName = string.Empty;
-            PhoneNumber = string.Empty;
-            Address = string.Empty;
-            Email = string.Empty;
+            supplierId = "";
+            supplierName = "";
+            phoneNumber = "";
+            address = "";
+            email = "";
+            isActive = true;
         }
     }
 }

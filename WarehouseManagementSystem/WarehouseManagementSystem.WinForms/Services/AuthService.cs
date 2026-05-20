@@ -111,5 +111,20 @@ namespace WarehouseManagementSystem.WinForms.Services
             repo.Update(user);
             return true;
         }
+
+        public bool UpdateSecurity(string username, string question, string answer)
+        {
+            Account user = repo.GetByUsername(username);
+
+            if (user == null)
+                return false;
+
+            user.SecurityQuestion = question;
+            user.SecurityAnswerHash = HashHelper.Hash(answer);
+
+            repo.Update(user);
+
+            return true;
+        }
     }
 }

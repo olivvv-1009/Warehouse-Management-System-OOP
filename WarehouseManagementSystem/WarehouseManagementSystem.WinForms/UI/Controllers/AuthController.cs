@@ -36,5 +36,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Controllers
         {
             return service.AdminReset(accountId, newPass);
         }
+
+        public bool UpdateSecurity(string username, string question, string answer)
+        {
+            return service.UpdateSecurity(username, question, answer);
+        }
+        public bool ChangePassword(string username, string oldPass, string newPass)
+        {
+            return service.ChangePassword(username, oldPass, newPass);
+        }
     }
 }
