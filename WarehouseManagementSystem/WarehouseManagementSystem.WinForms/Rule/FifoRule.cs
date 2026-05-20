@@ -1,12 +1,120 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Rule
 {
-    internal class FifoRule
+    public class FifoRule
     {
+        public bool Apply(
+            IEnumerable<Batch> batches,
+            int requiredQuantity,
+            out List<
+                (string BatchId,
+                int QuantityToDeduct)
+            > deductions)
+        {
+            if (batches == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(batches)
+                );
+            }
+
+            deductions =
+                new List<
+                    (string, int)
+                >();
+
+            if (requiredQuantity <= 0)
+            {
+                return false;
+            }
+
+            List<Batch>
+                orderedBatches =
+                    batches
+                    .Where(
+                        x =>
+                        x.Quantity > 0
+                    )
+                    .OrderBy(
+                        x =>
+                        x.ImportDate
+                    )
+                    .ToList();
+
+            int totalQuantity =
+                orderedBatches
+                .Sum(
+                    x =>
+                    x.Quantity
+                );
+
+            if (
+                totalQuantity
+                <
+                requiredQuantity
+            )
+            {
+                return false;
+            }
+
+            int remaining =
+                requiredQuantity;
+
+            foreach (
+                Batch batch
+                in orderedBatches
+            )
+            {
+                if (remaining <= 0)
+                {
+                    break;
+                }
+
+                int takeQuantity =
+                    Math.Min(
+                        batch.Quantity,
+                        remaining
+                    );
+
+                deductions.Add(
+                    (
+                        batch.BatchId,
+                        takeQuantity
+                    )
+                );
+
+                remaining -=
+                    takeQuantity;
+            }
+
+            return true;
+        }
+
+        public int
+        GetAvailableQuantity(
+            IEnumerable<Batch>
+            batches)
+        {
+            if (
+                batches == null
+            )
+            {
+                return 0;
+            }
+
+            return batches
+                .Where(
+                    x =>
+                    x.Quantity > 0
+                )
+                .Sum(
+                    x =>
+                    x.Quantity
+                );
+        }
     }
 }
