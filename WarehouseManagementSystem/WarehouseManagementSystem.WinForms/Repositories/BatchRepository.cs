@@ -85,6 +85,15 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             SaveData();
         }
 
+        public void Update(
+            List<Batch> batches)
+        {
+            _batches =
+                batches;
+
+            SaveData();
+        }
+
         public Batch FindById(
             string batchId)
         {

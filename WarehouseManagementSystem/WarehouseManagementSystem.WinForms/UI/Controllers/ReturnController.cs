@@ -59,11 +59,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Controllers
             );
         }
 
-        public void Update(
-            List<ReturnOrder> returnOrders)
+        public bool Update(
+    ReturnOrder returnOrder)
         {
-            _service.Update(
-                returnOrders
+            return _service.Update(
+                returnOrder
             );
         }
     }

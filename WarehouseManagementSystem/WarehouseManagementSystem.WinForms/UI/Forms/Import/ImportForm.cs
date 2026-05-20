@@ -15,6 +15,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         private readonly SupplierRepository
             _supplierRepository;
 
+        private readonly ReturnRepository
+            _returnRepository;
+
         public ImportForm()
         {
             InitializeComponent();
@@ -24,6 +27,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
             _supplierRepository =
                 new SupplierRepository();
+
+            _returnRepository =
+                new ReturnRepository();
 
             SetupDataGridView();
 
@@ -53,7 +59,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 false;
 
             dataGridView1.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+                DataGridViewSelectionMode
+                    .FullRowSelect;
 
             dataGridView1.MultiSelect =
                 false;
@@ -79,46 +86,79 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             dataGridView1.EnableHeadersVisualStyles =
                 false;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(52, 73, 94);
+            dataGridView1
+                .ColumnHeadersDefaultCellStyle
+                .BackColor =
+                    Color.FromArgb(
+                        52,
+                        73,
+                        94
+                    );
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dataGridView1
+                .ColumnHeadersDefaultCellStyle
+                .ForeColor =
+                    Color.White;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold
-                );
+            dataGridView1
+                .ColumnHeadersDefaultCellStyle
+                .Font =
+                    new Font(
+                        "Segoe UI",
+                        10,
+                        FontStyle.Bold
+                    );
 
-            dataGridView1.DefaultCellStyle.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Regular
-                );
+            dataGridView1
+                .DefaultCellStyle
+                .Font =
+                    new Font(
+                        "Segoe UI",
+                        10,
+                        FontStyle.Regular
+                    );
 
-            dataGridView1.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dataGridView1
+                .DefaultCellStyle
+                .Alignment =
+                    DataGridViewContentAlignment
+                        .MiddleLeft;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dataGridView1
+                .ColumnHeadersDefaultCellStyle
+                .Alignment =
+                    DataGridViewContentAlignment
+                        .MiddleLeft;
 
-            dataGridView1.DefaultCellStyle.WrapMode =
-                DataGridViewTriState.True;
+            dataGridView1
+                .DefaultCellStyle
+                .WrapMode =
+                    DataGridViewTriState
+                        .True;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode =
-                DataGridViewTriState.False;
+            dataGridView1
+                .ColumnHeadersDefaultCellStyle
+                .WrapMode =
+                    DataGridViewTriState
+                        .False;
 
-            dataGridView1.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(52, 152, 219);
+            dataGridView1
+                .DefaultCellStyle
+                .SelectionBackColor =
+                    Color.FromArgb(
+                        52,
+                        152,
+                        219
+                    );
 
-            dataGridView1.DefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dataGridView1
+                .DefaultCellStyle
+                .SelectionForeColor =
+                    Color.White;
 
             dataGridView1.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+                DataGridViewAutoSizeColumnsMode
+                    .Fill;
 
             dataGridView1.ScrollBars =
                 ScrollBars.Vertical;
@@ -177,9 +217,23 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 "Status"
             );
 
+            // ===== RETURN STATUS BUTTON =====
+
+            DataGridViewButtonColumn
+                returnColumn =
+                    new DataGridViewButtonColumn();
+
+            returnColumn.Name =
+                "ReturnStatus";
+
+            returnColumn.HeaderText =
+                "Return Status";
+
+            returnColumn.UseColumnTextForButtonValue =
+                false;
+
             dataGridView1.Columns.Add(
-                "ReturnStatus",
-                "Return Status"
+                returnColumn
             );
 
             dataGridView1.Columns.Add(
@@ -187,8 +241,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 "Created By"
             );
 
-            DataGridViewButtonColumn actionColumn =
-                new DataGridViewButtonColumn();
+            // ===== ACTION BUTTON =====
+
+            DataGridViewButtonColumn
+                actionColumn =
+                    new DataGridViewButtonColumn();
 
             actionColumn.Name =
                 "Action";
@@ -211,13 +268,28 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         {
             dataGridView1.Rows.Clear();
 
-            List<ImportInvoice> invoices =
-                _importRepository.GetAll();
+            List<ImportInvoice>
+                invoices =
+                    _importRepository
+                        .GetAll();
 
-            List<Supplier> suppliers =
-                _supplierRepository.GetAll();
+            List<Supplier>
+                suppliers =
+                    _supplierRepository
+                        .GetAll();
 
-            for (int i = 0; i < invoices.Count; i++)
+            List<ReturnOrder>
+                returns =
+                    _returnRepository
+                        .GetAll();
+
+            int i;
+
+            for (
+                i = 0;
+                i < invoices.Count;
+                i++
+            )
             {
                 ImportInvoice invoice =
                     invoices[i];
@@ -225,35 +297,107 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 string supplierName =
                     invoice.SupplierId;
 
-                for (int j = 0;
+                int j;
+
+                for (
+                    j = 0;
                     j < suppliers.Count;
-                    j++)
+                    j++
+                )
                 {
-                    if (suppliers[j].SupplierId
-                        == invoice.SupplierId)
+                    if (
+                        suppliers[j]
+                            .SupplierId
+                        == invoice.SupplierId
+                    )
                     {
                         supplierName =
-                            suppliers[j].SupplierName;
+                            suppliers[j]
+                                .SupplierName;
 
                         break;
                     }
                 }
 
-                int totalItems =
-                    invoice.OrderDetails.Count;
+                string returnText =
+                    "No Return";
 
-                dataGridView1.Rows.Add(
-                    invoice.ImportId,
-                    supplierName,
-                    invoice.ImportDate.ToString(
-                        "yyyy-MM-dd"
-                    ),
-                    totalItems,
-                    "Completed",
-                    "No Return",
-                    invoice.EmployeeName,
-                    "View"
-                );
+                string returnId =
+                    "";
+
+                for (
+                    j = 0;
+                    j < returns.Count;
+                    j++
+                )
+                {
+                    if (
+                        returns[j]
+                            .ImportInvoiceId
+                        == invoice.ImportId
+                    )
+                    {
+                        returnText =
+                            "Returned";
+
+                        returnId =
+                            returns[j]
+                                .ReturnOrderId;
+
+                        break;
+                    }
+                }
+
+                int rowIndex =
+                    dataGridView1.Rows.Add(
+                        invoice.ImportId,
+                        supplierName,
+                        invoice.ImportDate
+                            .ToString(
+                                "yyyy-MM-dd"
+                            ),
+                        invoice
+                            .OrderDetails
+                            .Count,
+                        "Completed",
+                        returnText,
+                        invoice.EmployeeName,
+                        "View"
+                    );
+
+                dataGridView1
+                    .Rows[rowIndex]
+                    .Cells["ReturnStatus"]
+                    .Tag =
+                        returnId;
+                if (returnText == "Returned")
+                {
+                    dataGridView1
+                        .Rows[rowIndex]
+                        .Cells["ReturnStatus"]
+                        .Style.BackColor =
+                            Color.SeaGreen;
+
+                    dataGridView1
+                        .Rows[rowIndex]
+                        .Cells["ReturnStatus"]
+                        .Style.ForeColor =
+                            Color.White;
+                }
+                else
+                {
+                    dataGridView1
+                        .Rows[rowIndex]
+                        .Cells["ReturnStatus"]
+                        .Style.BackColor =
+                            Color.LightGray;
+
+                    dataGridView1
+                        .Rows[rowIndex]
+                        .Cells["ReturnStatus"]
+                        .Style.ForeColor =
+                            Color.Black;
+                }
             }
         }
 
@@ -266,27 +410,43 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 return;
             }
 
-            if (dataGridView1.Columns[e.ColumnIndex].Name
-                == "Action")
+            // ===== VIEW IMPORT =====
+
+            if (
+                dataGridView1
+                    .Columns[e.ColumnIndex]
+                    .Name
+                == "Action"
+            )
             {
                 string importId =
-                    dataGridView1.Rows[e.RowIndex]
-                    .Cells["ImportId"]
-                    .Value
-                    .ToString();
+                    dataGridView1
+                        .Rows[e.RowIndex]
+                        .Cells["ImportId"]
+                        .Value
+                        .ToString();
 
-                List<ImportInvoice> invoices =
-                    _importRepository.GetAll();
+                List<ImportInvoice>
+                    invoices =
+                        _importRepository
+                            .GetAll();
 
                 ImportInvoice selectedInvoice =
                     null;
 
-                for (int i = 0;
+                int i;
+
+                for (
+                    i = 0;
                     i < invoices.Count;
-                    i++)
+                    i++
+                )
                 {
-                    if (invoices[i].ImportId
-                        == importId)
+                    if (
+                        invoices[i]
+                            .ImportId
+                        == importId
+                    )
                     {
                         selectedInvoice =
                             invoices[i];
@@ -305,6 +465,51 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     form.ShowDialog();
                 }
             }
+
+            // ===== VIEW RETURN =====
+
+            if (
+                dataGridView1
+                    .Columns[e.ColumnIndex]
+                    .Name
+                == "ReturnStatus"
+            )
+            {
+                string text =
+                    dataGridView1
+                        .Rows[e.RowIndex]
+                        .Cells["ReturnStatus"]
+                        .Value
+                        .ToString();
+
+                if (text != "Returned")
+                {
+                    return;
+                }
+
+                string returnId =
+                    dataGridView1
+                        .Rows[e.RowIndex]
+                        .Cells["ReturnStatus"]
+                        .Tag
+                        .ToString();
+
+                ReturnOrder returnOrder =
+                    _returnRepository
+                        .FindById(
+                            returnId
+                        );
+
+                if (returnOrder != null)
+                {
+                    ReturnSupplier form =
+                        new ReturnSupplier (
+                            returnOrder
+                        );
+
+                    form.ShowDialog();
+                }
+            }
         }
 
         private void btnCreate_Click(
@@ -312,7 +517,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             EventArgs e)
         {
             CreateImportOrder form =
-        new CreateImportOrder();
+                new CreateImportOrder();
 
             form.ShowDialog();
 
@@ -327,6 +532,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 new ReturnSupplier();
 
             form.ShowDialog();
+
+            LoadImportInvoices();
         }
     }
 }
