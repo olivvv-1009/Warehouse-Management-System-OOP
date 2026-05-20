@@ -25,5 +25,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 lbCreatedby.Text = Session.CurrentProfile.FullName;
             }
         }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

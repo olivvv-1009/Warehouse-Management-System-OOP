@@ -1,4 +1,6 @@
-﻿using WarehouseManagementSystem.WinForms.Models;
+﻿using System.Collections.Generic;
+using WarehouseManagementSystem.WinForms.Files;
+using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Services;
 
 namespace WarehouseManagementSystem.WinForms.Controllers
@@ -8,10 +10,36 @@ namespace WarehouseManagementSystem.WinForms.Controllers
         private readonly ImportService
             _importService;
 
+        private readonly LocationService
+            _locationService;
+
+        private readonly ProductService
+            _productService;
+
         public ImportController()
         {
             _importService =
                 new ImportService();
+
+            _locationService =
+                new LocationService();
+
+            _productService =
+                new ProductService();
+        }
+
+        public List<Supplier>
+            GetAllSuppliers()
+        {
+            return _importService
+                .GetAllSuppliers();
+        }
+
+        public List<ProductDisplayModel>
+    GetAllProducts()
+        {
+            return _productService
+                .GetAllProducts();
         }
 
         public bool ImportProduct(
@@ -40,6 +68,63 @@ namespace WarehouseManagementSystem.WinForms.Controllers
                 .ImportProduct(
                     item,
                     locationCode
+                );
+        }
+
+        public WarehouseLocation
+            AutoAssignLocation(
+                string productId,
+                int quantity)
+        {
+            WarehouseLocation location =
+                _locationService
+                    .FindBestLocation(
+                        productId,
+                        quantity
+                    );
+
+            return location;
+        }
+
+        public bool ValidateImportOrder(
+            List<OrderDetail> items)
+        {
+            int i;
+
+            for (
+                i = 0;
+                i < items.Count;
+                i++
+            )
+            {
+                if (
+                    items[i].Quantity <= 0
+                )
+                {
+                    return false;
+                }
+
+                if (
+                    items[i].UnitPrice <= 0
+                )
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool CreateImportOrder(
+    string supplierId,
+    string employeeName,
+    List<OrderDetail> items)
+        {
+            return _importService
+                .CreateImportOrder(
+                    supplierId,
+                    employeeName,
+                    items
                 );
         }
     }

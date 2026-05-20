@@ -12,7 +12,13 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public int Quantity { get; set; }
 
+        public int RemainingQuantity { get; set; }
+
+        public decimal ImportPrice { get; set; }
+
         public DateTime ImportDate { get; set; }
+
+        public string Status { get; set; }
 
         public Batch()
         {
@@ -24,7 +30,13 @@ namespace WarehouseManagementSystem.WinForms.Models
 
             Quantity = 0;
 
+            RemainingQuantity = 0;
+
+            ImportPrice = 0;
+
             ImportDate = DateTime.Now;
+
+            Status = "Stored";
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
+using WarehouseManagementSystem.WinForms.Rule;
 
 namespace WarehouseManagementSystem.WinForms.Services
 {
@@ -9,16 +10,23 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly LocationRepository
             _locationRepository;
 
+        private readonly LocationAssignmentRule
+            _assignmentRule;
+
         public LocationService()
         {
             _locationRepository =
                 new LocationRepository();
+
+            _assignmentRule =
+                new LocationAssignmentRule();
         }
 
         public List<WarehouseLocation>
             GetAllLocations()
         {
-            return _locationRepository.GetAll();
+            return _locationRepository
+                .GetAll();
         }
 
         public WarehouseLocation
@@ -34,6 +42,23 @@ namespace WarehouseManagementSystem.WinForms.Services
         {
             return _locationRepository
                 .GetAvailableLocation();
+        }
+
+        public WarehouseLocation
+            FindBestLocation(
+                string productId,
+                int quantity)
+        {
+            List<WarehouseLocation> locations =
+                _locationRepository
+                    .GetAll();
+
+            return _assignmentRule
+                .FindAvailableLocation(
+                    locations,
+                    productId,
+                    quantity
+                );
         }
     }
 }

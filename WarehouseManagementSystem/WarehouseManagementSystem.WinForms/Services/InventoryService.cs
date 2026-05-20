@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
@@ -8,10 +7,19 @@ namespace WarehouseManagementSystem.WinForms.Services
     internal class InventoryService
     {
         private readonly InventoryRepository
-            _inventoryRepository;
+    _inventoryRepository;
 
         private readonly ProductRepository
             _productRepository;
+
+        private readonly BatchRepository
+            _batchRepository;
+
+        private readonly BatchService
+            _batchService;
+
+        private readonly LocationService
+            _locationService;
 
         public InventoryService()
         {
@@ -20,35 +28,51 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _productRepository =
                 new ProductRepository();
+
+            _batchRepository =
+                new BatchRepository();
+
+            _batchService =
+                new BatchService();
+
+            _locationService =
+                new LocationService();
         }
 
         public List<InventoryItem>
             GetAllInventory()
         {
-            List<InventoryItem> inventoryItems =
-                _inventoryRepository.GetAll();
+            List<InventoryItem> result =
+                new List<InventoryItem>();
 
             List<Product> products =
                 _productRepository.GetAll();
 
-            foreach (InventoryItem item
-                in inventoryItems)
+            foreach (Product product
+                in products)
             {
-                foreach (Product product
-                    in products)
-                {
-                    if (product.ProductID
-                        == item.ProductId)
-                    {
-                        item.ProductName =
-                            product.Name;
+                InventoryItem item =
+                    new InventoryItem();
 
-                        break;
-                    }
-                }
+                item.ProductId =
+                    product.ProductID;
+
+                item.ProductName =
+                    product.Name;
+
+                item.MinStock =
+                    product.MinStock;
+
+                item.Quantity =
+                    _inventoryRepository
+                        .GetTotalQuantity(
+                            product.ProductID
+                        );
+
+                result.Add(item);
             }
 
-            return inventoryItems;
+            return result;
         }
 
         public void AddInventoryItem(
@@ -61,17 +85,20 @@ namespace WarehouseManagementSystem.WinForms.Services
             string productId)
         {
             return _inventoryRepository
-                .GetTotalQuantity(productId);
+                .GetTotalQuantity(
+                    productId
+                );
         }
 
         public List<InventoryItem>
             GetLowStockItems()
         {
-            List<InventoryItem> lowStockItems =
+            List<InventoryItem> result =
                 new List<InventoryItem>();
 
-            List<InventoryItem> inventoryItems =
-                GetAllInventory();
+            List<InventoryItem>
+                inventoryItems =
+                    GetAllInventory();
 
             foreach (InventoryItem item
                 in inventoryItems)
@@ -79,11 +106,40 @@ namespace WarehouseManagementSystem.WinForms.Services
                 if (item.Quantity
                     <= item.MinStock)
                 {
-                    lowStockItems.Add(item);
+                    result.Add(item);
                 }
             }
 
-            return lowStockItems;
+            return result;
+        }
+
+        public List<Batch>
+            GetBatchesByProductId(
+                string productId)
+        {
+            return _batchRepository
+                .GetByProductId(
+                    productId
+                );
+        }
+
+        public WarehouseLocation
+            GetLocationByCode(
+                string locationCode)
+        {
+            return _locationService
+                .FindLocationByCode(
+                    locationCode
+                );
+        }
+
+        public string GetSupplierNameByBatch(
+    string batchId)
+        {
+            return _batchService
+                .GetSupplierNameByBatch(
+                    batchId
+                );
         }
     }
 }

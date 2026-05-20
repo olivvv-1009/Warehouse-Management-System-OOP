@@ -33,9 +33,9 @@
             label1 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel2 = new Panel();
-            textBox1 = new TextBox();
+            txtSearch = new TextBox();
             panel3 = new Panel();
-            comboBox1 = new ComboBox();
+            cbFilter = new ComboBox();
             flowInventory = new FlowLayoutPanel();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -107,42 +107,42 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(txtSearch);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(516, 41);
             panel2.TabIndex = 0;
             // 
-            // textBox1
+            // txtSearch
             // 
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(0, 0);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Search product";
-            textBox1.Size = new Size(516, 39);
-            textBox1.TabIndex = 0;
+            txtSearch.Dock = DockStyle.Fill;
+            txtSearch.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSearch.Location = new Point(0, 0);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Search product";
+            txtSearch.Size = new Size(516, 39);
+            txtSearch.TabIndex = 0;
             // 
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(comboBox1);
+            panel3.Controls.Add(cbFilter);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(525, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(273, 41);
             panel3.TabIndex = 1;
             // 
-            // comboBox1
+            // cbFilter
             // 
-            comboBox1.Dock = DockStyle.Fill;
-            comboBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(0, 0);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(273, 39);
-            comboBox1.TabIndex = 0;
+            cbFilter.Dock = DockStyle.Fill;
+            cbFilter.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbFilter.FormattingEnabled = true;
+            cbFilter.Location = new Point(0, 0);
+            cbFilter.Name = "cbFilter";
+            cbFilter.Size = new Size(273, 39);
+            cbFilter.TabIndex = 0;
             // 
             // flowInventory
             // 
@@ -182,9 +182,9 @@
         private Label label1;
         private TableLayoutPanel tableLayoutPanel2;
         private Panel panel2;
-        private TextBox textBox1;
+        private TextBox txtSearch;
         private Panel panel3;
-        private ComboBox comboBox1;
+        private ComboBox cbFilter;
         private FlowLayoutPanel flowInventory;
     }
 }

@@ -19,12 +19,30 @@ namespace WarehouseManagementSystem.WinForms.Utils
             return $"BA{nextNumber:D4}";
         }
 
-        // Generate Supplier ID: S001, S002, ...
-        public static string GenerateSupplierId(int nextNumber)
+        // Generate Import Order ID
+        // IMP0001, IMP0002, ...
+        public static string GenerateImportId(
+            int nextNumber)
         {
-            return $"SP{nextNumber:D4}";
+            return $"IMP{nextNumber:D4}";
         }
 
+        // Generate Export Order ID
+        // EXP0001, EXP0002, ...
+        public static string GenerateExportId(
+            int nextNumber)
+        {
+            return $"EXP{nextNumber:D4}";
+        }
+        // Generate Transaction ID
+        // TRN0001, TRN0002, ...
+
+        public static string GenerateTransactionId(
+            int nextNumber)
+        {
+            return
+                $"TRN{nextNumber:D4}";
+        }
         // Get the next number from a list of IDs
         public static int GetNextNumber(List<string> existingIds, string prefix)
         {
@@ -42,5 +60,6 @@ namespace WarehouseManagementSystem.WinForms.Utils
             }
             return maxNumber + 1;
         }
+
     }
 }

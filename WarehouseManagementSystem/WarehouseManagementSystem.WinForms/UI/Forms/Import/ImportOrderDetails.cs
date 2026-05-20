@@ -211,5 +211,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         {
             this.Close();
         }
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

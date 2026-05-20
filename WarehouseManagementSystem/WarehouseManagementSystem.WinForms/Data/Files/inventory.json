@@ -1,38 +1,58 @@
 ﻿[
-    {
-        "ProductId": "PR0001",
-        "ProductName": "Razer Blade 18",
-        "TotalQuantity": 10,
-        "Status": "Available"
-    },
-    {
-        "ProductId": "PR0002",
-        "ProductName": "Razer Blade 16",
-        "TotalQuantity": 8,
-        "Status": "Available"
-    },
-    {
-        "ProductId": "PR0003",
-        "ProductName": "Razer Viper V3 Pro",
-        "TotalQuantity": 20,
-        "Status": "Available"
-    },
-    {
-        "ProductId": "PR0004",
-        "ProductName": "RAZER DEATHADDER V4 PRO",
-        "TotalQuantity": 15,
-        "Status": "Available"
-    },
-    {
-        "ProductId": "PR0005",
-        "ProductName": "IPHONE 17 PRO",
-        "TotalQuantity": 12,
-        "Status": "Available"
-    },
-    {
-        "ProductId": "PR0006",
-        "ProductName": "SAMSUNG Z FLIP7",
-        "TotalQuantity": 5,
-        "Status": "Low Stock"
-    }
+  {
+    "ProductId": "PR0001",
+    "ProductName": "Razer Blade 18",
+    "TotalQuantity": 120,
+    "MinStock": 50,
+    "Status": "Available"
+  },
+  {
+    "ProductId": "PR0002",
+    "ProductName": "Razer Blade 16",
+    "TotalQuantity": 80,
+    "MinStock": 50,
+    "Status": "Available"
+  },
+  {
+    "ProductId": "PR0003",
+    "ProductName": "Razer Viper V3 Pro",
+    "TotalQuantity": 350,
+    "MinStock": 120,
+    "Status": "Available"
+  },
+  {
+    "ProductId": "PR0004",
+    "ProductName": "RAZER DEATHADDER V4 PRO",
+    "TotalQuantity": 200,
+    "MinStock": 120,
+    "Status": "Available"
+  },
+  {
+    "ProductId": "PR0005",
+    "ProductName": "IPHONE 17 PRO",
+    "TotalQuantity": 150,
+    "MinStock": 80,
+    "Status": "Available"
+  },
+  {
+    "ProductId": "PR0006",
+    "ProductName": "SAMSUNG Z FLIP7",
+    "TotalQuantity": 75,
+    "MinStock": 80,
+    "Status": "Low Stock"
+  },
+  {
+    "ProductId": "PR0007",
+    "ProductName": "iPad Pro M5",
+    "TotalQuantity": 90,
+    "MinStock": 60,
+    "Status": "Available"
+  },
+  {
+    "ProductId": "PR0008",
+    "ProductName": "Samsung Galaxy Tab S11",
+    "TotalQuantity": 100,
+    "MinStock": 60,
+    "Status": "Available"
+  }
 ]

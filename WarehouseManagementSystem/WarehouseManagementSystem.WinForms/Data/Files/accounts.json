@@ -32,15 +32,15 @@
         "SecurityQuestion": "Môn học yêu thích?",
         "SecurityAnswerHash": "4f1f0b58ff2e9c3f7408e253653d214df2e7993b436ab334c8dea171f8c47cb7"
     },
-    {
-        "AccountId": "ACC004",
-        "Username": "ThaoNhi",
-        "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
-        "Role": "Staff",
-        "IsActive": true,
-        "FailedLoginAttempts": 0,
-        "IsLocked": false,
-        "SecurityQuestion": "Tên trường cấp 3?",
-        "SecurityAnswerHash": "1ecc5d05708a46525683eafb5b1c01b760c096530b6b7fa628bb496da531ff72"
-    }
+  {
+    "AccountId": "ACC004",
+    "Username": "ThaoNhi",
+    "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+    "Role": "Staff",
+    "IsActive": true,
+    "FailedLoginAttempts": 0,
+    "IsLocked": false,
+    "SecurityQuestion": "Tên trường cấp 3?",
+    "SecurityAnswerHash": "1ecc5d05708a46525683eafb5b1c01b760c096530b6b7fa628bb496da531ff72"
+  }
 ]

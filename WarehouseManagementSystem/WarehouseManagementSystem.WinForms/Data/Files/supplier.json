@@ -1,66 +1,122 @@
 ﻿[
-  {
-    "SupplierId": "SP0001",
-    "SupplierName": "Razer Vietnam Distribution",
-    "PhoneNumber": "0909123456",
-    "Address": "285 Cách Mạng Tháng 8, Phường 12, Quận 10, TP. Hồ Chí Minh",
-    "Email": "contact@razervn.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0002",
-    "SupplierName": "Apple Authorized Distributor HCM",
-    "PhoneNumber": "0909888777",
-    "Address": "92 Nguyễn Hữu Cảnh, Phường 22, Quận Bình Thạnh, TP. Hồ Chí Minh",
-    "Email": "appledist.hcm@gmail.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0003",
-    "SupplierName": "Samsung Electronics Đồng Nai",
-    "PhoneNumber": "0933444555",
-    "Address": "KCN Amata, Phường Long Bình, TP. Biên Hòa, Đồng Nai",
-    "Email": "samsung.dn@supplier.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0004",
-    "SupplierName": "TechVision Electronics",
-    "PhoneNumber": "0901000001",
-    "Address": "125 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
-    "Email": "contact@techvision.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0005",
-    "SupplierName": "NextGen Components",
-    "PhoneNumber": "0901000002",
-    "Address": "22 Võ Văn Ngân, Phường Linh Chiểu, TP. Thủ Đức, TP. Hồ Chí Minh",
-    "Email": "sales@nextgen.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0006",
-    "SupplierName": "SmartWare Solutions",
-    "PhoneNumber": "0901000003",
-    "Address": "88 Bạch Đằng, Phường Hải Châu 1, Quận Hải Châu, Đà Nẵng",
-    "Email": "support@smartware.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0007",
-    "SupplierName": "FutureTech Vietnam",
-    "PhoneNumber": "0901000004",
-    "Address": "56 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội",
-    "Email": "futuretech@gmail.com",
-    "IsActive": true
-  },
-  {
-    "SupplierId": "SP0008",
-    "SupplierName": "Digital World Supply",
-    "PhoneNumber": "0901000005",
-    "Address": "14 Đại lộ Hòa Bình, Phường Tân An, Quận Ninh Kiều, Cần Thơ",
-    "Email": "info@digitalworld.com",
-    "IsActive": true
-  }
+    {
+        "SupplierId": "SP0001",
+        "SupplierName": "Razer Vietnam Distribution",
+        "PhoneNumber": "0909123456",
+        "Address": "285 Cách Mạng Tháng 8, Quận 10, TP. Hồ Chí Minh",
+        "Email": "contact@razervn.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0002",
+        "SupplierName": "Apple Authorized Distributor HCM",
+        "PhoneNumber": "0909888777",
+        "Address": "92 Nguyễn Hữu Cảnh, Bình Thạnh, TP. Hồ Chí Minh",
+        "Email": "appledist.hcm@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0003",
+        "SupplierName": "Samsung Electronics Đồng Nai",
+        "PhoneNumber": "0933444555",
+        "Address": "KCN Amata, Biên Hòa, Đồng Nai",
+        "Email": "samsung.dn@supplier.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0004",
+        "SupplierName": "Logitech Vietnam Supplier",
+        "PhoneNumber": "0911222333",
+        "Address": "45 Điện Biên Phủ, Bình Thạnh, TP. Hồ Chí Minh",
+        "Email": "logitech.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0005",
+        "SupplierName": "Dell Technologies Vietnam",
+        "PhoneNumber": "0977888999",
+        "Address": "12 Tôn Đức Thắng, Quận 1, TP. Hồ Chí Minh",
+        "Email": "dellvn@supplier.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0006",
+        "SupplierName": "Asus Distribution Center",
+        "PhoneNumber": "0966555444",
+        "Address": "88 Võ Văn Tần, Quận 3, TP. Hồ Chí Minh",
+        "Email": "asus.center@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0007",
+        "SupplierName": "MSI Gaming Supplier",
+        "PhoneNumber": "0944333222",
+        "Address": "21 Lê Lai, Quận 1, TP. Hồ Chí Minh",
+        "Email": "msi.vn@supplier.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0008",
+        "SupplierName": "HP Enterprise Vietnam",
+        "PhoneNumber": "0988111222",
+        "Address": "66 Phạm Văn Đồng, TP. Thủ Đức, TP. Hồ Chí Minh",
+        "Email": "hpvn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0009",
+        "SupplierName": "Lenovo Vietnam Wholesale",
+        "PhoneNumber": "0903456789",
+        "Address": "Nguyễn Văn Trỗi, Phú Nhuận, TP. Hồ Chí Minh",
+        "Email": "lenovo.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0010",
+        "SupplierName": "Acer Distribution Vietnam",
+        "PhoneNumber": "0915678123",
+        "Address": "Xa Lộ Hà Nội, TP. Thủ Đức, TP. Hồ Chí Minh",
+        "Email": "acer.dist@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0011",
+        "SupplierName": "Gigabyte Gaming Vietnam",
+        "PhoneNumber": "0932123456",
+        "Address": "Lý Thường Kiệt, Quận 10, TP. Hồ Chí Minh",
+        "Email": "gigabyte.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0012",
+        "SupplierName": "Huawei Device Supplier",
+        "PhoneNumber": "0945566778",
+        "Address": "Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
+        "Email": "huawei.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0013",
+        "SupplierName": "Xiaomi Official Distribution",
+        "PhoneNumber": "0971234567",
+        "Address": "Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh",
+        "Email": "xiaomi.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0014",
+        "SupplierName": "Corsair Vietnam Supplier",
+        "PhoneNumber": "0983344556",
+        "Address": "Cộng Hòa, Tân Bình, TP. Hồ Chí Minh",
+        "Email": "corsair.vn@gmail.com",
+        "IsActive": true
+    },
+    {
+        "SupplierId": "SP0015",
+        "SupplierName": "SteelSeries Vietnam",
+        "PhoneNumber": "0922113344",
+        "Address": "Pasteur, Quận 3, TP. Hồ Chí Minh",
+        "Email": "steelseries.vn@gmail.com",
+        "IsActive": true
+    }
 ]

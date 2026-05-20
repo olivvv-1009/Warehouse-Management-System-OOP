@@ -7,15 +7,7 @@ namespace WarehouseManagementSystem.WinForms.Models
     {
         public string ImportId { get; set; }
 
-        public string ProductId { get; set; }
-
-        public string BatchId { get; set; }
-
-        public string LocationCode { get; set; }
-
         public string SupplierId { get; set; }
-
-        public int Quantity { get; set; }
 
         public decimal TotalAmount { get; set; }
 
@@ -29,15 +21,7 @@ namespace WarehouseManagementSystem.WinForms.Models
         {
             ImportId = string.Empty;
 
-            ProductId = string.Empty;
-
-            BatchId = string.Empty;
-
-            LocationCode = string.Empty;
-
             SupplierId = string.Empty;
-
-            Quantity = 0;
 
             TotalAmount = 0;
 
