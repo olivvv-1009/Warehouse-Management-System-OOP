@@ -19,6 +19,12 @@ namespace WarehouseManagementSystem.WinForms.Utils
             return $"BA{nextNumber:D4}";
         }
 
+        // Generate Supplier ID: S001, S002, ...
+        public static string GenerateSupplierId(int nextNumber)
+        {
+            return $"SP{nextNumber:D4}";
+        }
+
         // Generate Import Order ID
         // IMP0001, IMP0002, ...
         public static string GenerateImportId(
@@ -43,6 +49,7 @@ namespace WarehouseManagementSystem.WinForms.Utils
             return
                 $"TRN{nextNumber:D4}";
         }
+
         // Get the next number from a list of IDs
         public static int GetNextNumber(List<string> existingIds, string prefix)
         {
@@ -63,3 +70,5 @@ namespace WarehouseManagementSystem.WinForms.Utils
 
     }
 }
+
+
