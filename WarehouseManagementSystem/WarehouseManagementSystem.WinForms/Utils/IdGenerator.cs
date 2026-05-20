@@ -34,8 +34,15 @@ namespace WarehouseManagementSystem.WinForms.Utils
         {
             return $"EXP{nextNumber:D4}";
         }
+        // Generate Transaction ID
+        // TRN0001, TRN0002, ...
 
-
+        public static string GenerateTransactionId(
+            int nextNumber)
+        {
+            return
+                $"TRN{nextNumber:D4}";
+        }
         // Get the next number from a list of IDs
         public static int GetNextNumber(List<string> existingIds, string prefix)
         {
@@ -53,5 +60,6 @@ namespace WarehouseManagementSystem.WinForms.Utils
             }
             return maxNumber + 1;
         }
+
     }
 }
