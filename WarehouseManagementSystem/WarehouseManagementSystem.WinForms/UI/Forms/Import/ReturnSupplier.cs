@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Controllers;
 using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.Repositories;
+using WarehouseManagementSystem.WinForms.Services;
 using WarehouseManagementSystem.WinForms.UI.ConsoleUI;
 using WarehouseManagementSystem.WinForms.UI.Controllers;
 using WarehouseManagementSystem.WinForms.Utils;
@@ -18,12 +20,30 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         private ImportController
             _importController;
 
-        private ProductController
-            _productController;
+        private LookupService
+            _lookupService;
+
+        private BatchRepository
+            _batchRepository;
+        private bool
+    _isViewMode;
+
+        private ReturnOrder
+            _returnOrder;
 
         public ReturnSupplier()
         {
             InitializeComponent();
+
+            _isViewMode =
+                false;
+
+            // ===== EVENT =====
+
+            dgvProducts.CellEndEdit +=
+                dgvProducts_CellEndEdit;
+
+            // ===== CONTROLLER =====
 
             _returnController =
                 new ReturnController();
@@ -31,8 +51,35 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             _importController =
                 new ImportController();
 
-            _productController =
-                new ProductController();
+            _batchRepository =
+                new BatchRepository();
+
+            // ===== LOOKUP =====
+
+            ProductController
+                productController =
+                    new ProductController();
+
+            SupplierController
+                supplierController =
+                    new SupplierController();
+
+            _lookupService =
+                new LookupService(
+                    productController
+                        .GetAllProducts(),
+
+                    supplierController
+                        .GetAll(),
+
+                    new List<Batch>(),
+
+                    new List<InventoryItem>(),
+
+                    new List<Account>(),
+
+                    new List<Profile>()
+                );
 
             LoadImportInvoices();
 
@@ -40,13 +87,73 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 DateTime.Now;
         }
 
+        public ReturnSupplier(
+    ReturnOrder returnOrder)
+        {
+            InitializeComponent();
+
+            _isViewMode =
+                true;
+
+            _returnOrder =
+                returnOrder;
+
+            dgvProducts.CellEndEdit +=
+                dgvProducts_CellEndEdit;
+
+            _returnController =
+                new ReturnController();
+
+            _importController =
+                new ImportController();
+
+            _batchRepository =
+                new BatchRepository();
+
+            ProductController
+                productController =
+                    new ProductController();
+
+            SupplierController
+                supplierController =
+                    new SupplierController();
+
+            _lookupService =
+                new LookupService(
+                    productController
+                        .GetAllProducts(),
+
+                    supplierController
+                        .GetAll(),
+
+                    new List<Batch>(),
+
+                    new List<InventoryItem>(),
+
+                    new List<Account>(),
+
+                    new List<Profile>()
+                );
+
+            SetupDataGridView();
+
+            LoadReturnOrderData();
+        }
+
         private void ReturnSupplier_Load(
             object sender,
             EventArgs e)
         {
+            dtpReturnDate.Format =
+                DateTimePickerFormat
+                    .Custom;
+
+            dtpReturnDate.CustomFormat =
+                "dd/MM/yyyy";
+
             if (
-                Session.CurrentProfile !=
-                null
+                Session.CurrentProfile
+                != null
             )
             {
                 lbCreatedby.Text =
@@ -55,7 +162,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                         .FullName;
             }
 
-            SetupDataGridView();
+            if (!_isViewMode)
+            {
+                SetupDataGridView();
+            }
         }
 
         private void SetupDataGridView()
@@ -82,17 +192,16 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 "Quantity To Return"
             );
 
+            dgvProducts.Columns.Add(
+                "TotalValue",
+                "Total Value"
+            );
+
             dgvProducts.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode
                     .Fill;
 
-            dgvProducts.RowTemplate.Height =
-                35;
-
             dgvProducts.AllowUserToAddRows =
-                false;
-
-            dgvProducts.MultiSelect =
                 false;
 
             dgvProducts.SelectionMode =
@@ -108,23 +217,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             dgvProducts.Columns[2]
                 .ReadOnly = true;
 
-            dgvProducts.Columns[0]
-                .FillWeight = 20;
-
-            dgvProducts.Columns[1]
-                .FillWeight = 40;
-
-            dgvProducts.Columns[2]
-                .FillWeight = 20;
-
-            dgvProducts.Columns[3]
-                .FillWeight = 20;
-
-            dgvProducts.ColumnHeadersHeight =
-                40;
-
-            dgvProducts.EnableHeadersVisualStyles =
-                false;
+            dgvProducts.Columns[4]
+                .ReadOnly = true;
 
             dgvProducts.ColumnHeadersDefaultCellStyle
                 .Font =
@@ -171,13 +265,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             object sender,
             EventArgs e)
         {
-            string importInvoiceId =
-                cboImportInvoice.Text;
-
             ImportInvoice invoice =
                 _importController
                     .FindById(
-                        importInvoiceId
+                        cboImportInvoice.Text
                     );
 
             if (invoice == null)
@@ -186,7 +277,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             }
 
             txtSupplier.Text =
-                invoice.SupplierId;
+                _lookupService
+                    .GetSupplierName(
+                        invoice.SupplierId
+                    );
 
             dgvProducts.Rows.Clear();
 
@@ -203,30 +297,95 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     invoice
                         .OrderDetails[i];
 
-                ProductDisplayModel
-                    product =
-                        _productController
-                            .GetProduct(
-                                detail
-                                    .ProductId
-                            );
-
                 string productName =
-                    "";
-
-                if (product != null)
-                {
-                    productName =
-                        product.Name;
-                }
+                    _lookupService
+                        .GetProductName(
+                            detail.ProductId
+                        );
 
                 dgvProducts.Rows.Add(
                     detail.ProductId,
                     productName,
                     detail.Quantity,
+                    0,
                     0
                 );
             }
+        }
+
+        // ===== AUTO UPDATE TOTAL VALUE =====
+
+        private void dgvProducts_CellEndEdit(
+    object sender,
+    DataGridViewCellEventArgs e)
+        {
+            // ===== QUANTITY COLUMN =====
+
+            if (e.ColumnIndex != 3)
+            {
+                return;
+            }
+
+            DataGridViewRow row =
+                dgvProducts.Rows[e.RowIndex];
+
+            if (
+                row.Cells[3].Value
+                == null
+            )
+            {
+                return;
+            }
+
+            int quantity = 0;
+
+            bool isNumber =
+                int.TryParse(
+                    row.Cells[3]
+                        .Value
+                        .ToString(),
+                    out quantity
+                );
+
+            if (!isNumber)
+            {
+                row.Cells[4].Value =
+                    0;
+
+                return;
+            }
+
+            string productId =
+                row.Cells[0]
+                    .Value
+                    .ToString();
+
+            decimal importPrice =
+                0;
+
+            List<Batch> batches =
+                _batchRepository
+                    .GetByProductId(
+                        productId
+                    );
+
+            if (
+                batches.Count > 0
+            )
+            {
+                importPrice =
+                    batches[0]
+                        .ImportPrice;
+            }
+
+            decimal totalValue =
+                quantity
+                * importPrice;
+
+            // ===== KHÔNG FORMAT STRING =====
+
+            row.Cells[4].Value =
+                totalValue;
         }
 
         private void btnSubmit_Click(
@@ -254,31 +413,68 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     "Reason is required."
                 );
 
-                txtReason.Focus();
-
                 return;
             }
+
+            ImportInvoice invoice =
+                _importController
+                    .FindById(
+                        cboImportInvoice.Text
+                    );
+
+            if (invoice == null)
+            {
+                return;
+            }
+
+            List<ReturnOrder> orders =
+                _returnController
+                    .GetAll();
+
+            List<string> ids =
+                new List<string>();
+
+            int i;
+
+            for (
+                i = 0;
+                i < orders.Count;
+                i++
+            )
+            {
+                ids.Add(
+                    orders[i]
+                        .ReturnOrderId
+                );
+            }
+
+            int nextNumber =
+                IdGenerator
+                    .GetNextNumber(
+                        ids,
+                        "RT"
+                    );
 
             ReturnOrder returnOrder =
                 new ReturnOrder();
 
             returnOrder.ReturnOrderId =
-                Guid.NewGuid()
-                    .ToString();
+                IdGenerator
+                    .GenerateReturnId(
+                        nextNumber
+                    );
 
             returnOrder.ImportInvoiceId =
-                cboImportInvoice.Text;
+                invoice.ImportId;
 
             returnOrder.SupplierId =
-                txtSupplier.Text;
+                invoice.SupplierId;
 
             returnOrder.ReturnDate =
                 dtpReturnDate.Value;
 
             returnOrder.Status =
                 "Pending";
-
-            int i;
 
             for (
                 i = 0;
@@ -297,13 +493,26 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     continue;
                 }
 
-                int quantityToReturn =
-                    Convert.ToInt32(
+                int quantityToReturn = 0;
+
+                bool isValid =
+                    int.TryParse(
                         dgvProducts
                             .Rows[i]
                             .Cells[3]
                             .Value
+                            .ToString(),
+                        out quantityToReturn
                     );
+
+                if (!isValid)
+                {
+                    MessageBox.Show(
+                        "Invalid quantity."
+                    );
+
+                    return;
+                }
 
                 if (
                     quantityToReturn <= 0
@@ -332,19 +541,43 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     return;
                 }
 
-                ReturnOrderDetail
-                    detail =
-                        new ReturnOrderDetail();
-
-                detail.ProductId =
+                string productId =
                     dgvProducts
                         .Rows[i]
                         .Cells[0]
                         .Value
                         .ToString();
 
+                decimal importPrice =
+                    0;
+
+                List<Batch> batches =
+                    _batchRepository
+                        .GetByProductId(
+                            productId
+                        );
+
+                if (
+                    batches.Count > 0
+                )
+                {
+                    importPrice =
+                        batches[0]
+                            .ImportPrice;
+                }
+
+                ReturnOrderDetail
+                    detail =
+                        new ReturnOrderDetail();
+
+                detail.ProductId =
+                    productId;
+
                 detail.Quantity =
                     quantityToReturn;
+
+                detail.UnitPrice =
+                    importPrice;
 
                 detail.ReturnReason =
                     txtReason.Text;
@@ -393,6 +626,98 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             EventArgs e)
         {
             this.Close();
+        }
+
+        private void LoadReturnOrderData()
+        {
+            cboImportInvoice.Text =
+                _returnOrder
+                    .ImportInvoiceId;
+
+            txtSupplier.Text =
+                _lookupService
+                    .GetSupplierName(
+                        _returnOrder
+                            .SupplierId
+                    );
+
+            dtpReturnDate.Value =
+                _returnOrder
+                    .ReturnDate;
+
+            txtReason.Text =
+                "";
+
+            dgvProducts.Rows.Clear();
+
+            int i;
+
+            for (
+                i = 0;
+                i <
+                _returnOrder
+                    .Details.Count;
+                i++
+            )
+            {
+                WarehouseManagementSystem
+                    .WinForms
+                    .Models
+                    .ReturnOrderDetail detail =
+                        _returnOrder
+                            .Details[i];
+
+                string productName =
+                    _lookupService
+                        .GetProductName(
+                            detail
+                                .ProductId
+                        );
+
+                dgvProducts.Rows.Add(
+                    detail.ProductId,
+                    productName,
+                    detail.Quantity,
+                    detail.Quantity,
+                    detail.TotalPrice
+                );
+
+                if (
+                    txtReason.Text
+                    == ""
+                )
+                {
+                    txtReason.Text =
+                        detail
+                            .ReturnReason;
+                }
+            }
+
+            // ===== VIEW ONLY =====
+
+            cboImportInvoice.Enabled =
+                false;
+
+            txtReason.ReadOnly =
+                true;
+
+            dgvProducts.ReadOnly =
+                true;
+
+            dtpReturnDate.Enabled =
+                false;
+
+            btnSubmit.Visible =
+                false;
+
+            btnCancel.Text =
+                "Close";
+
+            // ===== CREATED BY =====
+
+            lbCreatedby.Text =
+                _returnOrder
+                    .EmployeeId;
         }
     }
 }

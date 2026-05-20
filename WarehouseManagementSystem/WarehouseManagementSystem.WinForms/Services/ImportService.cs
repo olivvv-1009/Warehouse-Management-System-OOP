@@ -82,7 +82,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             GetAllSuppliers()
         {
             return _supplierService
-                .GetAllSuppliers();
+                .GetAll();
         }
 
         public bool ImportProduct(
