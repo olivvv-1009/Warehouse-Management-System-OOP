@@ -1,4 +1,6 @@
-﻿namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
+﻿using System.Windows.Forms;
+
+namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 {
     partial class ReturnSupplier
     {
@@ -35,24 +37,24 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            lbSupplier = new Label();
-            Date = new DateTimePicker();
+            dtpReturnDate = new DateTimePicker();
             cboImportInvoice = new ComboBox();
+            txtSupplier = new TextBox();
             tableLayoutPanel3 = new TableLayoutPanel();
             label5 = new Label();
             label6 = new Label();
             lbCreatedby = new Label();
-            textBox1 = new TextBox();
+            txtReason = new TextBox();
             tableLayoutPanel4 = new TableLayoutPanel();
             btnCancel = new Button();
             btnSubmit = new Button();
-            dataGridView1 = new DataGridView();
+            dgvProducts = new DataGridView();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -74,7 +76,7 @@
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 0, 2);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel4, 0, 4);
-            tableLayoutPanel1.Controls.Add(dataGridView1, 0, 3);
+            tableLayoutPanel1.Controls.Add(dgvProducts, 0, 3);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -108,9 +110,9 @@
             tableLayoutPanel2.Controls.Add(label2, 0, 0);
             tableLayoutPanel2.Controls.Add(label3, 1, 0);
             tableLayoutPanel2.Controls.Add(label4, 2, 0);
-            tableLayoutPanel2.Controls.Add(lbSupplier, 1, 1);
-            tableLayoutPanel2.Controls.Add(Date, 2, 1);
+            tableLayoutPanel2.Controls.Add(dtpReturnDate, 2, 1);
             tableLayoutPanel2.Controls.Add(cboImportInvoice, 0, 1);
+            tableLayoutPanel2.Controls.Add(txtSupplier, 1, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 53);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -153,25 +155,14 @@
             label4.Text = "Date";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // lbSupplier
+            // dtpReturnDate
             // 
-            lbSupplier.AutoSize = true;
-            lbSupplier.Dock = DockStyle.Fill;
-            lbSupplier.Location = new Point(207, 37);
-            lbSupplier.Name = "lbSupplier";
-            lbSupplier.Size = new Size(198, 37);
-            lbSupplier.TabIndex = 3;
-            lbSupplier.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // Date
-            // 
-            Date.Dock = DockStyle.Fill;
-            Date.Location = new Point(411, 40);
-            Date.MaxDate = new DateTime(2026, 5, 11, 0, 0, 0, 0);
-            Date.Name = "Date";
-            Date.Size = new Size(260, 30);
-            Date.TabIndex = 4;
-            Date.Value = new DateTime(2026, 5, 11, 0, 0, 0, 0);
+            dtpReturnDate.Dock = DockStyle.Fill;
+            dtpReturnDate.Location = new Point(411, 40);
+            dtpReturnDate.Name = "dtpReturnDate";
+            dtpReturnDate.Size = new Size(260, 30);
+            dtpReturnDate.TabIndex = 4;
+            dtpReturnDate.Value = new DateTime(2026, 5, 20, 22, 16, 59, 827);
             // 
             // cboImportInvoice
             // 
@@ -181,6 +172,15 @@
             cboImportInvoice.Name = "cboImportInvoice";
             cboImportInvoice.Size = new Size(198, 30);
             cboImportInvoice.TabIndex = 5;
+            cboImportInvoice.SelectedIndexChanged += cboImportInvoice_SelectedIndexChanged;
+            // 
+            // txtSupplier
+            // 
+            txtSupplier.Dock = DockStyle.Fill;
+            txtSupplier.Location = new Point(207, 40);
+            txtSupplier.Name = "txtSupplier";
+            txtSupplier.Size = new Size(198, 30);
+            txtSupplier.TabIndex = 6;
             // 
             // tableLayoutPanel3
             // 
@@ -190,7 +190,7 @@
             tableLayoutPanel3.Controls.Add(label5, 0, 0);
             tableLayoutPanel3.Controls.Add(label6, 1, 0);
             tableLayoutPanel3.Controls.Add(lbCreatedby, 0, 1);
-            tableLayoutPanel3.Controls.Add(textBox1, 1, 1);
+            tableLayoutPanel3.Controls.Add(txtReason, 1, 1);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(3, 133);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -232,14 +232,14 @@
             lbCreatedby.TabIndex = 2;
             lbCreatedby.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // textBox1
+            // txtReason
             // 
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(340, 35);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Enter the reason returning to supplier";
-            textBox1.Size = new Size(331, 30);
-            textBox1.TabIndex = 3;
+            txtReason.Dock = DockStyle.Fill;
+            txtReason.Location = new Point(340, 35);
+            txtReason.Name = "txtReason";
+            txtReason.PlaceholderText = "Enter the reason returning to supplier";
+            txtReason.Size = new Size(331, 30);
+            txtReason.TabIndex = 3;
             // 
             // tableLayoutPanel4
             // 
@@ -283,16 +283,16 @@
             btnSubmit.UseVisualStyleBackColor = false;
             btnSubmit.Click += btnSubmit_Click;
             // 
-            // dataGridView1
+            // dgvProducts
             // 
-            dataGridView1.BackgroundColor = SystemColors.Control;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 204);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(674, 247);
-            dataGridView1.TabIndex = 4;
+            dgvProducts.BackgroundColor = SystemColors.Control;
+            dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProducts.Dock = DockStyle.Fill;
+            dgvProducts.Location = new Point(3, 204);
+            dgvProducts.Name = "dgvProducts";
+            dgvProducts.RowHeadersWidth = 51;
+            dgvProducts.Size = new Size(674, 247);
+            dgvProducts.TabIndex = 4;
             // 
             // ReturnSupplier
             // 
@@ -311,7 +311,7 @@
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             tableLayoutPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
             ResumeLayout(false);
         }
 
@@ -326,15 +326,15 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private Label lbSupplier;
-        private DateTimePicker Date;
+        private DateTimePicker dtpReturnDate;
         private ComboBox cboImportInvoice;
         private Label label5;
         private Label label6;
         private Label lbCreatedby;
-        private TextBox textBox1;
+        private TextBox txtReason;
         private Button btnCancel;
         private Button btnSubmit;
-        private DataGridView dataGridView1;
+        private DataGridView dgvProducts;
+        private TextBox txtSupplier;
     }
 }
