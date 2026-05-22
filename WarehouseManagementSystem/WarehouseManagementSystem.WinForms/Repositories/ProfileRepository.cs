@@ -43,5 +43,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             FileHelper.WriteJsonList(fileName, list);
         }
+
+        public void Add(Profile profile)
+        {
+            List<Profile> list = GetAll();
+            list.Add(profile);
+            FileHelper.WriteJsonList(fileName, list);
+        }
     }
 }

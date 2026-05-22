@@ -31,10 +31,16 @@ namespace WarehouseManagementSystem.WinForms.Services
             {
                 user.FailedLoginAttempts = 0;
                 user.IsLocked = false;
-
                 repo.Update(user);
 
-                remaining = MAX_FAILED;
+                // ===== SESSION USER =====
+                Session.CurrentUser = user;
+
+                // ===== AUTO LOAD PROFILE =====
+                var profileRepo = new ProfileRepository();
+                Session.CurrentProfile =
+                    profileRepo.GetByAccountId(user.AccountId);
+
                 return user;
             }
 
