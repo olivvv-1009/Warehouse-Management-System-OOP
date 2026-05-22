@@ -58,5 +58,27 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
         {
             LoadView(new SupplierForm());
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+             "Do you want to logout?",
+             "Confirm Logout",
+              MessageBoxButtons.YesNo,
+              MessageBoxIcon.Question
+              );
+
+            if (result == DialogResult.Yes)
+            {
+                Session.CurrentUser = null;
+                Session.CurrentProfile = null;
+
+                LoginForm login = new LoginForm();
+
+                login.Show();
+
+                this.Hide();
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             if (!rule.IsValidName(profile.FullName))
                 return false;
 
-            if (!rule.IsValidPhone(profile.Phone))
+            if (!rule.IsValidPhone(profile.PhoneNumber))
                 return false;
 
             if (!rule.IsValidEmail(profile.Email))

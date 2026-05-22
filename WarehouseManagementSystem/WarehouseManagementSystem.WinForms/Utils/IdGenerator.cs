@@ -50,6 +50,11 @@ namespace WarehouseManagementSystem.WinForms.Utils
                 $"TRN{nextNumber:D4}";
         }
 
+        public static string GenerateEmployeeId(int nextNumber)
+        {
+            return $"EMP{nextNumber:D4}";
+        }
+
         // Get the next number from a list of IDs
         public static int GetNextNumber(List<string> existingIds, string prefix)
         {

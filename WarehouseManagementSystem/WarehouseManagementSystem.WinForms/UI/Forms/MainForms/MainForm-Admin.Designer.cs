@@ -239,6 +239,7 @@
             btnEmployee.TabIndex = 6;
             btnEmployee.Text = "Employees";
             btnEmployee.UseVisualStyleBackColor = false;
+            btnEmployee.Click += btnEmployee_Click;
             // 
             // btnTransactions
             // 
@@ -404,6 +405,7 @@
             btnOut.TabIndex = 0;
             btnOut.Text = "Out";
             btnOut.UseVisualStyleBackColor = true;
+            btnOut.Click += btnOut_Click;
             // 
             // tableLayoutPanel7
             // 

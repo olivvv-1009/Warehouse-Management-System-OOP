@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WarehouseManagementSystem.WinForms.Models;
+﻿using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.Repositories;
 using WarehouseManagementSystem.WinForms.Services;
 using WarehouseManagementSystem.WinForms.UI.Controllers;
 using WarehouseManagementSystem.WinForms.Utils;
@@ -26,45 +18,88 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.SettingsForms
         }
         private void Settings_Load(object sender, EventArgs e)
         {
-            Profile p = Session.CurrentProfile;
+            cboGender.Items.Clear();
+            cboGender.Items.Add("Male");
+            cboGender.Items.Add("Female");
 
-            if (p == null)
-            {
-                MessageBox.Show("Profile not found!");
-                return;
-            }
+            cboRole.Items.Clear();
+            cboRole.Items.Add("Admin");
+            cboRole.Items.Add("Staff");
 
-            txtFullName.Text = p.FullName;
-            txtPhone.Text = p.Phone;
-            txtEmail.Text = p.Email;
-            txtAddress.Text = p.Address;
-            txtPosition.Text = p.Position;
-
-            dtBirth.Text = p.DateOfBirth;
-
+            cbQuestion.Items.Clear();
             cbQuestion.Items.Add("Tên thú cưng?");
             cbQuestion.Items.Add("Màu yêu thích?");
             cbQuestion.Items.Add("Tên trường cấp 3?");
             cbQuestion.Items.Add("Món ăn yêu thích?");
-
             cbQuestion.SelectedIndex = 0;
+
+            if (Session.CurrentUser == null)
+            {
+                MessageBox.Show("User not logged in");
+                return;
+            }
+
+            Profile p = new ProfileService()
+                .GetByAccountId(Session.CurrentUser.AccountId);
+
+            if (p == null)
+            {
+                MessageBox.Show("Profile not found");
+                return;
+            }
+
+            Session.CurrentProfile = p;
+
+            // ===== TEXT =====
+            txtFullName.Text = p.FullName;
+            txtPhone.Text = p.PhoneNumber;
+            txtEmail.Text = p.Email;
+            txtAddress.Text = p.Address;
+
+            // ===== DATE FIX =====
+            if (DateTime.TryParse(p.DateOfBirth, out DateTime dob))
+                dtBirth.Value = dob;
+
+            // ===== COMBO FIX =====
+            cboGender.SelectedItem = p.Gender;
+            cboRole.SelectedItem = p.Role;
         }
 
         private void btnSaveProfile_Click(object sender, EventArgs e)
         {
             Profile p = Session.CurrentProfile;
 
-            p.FullName = txtFullName.Text;
-            p.Phone = txtPhone.Text;
-            p.Email = txtEmail.Text;
-            p.Address = txtAddress.Text;
-            p.Position = txtPosition.Text;
-            p.DateOfBirth = dtBirth.Text;
+            p.FullName = txtFullName.Text.Trim();
+            p.PhoneNumber = txtPhone.Text.Trim();
+            p.Email = txtEmail.Text.Trim();
+            p.Address = txtAddress.Text.Trim();
+
+            // FIX FORMAT
+            p.DateOfBirth = dtBirth.Value.ToString("yyyy-MM-dd");
 
             bool ok = profileService.UpdateProfile(p);
 
             if (ok)
             {
+                // ================= SYNC EMPLOYEE =================
+
+                EmployeeRepository employeeRepo =
+                    new EmployeeRepository();
+
+                Employee emp =
+                    employeeRepo.GetById(p.EmployeeId);
+
+                if (emp != null)
+                {
+                    emp.FullName = p.FullName;
+                    emp.PhoneNumber = p.PhoneNumber;
+                    emp.Email = p.Email;
+                    emp.Address = p.Address;
+                    emp.DateOfBirth = p.DateOfBirth;
+
+                    employeeRepo.Update(emp);
+                }
+
                 MessageBox.Show("Update successful!");
             }
             else
