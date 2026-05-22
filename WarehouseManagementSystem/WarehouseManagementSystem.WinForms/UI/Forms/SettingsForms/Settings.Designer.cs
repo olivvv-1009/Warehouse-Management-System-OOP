@@ -38,6 +38,7 @@
             btnSaveSecurity = new Button();
             panel1 = new Panel();
             dtBirth = new DateTimePicker();
+            txtPosition = new TextBox();
             txtFullName = new TextBox();
             label7 = new Label();
             label4 = new Label();
@@ -60,9 +61,6 @@
             label10 = new Label();
             label11 = new Label();
             label8 = new Label();
-            label15 = new Label();
-            cboGender = new ComboBox();
-            cboRole = new ComboBox();
             tableLayoutPanel1.SuspendLayout();
             panel4.SuspendLayout();
             panel1.SuspendLayout();
@@ -167,10 +165,8 @@
             // panel1
             // 
             panel1.BackColor = Color.Lavender;
-            panel1.Controls.Add(cboRole);
-            panel1.Controls.Add(cboGender);
-            panel1.Controls.Add(label15);
             panel1.Controls.Add(dtBirth);
+            panel1.Controls.Add(txtPosition);
             panel1.Controls.Add(txtFullName);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label4);
@@ -189,6 +185,14 @@
             dtBirth.Name = "dtBirth";
             dtBirth.Size = new Size(480, 27);
             dtBirth.TabIndex = 9;
+            // 
+            // txtPosition
+            // 
+            txtPosition.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPosition.Location = new Point(172, 194);
+            txtPosition.Name = "txtPosition";
+            txtPosition.Size = new Size(480, 30);
+            txtPosition.TabIndex = 8;
             // 
             // txtFullName
             // 
@@ -212,11 +216,11 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(28, 262);
+            label4.Location = new Point(28, 198);
             label4.Name = "label4";
-            label4.Size = new Size(61, 26);
+            label4.Size = new Size(94, 26);
             label4.TabIndex = 3;
-            label4.Text = "Role:";
+            label4.Text = "Position:";
             // 
             // label2
             // 
@@ -415,34 +419,6 @@
             label8.TabIndex = 10;
             label8.Text = "Change Password";
             // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label15.Location = new Point(28, 198);
-            label15.Name = "label15";
-            label15.Size = new Size(86, 26);
-            label15.TabIndex = 10;
-            label15.Text = "Gender:";
-            // 
-            // cboGender
-            // 
-            cboGender.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cboGender.FormattingEnabled = true;
-            cboGender.Location = new Point(172, 190);
-            cboGender.Name = "cboGender";
-            cboGender.Size = new Size(190, 30);
-            cboGender.TabIndex = 11;
-            // 
-            // cboRole
-            // 
-            cboRole.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cboRole.FormattingEnabled = true;
-            cboRole.Location = new Point(172, 255);
-            cboRole.Name = "cboRole";
-            cboRole.Size = new Size(190, 30);
-            cboRole.TabIndex = 12;
-            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -478,6 +454,7 @@
         private Label label5;
         private Label label3;
         private DateTimePicker dtBirth;
+        private TextBox txtPosition;
         private TextBox txtFullName;
         private TextBox txtAddress;
         private TextBox txtEmail;
@@ -497,9 +474,6 @@
         private TextBox txtOldPassword;
         private ComboBox cbQuestion;
         private TextBox txtAnswer;
-        private ComboBox cboRole;
-        private ComboBox cboGender;
-        private Label label15;
     }
 }
 

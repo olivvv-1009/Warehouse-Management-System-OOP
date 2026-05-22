@@ -40,17 +40,6 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             return null;
         }
-        public void Add(Account acc)
-        {
-            List<Account> list = GetAll();
-
-            list.Add(acc);
-
-            FileHelper.WriteJsonList(
-                fileName,
-                list
-            );
-        }
 
         public void Update(Account acc)
         {
@@ -61,22 +50,6 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                 if (list[i].AccountId == acc.AccountId)
                 {
                     list[i] = acc;
-                    break;
-                }
-            }
-
-            FileHelper.WriteJsonList(fileName, list);
-        }
-
-        public void Delete(string accountId)
-        {
-            List<Account> list = GetAll();
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].AccountId == accountId)
-                {
-                    list.RemoveAt(i);
                     break;
                 }
             }

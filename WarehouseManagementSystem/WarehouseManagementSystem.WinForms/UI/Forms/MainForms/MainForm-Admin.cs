@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Models;
-using WarehouseManagementSystem.WinForms.UI.Forms;
 using WarehouseManagementSystem.WinForms.UI.Forms.Import;
 using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
 using WarehouseManagementSystem.WinForms.UI.Forms.Products;
-using WarehouseManagementSystem.WinForms.UI.Forms.Employees;
 using WarehouseManagementSystem.WinForms.UI.Forms.SettingsForms;
 using WarehouseManagementSystem.WinForms.UI.Suppliers;
 using WarehouseManagementSystem.WinForms.Utils;
@@ -72,33 +70,6 @@ namespace WarehouseManagementSystem.WinForms
         private void btnSupplier_Click(object sender, EventArgs e)
         {
             LoadView(new SupplierForm());
-        }
-
-        private void btnOut_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(
-             "Do you want to logout?",
-             "Confirm Logout",
-              MessageBoxButtons.YesNo,
-              MessageBoxIcon.Question
-              );
-
-            if (result == DialogResult.Yes)
-            {
-                Session.CurrentUser = null;
-                Session.CurrentProfile = null;
-
-                LoginForm login = new LoginForm();
-
-                login.Show();
-
-                this.Hide();
-            }
-        }
-
-        private void btnEmployee_Click(object sender, EventArgs e)
-        {
-            LoadView(new EmployeeForm());
         }
     }
 }
