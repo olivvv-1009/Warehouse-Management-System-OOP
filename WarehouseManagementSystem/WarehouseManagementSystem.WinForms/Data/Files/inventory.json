@@ -2,57 +2,81 @@
   {
     "ProductId": "PR0001",
     "ProductName": "Razer Blade 18",
-    "TotalQuantity": 120,
+    "BatchId": "BAT0001",
+    "LocationCode": "A-R01-S01",
+    "Quantity": 120,
     "MinStock": 50,
-    "Status": "Available"
+    "ImportDate": "2026-05-10T08:30:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0002",
     "ProductName": "Razer Blade 16",
-    "TotalQuantity": 80,
+    "BatchId": "BAT0002",
+    "LocationCode": "A-R02-S01",
+    "Quantity": 80,
     "MinStock": 50,
-    "Status": "Available"
+    "ImportDate": "2026-05-10T08:30:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0003",
     "ProductName": "Razer Viper V3 Pro",
-    "TotalQuantity": 350,
+    "BatchId": "BAT0003",
+    "LocationCode": "C-R01-S01",
+    "Quantity": 350,
     "MinStock": 120,
-    "Status": "Available"
+    "ImportDate": "2026-05-10T08:30:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0004",
     "ProductName": "RAZER DEATHADDER V4 PRO",
-    "TotalQuantity": 200,
+    "BatchId": "BAT0004",
+    "LocationCode": "C-R02-S01",
+    "Quantity": 200,
     "MinStock": 120,
-    "Status": "Available"
+    "ImportDate": "2026-05-10T08:30:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0005",
     "ProductName": "IPHONE 17 PRO",
-    "TotalQuantity": 150,
+    "BatchId": "BAT0005",
+    "LocationCode": "B-R01-S01",
+    "Quantity": 150,
     "MinStock": 80,
-    "Status": "Available"
+    "ImportDate": "2026-05-12T09:00:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0006",
     "ProductName": "SAMSUNG Z FLIP7",
-    "TotalQuantity": 75,
+    "BatchId": "BAT0006",
+    "LocationCode": "B-R02-S01",
+    "Quantity": 75,
     "MinStock": 80,
-    "Status": "Low Stock"
+    "ImportDate": "2026-05-13T10:15:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0007",
     "ProductName": "iPad Pro M5",
-    "TotalQuantity": 90,
+    "BatchId": "BAT0007",
+    "LocationCode": "D-R01-S01",
+    "Quantity": 90,
     "MinStock": 60,
-    "Status": "Available"
+    "ImportDate": "2026-05-12T09:00:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   },
   {
     "ProductId": "PR0008",
     "ProductName": "Samsung Galaxy Tab S11",
-    "TotalQuantity": 100,
+    "BatchId": "BAT0008",
+    "LocationCode": "D-R02-S01",
+    "Quantity": 100,
     "MinStock": 60,
-    "Status": "Available"
+    "ImportDate": "2026-05-13T10:15:00",
+    "LastUpdated": "2026-05-23T09:00:00"
   }
 ]

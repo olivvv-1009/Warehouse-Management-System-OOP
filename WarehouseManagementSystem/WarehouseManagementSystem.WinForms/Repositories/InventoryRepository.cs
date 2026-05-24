@@ -4,7 +4,7 @@ using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    internal class InventoryRepository
+    public class InventoryRepository
     {
         private const string FilePath =
             "inventory.json";

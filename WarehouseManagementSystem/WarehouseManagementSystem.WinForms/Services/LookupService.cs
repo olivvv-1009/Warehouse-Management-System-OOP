@@ -451,10 +451,11 @@ namespace WarehouseManagementSystem.WinForms.Services
             if (profile != null)
             {
                 return profile
-                    .Phone;
+                    .PhoneNumber;
             }
 
             return string.Empty;
         }
     }
 }
+

@@ -7,7 +7,7 @@ using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    internal class TransactionRepository
+    public class TransactionRepository
     {
         private readonly string _path =
             FileHelper.GetFilePath(
