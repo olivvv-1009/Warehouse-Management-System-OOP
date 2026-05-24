@@ -7,7 +7,7 @@ using WarehouseManagementSystem.WinForms.Files;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    internal class ProductRepository
+    public class ProductRepository
     {
         private const string FileName = "products.json";
         private List<Product> _products;

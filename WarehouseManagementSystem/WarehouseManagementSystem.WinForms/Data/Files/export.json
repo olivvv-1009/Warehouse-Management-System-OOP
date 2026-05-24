@@ -1,1 +1,62 @@
-﻿[]
+﻿[
+  {
+    "ExportId": "EXP20260001",
+    "EmployeeName": "Lê Minh Anh",
+    "TotalAmount": 135000,
+    "ExportDate": "2026-05-20T10:30:00",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0001",
+        "Quantity": 10,
+        "UnitPrice": 9000,
+        "TotalPrice": 90000
+      },
+      {
+        "ProductId": "PR0003",
+        "Quantity": 15,
+        "UnitPrice": 3000,
+        "TotalPrice": 45000
+      }
+    ]
+  },
+  {
+    "ExportId": "EXP20260002",
+    "EmployeeName": "Đinh Thị Anh Thư",
+    "TotalAmount": 114000,
+    "ExportDate": "2026-05-21T14:15:00",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0005",
+        "Quantity": 6,
+        "UnitPrice": 14000,
+        "TotalPrice": 84000
+      },
+      {
+        "ProductId": "PR0007",
+        "Quantity": 10,
+        "UnitPrice": 3000,
+        "TotalPrice": 30000
+      }
+    ]
+  },
+  {
+    "ExportId": "EXP20260003",
+    "EmployeeName": "Nguyễn Hữu Thông",
+    "TotalAmount": 69000,
+    "ExportDate": "2026-05-23T09:45:00",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0006",
+        "Quantity": 12,
+        "UnitPrice": 4000,
+        "TotalPrice": 48000
+      },
+      {
+        "ProductId": "PR0008",
+        "Quantity": 7,
+        "UnitPrice": 3000,
+        "TotalPrice": 21000
+      }
+    ]
+  }
+]
