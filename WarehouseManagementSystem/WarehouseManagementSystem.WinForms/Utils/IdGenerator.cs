@@ -33,6 +33,15 @@ namespace WarehouseManagementSystem.WinForms.Utils
             return $"IMP{nextNumber:D4}";
         }
 
+        // Generate Return Order ID
+        // RT0001, RT0002, ...
+        public static string GenerateReturnId(
+            int nextNumber)
+        {
+            return
+                $"RT{nextNumber:D4}";
+        }
+
         // Generate Export Order ID
         // EXP0001, EXP0002, ...
         public static string GenerateExportId(

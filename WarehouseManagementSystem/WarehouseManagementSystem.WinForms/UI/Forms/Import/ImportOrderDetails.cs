@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
-using WarehouseManagementSystem.WinForms.Utils;
+using WarehouseManagementSystem.WinForms.UI.ConsoleUI;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 {
@@ -16,15 +16,22 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         private readonly SupplierRepository
             _supplierRepository;
 
+        private ProductController
+            _productController;
+
         public ImportOrderDetails(
             ImportInvoice invoice)
         {
             InitializeComponent();
 
-            _invoice = invoice;
+            _invoice =
+                invoice;
 
             _supplierRepository =
                 new SupplierRepository();
+
+            _productController =
+                new ProductController();
 
             SetupDataGridView();
 
@@ -57,7 +64,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 false;
 
             dgvProduct.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+                DataGridViewSelectionMode
+                    .FullRowSelect;
 
             dgvProduct.BackgroundColor =
                 Color.White;
@@ -77,40 +85,61 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             dgvProduct.EnableHeadersVisualStyles =
                 false;
 
-            dgvProduct.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(52, 73, 94);
+            dgvProduct
+                .ColumnHeadersDefaultCellStyle
+                .BackColor =
+                    Color.FromArgb(
+                        52,
+                        73,
+                        94
+                    );
 
-            dgvProduct.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvProduct
+                .ColumnHeadersDefaultCellStyle
+                .ForeColor =
+                    Color.White;
 
-            dgvProduct.ColumnHeadersDefaultCellStyle.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold
-                );
+            dgvProduct
+                .ColumnHeadersDefaultCellStyle
+                .Font =
+                    new Font(
+                        "Segoe UI",
+                        10,
+                        FontStyle.Bold
+                    );
 
-            dgvProduct.DefaultCellStyle.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Regular
-                );
+            dgvProduct
+                .DefaultCellStyle
+                .Font =
+                    new Font(
+                        "Segoe UI",
+                        10,
+                        FontStyle.Regular
+                    );
 
-            dgvProduct.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(52, 152, 219);
+            dgvProduct
+                .DefaultCellStyle
+                .SelectionBackColor =
+                    Color.FromArgb(
+                        52,
+                        152,
+                        219
+                    );
 
-            dgvProduct.DefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvProduct
+                .DefaultCellStyle
+                .SelectionForeColor =
+                    Color.White;
 
             dgvProduct.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+                DataGridViewAutoSizeColumnsMode
+                    .Fill;
 
             dgvProduct.ScrollBars =
                 ScrollBars.Vertical;
 
             dgvProduct.Columns.Add(
-                "ProductId",
+                "ProductName",
                 "Product"
             );
 
@@ -134,7 +163,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 "Location"
             );
 
-            dgvProduct.Columns["ProductId"]
+            dgvProduct.Columns["ProductName"]
                 .FillWeight = 220;
 
             dgvProduct.Columns["Quantity"]
@@ -156,17 +185,27 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 _invoice.SupplierId;
 
             List<Supplier> suppliers =
-                _supplierRepository.GetAll();
+                _supplierRepository
+                    .GetAll();
 
-            for (int i = 0;
+            int i;
+
+            for (
+                i = 0;
                 i < suppliers.Count;
-                i++)
+                i++
+            )
             {
-                if (suppliers[i].SupplierId
-                    == _invoice.SupplierId)
+                if (
+                    suppliers[i]
+                        .SupplierId
+                    == _invoice
+                        .SupplierId
+                )
                 {
                     supplierName =
-                        suppliers[i].SupplierName;
+                        suppliers[i]
+                            .SupplierName;
 
                     break;
                 }
@@ -176,30 +215,61 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 supplierName;
 
             lblDate.Text =
-                _invoice.ImportDate.ToString(
-                    "yyyy-MM-dd"
-                );
+                _invoice
+                    .ImportDate
+                    .ToString(
+                        "yyyy-MM-dd"
+                    );
 
             lblStatus.Text =
                 "Completed";
 
             lblCreatedBy.Text =
-                _invoice.EmployeeName;
+                _invoice
+                    .EmployeeName;
 
             dgvProduct.Rows.Clear();
 
-            for (int i = 0;
-                i < _invoice.OrderDetails.Count;
-                i++)
+            for (
+                i = 0;
+                i <
+                _invoice
+                    .OrderDetails.Count;
+                i++
+            )
             {
                 OrderDetail detail =
-                    _invoice.OrderDetails[i];
+                    _invoice
+                        .OrderDetails[i];
+
+                string productName =
+                    detail.ProductId;
+
+                ProductDisplayModel
+                    product =
+                        _productController
+                            .GetProduct(
+                                detail
+                                    .ProductId
+                            );
+
+                if (product != null)
+                {
+                    productName =
+                        product.Name;
+                }
 
                 dgvProduct.Rows.Add(
-                    detail.ProductId,
+                    productName,
+
                     detail.Quantity,
-                    detail.UnitPrice.ToString("N0"),
-                    detail.TotalPrice.ToString("N0"),
+
+                    detail.UnitPrice
+                        .ToString("N0"),
+
+                    detail.TotalPrice
+                        .ToString("N0"),
+
                     detail.LocationCode
                 );
             }
@@ -212,7 +282,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             this.Close();
         }
 
-        private void btnClose_Click_1(object sender, EventArgs e)
+        private void btnClose_Click_1(
+            object sender,
+            EventArgs e)
         {
             this.Close();
         }

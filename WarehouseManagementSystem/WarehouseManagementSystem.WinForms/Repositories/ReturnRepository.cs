@@ -9,19 +9,23 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         private const string FilePath =
             "returnOrders.json";
 
-        private List<ReturnOrder> _returnOrders;
+        private List<ReturnOrder>
+            _returnOrders;
 
         public ReturnRepository()
         {
             LoadData();
         }
 
+        // ================= LOAD =================
+
         private void LoadData()
         {
             _returnOrders =
-                FileHelper.ReadJsonList<ReturnOrder>(
-                    FilePath
-                );
+                FileHelper
+                    .ReadJsonList<ReturnOrder>(
+                        FilePath
+                    );
 
             if (_returnOrders == null)
             {
@@ -30,44 +34,124 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             }
         }
 
+        // ================= SAVE =================
+
         private void SaveData()
         {
-            FileHelper.WriteJsonList(
-                FilePath,
-                _returnOrders
-            );
+            FileHelper
+                .WriteJsonList(
+                    FilePath,
+                    _returnOrders
+                );
         }
 
-        public List<ReturnOrder> GetAll()
+        // ================= GET ALL =================
+
+        public List<ReturnOrder>
+            GetAll()
         {
             return _returnOrders;
         }
 
-        public bool AddReturnOrder(
+        // ================= FIND =================
+
+        public ReturnOrder FindById(
+            string returnOrderId)
+        {
+            int i;
+
+            for (
+                i = 0;
+                i < _returnOrders.Count;
+                i++
+            )
+            {
+                if (
+                    _returnOrders[i]
+                        .ReturnOrderId
+                    == returnOrderId
+                )
+                {
+                    return _returnOrders[i];
+                }
+            }
+
+            return null;
+        }
+
+        // ================= ADD =================
+
+        public bool Add(
             ReturnOrder returnOrder)
         {
-            _returnOrders.Add(returnOrder);
+            if (returnOrder == null)
+            {
+                return false;
+            }
+
+            _returnOrders
+                .Add(returnOrder);
 
             SaveData();
 
             return true;
         }
 
+        // ================= ADD DETAIL =================
+
         public bool AddDetail(
             string returnOrderId,
             ReturnOrderDetail detail)
         {
-            for (int i = 0;
-                 i < _returnOrders.Count;
-                 i++)
+            ReturnOrder returnOrder =
+                FindById(
+                    returnOrderId
+                );
+
+            if (
+                returnOrder == null
+                || detail == null
+            )
             {
-                if (_returnOrders[i]
-                    .ReturnOrderId ==
-                    returnOrderId)
-                {
+                return false;
+            }
+
+            returnOrder
+                .Details
+                .Add(detail);
+
+            SaveData();
+
+            return true;
+        }
+
+        // ================= UPDATE =================
+
+        public bool Update(
+            ReturnOrder updatedOrder)
+        {
+            if (updatedOrder == null)
+            {
+                return false;
+            }
+
+            int i;
+
+            for (
+                i = 0;
+                i < _returnOrders.Count;
+                i++
+            )
+            {
+                if (
                     _returnOrders[i]
-                        .Details
-                        .Add(detail);
+                        .ReturnOrderId
+                    == updatedOrder
+                        .ReturnOrderId
+                )
+                {
+                    _returnOrders[i] =
+                        updatedOrder;
 
                     SaveData();
 
@@ -78,51 +162,35 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             return false;
         }
 
-        public void Update(
-            List<ReturnOrder> returnOrders)
-        {
-            _returnOrders = returnOrders;
+        // ================= DELETE =================
 
-            SaveData();
-        }
-
-        public void Delete(
+        public bool Delete(
             string returnOrderId)
         {
-            for (int i = 0;
-                 i < _returnOrders.Count;
-                 i++)
+            int i;
+
+            for (
+                i = 0;
+                i < _returnOrders.Count;
+                i++
+            )
             {
-                if (_returnOrders[i]
-                    .ReturnOrderId ==
-                    returnOrderId)
+                if (
+                    _returnOrders[i]
+                        .ReturnOrderId
+                    == returnOrderId
+                )
                 {
                     _returnOrders
                         .RemoveAt(i);
 
                     SaveData();
 
-                    break;
-                }
-            }
-        }
-
-        public ReturnOrder FindById(
-            string returnOrderId)
-        {
-            for (int i = 0;
-                 i < _returnOrders.Count;
-                 i++)
-            {
-                if (_returnOrders[i]
-                    .ReturnOrderId ==
-                    returnOrderId)
-                {
-                    return _returnOrders[i];
+                    return true;
                 }
             }
 
-            return null;
+            return false;
         }
     }
 }
