@@ -324,8 +324,7 @@ public ProductForm()
             }
         }
 
-        private DataTable BuildProductTable(
-    List<ProductDisplayModel> products)
+        private DataTable BuildProductTable(List<ProductDisplayModel> products)
         {
             var dt = new DataTable();
 
@@ -336,13 +335,31 @@ public ProductForm()
             dt.Columns.Add("Min Stock");
             dt.Columns.Add("Status");
 
+            // Load all batches once for efficiency
+            var batches = WarehouseManagementSystem.WinForms.Files.FileHelper.ReadJsonList<WarehouseManagementSystem.WinForms.Models.Batch>("batch.json");
+
             foreach (var p in products)
             {
+                // Calculate weighted average import price for this product
+                var productBatches = batches.FindAll(b => b.ProductId == p.ProductID);
+                decimal totalPrice = 0;
+                int totalQuantity = 0;
+                foreach (var batch in productBatches)
+                {
+                    totalPrice += batch.ImportPrice * batch.Quantity;
+                    totalQuantity += batch.Quantity;
+                }
+                decimal avgImportPrice = 0;
+                if (totalQuantity > 0)
+                {
+                    avgImportPrice = totalPrice / totalQuantity;
+                }
+
                 dt.Rows.Add(
                     p.ProductID,
                     p.Name,
                     p.Category,
-                    p.AvgImportPrice?.ToString("C") ?? "$0.00",
+                    avgImportPrice.ToString("C"),
                     p.MinStock,
                     "Active");
             }
