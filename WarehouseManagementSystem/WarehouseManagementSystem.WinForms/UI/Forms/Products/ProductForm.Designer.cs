@@ -15,7 +15,7 @@
 			base.Dispose(disposing);
 		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
 
         private void InitializeComponent()
@@ -195,9 +195,9 @@
             ResumeLayout(false);
         }
 
-        #endregion
+		#endregion
 
-        private Label label1;
+		private Label label1;
 		private TextBox searchTB;
 		private Button searchBtn;
 		private ComboBox categoryCB;
