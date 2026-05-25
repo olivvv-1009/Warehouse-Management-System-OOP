@@ -15,7 +15,7 @@
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
 
         private void InitializeComponent()
@@ -42,10 +42,9 @@
             label1.Dock = DockStyle.Left;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(51, 51, 51);
-            label1.Location = new Point(4, 0);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(153, 63);
+            label1.Size = new Size(131, 51);
             label1.TabIndex = 0;
             label1.Text = "Products";
             // 
@@ -53,11 +52,11 @@
             // 
             searchTB.Dock = DockStyle.Fill;
             searchTB.Font = new Font("Segoe UI", 11F);
-            searchTB.Location = new Point(4, 5);
-            searchTB.Margin = new Padding(4, 5, 4, 5);
+            searchTB.Location = new Point(3, 4);
+            searchTB.Margin = new Padding(3, 4, 3, 4);
             searchTB.Name = "searchTB";
             searchTB.PlaceholderText = "Search by name or code...";
-            searchTB.Size = new Size(487, 37);
+            searchTB.Size = new Size(390, 32);
             searchTB.TabIndex = 1;
             // 
             // searchBtn
@@ -66,10 +65,10 @@
             searchBtn.Dock = DockStyle.Fill;
             searchBtn.FlatStyle = FlatStyle.Flat;
             searchBtn.Font = new Font("Segoe UI", 11F);
-            searchBtn.Location = new Point(499, 5);
-            searchBtn.Margin = new Padding(4, 5, 4, 5);
+            searchBtn.Location = new Point(399, 4);
+            searchBtn.Margin = new Padding(3, 4, 3, 4);
             searchBtn.Name = "searchBtn";
-            searchBtn.Size = new Size(56, 42);
+            searchBtn.Size = new Size(45, 34);
             searchBtn.TabIndex = 2;
             searchBtn.Text = "🔍";
             searchBtn.UseVisualStyleBackColor = false;
@@ -79,10 +78,10 @@
             categoryCB.Dock = DockStyle.Fill;
             categoryCB.Font = new Font("Segoe UI", 11F);
             categoryCB.FormattingEnabled = true;
-            categoryCB.Location = new Point(563, 5);
-            categoryCB.Margin = new Padding(4, 5, 4, 5);
+            categoryCB.Location = new Point(450, 4);
+            categoryCB.Margin = new Padding(3, 4, 3, 4);
             categoryCB.Name = "categoryCB";
-            categoryCB.Size = new Size(487, 38);
+            categoryCB.Size = new Size(390, 33);
             categoryCB.TabIndex = 3;
             // 
             // dataGridView1
@@ -100,12 +99,12 @@
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Font = new Font("Segoe UI", 11F);
-            dataGridView1.Location = new Point(16, 148);
-            dataGridView1.Margin = new Padding(4, 5, 4, 5);
+            dataGridView1.Location = new Point(13, 119);
+            dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 32;
-            dataGridView1.Size = new Size(1054, 451);
+            dataGridView1.Size = new Size(843, 360);
             dataGridView1.TabIndex = 4;
             // 
             // addproductBtn
@@ -115,10 +114,10 @@
             addproductBtn.FlatStyle = FlatStyle.Flat;
             addproductBtn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             addproductBtn.ForeColor = Color.White;
-            addproductBtn.Location = new Point(847, 5);
-            addproductBtn.Margin = new Padding(4, 5, 4, 5);
+            addproductBtn.Location = new Point(677, 4);
+            addproductBtn.Margin = new Padding(3, 4, 3, 4);
             addproductBtn.Name = "addproductBtn";
-            addproductBtn.Size = new Size(203, 53);
+            addproductBtn.Size = new Size(163, 43);
             addproductBtn.TabIndex = 5;
             addproductBtn.Text = "+ Add Product";
             addproductBtn.UseVisualStyleBackColor = false;
@@ -132,60 +131,57 @@
             tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(12);
+            tableLayoutPanel1.Padding = new Padding(10);
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 71F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1086, 616);
+            tableLayoutPanel1.Size = new Size(869, 493);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 3;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 64F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 51F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Controls.Add(searchBtn, 1, 0);
             tableLayoutPanel2.Controls.Add(categoryCB, 2, 0);
             tableLayoutPanel2.Controls.Add(searchTB, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(16, 87);
-            tableLayoutPanel2.Margin = new Padding(4);
+            tableLayoutPanel2.Location = new Point(13, 70);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            tableLayoutPanel2.Size = new Size(1054, 52);
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            tableLayoutPanel2.Size = new Size(843, 42);
             tableLayoutPanel2.TabIndex = 7;
             // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 2;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 211F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 169F));
             tableLayoutPanel3.Controls.Add(addproductBtn, 1, 0);
             tableLayoutPanel3.Controls.Add(label1, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(16, 16);
-            tableLayoutPanel3.Margin = new Padding(4);
+            tableLayoutPanel3.Location = new Point(13, 13);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-            tableLayoutPanel3.Size = new Size(1054, 63);
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel3.Size = new Size(843, 51);
             tableLayoutPanel3.TabIndex = 8;
             // 
             // ProductForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel1);
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ProductForm";
-            Size = new Size(1086, 616);
+            Size = new Size(869, 493);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
@@ -195,9 +191,9 @@
             ResumeLayout(false);
         }
 
-		#endregion
+        #endregion
 
-		private Label label1;
+        private Label label1;
 		private TextBox searchTB;
 		private Button searchBtn;
 		private ComboBox categoryCB;
