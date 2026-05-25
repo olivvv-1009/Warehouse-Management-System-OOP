@@ -1,82 +1,72 @@
 ﻿[
   {
-    "ProductId": "PR0001",
-    "ProductName": "Razer Blade 18",
-    "BatchId": "BAT0001",
-    "LocationCode": "A-R01-S01",
-    "Quantity": 120,
-    "MinStock": 50,
-    "ImportDate": "2026-05-10T08:30:00",
-    "LastUpdated": "2026-05-23T09:00:00"
+    "ProductId": "PR0009",
+    "ProductName": "MacBook Pro M6",
+    "BatchId": "BAT0009",
+    "LocationCode": "A-R03-S01",
+    "Quantity": 25,
+    "MinStock": 10,
+    "ImportDate": "2026-05-15T13:45:00",
+    "LastUpdated": "2026-05-26T15:20:00"
   },
   {
-    "ProductId": "PR0002",
-    "ProductName": "Razer Blade 16",
-    "BatchId": "BAT0002",
-    "LocationCode": "A-R02-S01",
+    "ProductId": "PR0010",
+    "ProductName": "AirPods Pro 3",
+    "BatchId": "BAT0010",
+    "LocationCode": "B-R03-S01",
+    "Quantity": 25,
+    "MinStock": 20,
+    "ImportDate": "2026-05-15T13:45:00",
+    "LastUpdated": "2026-05-25T14:10:00"
+  },
+  {
+    "ProductId": "PR0011",
+    "ProductName": "Logitech MX Master 4",
+    "BatchId": "BAT0011",
+    "LocationCode": "C-R03-S01",
+    "Quantity": 45,
+    "MinStock": 15,
+    "ImportDate": "2026-05-15T13:45:00",
+    "LastUpdated": "2026-05-25T09:00:00"
+  },
+  {
+    "ProductId": "PR0012",
+    "ProductName": "ASUS ROG Strix G18",
+    "BatchId": "BAT0012",
+    "LocationCode": "A-R01-S02",
     "Quantity": 80,
+    "MinStock": 40,
+    "ImportDate": "2026-05-18T08:15:00",
+    "LastUpdated": "2026-05-24T09:00:00"
+  },
+  {
+    "ProductId": "PR0013",
+    "ProductName": "Dell XPS 15",
+    "BatchId": "BAT0013",
+    "LocationCode": "B-R02-S02",
+    "Quantity": 68,
+    "MinStock": 30,
+    "ImportDate": "2026-05-18T08:15:00",
+    "LastUpdated": "2026-05-26T15:20:00"
+  },
+  {
+    "ProductId": "PR0014",
+    "ProductName": "Samsung Odyssey OLED G8",
+    "BatchId": "BAT0014",
+    "LocationCode": "D-R03-S01",
+    "Quantity": 105,
     "MinStock": 50,
-    "ImportDate": "2026-05-10T08:30:00",
-    "LastUpdated": "2026-05-23T09:00:00"
+    "ImportDate": "2026-05-20T15:20:00",
+    "LastUpdated": "2026-05-24T09:00:00"
   },
   {
-    "ProductId": "PR0003",
-    "ProductName": "Razer Viper V3 Pro",
-    "BatchId": "BAT0003",
-    "LocationCode": "C-R01-S01",
-    "Quantity": 350,
-    "MinStock": 120,
-    "ImportDate": "2026-05-10T08:30:00",
-    "LastUpdated": "2026-05-23T09:00:00"
-  },
-  {
-    "ProductId": "PR0004",
-    "ProductName": "RAZER DEATHADDER V4 PRO",
-    "BatchId": "BAT0004",
-    "LocationCode": "C-R02-S01",
-    "Quantity": 200,
-    "MinStock": 120,
-    "ImportDate": "2026-05-10T08:30:00",
-    "LastUpdated": "2026-05-23T09:00:00"
-  },
-  {
-    "ProductId": "PR0005",
-    "ProductName": "IPHONE 17 PRO",
-    "BatchId": "BAT0005",
-    "LocationCode": "B-R01-S01",
-    "Quantity": 150,
-    "MinStock": 80,
-    "ImportDate": "2026-05-12T09:00:00",
-    "LastUpdated": "2026-05-23T09:00:00"
-  },
-  {
-    "ProductId": "PR0006",
-    "ProductName": "SAMSUNG Z FLIP7",
-    "BatchId": "BAT0006",
-    "LocationCode": "B-R02-S01",
-    "Quantity": 75,
-    "MinStock": 80,
-    "ImportDate": "2026-05-13T10:15:00",
-    "LastUpdated": "2026-05-23T09:00:00"
-  },
-  {
-    "ProductId": "PR0007",
-    "ProductName": "iPad Pro M5",
-    "BatchId": "BAT0007",
-    "LocationCode": "D-R01-S01",
-    "Quantity": 90,
-    "MinStock": 60,
-    "ImportDate": "2026-05-12T09:00:00",
-    "LastUpdated": "2026-05-23T09:00:00"
-  },
-  {
-    "ProductId": "PR0008",
-    "ProductName": "Samsung Galaxy Tab S11",
-    "BatchId": "BAT0008",
-    "LocationCode": "D-R02-S01",
-    "Quantity": 100,
-    "MinStock": 60,
-    "ImportDate": "2026-05-13T10:15:00",
-    "LastUpdated": "2026-05-23T09:00:00"
+    "ProductId": "PR0015",
+    "ProductName": "Sony WH-1000XM6",
+    "BatchId": "BAT0015",
+    "LocationCode": "C-R01-S02",
+    "Quantity": 35,
+    "MinStock": 20,
+    "ImportDate": "2026-05-20T15:20:00",
+    "LastUpdated": "2026-05-25T14:10:00"
   }
 ]
