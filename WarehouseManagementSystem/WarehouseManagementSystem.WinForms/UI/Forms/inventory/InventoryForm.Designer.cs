@@ -51,10 +51,9 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Padding = new Padding(19);
-            panel1.Size = new Size(1046, 694);
+            panel1.Padding = new Padding(15, 15, 15, 15);
+            panel1.Size = new Size(837, 555);
             panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -62,19 +61,18 @@
             tableLayoutPanel1.AutoSize = true;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
             tableLayoutPanel1.Controls.Add(flowInventory, 0, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(19, 19);
-            tableLayoutPanel1.Margin = new Padding(4);
+            tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 66F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 53F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1008, 656);
+            tableLayoutPanel1.Size = new Size(807, 525);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -82,10 +80,9 @@
             label1.AutoSize = true;
             label1.Dock = DockStyle.Left;
             label1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(4, 0);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(185, 51);
+            label1.Size = new Size(159, 41);
             label1.TabIndex = 0;
             label1.Text = "Inventory";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -99,13 +96,12 @@
             tableLayoutPanel2.Controls.Add(panel2, 0, 0);
             tableLayoutPanel2.Controls.Add(panel3, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(4, 55);
-            tableLayoutPanel2.Margin = new Padding(4);
+            tableLayoutPanel2.Location = new Point(3, 44);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 59F));
-            tableLayoutPanel2.Size = new Size(1000, 58);
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
+            tableLayoutPanel2.Size = new Size(801, 47);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // panel2
@@ -113,10 +109,9 @@
             panel2.BackColor = Color.White;
             panel2.Controls.Add(txtSearch);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(4, 4);
-            panel2.Margin = new Padding(4);
+            panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(644, 50);
+            panel2.Size = new Size(516, 41);
             panel2.TabIndex = 0;
             // 
             // txtSearch
@@ -124,10 +119,9 @@
             txtSearch.Dock = DockStyle.Fill;
             txtSearch.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearch.Location = new Point(0, 0);
-            txtSearch.Margin = new Padding(4);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Search product";
-            txtSearch.Size = new Size(644, 45);
+            txtSearch.Size = new Size(516, 39);
             txtSearch.TabIndex = 0;
             // 
             // panel3
@@ -135,10 +129,9 @@
             panel3.BackColor = Color.White;
             panel3.Controls.Add(cbFilter);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(656, 4);
-            panel3.Margin = new Padding(4);
+            panel3.Location = new Point(525, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(340, 50);
+            panel3.Size = new Size(273, 41);
             panel3.TabIndex = 1;
             // 
             // cbFilter
@@ -147,9 +140,8 @@
             cbFilter.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbFilter.FormattingEnabled = true;
             cbFilter.Location = new Point(0, 0);
-            cbFilter.Margin = new Padding(4);
             cbFilter.Name = "cbFilter";
-            cbFilter.Size = new Size(340, 44);
+            cbFilter.Size = new Size(273, 39);
             cbFilter.TabIndex = 0;
             // 
             // flowInventory
@@ -157,22 +149,20 @@
             flowInventory.AutoScroll = true;
             flowInventory.BackColor = Color.White;
             flowInventory.FlowDirection = FlowDirection.TopDown;
-            flowInventory.Location = new Point(4, 121);
-            flowInventory.Margin = new Padding(4);
+            flowInventory.Location = new Point(3, 97);
             flowInventory.Name = "flowInventory";
-            flowInventory.Padding = new Padding(25);
-            flowInventory.Size = new Size(1000, 531);
+            flowInventory.Padding = new Padding(20, 20, 20, 20);
+            flowInventory.Size = new Size(800, 425);
             flowInventory.TabIndex = 2;
             flowInventory.WrapContents = false;
             // 
             // InventoryForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Margin = new Padding(4);
             Name = "InventoryForm";
-            Size = new Size(1046, 694);
+            Size = new Size(837, 555);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
