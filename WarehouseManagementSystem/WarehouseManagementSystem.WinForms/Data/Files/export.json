@@ -1,61 +1,63 @@
 ﻿[
   {
-    "ExportId": "EXP20260001",
-    "EmployeeName": "Lê Minh Anh",
-    "TotalAmount": 135000,
-    "ExportDate": "2026-05-20T10:30:00",
+    "ExportId": "EXP20260004",
+    "EmployeeName": "Nguyễn Đinh Thảo Nhi",
+    "TotalAmount": 118000,
+    "ExportDate": "2026-05-24T09:00:00",
     "OrderDetails": [
       {
-        "ProductId": "PR0001",
-        "Quantity": 10,
-        "UnitPrice": 9000,
-        "TotalPrice": 90000
+        "ProductId": "PR0012",
+        "Quantity": 20,
+        "UnitPrice": 3500,
+        "TotalPrice": 70000
       },
       {
-        "ProductId": "PR0003",
+        "ProductId": "PR0014",
         "Quantity": 15,
-        "UnitPrice": 3000,
-        "TotalPrice": 45000
+        "UnitPrice": 3200,
+        "TotalPrice": 48000
       }
     ]
   },
+
   {
-    "ExportId": "EXP20260002",
-    "EmployeeName": "Đinh Thị Anh Thư",
-    "TotalAmount": 114000,
-    "ExportDate": "2026-05-21T14:15:00",
+    "ExportId": "EXP20260005",
+    "EmployeeName": "Lê Minh Anh",
+    "TotalAmount": 70000,
+    "ExportDate": "2026-05-25T14:10:00",
     "OrderDetails": [
       {
-        "ProductId": "PR0005",
-        "Quantity": 6,
-        "UnitPrice": 14000,
-        "TotalPrice": 84000
-      },
-      {
-        "ProductId": "PR0007",
+        "ProductId": "PR0010",
         "Quantity": 10,
         "UnitPrice": 3000,
         "TotalPrice": 30000
+      },
+      {
+        "ProductId": "PR0015",
+        "Quantity": 5,
+        "UnitPrice": 8000,
+        "TotalPrice": 40000
       }
     ]
   },
+
   {
-    "ExportId": "EXP20260003",
-    "EmployeeName": "Nguyễn Hữu Thông",
-    "TotalAmount": 69000,
-    "ExportDate": "2026-05-23T09:45:00",
+    "ExportId": "EXP20260006",
+    "EmployeeName": "Đinh Thị Anh Thư",
+    "TotalAmount": 146000,
+    "ExportDate": "2026-05-26T15:20:00",
     "OrderDetails": [
       {
-        "ProductId": "PR0006",
+        "ProductId": "PR0013",
         "Quantity": 12,
-        "UnitPrice": 4000,
-        "TotalPrice": 48000
+        "UnitPrice": 6500,
+        "TotalPrice": 78000
       },
       {
-        "ProductId": "PR0008",
-        "Quantity": 7,
-        "UnitPrice": 3000,
-        "TotalPrice": 21000
+        "ProductId": "PR0009",
+        "Quantity": 8,
+        "UnitPrice": 8500,
+        "TotalPrice": 68000
       }
     ]
   }

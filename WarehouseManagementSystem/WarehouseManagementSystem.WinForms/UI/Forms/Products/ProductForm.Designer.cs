@@ -132,9 +132,9 @@
             tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(12, 12, 12, 12);
+            tableLayoutPanel1.Padding = new Padding(12);
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 71F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
@@ -153,7 +153,7 @@
             tableLayoutPanel2.Controls.Add(searchTB, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(16, 87);
-            tableLayoutPanel2.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanel2.Margin = new Padding(4);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -170,7 +170,7 @@
             tableLayoutPanel3.Controls.Add(label1, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(16, 16);
-            tableLayoutPanel3.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanel3.Margin = new Padding(4);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));

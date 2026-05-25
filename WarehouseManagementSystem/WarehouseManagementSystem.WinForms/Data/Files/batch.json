@@ -1,82 +1,72 @@
 ﻿[
-    {
-        "BatchId": "BAT-PR0001-01",
-        "ProductId": "PR0001",
-        "Quantity": 120,
-        "UsedCapacity": 120,
-        "ImportPrice": 4500,
-        "ImportDate": "2026-05-10T08:30:00",
-        "LocationCode": "A-R01-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0002-01",
-        "ProductId": "PR0002",
-        "Quantity": 80,
-        "UsedCapacity": 80,
-        "ImportPrice": 3900,
-        "ImportDate": "2026-05-10T10:00:00",
-        "LocationCode": "A-R02-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0003-01",
-        "ProductId": "PR0003",
-        "Quantity": 350,
-        "UsedCapacity": 350,
-        "ImportPrice": 120,
-        "ImportDate": "2026-05-11T09:15:00",
-        "LocationCode": "C-R01-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0004-01",
-        "ProductId": "PR0004",
-        "Quantity": 200,
-        "UsedCapacity": 200,
-        "ImportPrice": 140,
-        "ImportDate": "2026-05-11T11:00:00",
-        "LocationCode": "C-R02-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0005-01",
-        "ProductId": "PR0005",
-        "Quantity": 150,
-        "UsedCapacity": 150,
-        "ImportPrice": 1600,
-        "ImportDate": "2026-05-12T08:00:00",
-        "LocationCode": "B-R01-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0006-01",
-        "ProductId": "PR0006",
-        "Quantity": 75,
-        "UsedCapacity": 75,
-        "ImportPrice": 1450,
-        "ImportDate": "2026-05-12T09:30:00",
-        "LocationCode": "B-R02-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0007-01",
-        "ProductId": "PR0007",
-        "Quantity": 90,
-        "UsedCapacity": 90,
-        "ImportPrice": 950,
-        "ImportDate": "2026-05-13T08:45:00",
-        "LocationCode": "D-R01-S01",
-        "Status": "Stored"
-    },
-    {
-        "BatchId": "BAT-PR0008-01",
-        "ProductId": "PR0008",
-        "Quantity": 100,
-        "UsedCapacity": 100,
-        "ImportPrice": 880,
-        "ImportDate": "2026-05-13T10:15:00",
-        "LocationCode": "D-R02-S01",
-        "Status": "Stored"
-    }
+  {
+    "BatchId": "BAT-PR0009-01",
+    "ProductId": "PR0009",
+    "Quantity": 25,
+    "UsedCapacity": 25,
+    "ImportPrice": 9000,
+    "ImportDate": "2026-05-15T13:45:00",
+    "LocationCode": "A-R03-S01",
+    "Status": "Stored"
+  },
+  {
+    "BatchId": "BAT-PR0010-01",
+    "ProductId": "PR0010",
+    "Quantity": 35,
+    "UsedCapacity": 35,
+    "ImportPrice": 3000,
+    "ImportDate": "2026-05-15T13:45:00",
+    "LocationCode": "B-R03-S01",
+    "Status": "Stored"
+  },
+  {
+    "BatchId": "BAT-PR0011-01",
+    "ProductId": "PR0011",
+    "Quantity": 45,
+    "UsedCapacity": 45,
+    "ImportPrice": 3500,
+    "ImportDate": "2026-05-15T13:45:00",
+    "LocationCode": "C-R03-S01",
+    "Status": "Stored"
+  },
+  {
+    "BatchId": "BAT-PR0012-01",
+    "ProductId": "PR0012",
+    "Quantity": 100,
+    "UsedCapacity": 100,
+    "ImportPrice": 4500,
+    "ImportDate": "2026-05-18T08:15:00",
+    "LocationCode": "A-R01-S02",
+    "Status": "Stored"
+  },
+  {
+    "BatchId": "BAT-PR0013-01",
+    "ProductId": "PR0013",
+    "Quantity": 80,
+    "UsedCapacity": 80,
+    "ImportPrice": 3650,
+    "ImportDate": "2026-05-18T08:15:00",
+    "LocationCode": "B-R02-S02",
+    "Status": "Stored"
+  },
+  {
+    "BatchId": "BAT-PR0014-01",
+    "ProductId": "PR0014",
+    "Quantity": 120,
+    "UsedCapacity": 120,
+    "ImportPrice": 2300,
+    "ImportDate": "2026-05-20T15:20:00",
+    "LocationCode": "D-R03-S01",
+    "Status": "Stored"
+  },
+  {
+    "BatchId": "BAT-PR0015-01",
+    "ProductId": "PR0015",
+    "Quantity": 40,
+    "UsedCapacity": 40,
+    "ImportPrice": 4000,
+    "ImportDate": "2026-05-20T15:20:00",
+    "LocationCode": "C-R01-S02",
+    "Status": "Stored"
+  }
 ]

@@ -9,14 +9,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 {
     public partial class ImportForm : UserControl
     {
-        private readonly ImportRepository
-            _importRepository;
-
-        private readonly SupplierRepository
-            _supplierRepository;
-
-        private readonly ReturnRepository
-            _returnRepository;
+        private readonly ImportRepository _importRepository;
+        private readonly SupplierRepository _supplierRepository;
+        private readonly ReturnRepository _returnRepository;
 
         public ImportForm()
         {
@@ -35,189 +30,154 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
             LoadImportInvoices();
 
-            dataGridView1.CellClick +=
-                dataGridView1_CellClick;
+            dgvImportOrders.CellClick +=
+                dgvImportOrders_CellClick;
+            dgvImportOrders.CellDoubleClick +=
+            dgvImportOrders_CellDoubleClick;
         }
 
         private void SetupDataGridView()
         {
-            dataGridView1.Columns.Clear();
+            dgvImportOrders.Columns.Clear();
 
-            dataGridView1.AutoGenerateColumns =
+            dgvImportOrders.AutoGenerateColumns =
                 false;
 
-            dataGridView1.RowHeadersVisible =
+            dgvImportOrders.RowHeadersVisible =
                 false;
 
-            dataGridView1.AllowUserToAddRows =
+            dgvImportOrders.AllowUserToAddRows =
                 false;
 
-            dataGridView1.AllowUserToResizeRows =
+            dgvImportOrders.AllowUserToDeleteRows =
                 false;
 
-            dataGridView1.AllowUserToResizeColumns =
+            dgvImportOrders.AllowUserToResizeRows =
                 false;
 
-            dataGridView1.SelectionMode =
+            dgvImportOrders.AllowUserToResizeColumns =
+                false;
+
+            dgvImportOrders.SelectionMode =
                 DataGridViewSelectionMode
                     .FullRowSelect;
 
-            dataGridView1.MultiSelect =
+            dgvImportOrders.MultiSelect =
                 false;
 
-            dataGridView1.ReadOnly =
+            dgvImportOrders.ReadOnly =
                 true;
 
-            dataGridView1.BackgroundColor =
+            dgvImportOrders.BackgroundColor =
                 Color.White;
 
-            dataGridView1.BorderStyle =
+            dgvImportOrders.BorderStyle =
                 BorderStyle.None;
 
-            dataGridView1.GridColor =
-                Color.LightGray;
+            dgvImportOrders.GridColor =
+                Color.FromArgb(
+                    230,
+                    230,
+                    230
+                );
 
-            dataGridView1.RowTemplate.Height =
-                60;
+            dgvImportOrders.CellBorderStyle =
+                DataGridViewCellBorderStyle
+                    .SingleHorizontal;
 
-            dataGridView1.ColumnHeadersHeight =
-                50;
+            dgvImportOrders.ColumnHeadersBorderStyle =
+                DataGridViewHeaderBorderStyle
+                    .Single;
 
-            dataGridView1.EnableHeadersVisualStyles =
+            dgvImportOrders.RowTemplate.Height =
+                48;
+
+            dgvImportOrders.ColumnHeadersHeight =
+                55;
+
+            dgvImportOrders.EnableHeadersVisualStyles =
                 false;
 
-            dataGridView1
-                .ColumnHeadersDefaultCellStyle
-                .BackColor =
-                    Color.FromArgb(
-                        52,
-                        73,
-                        94
-                    );
+            dgvImportOrders.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(
+                    245,
+                    245,
+                    245
+                );
 
-            dataGridView1
-                .ColumnHeadersDefaultCellStyle
-                .ForeColor =
-                    Color.White;
+            dgvImportOrders.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.Black;
 
-            dataGridView1
-                .ColumnHeadersDefaultCellStyle
-                .Font =
-                    new Font(
-                        "Segoe UI",
-                        10,
-                        FontStyle.Bold
-                    );
+            dgvImportOrders.ColumnHeadersDefaultCellStyle.Font =
+                new Font(
+                    "Segoe UI",
+                    10,
+                    FontStyle.Bold
+                );
 
-            dataGridView1
-                .DefaultCellStyle
-                .Font =
-                    new Font(
-                        "Segoe UI",
-                        10,
-                        FontStyle.Regular
-                    );
+            dgvImportOrders.DefaultCellStyle.Font =
+                new Font(
+                    "Segoe UI",
+                    10
+                );
 
-            dataGridView1
-                .DefaultCellStyle
-                .Alignment =
-                    DataGridViewContentAlignment
-                        .MiddleLeft;
+            dgvImportOrders.DefaultCellStyle.Padding =
+                new Padding(8);
 
-            dataGridView1
-                .ColumnHeadersDefaultCellStyle
-                .Alignment =
-                    DataGridViewContentAlignment
-                        .MiddleLeft;
+            dgvImportOrders.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(
+                    219,
+                    234,
+                    254
+                );
 
-            dataGridView1
-                .DefaultCellStyle
-                .WrapMode =
-                    DataGridViewTriState
-                        .True;
+            dgvImportOrders.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
 
-            dataGridView1
-                .ColumnHeadersDefaultCellStyle
-                .WrapMode =
-                    DataGridViewTriState
-                        .False;
+            dgvImportOrders.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
 
-            dataGridView1
-                .DefaultCellStyle
-                .SelectionBackColor =
-                    Color.FromArgb(
-                        52,
-                        152,
-                        219
-                    );
-
-            dataGridView1
-                .DefaultCellStyle
-                .SelectionForeColor =
-                    Color.White;
-
-            dataGridView1.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode
-                    .Fill;
-
-            dataGridView1.ScrollBars =
+            dgvImportOrders.ScrollBars =
                 ScrollBars.Vertical;
 
             AddColumns();
 
-            dataGridView1.Columns["ImportId"]
-                .FillWeight = 150;
-
-            dataGridView1.Columns["Supplier"]
-                .FillWeight = 260;
-
-            dataGridView1.Columns["Date"]
-                .FillWeight = 130;
-
-            dataGridView1.Columns["Items"]
-                .FillWeight = 70;
-
-            dataGridView1.Columns["Status"]
-                .FillWeight = 120;
-
-            dataGridView1.Columns["ReturnStatus"]
-                .FillWeight = 140;
-
-            dataGridView1.Columns["CreatedBy"]
-                .FillWeight = 170;
-
-            dataGridView1.Columns["Action"]
-                .FillWeight = 90;
+            dgvImportOrders.Columns["ImportId"].FillWeight = 80;
+            dgvImportOrders.Columns["Supplier"].FillWeight = 180;
+            dgvImportOrders.Columns["Date"].FillWeight = 90;
+            dgvImportOrders.Columns["Items"].FillWeight = 60;
+            dgvImportOrders.Columns["Status"].FillWeight = 90;
+            dgvImportOrders.Columns["ReturnStatus"].FillWeight = 110;
+            dgvImportOrders.Columns["CreatedBy"].FillWeight = 120;
+            dgvImportOrders.Columns["Action"].FillWeight = 60;
         }
 
         private void AddColumns()
         {
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 "ImportId",
                 "Invoice ID"
             );
 
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 "Supplier",
                 "Supplier"
             );
 
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 "Date",
                 "Date"
             );
 
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 "Items",
                 "Items"
             );
 
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 "Status",
                 "Status"
             );
-
-            // ===== RETURN STATUS BUTTON =====
 
             DataGridViewButtonColumn
                 returnColumn =
@@ -229,19 +189,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             returnColumn.HeaderText =
                 "Return Status";
 
-            returnColumn.UseColumnTextForButtonValue =
-                false;
-
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 returnColumn
             );
 
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 "CreatedBy",
                 "Created By"
             );
-
-            // ===== ACTION BUTTON =====
 
             DataGridViewButtonColumn
                 actionColumn =
@@ -254,66 +209,53 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 "Actions";
 
             actionColumn.Text =
-                "View";
+                "👁";
 
             actionColumn.UseColumnTextForButtonValue =
                 true;
 
-            dataGridView1.Columns.Add(
+            dgvImportOrders.Columns.Add(
                 actionColumn
             );
         }
 
         private void LoadImportInvoices()
         {
-            dataGridView1.Rows.Clear();
+            dgvImportOrders.Rows.Clear();
 
             List<ImportInvoice>
                 invoices =
-                    _importRepository
-                        .GetAll();
+                    _importRepository.GetAll();
 
             List<Supplier>
                 suppliers =
-                    _supplierRepository
-                        .GetAll();
+                    _supplierRepository.GetAll();
 
             List<ReturnOrder>
                 returns =
-                    _returnRepository
-                        .GetAll();
+                    _returnRepository.GetAll();
 
-            int i;
-
-            for (
-                i = 0;
-                i < invoices.Count;
-                i++
+            foreach (
+                ImportInvoice invoice
+                in invoices
             )
             {
-                ImportInvoice invoice =
-                    invoices[i];
-
                 string supplierName =
                     invoice.SupplierId;
 
-                int j;
-
-                for (
-                    j = 0;
-                    j < suppliers.Count;
-                    j++
+                foreach (
+                    Supplier supplier
+                    in suppliers
                 )
                 {
                     if (
-                        suppliers[j]
-                            .SupplierId
-                        == invoice.SupplierId
+                        supplier.SupplierId
+                        ==
+                        invoice.SupplierId
                     )
                     {
                         supplierName =
-                            suppliers[j]
-                                .SupplierName;
+                            supplier.SupplierName;
 
                         break;
                     }
@@ -325,75 +267,95 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 string returnId =
                     "";
 
-                for (
-                    j = 0;
-                    j < returns.Count;
-                    j++
+                foreach (
+                    ReturnOrder order
+                    in returns
                 )
                 {
                     if (
-                        returns[j]
-                            .ImportInvoiceId
-                        == invoice.ImportId
+                        order.ImportInvoiceId
+                        ==
+                        invoice.ImportId
                     )
                     {
                         returnText =
                             "Returned";
 
                         returnId =
-                            returns[j]
-                                .ReturnOrderId;
+                            order.ReturnOrderId;
 
                         break;
                     }
                 }
 
-                int rowIndex =
-                    dataGridView1.Rows.Add(
+                int row =
+                    dgvImportOrders.Rows.Add(
                         invoice.ImportId,
                         supplierName,
                         invoice.ImportDate
                             .ToString(
                                 "yyyy-MM-dd"
                             ),
-                        invoice
-                            .OrderDetails
-                            .Count,
+                        invoice.OrderDetails.Count,
                         "Completed",
                         returnText,
                         invoice.EmployeeName,
-                        "View"
+                        "👁"
                     );
 
-                dataGridView1
-                    .Rows[rowIndex]
+                dgvImportOrders
+                    .Rows[row]
                     .Cells["ReturnStatus"]
                     .Tag =
                         returnId;
-                if (returnText == "Returned")
+
+                dgvImportOrders
+                    .Rows[row]
+                    .Cells["Status"]
+                    .Style.BackColor =
+                        Color.FromArgb(
+                            220,
+                            252,
+                            231
+                        );
+
+                dgvImportOrders
+                    .Rows[row]
+                    .Cells["Status"]
+                    .Style.ForeColor =
+                        Color.SeaGreen;
+
+                if (
+                    returnText ==
+                    "Returned"
+                )
                 {
-                    dataGridView1
-                        .Rows[rowIndex]
+                    dgvImportOrders
+                        .Rows[row]
                         .Cells["ReturnStatus"]
                         .Style.BackColor =
                             Color.SeaGreen;
 
-                    dataGridView1
-                        .Rows[rowIndex]
+                    dgvImportOrders
+                        .Rows[row]
                         .Cells["ReturnStatus"]
                         .Style.ForeColor =
                             Color.White;
                 }
                 else
                 {
-                    dataGridView1
-                        .Rows[rowIndex]
+                    dgvImportOrders
+                        .Rows[row]
                         .Cells["ReturnStatus"]
                         .Style.BackColor =
-                            Color.LightGray;
+                            Color.FromArgb(
+                                243,
+                                244,
+                                246
+                            );
 
-                    dataGridView1
-                        .Rows[rowIndex]
+                    dgvImportOrders
+                        .Rows[row]
                         .Cells["ReturnStatus"]
                         .Style.ForeColor =
                             Color.Black;
@@ -401,7 +363,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             }
         }
 
-        private void dataGridView1_CellClick(
+        private void dgvImportOrders_CellClick(
             object sender,
             DataGridViewCellEventArgs e)
         {
@@ -410,104 +372,85 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 return;
             }
 
-            // ===== VIEW IMPORT =====
-
-            if (
-                dataGridView1
+            string columnName =
+                dgvImportOrders
                     .Columns[e.ColumnIndex]
-                    .Name
-                == "Action"
-            )
+                    .Name;
+
+            if (columnName == "Action")
             {
                 string importId =
-                    dataGridView1
-                        .Rows[e.RowIndex]
-                        .Cells["ImportId"]
-                        .Value
-                        .ToString();
+    dgvImportOrders
+        .Rows[e.RowIndex]
+        .Cells["ImportId"]
+        .Value?
+        .ToString()
+        ?? "";
+                ImportInvoice? invoice =
+                    _importRepository
+                    .GetAll()
+                    .Find(
+                       x => x.ImportId == importId
+                    );
 
-                List<ImportInvoice>
-                    invoices =
-                        _importRepository
-                            .GetAll();
-
-                ImportInvoice selectedInvoice =
-                    null;
-
-                int i;
-
-                for (
-                    i = 0;
-                    i < invoices.Count;
-                    i++
-                )
-                {
-                    if (
-                        invoices[i]
-                            .ImportId
-                        == importId
-                    )
-                    {
-                        selectedInvoice =
-                            invoices[i];
-
-                        break;
-                    }
-                }
-
-                if (selectedInvoice != null)
+                if (invoice != null)
                 {
                     ImportOrderDetails form =
                         new ImportOrderDetails(
-                            selectedInvoice
+                            invoice
                         );
 
                     form.ShowDialog();
+
+                    LoadImportInvoices();
                 }
             }
 
-            // ===== VIEW RETURN =====
-
             if (
-                dataGridView1
-                    .Columns[e.ColumnIndex]
-                    .Name
-                == "ReturnStatus"
+                columnName
+                ==
+                "ReturnStatus"
             )
             {
-                string text =
-                    dataGridView1
-                        .Rows[e.RowIndex]
-                        .Cells["ReturnStatus"]
-                        .Value
-                        .ToString();
+                string status =
+     dgvImportOrders
+         .Rows[e.RowIndex]
+         .Cells["ReturnStatus"]
+         .Value?
+         .ToString()
+         ?? "";
 
-                if (text != "Returned")
+                if (
+                    status
+                    !=
+                    "Returned"
+                )
                 {
                     return;
                 }
 
                 string returnId =
-                    dataGridView1
-                        .Rows[e.RowIndex]
-                        .Cells["ReturnStatus"]
-                        .Tag
-                        .ToString();
+     dgvImportOrders
+         .Rows[e.RowIndex]
+         .Cells["ReturnStatus"]
+         .Tag?
+         .ToString()
+         ?? "";
 
-                ReturnOrder returnOrder =
-                    _returnRepository
-                        .FindById(
-                            returnId
-                        );
+                ReturnOrder? order =
+     _returnRepository
+     .FindById(returnId);
 
-                if (returnOrder != null)
+                if (order != null)
                 {
                     ReturnSupplier form =
-                        new ReturnSupplier (
-                            returnOrder
+                        new ReturnSupplier(
+                            order
                         );
 
                     form.ShowDialog();
+
+                    LoadImportInvoices();
                 }
             }
         }
@@ -534,6 +477,39 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             form.ShowDialog();
 
             LoadImportInvoices();
+        }
+
+        private void dgvImportOrders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            string importId =
+                dgvImportOrders
+                .Rows[e.RowIndex]
+                .Cells["ImportId"]
+                .Value
+                .ToString();
+
+            ImportInvoice invoice =
+                _importRepository
+                .GetAll()
+                .Find(
+                    x => x.ImportId ==
+                    importId
+                );
+
+            if (invoice != null)
+            {
+                ImportOrderDetails form =
+                    new ImportOrderDetails(
+                        invoice
+                    );
+
+                form.ShowDialog();
+
+                LoadImportInvoices();
+            }
         }
     }
 }
