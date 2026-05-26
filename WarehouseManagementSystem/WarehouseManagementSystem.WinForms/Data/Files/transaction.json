@@ -1,5 +1,149 @@
 [
   {
+    "TransactionId": "TRN0001",
+    "ProductId": "PR0001",
+    "TransactionType": "IMPORT",
+    "Quantity": 120,
+    "Date": "2026-05-10T08:30:00",
+    "ReferenceId": "IMP20260001"
+  },
+  {
+    "TransactionId": "TRN0002",
+    "ProductId": "PR0002",
+    "TransactionType": "IMPORT",
+    "Quantity": 80,
+    "Date": "2026-05-10T08:30:00",
+    "ReferenceId": "IMP20260001"
+  },
+  {
+    "TransactionId": "TRN0003",
+    "ProductId": "PR0003",
+    "TransactionType": "IMPORT",
+    "Quantity": 350,
+    "Date": "2026-05-10T08:30:00",
+    "ReferenceId": "IMP20260001"
+  },
+  {
+    "TransactionId": "TRN0004",
+    "ProductId": "PR0004",
+    "TransactionType": "IMPORT",
+    "Quantity": 200,
+    "Date": "2026-05-10T08:30:00",
+    "ReferenceId": "IMP20260001"
+  },
+  {
+    "TransactionId": "TRN0005",
+    "ProductId": "PR0005",
+    "TransactionType": "IMPORT",
+    "Quantity": 150,
+    "Date": "2026-05-12T09:00:00",
+    "ReferenceId": "IMP20260002"
+  },
+  {
+    "TransactionId": "TRN0006",
+    "ProductId": "PR0007",
+    "TransactionType": "IMPORT",
+    "Quantity": 90,
+    "Date": "2026-05-12T09:00:00",
+    "ReferenceId": "IMP20260002"
+  },
+  {
+    "TransactionId": "TRN0007",
+    "ProductId": "PR0006",
+    "TransactionType": "IMPORT",
+    "Quantity": 75,
+    "Date": "2026-05-13T10:15:00",
+    "ReferenceId": "IMP20260003"
+  },
+  {
+    "TransactionId": "TRN0008",
+    "ProductId": "PR0008",
+    "TransactionType": "IMPORT",
+    "Quantity": 100,
+    "Date": "2026-05-13T10:15:00",
+    "ReferenceId": "IMP20260003"
+  },
+  {
+    "TransactionId": "TRN0009",
+    "ProductId": "PR0001",
+    "TransactionType": "EXPORT",
+    "Quantity": 10,
+    "Date": "2026-05-20T10:30:00",
+    "ReferenceId": "EXP20260001"
+  },
+  {
+    "TransactionId": "TRN0010",
+    "ProductId": "PR0003",
+    "TransactionType": "EXPORT",
+    "Quantity": 15,
+    "Date": "2026-05-20T10:30:00",
+    "ReferenceId": "EXP20260001"
+  },
+  {
+    "TransactionId": "TRN0011",
+    "ProductId": "PR0005",
+    "TransactionType": "EXPORT",
+    "Quantity": 6,
+    "Date": "2026-05-21T14:15:00",
+    "ReferenceId": "EXP20260002"
+  },
+  {
+    "TransactionId": "TRN0012",
+    "ProductId": "PR0007",
+    "TransactionType": "EXPORT",
+    "Quantity": 10,
+    "Date": "2026-05-21T14:15:00",
+    "ReferenceId": "EXP20260002"
+  },
+  {
+    "TransactionId": "TRN0013",
+    "ProductId": "PR0006",
+    "TransactionType": "EXPORT",
+    "Quantity": 12,
+    "Date": "2026-05-23T09:45:00",
+    "ReferenceId": "EXP20260003"
+  },
+  {
+    "TransactionId": "TRN0014",
+    "ProductId": "PR0008",
+    "TransactionType": "EXPORT",
+    "Quantity": 7,
+    "Date": "2026-05-23T09:45:00",
+    "ReferenceId": "EXP20260003"
+  },
+  {
+    "TransactionId": "TRN0015",
+    "ProductId": "PR0002",
+    "TransactionType": "IMPORT",
+    "Quantity": 40,
+    "Date": "2026-05-20T08:15:00",
+    "ReferenceId": "IMP20260004"
+  },
+  {
+    "TransactionId": "TRN0016",
+    "ProductId": "PR0004",
+    "TransactionType": "IMPORT",
+    "Quantity": 30,
+    "Date": "2026-05-21T09:45:00",
+    "ReferenceId": "IMP20260005"
+  },
+  {
+    "TransactionId": "TRN0017",
+    "ProductId": "PR0006",
+    "TransactionType": "IMPORT",
+    "Quantity": 20,
+    "Date": "2026-05-22T13:20:00",
+    "ReferenceId": "IMP20260006"
+  },
+  {
+    "TransactionId": "TRN0018",
+    "ProductId": "PR0008",
+    "TransactionType": "IMPORT",
+    "Quantity": 15,
+    "Date": "2026-05-23T11:10:00",
+    "ReferenceId": "IMP20260007"
+  },
+  {
     "TransactionId": "TRN0019",
     "ProductId": "PR0009",
     "TransactionType": "IMPORT",

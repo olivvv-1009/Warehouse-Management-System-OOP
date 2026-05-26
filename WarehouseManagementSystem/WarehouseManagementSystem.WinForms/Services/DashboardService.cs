@@ -60,20 +60,16 @@ namespace WarehouseManagementSystem.WinForms.Services
                 .GetAll();
         }
 
-        public DashboardStatistic
-    GetStatistics()
+        public DashboardStatistic GetStatistics()
         {
-            List<Product>
-                products =
-                    _productRepository.GetAll();
+            List<Product> products =
+                _productRepository.GetAll();
 
-            List<InventoryItem>
-                inventories =
-                    _inventoryRepository.GetAll();
+            List<Batch> batches =
+                _batchRepository.GetAll();
 
-            DashboardStatistic
-                statistic =
-                    new DashboardStatistic();
+            DashboardStatistic statistic =
+                new DashboardStatistic();
 
             statistic.TotalProducts =
                 products.Count;
@@ -88,19 +84,38 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             for (
                 i = 0;
-                i < inventories.Count;
+                i < products.Count;
                 i++
             )
             {
-                InventoryItem item =
-                    inventories[i];
+                Product product =
+                    products[i];
 
-                totalInventory +=
-                    item.Quantity;
+                int totalQty = 0;
+
+                int j;
+
+                for (
+                    j = 0;
+                    j < batches.Count;
+                    j++
+                )
+                {
+                    if (
+                        batches[j].ProductId
+                        ==
+                        product.ProductID
+                    )
+                    {
+                        totalQty +=
+                            batches[j].Quantity;
+                    }
+                }
+
+                totalInventory += totalQty;
 
                 if (
-                    _dashboardRule
-                        .IsLowStock(item)
+                    totalQty <= product.MinStock
                 )
                 {
                     lowStockCount++;
@@ -108,15 +123,11 @@ namespace WarehouseManagementSystem.WinForms.Services
 
                 decimal importPrice =
                     GetImportPrice(
-                        item.ProductId
+                        product.ProductID
                     );
 
                 inventoryValue +=
-                    _dashboardRule
-                        .CalculateInventoryValue(
-                            item.Quantity,
-                            importPrice
-                        );
+                    totalQty * importPrice;
             }
 
             statistic.TotalInventory =
@@ -242,35 +253,67 @@ namespace WarehouseManagementSystem.WinForms.Services
         }
 
         public List<InventoryItem>
-    GetLowStockItems()
+GetLowStockItems()
         {
-            List<InventoryItem>
-                inventories =
-                    _inventoryRepository
-                        .GetAll();
+            List<Product> products =
+                _productRepository.GetAll();
 
-            List<InventoryItem>
-                result =
-                    new List<InventoryItem>();
+            List<Batch> batches =
+                _batchRepository.GetAll();
+
+            List<InventoryItem> result =
+                new List<InventoryItem>();
 
             int i;
 
             for (
                 i = 0;
-                i < inventories.Count;
+                i < products.Count;
                 i++
             )
             {
-                if (
-                    inventories[i]
-                        .StockStatus
-                    ==
-                    "Low Stock"
+                Product product =
+                    products[i];
+
+                int totalQty = 0;
+
+                int j;
+
+                for (
+                    j = 0;
+                    j < batches.Count;
+                    j++
                 )
                 {
-                    result.Add(
-                        inventories[i]
-                    );
+                    if (
+                        batches[j].ProductId
+                        ==
+                        product.ProductID
+                    )
+                    {
+                        totalQty +=
+                            batches[j].Quantity;
+                    }
+                }
+
+                if ( totalQty <= product.MinStock)
+                {
+                    InventoryItem item =
+                        new InventoryItem();
+
+                    item.ProductId =
+                        product.ProductID;
+
+                    item.ProductName =
+                        product.Name;
+
+                    item.Quantity =
+                        totalQty;
+
+                    item.MinStock =
+                        product.MinStock;
+
+                    result.Add(item);
                 }
             }
 

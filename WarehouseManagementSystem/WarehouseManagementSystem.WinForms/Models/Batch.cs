@@ -7,6 +7,7 @@ namespace WarehouseManagementSystem.WinForms.Models
         public string BatchId { get; set; }
 
         public string ProductId { get; set; }
+        public string SupplierId { get; set; }
 
         public string LocationCode { get; set; }
 

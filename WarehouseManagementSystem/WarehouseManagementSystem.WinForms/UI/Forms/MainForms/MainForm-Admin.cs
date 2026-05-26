@@ -8,6 +8,7 @@ using WarehouseManagementSystem.WinForms.UI.Forms.Products;
 using WarehouseManagementSystem.WinForms.UI.Forms.Employees;
 using WarehouseManagementSystem.WinForms.UI.Forms.SettingsForms;
 using WarehouseManagementSystem.WinForms.UI.Forms.Dashboard;
+using WarehouseManagementSystem.WinForms.UI.Forms.Report;
 using WarehouseManagementSystem.WinForms.UI.Suppliers;
 using WarehouseManagementSystem.WinForms.Utils;
 
@@ -105,6 +106,11 @@ namespace WarehouseManagementSystem.WinForms
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             LoadView(new DashboardForm());
+        }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            LoadView(new ReportForm());
         }
     }
 }

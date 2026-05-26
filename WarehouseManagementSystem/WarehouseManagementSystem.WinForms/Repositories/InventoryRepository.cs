@@ -149,7 +149,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                     == productId)
                 {
                     total +=
-                        batch.RemainingQuantity;
+                        batch.Quantity;
                 }
             }
 
