@@ -269,6 +269,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             btnCancel.TabIndex = 0;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click_1;
             // 
             // btnSubmit
             // 

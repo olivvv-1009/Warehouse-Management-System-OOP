@@ -719,5 +719,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 _returnOrder
                     .EmployeeId;
         }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

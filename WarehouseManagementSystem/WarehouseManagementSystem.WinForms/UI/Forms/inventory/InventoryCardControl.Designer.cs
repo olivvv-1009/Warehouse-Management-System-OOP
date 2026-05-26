@@ -34,9 +34,9 @@
             lblProductName = new Label();
             lblQuantity = new Label();
             lblMinStock = new Label();
+            lblStatus = new Label();
             panelBatch = new Panel();
             dgvBatch = new DataGridView();
-            lblStatus = new Label();
             panelHeader.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panelBatch.SuspendLayout();
@@ -57,13 +57,11 @@
             // 
             tableLayoutPanel1.BackColor = Color.LightGray;
             tableLayoutPanel1.ColumnCount = 5;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.5325127F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.5799675F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.9261875F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.50791F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.4534225F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22F));
             tableLayoutPanel1.Controls.Add(lblProductId, 0, 0);
             tableLayoutPanel1.Controls.Add(lblProductName, 1, 0);
             tableLayoutPanel1.Controls.Add(lblQuantity, 2, 0);
@@ -85,7 +83,7 @@
             lblProductId.Dock = DockStyle.Fill;
             lblProductId.Location = new Point(3, 0);
             lblProductId.Name = "lblProductId";
-            lblProductId.Size = new Size(127, 57);
+            lblProductId.Size = new Size(141, 57);
             lblProductId.TabIndex = 0;
             lblProductId.Text = "Product ID";
             lblProductId.TextAlign = ContentAlignment.MiddleCenter;
@@ -94,9 +92,9 @@
             // 
             lblProductName.AutoSize = true;
             lblProductName.Dock = DockStyle.Fill;
-            lblProductName.Location = new Point(136, 0);
+            lblProductName.Location = new Point(150, 0);
             lblProductName.Name = "lblProductName";
-            lblProductName.Size = new Size(294, 57);
+            lblProductName.Size = new Size(338, 57);
             lblProductName.TabIndex = 1;
             lblProductName.Text = "Product Name";
             lblProductName.TextAlign = ContentAlignment.MiddleCenter;
@@ -105,9 +103,9 @@
             // 
             lblQuantity.AutoSize = true;
             lblQuantity.Dock = DockStyle.Fill;
-            lblQuantity.Location = new Point(436, 0);
+            lblQuantity.Location = new Point(494, 0);
             lblQuantity.Name = "lblQuantity";
-            lblQuantity.Size = new Size(170, 57);
+            lblQuantity.Size = new Size(161, 57);
             lblQuantity.TabIndex = 2;
             lblQuantity.Text = "Quantity";
             lblQuantity.TextAlign = ContentAlignment.MiddleCenter;
@@ -116,12 +114,23 @@
             // 
             lblMinStock.AutoSize = true;
             lblMinStock.Dock = DockStyle.Fill;
-            lblMinStock.Location = new Point(612, 0);
+            lblMinStock.Location = new Point(661, 0);
             lblMinStock.Name = "lblMinStock";
-            lblMinStock.Size = new Size(185, 57);
+            lblMinStock.Size = new Size(102, 57);
             lblMinStock.TabIndex = 3;
             lblMinStock.Text = "Min Stock";
             lblMinStock.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Dock = DockStyle.Fill;
+            lblStatus.Location = new Point(769, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(211, 57);
+            lblStatus.TabIndex = 8;
+            lblStatus.Text = "Status";
+            lblStatus.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelBatch
             // 
@@ -142,17 +151,6 @@
             dgvBatch.RowHeadersWidth = 51;
             dgvBatch.Size = new Size(983, 112);
             dgvBatch.TabIndex = 0;
-            // 
-            // lblStatus
-            // 
-            lblStatus.AutoSize = true;
-            lblStatus.Dock = DockStyle.Fill;
-            lblStatus.Location = new Point(803, 0);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(177, 57);
-            lblStatus.TabIndex = 8;
-            lblStatus.Text = "Status";
-            lblStatus.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // InventoryCardControl
             // 

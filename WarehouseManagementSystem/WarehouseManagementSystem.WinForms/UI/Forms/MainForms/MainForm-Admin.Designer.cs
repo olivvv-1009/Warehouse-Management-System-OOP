@@ -365,17 +365,17 @@
             tableLayoutPanel5.Location = new Point(208, 3);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 2;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 12.3938875F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 87.60611F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100.000008F));
             tableLayoutPanel5.Size = new Size(951, 589);
             tableLayoutPanel5.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 75);
+            panel1.Location = new Point(3, 63);
             panel1.Name = "panel1";
-            panel1.Size = new Size(945, 511);
+            panel1.Size = new Size(945, 523);
             panel1.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -393,7 +393,7 @@
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel6.Size = new Size(945, 66);
+            tableLayoutPanel6.Size = new Size(945, 54);
             tableLayoutPanel6.TabIndex = 1;
             // 
             // btnOut
@@ -402,7 +402,7 @@
             btnOut.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnOut.Location = new Point(786, 3);
             btnOut.Name = "btnOut";
-            btnOut.Size = new Size(156, 60);
+            btnOut.Size = new Size(156, 48);
             btnOut.TabIndex = 0;
             btnOut.Text = "Out";
             btnOut.UseVisualStyleBackColor = true;
@@ -421,7 +421,7 @@
             tableLayoutPanel7.RowCount = 2;
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 58.695652F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 41.304348F));
-            tableLayoutPanel7.Size = new Size(146, 60);
+            tableLayoutPanel7.Size = new Size(146, 48);
             tableLayoutPanel7.TabIndex = 1;
             // 
             // lbName
@@ -429,10 +429,10 @@
             lbName.AutoSize = true;
             lbName.BackColor = Color.LightSteelBlue;
             lbName.Dock = DockStyle.Fill;
-            lbName.Font = new Font("Times New Roman", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbName.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbName.Location = new Point(3, 0);
             lbName.Name = "lbName";
-            lbName.Size = new Size(140, 35);
+            lbName.Size = new Size(140, 28);
             lbName.TabIndex = 0;
             lbName.Text = "Name";
             lbName.TextAlign = ContentAlignment.MiddleCenter;
@@ -442,11 +442,11 @@
             lbRole.AutoSize = true;
             lbRole.BackColor = Color.SteelBlue;
             lbRole.Dock = DockStyle.Fill;
-            lbRole.Font = new Font("Times New Roman", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbRole.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbRole.ForeColor = Color.White;
-            lbRole.Location = new Point(3, 35);
+            lbRole.Location = new Point(3, 28);
             lbRole.Name = "lbRole";
-            lbRole.Size = new Size(140, 25);
+            lbRole.Size = new Size(140, 20);
             lbRole.TabIndex = 1;
             lbRole.Text = "Role";
             lbRole.TextAlign = ContentAlignment.MiddleCenter;
@@ -458,7 +458,7 @@
             label5.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
-            label5.Size = new Size(625, 66);
+            label5.Size = new Size(625, 54);
             label5.TabIndex = 2;
             label5.Text = "Warehouse Management System";
             label5.TextAlign = ContentAlignment.MiddleLeft;
