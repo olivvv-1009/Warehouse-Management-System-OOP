@@ -8,11 +8,14 @@ namespace WarehouseManagementSystem.WinForms.Services
     {
         private readonly BatchRepository
             _batchRepository;
+        private readonly SupplierRepository _supplierRepository;
 
         public BatchService()
         {
             _batchRepository =
                 new BatchRepository();
+            _supplierRepository =
+        new SupplierRepository();
         }
 
         public List<Batch> GetAllBatches()
@@ -44,10 +47,38 @@ namespace WarehouseManagementSystem.WinForms.Services
         public string GetSupplierNameByBatch(
     string batchId)
         {
-            return _batchRepository
-                .GetSupplierNameByBatch(
-                    batchId
-                );
+            List<Batch> batches =
+                _batchRepository.GetAll();
+
+            Batch foundBatch = null;
+
+            foreach (Batch batch in batches)
+            {
+                if (batch.BatchId == batchId)
+                {
+                    foundBatch = batch;
+                    break;
+                }
+            }
+
+            if (foundBatch == null)
+            {
+                return "Unknown";
+            }
+
+            List<Supplier> suppliers =
+                _supplierRepository.GetAll();
+
+            foreach (Supplier supplier in suppliers)
+            {
+                if (supplier.SupplierId
+                    == foundBatch.SupplierId)
+                {
+                    return supplier.SupplierName;
+                }
+            }
+
+            return "Unknown";
         }
     }
 }

@@ -66,7 +66,9 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             existingProduct.Name = product.Name;
             existingProduct.Category = product.Category;
+            existingProduct.MinStock = product.MinStock;
             Save();
+            LoadProducts();
         }
 
         public void Delete(string productId)
@@ -95,5 +97,11 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         {
             return _products.Any(p => p.ProductID == productId);
         }
+
+        public void Reload()
+        {
+            LoadProducts();
+        }
+
     }
 }

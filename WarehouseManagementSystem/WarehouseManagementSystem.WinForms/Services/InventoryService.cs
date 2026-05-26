@@ -63,11 +63,22 @@ namespace WarehouseManagementSystem.WinForms.Services
                 item.MinStock =
                     product.MinStock;
 
+                int totalQuantity = 0;
+
+                List<Batch> productBatches =
+                    _batchRepository.GetByProductId(
+                        product.ProductID
+                    );
+
+                foreach (Batch batch
+                    in productBatches)
+                {
+                    totalQuantity +=
+                        batch.Quantity;
+                }
+
                 item.Quantity =
-                    _inventoryRepository
-                        .GetTotalQuantity(
-                            product.ProductID
-                        );
+                    totalQuantity;
 
                 result.Add(item);
             }
@@ -82,12 +93,23 @@ namespace WarehouseManagementSystem.WinForms.Services
         }
 
         public int GetTotalQuantity(
-            string productId)
+    string productId)
         {
-            return _inventoryRepository
-                .GetTotalQuantity(
+            int total = 0;
+
+            List<Batch> batches =
+                _batchRepository.GetByProductId(
                     productId
                 );
+
+            foreach (Batch batch
+                in batches)
+            {
+                total +=
+                    batch.RemainingQuantity;
+            }
+
+            return total;
         }
 
         public List<InventoryItem>

@@ -263,6 +263,7 @@
             btnReport.TabIndex = 8;
             btnReport.Text = "Reports";
             btnReport.UseVisualStyleBackColor = false;
+            btnReport.Click += btnReport_Click;
             // 
             // btnBack
             // 
