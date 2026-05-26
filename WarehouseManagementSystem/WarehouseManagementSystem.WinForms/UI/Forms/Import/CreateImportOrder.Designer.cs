@@ -70,7 +70,7 @@
             panel1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Padding = new Padding(15, 15, 15, 15);
+            panel1.Padding = new Padding(15);
             panel1.Size = new Size(692, 687);
             panel1.TabIndex = 0;
             // 
@@ -85,7 +85,7 @@
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(3, 3, 3, 3);
+            tableLayoutPanel1.Padding = new Padding(3);
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 21.22807F));
@@ -117,7 +117,7 @@
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(6, 46);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.Padding = new Padding(10, 10, 10, 10);
+            tableLayoutPanel2.Padding = new Padding(10);
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 95F));
@@ -131,7 +131,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(13, 13);
             panel2.Name = "panel2";
-            panel2.Padding = new Padding(7, 7, 7, 7);
+            panel2.Padding = new Padding(7);
             panel2.Size = new Size(624, 89);
             panel2.TabIndex = 0;
             // 
@@ -233,7 +233,7 @@
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(6, 167);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.Padding = new Padding(10, 10, 10, 10);
+            tableLayoutPanel3.Padding = new Padding(10);
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 423F));
@@ -247,7 +247,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(13, 13);
             panel4.Name = "panel4";
-            panel4.Padding = new Padding(5, 5, 5, 5);
+            panel4.Padding = new Padding(5);
             panel4.Size = new Size(624, 417);
             panel4.TabIndex = 0;
             // 
