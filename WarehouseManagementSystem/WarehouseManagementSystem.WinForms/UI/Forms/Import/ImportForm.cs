@@ -511,5 +511,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 LoadImportInvoices();
             }
         }
+
+        private void dgvImportOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
