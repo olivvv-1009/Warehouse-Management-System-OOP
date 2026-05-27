@@ -29,4 +29,14 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UI\Forms\Transaction\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\Files\export.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
