@@ -321,7 +321,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                 dgvBatch.Rows.Add(
                     batch.BatchId,
                     supplierName,
-                    batch.Quantity,
+                    batch.RemainingQuantity,
                     batch.ImportDate
                         .ToString(
                             "yyyy-MM-dd"

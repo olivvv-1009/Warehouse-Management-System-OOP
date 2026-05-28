@@ -71,20 +71,6 @@ namespace WarehouseManagementSystem.WinForms.Services
                 item.MinStock =
                     product.MinStock;
 
-                int totalQuantity = 0;
-
-                List<Batch> productBatches =
-                    _batchRepository.GetByProductId(
-                        product.ProductID
-                    );
-
-                foreach (Batch batch
-    in productBatches)
-                {
-                    totalQuantity +=
-                        batch.RemainingQuantity;
-                }
-
                 item.Quantity =
                     totalQuantity;
 
@@ -95,7 +81,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         }
 
         public int GetTotalQuantity(
-    string productId)
+            string productId)
         {
             int total = 0;
 
@@ -137,8 +123,9 @@ namespace WarehouseManagementSystem.WinForms.Services
             return result;
         }
 
-        public InventoryItem FindInventoryByProductId(
-            string productId)
+        public InventoryItem
+            FindInventoryByProductId(
+                string productId)
         {
             List<InventoryItem>
                 inventoryItems =
@@ -177,8 +164,9 @@ namespace WarehouseManagementSystem.WinForms.Services
                 );
         }
 
-        public string GetSupplierNameByBatch(
-            string batchId)
+        public string
+            GetSupplierNameByBatch(
+                string batchId)
         {
             return _batchService
                 .GetSupplierNameByBatch(

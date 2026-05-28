@@ -37,85 +37,61 @@ namespace WarehouseManagementSystem.WinForms.Services
                 new FifoRule();
         }
 
-        public bool ExportProduct(
-            string productId,
-            int quantity,
+        public bool CreateExportInvoice(
             string employeeName,
-            decimal unitPrice)
+            string destination,
+            List<OrderDetail> details)
         {
-            List<Batch> batches =
-                _batchRepository
-                    .GetByProductId(
-                        productId
+            foreach (OrderDetail detail
+                in details)
+            {
+                List<Batch> batches =
+                    _batchRepository
+                        .GetByProductId(
+                            detail.ProductId
+                        );
+
+                bool success =
+                    _fifoRule.Apply(
+                        batches,
+                        detail.Quantity,
+                        out var deductions
                     );
 
-            bool success =
-                _fifoRule.Apply(
-                    batches,
-                    quantity,
-                    out var deductions
-                );
-
-            if (!success)
-            {
-                return false;
-            }
-
-            foreach (var deduction
-                in deductions)
-            {
-                Batch batch =
-                    batches.First(
-                        x => x.BatchId
-                            == deduction.BatchId
-                    );
-
-                batch.RemainingQuantity -=
-                    deduction.QuantityToDeduct;
-
-                if (
-                    batch.RemainingQuantity
-                    <= 0
-                )
+                if (!success)
                 {
-                    batch.RemainingQuantity =
-                        0;
+                    return false;
+                }
 
-                    batch.Status =
-                        "Out of Stock";
+                foreach (var deduction
+                    in deductions)
+                {
+                    Batch batch =
+                        batches.First(
+                            x => x.BatchId
+                                == deduction.BatchId
+                        );
+
+                    batch.RemainingQuantity -=
+                        deduction.QuantityToDeduct;
+
+                    if (
+                        batch.RemainingQuantity
+                        <= 0
+                    )
+                    {
+                        batch.RemainingQuantity =
+                            0;
+
+                        batch.Status =
+                            "Out of Stock";
+                    }
                 }
             }
 
             _batchRepository
                 .Update();
 
-            ExportInvoice invoice =
-                CreateInvoice(
-                    productId,
-                    quantity,
-                    employeeName,
-                    unitPrice
-                );
-
-            _exportRepository
-                .Add(invoice);
-
-            CreateTransaction(
-                productId,
-                quantity,
-                invoice.ExportId
-            );
-
-            return true;
-        }
-
-        private ExportInvoice
-            CreateInvoice(
-                string productId,
-                int quantity,
-                string employeeName,
-                decimal unitPrice)
-        {
             List<ExportInvoice> invoices =
                 _exportRepository
                     .GetAll();
@@ -143,31 +119,34 @@ namespace WarehouseManagementSystem.WinForms.Services
             invoice.EmployeeName =
                 employeeName;
 
+            invoice.Destination =
+                destination;
+
             invoice.ExportDate =
                 DateTime.Now;
 
-            OrderDetail detail =
-                new OrderDetail();
-
-            detail.ProductId =
-                productId;
-
-            detail.Quantity =
-                quantity;
-
-            detail.UnitPrice =
-                unitPrice;
-
-            detail.TotalPrice =
-                quantity * unitPrice;
-
-            invoice.OrderDetails
-                .Add(detail);
+            invoice.OrderDetails =
+                details;
 
             invoice.TotalAmount =
-                detail.TotalPrice;
+                details.Sum(
+                    x => x.TotalPrice
+                );
 
-            return invoice;
+            _exportRepository
+                .Add(invoice);
+
+            foreach (OrderDetail detail
+                in details)
+            {
+                CreateTransaction(
+                    detail.ProductId,
+                    detail.Quantity,
+                    invoice.ExportId
+                );
+            }
+
+            return true;
         }
 
         private void CreateTransaction(
