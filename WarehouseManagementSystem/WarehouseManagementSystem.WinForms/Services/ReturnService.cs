@@ -8,11 +8,9 @@ namespace WarehouseManagementSystem.WinForms.Services
 {
     public class ReturnService
     {
-        private readonly ReturnRepository
-            _repository;
-
-        private readonly BatchRepository
-            _batchRepository;
+        private readonly ReturnRepository _repository;
+        private readonly BatchRepository _batchRepository;
+        private readonly TransactionRepository _transactionRepository;
 
         public ReturnService()
         {
@@ -130,11 +128,11 @@ namespace WarehouseManagementSystem.WinForms.Services
                 foreach (var detail in returnOrder.Details)
                 {
                     List<Transaction> transactions = _transactionRepository.GetAll();
-                    int nextNumber = IdGenerator.GetNextNumber(
+                    int txNextNumber = IdGenerator.GetNextNumber(
                         transactions.Select(x => x.TransactionId).ToList(), "TRN");
 
                     Transaction transaction = new Transaction();
-                    transaction.TransactionId = IdGenerator.GenerateTransactionId(nextNumber);
+                    transaction.TransactionId = IdGenerator.GenerateTransactionId(txNextNumber);
                     transaction.ProductId = detail.ProductId;
                     transaction.Quantity = detail.Quantity;
                     transaction.TransactionType = Transaction.Types.Return;

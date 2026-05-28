@@ -8,33 +8,19 @@ using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.Services
 {
-    internal class ExportService
+    public class ExportService
     {
-        private readonly BatchRepository
-            _batchRepository;
-
-        private readonly ExportRepository
-            _exportRepository;
-
-        private readonly TransactionRepository
-            _transactionRepository;
-
-        private readonly FifoRule
-            _fifoRule;
+        private readonly BatchRepository _batchRepository;
+        private readonly ExportRepository _exportRepository;
+        private readonly TransactionRepository _transactionRepository;
+        private readonly FifoRule _fifoRule;
 
         public ExportService()
         {
-            _batchRepository =
-                new BatchRepository();
-
-            _exportRepository =
-                new ExportRepository();
-
-            _transactionRepository =
-                new TransactionRepository();
-
-            _fifoRule =
-                new FifoRule();
+            _batchRepository = new BatchRepository();
+            _exportRepository = new ExportRepository();
+            _transactionRepository = new TransactionRepository();
+            _fifoRule = new FifoRule();
         }
 
         public bool CreateExportInvoice(
@@ -193,5 +179,100 @@ namespace WarehouseManagementSystem.WinForms.Services
             _transactionRepository
                 .Add(transaction);
         }
+
+        // ─── ExportProduct (Complete ngay) ───────────────────────
+        public bool ExportProduct(
+            string productId, int quantity,
+            string employeeName, decimal unitPrice,
+            string destination = "")
+        {
+            var batches = _batchRepository.GetByProductId(productId);
+            bool ok = _fifoRule.Apply(batches, quantity, out var deductions);
+            if (!ok) return false;
+
+            foreach (var d in deductions)
+            {
+                var batch = batches.First(x => x.BatchId == d.BatchId);
+                batch.Quantity -= d.QuantityToDeduct;
+            }
+            _batchRepository.Update();
+
+            var invoices = _exportRepository.GetAll();
+            int nextNumber = IdGenerator.GetNextNumber(invoices.Select(x => x.ExportId).ToList(), "EXP");
+            var invoice = new ExportInvoice
+            {
+                ExportId = IdGenerator.GenerateExportId(nextNumber),
+                EmployeeName = employeeName,
+                Destination = destination,
+                ExportDate = DateTime.Now,
+                Status = "Completed"
+            };
+            invoice.OrderDetails.Add(new OrderDetail
+            {
+                ProductId = productId,
+                Quantity = quantity,
+                UnitPrice = unitPrice,
+                TotalPrice = quantity * unitPrice
+            });
+            invoice.TotalAmount = invoice.OrderDetails.Sum(x => x.TotalPrice);
+            _exportRepository.Add(invoice);
+            CreateTransaction(productId, quantity, invoice.ExportId);
+            return true;
+        }
+
+        // ─── SaveDraft ────────────────────────────────────────────
+        public string SaveDraft(
+            List<(string ProductId, int Quantity, decimal UnitPrice)> items,
+            string employeeName, string destination)
+        {
+            var invoices = _exportRepository.GetAll();
+            int nextNumber = IdGenerator.GetNextNumber(invoices.Select(x => x.ExportId).ToList(), "EXP");
+            var invoice = new ExportInvoice
+            {
+                ExportId = IdGenerator.GenerateExportId(nextNumber),
+                EmployeeName = employeeName,
+                Destination = destination,
+                ExportDate = DateTime.Now,
+                Status = "Draft"
+            };
+            foreach (var item in items)
+                invoice.OrderDetails.Add(new OrderDetail
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    TotalPrice = item.Quantity * item.UnitPrice
+                });
+            invoice.TotalAmount = invoice.OrderDetails.Sum(x => x.TotalPrice);
+            _exportRepository.Add(invoice);
+            return invoice.ExportId;
+        }
+
+        // ─── CompleteDraft ────────────────────────────────────────
+        public bool CompleteDraft(string exportId)
+        {
+            var invoice = _exportRepository.GetAll().FirstOrDefault(x => x.ExportId == exportId);
+            if (invoice == null || invoice.Status == "Completed") return false;
+
+            foreach (var detail in invoice.OrderDetails)
+            {
+                var batches = _batchRepository.GetByProductId(detail.ProductId);
+                bool ok = _fifoRule.Apply(batches, detail.Quantity, out var deductions);
+                if (!ok) return false;
+
+                foreach (var d in deductions)
+                {
+                    var batch = batches.First(x => x.BatchId == d.BatchId);
+                    batch.Quantity -= d.QuantityToDeduct;
+                }
+                _batchRepository.Update();
+
+                CreateTransaction(detail.ProductId, detail.Quantity, exportId);
+            }
+            invoice.Status = "Completed";
+            _exportRepository.Update(invoice);
+            return true;
+        }
+
     }
 }
