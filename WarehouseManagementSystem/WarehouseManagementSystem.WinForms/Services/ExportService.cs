@@ -28,109 +28,64 @@ namespace WarehouseManagementSystem.WinForms.Services
             string destination,
             List<OrderDetail> details)
         {
-            foreach (OrderDetail detail
-                in details)
+            // Lấy toàn bộ batch 1 lần duy nhất
+            var allBatches = _batchRepository.GetAll();
+
+            // Validate trước — đảm bảo đủ hàng cho tất cả sản phẩm
+            foreach (OrderDetail detail in details)
             {
-                List<Batch> batches =
-                    _batchRepository
-                        .GetByProductId(
-                            detail.ProductId
-                        );
+                var batches = allBatches
+                    .Where(x => x.ProductId == detail.ProductId)
+                    .ToList();
 
-                bool success =
-                    _fifoRule.Apply(
-                        batches,
-                        detail.Quantity,
-                        out var deductions
-                    );
+                bool ok = _fifoRule.Apply(batches, detail.Quantity, out _);
+                if (!ok) return false;
+            }
 
-                if (!success)
+            // Apply FIFO và cập nhật ExportedQuantity cho từng batch
+            foreach (OrderDetail detail in details)
+            {
+                var batches = allBatches
+                    .Where(x => x.ProductId == detail.ProductId)
+                    .ToList();
+
+                _fifoRule.Apply(batches, detail.Quantity, out var deductions);
+
+                foreach (var deduction in deductions)
                 {
-                    return false;
-                }
-
-                foreach (var deduction
-                    in deductions)
-                {
-                    Batch batch =
-                        batches.First(
-                            x => x.BatchId
-                                == deduction.BatchId
-                        );
-
-                    batch.RemainingQuantity -=
-                        deduction.QuantityToDeduct;
-
-                    if (
-                        batch.RemainingQuantity
-                        <= 0
-                    )
+                    var batch = allBatches.FirstOrDefault(x => x.BatchId == deduction.BatchId);
+                    if (batch != null)
                     {
-                        batch.RemainingQuantity =
-                            0;
-
-                        batch.Status =
-                            "Out of Stock";
+                        batch.ExportedQuantity += deduction.QuantityToDeduct;
+                        if (batch.AvailableQuantity <= 0)
+                            batch.Status = "Out of Stock";
                     }
                 }
             }
 
-            _batchRepository
-                .Update();
+            // Ghi batch một lần duy nhất
+            _batchRepository.Update(allBatches);
 
-            List<ExportInvoice> invoices =
-                _exportRepository
-                    .GetAll();
+            // Tạo invoice
+            var invoices = _exportRepository.GetAll();
+            int nextNumber = IdGenerator.GetNextNumber(
+                invoices.Select(x => x.ExportId).ToList(), "EXP");
 
-            int nextNumber =
-                IdGenerator
-                    .GetNextNumber(
-                        invoices
-                            .Select(
-                                x => x.ExportId
-                            )
-                            .ToList(),
-                        "EXP"
-                    );
-
-            ExportInvoice invoice =
-                new ExportInvoice();
-
-            invoice.ExportId =
-                IdGenerator
-                    .GenerateExportId(
-                        nextNumber
-                    );
-
-            invoice.EmployeeName =
-                employeeName;
-
-            invoice.Destination =
-                destination;
-
-            invoice.ExportDate =
-                DateTime.Now;
-
-            invoice.OrderDetails =
-                details;
-
-            invoice.TotalAmount =
-                details.Sum(
-                    x => x.TotalPrice
-                );
-
-            _exportRepository
-                .Add(invoice);
-
-            foreach (OrderDetail detail
-                in details)
+            ExportInvoice invoice = new ExportInvoice
             {
-                CreateTransaction(
-                    detail.ProductId,
-                    detail.Quantity,
-                    invoice.ExportId
-                );
-            }
+                ExportId = IdGenerator.GenerateExportId(nextNumber),
+                EmployeeName = employeeName,
+                Destination = destination,
+                ExportDate = DateTime.Now,
+                Status = "Completed",
+                OrderDetails = details,
+                TotalAmount = details.Sum(x => x.TotalPrice)
+            };
+
+            _exportRepository.Add(invoice);
+
+            foreach (OrderDetail detail in details)
+                CreateTransaction(detail.ProductId, detail.Quantity, invoice.ExportId);
 
             return true;
         }

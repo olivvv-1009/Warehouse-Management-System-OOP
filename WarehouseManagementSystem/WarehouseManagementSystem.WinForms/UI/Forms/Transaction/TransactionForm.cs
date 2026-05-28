@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
@@ -15,7 +14,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
         private readonly ProductService _productService;
         private readonly ReturnRepository _returnRepo;
 
-        // Dữ liệu gốc để filter
         private List<Models.Transaction> _allTransactions;
 
         public TransactionForm()
@@ -31,7 +29,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             LoadData();
         }
 
-        // Reload mỗi khi được hiển thị lại (sau khi tạo export/import mới)
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
@@ -64,14 +61,12 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             dgvTransactions.ColumnHeadersHeightSizeMode =
                 DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
-            // Header style
             dgvTransactions.EnableHeadersVisualStyles = false;
             dgvTransactions.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
             dgvTransactions.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(80, 80, 80);
             dgvTransactions.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             dgvTransactions.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            // Cell style
             dgvTransactions.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
             dgvTransactions.DefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
             dgvTransactions.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -83,41 +78,52 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             dgvTransactions.ScrollBars = ScrollBars.Vertical;
             dgvTransactions.Dock = DockStyle.Fill;
 
-            // ── Columns ──
-            var colId = new DataGridViewTextBoxColumn
-            { Name = "ColId", HeaderText = "Transaction ID", FillWeight = 110 };
+            DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
+            colId.Name = "ColId";
+            colId.HeaderText = "Transaction ID";
+            colId.FillWeight = 110;
             colId.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             colId.DefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             colId.DefaultCellStyle.ForeColor = Color.FromArgb(37, 99, 235);
             dgvTransactions.Columns.Add(colId);
 
-            var colDate = new DataGridViewTextBoxColumn
-            { Name = "ColDate", HeaderText = "Date", FillWeight = 90 };
+            DataGridViewTextBoxColumn colDate = new DataGridViewTextBoxColumn();
+            colDate.Name = "ColDate";
+            colDate.HeaderText = "Date";
+            colDate.FillWeight = 90;
             dgvTransactions.Columns.Add(colDate);
 
-            // Type column — sẽ tô màu trong CellFormatting
-            var colType = new DataGridViewTextBoxColumn
-            { Name = "ColType", HeaderText = "Type", FillWeight = 80 };
+            DataGridViewTextBoxColumn colType = new DataGridViewTextBoxColumn();
+            colType.Name = "ColType";
+            colType.HeaderText = "Type";
+            colType.FillWeight = 80;
             colType.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvTransactions.Columns.Add(colType);
 
-            var colProduct = new DataGridViewTextBoxColumn
-            { Name = "ColProduct", HeaderText = "Product", FillWeight = 200 };
+            DataGridViewTextBoxColumn colProduct = new DataGridViewTextBoxColumn();
+            colProduct.Name = "ColProduct";
+            colProduct.HeaderText = "Product";
+            colProduct.FillWeight = 200;
             colProduct.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvTransactions.Columns.Add(colProduct);
 
-            // Quantity — màu xanh/đỏ
-            var colQty = new DataGridViewTextBoxColumn
-            { Name = "ColQty", HeaderText = "Quantity", FillWeight = 80 };
+            DataGridViewTextBoxColumn colQty = new DataGridViewTextBoxColumn();
+            colQty.Name = "ColQty";
+            colQty.HeaderText = "Quantity";
+            colQty.FillWeight = 80;
             colQty.DefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             dgvTransactions.Columns.Add(colQty);
 
-            var colEmployee = new DataGridViewTextBoxColumn
-            { Name = "ColEmployee", HeaderText = "Employee", FillWeight = 130 };
+            DataGridViewTextBoxColumn colEmployee = new DataGridViewTextBoxColumn();
+            colEmployee.Name = "ColEmployee";
+            colEmployee.HeaderText = "Employee";
+            colEmployee.FillWeight = 130;
             dgvTransactions.Columns.Add(colEmployee);
 
-            var colOrderId = new DataGridViewTextBoxColumn
-            { Name = "ColOrderId", HeaderText = "Order ID", FillWeight = 100 };
+            DataGridViewTextBoxColumn colOrderId = new DataGridViewTextBoxColumn();
+            colOrderId.Name = "ColOrderId";
+            colOrderId.HeaderText = "Order ID";
+            colOrderId.FillWeight = 100;
             colOrderId.DefaultCellStyle.ForeColor = Color.FromArgb(120, 120, 120);
             colOrderId.DefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Italic);
             dgvTransactions.Columns.Add(colOrderId);
@@ -134,19 +140,40 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             cmbType.SelectedIndex = 0;
             cmbType.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // Product combo: load tất cả products
             cmbProduct.Items.Clear();
             cmbProduct.Items.Add("All Products");
-            var products = _productService.GetAllProducts();
-            foreach (var p in products)
+            List<ProductDisplayModel> products = _productService.GetAllProducts();
+            foreach (ProductDisplayModel p in products)
                 cmbProduct.Items.Add(p.Name);
             cmbProduct.SelectedIndex = 0;
             cmbProduct.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cmbType.SelectedIndexChanged += (s, e) => ApplyFilter();
-            cmbProduct.SelectedIndexChanged += (s, e) => ApplyFilter();
-            dtpStart.ValueChanged += (s, e) => ApplyFilter();
-            dtpEnd.ValueChanged += (s, e) => ApplyFilter();
+            cmbType.SelectedIndexChanged += CmbType_SelectedIndexChanged;
+            cmbProduct.SelectedIndexChanged += CmbProduct_SelectedIndexChanged;
+            dtpStart.ValueChanged += DtpStart_ValueChanged;
+            dtpEnd.ValueChanged += DtpEnd_ValueChanged;
+        }
+
+        // ─── Event handlers thay thế lambda ──────────────────────
+
+        private void CmbType_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        private void CmbProduct_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        private void DtpStart_ValueChanged(object? sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        private void DtpEnd_ValueChanged(object? sender, EventArgs e)
+        {
+            ApplyFilter();
         }
 
         // ─── Load all data ────────────────────────────────────────
@@ -154,32 +181,44 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
         private void LoadData()
         {
             _allTransactions = _transactionRepo.GetAll();
-            // Sort mới nhất lên trên
-            _allTransactions.Sort((a, b) => b.Date.CompareTo(a.Date));
+            _allTransactions.Sort(CompareByDateDescending);
 
             UpdateSummaryCards(_allTransactions);
             PopulateGrid(_allTransactions);
+        }
+
+        // ─── Comparer thay thế lambda sort ───────────────────────
+
+        private int CompareByDateDescending(Models.Transaction a, Models.Transaction b)
+        {
+            return b.Date.CompareTo(a.Date);
         }
 
         // ─── Apply filter ─────────────────────────────────────────
 
         private void ApplyFilter()
         {
-            var filtered = new List<Models.Transaction>();
+            List<Models.Transaction> filtered = new List<Models.Transaction>();
 
-            string typeFilter = cmbType.SelectedItem?.ToString() ?? "All Types";
-            string productFilter = cmbProduct.SelectedItem?.ToString() ?? "All Products";
+            string typeFilter = "All Types";
+            if (cmbType.SelectedItem != null)
+                typeFilter = cmbType.SelectedItem.ToString() ?? "All Types";
+
+            string productFilter = "All Products";
+            if (cmbProduct.SelectedItem != null)
+                productFilter = cmbProduct.SelectedItem.ToString() ?? "All Products";
+
             DateTime startDate = chkStart.Checked ? dtpStart.Value.Date : DateTime.MinValue;
             DateTime endDate = chkEnd.Checked ? dtpEnd.Value.Date : DateTime.MaxValue;
 
-            foreach (var t in _allTransactions)
+            foreach (Models.Transaction t in _allTransactions)
             {
                 bool matchType = typeFilter == "All Types" || t.TransactionType == typeFilter;
 
                 bool matchProduct = true;
                 if (productFilter != "All Products")
                 {
-                    var product = _productService.GetProductById(t.ProductId);
+                    Product product = _productService.GetProductById(t.ProductId);
                     matchProduct = product != null && product.Name == productFilter;
                 }
 
@@ -197,12 +236,15 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
 
         private void UpdateSummaryCards(List<Models.Transaction> list)
         {
-            int totalImport = 0, totalExport = 0;
+            int totalImport = 0;
+            int totalExport = 0;
 
-            foreach (var t in list)
+            foreach (Models.Transaction t in list)
             {
-                if (t.TransactionType == "IMPORT") totalImport += t.Quantity;
-                else if (t.TransactionType == "EXPORT") totalExport += t.Quantity;
+                if (t.TransactionType == "IMPORT")
+                    totalImport += t.Quantity;
+                else if (t.TransactionType == "EXPORT")
+                    totalExport += t.Quantity;
             }
 
             lblTotalTx.Text = list.Count.ToString();
@@ -216,19 +258,20 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
         {
             dgvTransactions.Rows.Clear();
 
-            foreach (var t in list)
+            foreach (Models.Transaction t in list)
             {
                 string productName = t.ProductId;
-                var product = _productService.GetProductById(t.ProductId);
-                if (product != null) productName = product.Name;
+                Product product = _productService.GetProductById(t.ProductId);
+                if (product != null)
+                    productName = product.Name;
 
-                // Employee: lấy từ EmployeeName trong invoice nếu có
                 string employee = GetEmployeeFromReference(t.ReferenceId, t.TransactionType);
 
-                // Qty display: +x hoặc -x
-                string qtyText = (t.TransactionType == "EXPORT" || t.TransactionType == "RETURN")
-                    ? $"-{t.Quantity}"
-                    : $"+{t.Quantity}";
+                string qtyText;
+                if (t.TransactionType == "EXPORT" || t.TransactionType == "RETURN")
+                    qtyText = "-" + t.Quantity.ToString();
+                else
+                    qtyText = "+" + t.Quantity.ToString();
 
                 dgvTransactions.Rows.Add(
                     t.TransactionId,
@@ -246,44 +289,59 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
 
         private string GetEmployeeFromReference(string refId, string type)
         {
-            if (string.IsNullOrEmpty(refId)) return "";
+            if (string.IsNullOrEmpty(refId))
+                return "";
 
             try
             {
                 if (type == "IMPORT")
                 {
-                    var importRepo = new ImportRepository();
-                    var invoices = importRepo.GetAll();
-                    foreach (var inv in invoices)
+                    ImportRepository importRepo = new ImportRepository();
+                    List<ImportInvoice> invoices = importRepo.GetAll();
+                    foreach (ImportInvoice inv in invoices)
+                    {
                         if (inv.ImportId == refId)
                             return inv.EmployeeName;
+                    }
                 }
                 else if (type == "EXPORT")
                 {
-                    var exportRepo = new ExportRepository();
-                    var invoices = exportRepo.GetAll();
-                    foreach (var inv in invoices)
+                    ExportRepository exportRepo = new ExportRepository();
+                    List<ExportInvoice> invoices = exportRepo.GetAll();
+                    foreach (ExportInvoice inv in invoices)
+                    {
                         if (inv.ExportId == refId)
                             return inv.EmployeeName;
+                    }
                 }
                 else if (type == "RETURN")
                 {
-                    var returns = _returnRepo.GetAll();
-                    foreach (var r in returns)
+                    List<ReturnOrder> returns = _returnRepo.GetAll();
+                    foreach (ReturnOrder r in returns)
+                    {
                         if (r.ReturnOrderId == refId)
                         {
-                            if (string.IsNullOrEmpty(r.EmployeeId)) return "";
-                            var profileRepo = new ProfileRepository();
-                            var profiles = profileRepo.GetAll();
-                            // Thử match theo EmployeeId trước
-                            var profile = profiles.FirstOrDefault(p => p.EmployeeId == r.EmployeeId);
-                            if (profile != null) return profile.FullName;
-                            // Fallback: match theo AccountId
-                            profile = profiles.FirstOrDefault(p => p.AccountId == r.EmployeeId);
-                            if (profile != null) return profile.FullName;
-                            // Cuối cùng trả EmployeeId để debug
+                            if (string.IsNullOrEmpty(r.EmployeeId))
+                                return "";
+
+                            ProfileRepository profileRepo = new ProfileRepository();
+                            List<Profile> profiles = profileRepo.GetAll();
+
+                            foreach (Profile p in profiles)
+                            {
+                                if (p.EmployeeId == r.EmployeeId)
+                                    return p.FullName;
+                            }
+
+                            foreach (Profile p in profiles)
+                            {
+                                if (p.AccountId == r.EmployeeId)
+                                    return p.FullName;
+                            }
+
                             return r.EmployeeId;
                         }
+                    }
                 }
             }
             catch { }
@@ -295,10 +353,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
 
         private void Dgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex < 0) return;
-            var col = dgvTransactions.Columns[e.ColumnIndex].Name;
+            if (e.RowIndex < 0)
+                return;
 
-            // Type badge
+            string col = dgvTransactions.Columns[e.ColumnIndex].Name;
+
             if (col == "ColType" && e.Value != null && e.CellStyle != null)
             {
                 string type = e.Value.ToString() ?? string.Empty;
@@ -322,13 +381,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                 }
             }
 
-            // Quantity màu
             if (col == "ColQty" && e.Value != null && e.CellStyle != null)
             {
                 string qtyStr = e.Value.ToString() ?? string.Empty;
-                e.CellStyle.ForeColor = qtyStr.StartsWith("-")
-                    ? Color.FromArgb(185, 28, 28)
-                    : Color.FromArgb(21, 128, 61);
+                if (qtyStr.StartsWith("-"))
+                    e.CellStyle.ForeColor = Color.FromArgb(185, 28, 28);
+                else
+                    e.CellStyle.ForeColor = Color.FromArgb(21, 128, 61);
             }
         }
     }

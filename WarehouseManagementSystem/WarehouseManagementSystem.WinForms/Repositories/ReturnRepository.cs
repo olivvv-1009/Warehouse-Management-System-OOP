@@ -7,10 +7,10 @@ namespace WarehouseManagementSystem.WinForms.Repositories
     public class ReturnRepository
     {
         private const string FilePath =
-            "returnOrders.json";
+            "returnorder.json";
 
         private List<ReturnOrder>
-            _returnOrders;
+            _returnOrders = new List<ReturnOrder>();
 
         public ReturnRepository()
         {
@@ -55,7 +55,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         // ================= FIND =================
 
-        public ReturnOrder FindById(
+        public ReturnOrder? FindById(
             string returnOrderId)
         {
             int i;
@@ -103,7 +103,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             string returnOrderId,
             ReturnOrderDetail detail)
         {
-            ReturnOrder returnOrder =
+            ReturnOrder? returnOrder =
                 FindById(
                     returnOrderId
                 );

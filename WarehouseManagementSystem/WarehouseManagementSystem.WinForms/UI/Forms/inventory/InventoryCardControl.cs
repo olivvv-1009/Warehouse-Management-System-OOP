@@ -321,7 +321,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                 dgvBatch.Rows.Add(
                     batch.BatchId,
                     supplierName,
-                    batch.RemainingQuantity,
+                    batch.AvailableQuantity,
                     batch.ImportDate
                         .ToString(
                             "yyyy-MM-dd"
@@ -337,7 +337,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
         }
 
         private void Header_Click(
-            object sender,
+            object? sender,
             EventArgs e)
         {
             _isExpanded =
