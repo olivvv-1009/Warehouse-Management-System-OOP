@@ -430,6 +430,6 @@
         private Button button4;
         private Button button5;
         private FlowLayoutPanel flowProducts;
-        private Panel panelHeader;
+
     }
 }

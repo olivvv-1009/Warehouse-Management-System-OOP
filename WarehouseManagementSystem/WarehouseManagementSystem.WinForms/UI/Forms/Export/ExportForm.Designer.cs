@@ -141,7 +141,7 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.Control;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvExportOrders.DefaultCellStyle = dataGridViewCellStyle2;
-            dgvExportOrders.Dock = DockStyle.Top;
+            dgvExportOrders.Dock = DockStyle.Fill;
             dgvExportOrders.Location = new Point(4, 68);
             dgvExportOrders.Margin = new Padding(4);
             dgvExportOrders.Name = "dgvExportOrders";
