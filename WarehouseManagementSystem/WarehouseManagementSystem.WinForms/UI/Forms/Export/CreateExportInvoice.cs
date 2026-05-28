@@ -316,6 +316,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             string employeeName =
                 Session.CurrentProfile?.FullName ?? "";
 
+            string destination = txtDestination.Text.Trim();
+
             bool allSuccess = true;
 
             foreach (var item in items)
@@ -324,7 +326,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                     item.ProductId,
                     item.Quantity,
                     employeeName,
-                    item.UnitPrice);
+                    item.UnitPrice,
+                    destination);
 
                 if (!success) { allSuccess = false; break; }
             }
@@ -386,3 +389,4 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) { }
     }
 }
+

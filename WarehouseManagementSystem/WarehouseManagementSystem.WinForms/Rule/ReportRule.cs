@@ -4,11 +4,6 @@
     {
         public bool IsValidDateRange(System.DateTime start, System.DateTime end)
         {
-            if (start == null || end == null)
-            {
-                return false;
-            }
-
             if (start > end)
             {
                 return false;

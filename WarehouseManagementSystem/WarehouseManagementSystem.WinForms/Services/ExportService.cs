@@ -29,7 +29,8 @@ namespace WarehouseManagementSystem.WinForms.Services
             string productId,
             int quantity,
             string employeeName,
-            decimal unitPrice)
+            decimal unitPrice,
+            string destination = "")
         {
             List<Batch> batches =
                 _batchRepository.GetByProductId(productId);
@@ -58,7 +59,7 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _batchRepository.Update();
 
-            InventoryItem inventory = _inventoryRepository.GetByProductId(productId).FirstOrDefault();
+            InventoryItem? inventory = _inventoryRepository.GetByProductId(productId).FirstOrDefault();
 
             if (inventory != null)
             {
@@ -72,7 +73,8 @@ namespace WarehouseManagementSystem.WinForms.Services
                     productId,
                     quantity,
                     employeeName,
-                    unitPrice);
+                    unitPrice,
+                    destination);
 
             _exportRepository.Add(invoice);
 
@@ -88,7 +90,8 @@ namespace WarehouseManagementSystem.WinForms.Services
             string productId,
             int quantity,
             string employeeName,
-            decimal unitPrice)
+            decimal unitPrice,
+            string destination = "")
         {
             List<ExportInvoice> invoices =
                 _exportRepository.GetAll();
@@ -109,6 +112,9 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             invoice.EmployeeName =
                 employeeName;
+
+            invoice.Destination =
+                destination;
 
             invoice.ExportDate =
                 DateTime.Now;

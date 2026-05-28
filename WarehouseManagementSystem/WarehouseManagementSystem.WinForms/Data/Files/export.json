@@ -1,7 +1,32 @@
 ﻿[
   {
+    "ExportId": "EXP20260001",
+    "EmployeeName": "Lê Minh Anh",
+    "Destination": "",
+    "TotalAmount": 0,
+    "ExportDate": "2026-05-20T10:30:00",
+    "OrderDetails": []
+  },
+  {
+    "ExportId": "EXP20260002",
+    "EmployeeName": "Lê Minh Anh",
+    "Destination": "",
+    "TotalAmount": 0,
+    "ExportDate": "2026-05-21T10:30:00",
+    "OrderDetails": []
+  },
+  {
+    "ExportId": "EXP20260003",
+    "EmployeeName": "Đinh Thị Anh Thư",
+    "Destination": "",
+    "TotalAmount": 0,
+    "ExportDate": "2026-05-23T10:30:00",
+    "OrderDetails": []
+  },
+  {
     "ExportId": "EXP20260004",
     "EmployeeName": "Nguyễn Đinh Thảo Nhi",
+    "Destination": "Công ty A - Hà Nội",
     "TotalAmount": 118000,
     "ExportDate": "2026-05-24T09:00:00",
     "OrderDetails": [
@@ -19,10 +44,10 @@
       }
     ]
   },
-
   {
     "ExportId": "EXP20260005",
     "EmployeeName": "Lê Minh Anh",
+    "Destination": "Công ty B - TP.HCM",
     "TotalAmount": 70000,
     "ExportDate": "2026-05-25T14:10:00",
     "OrderDetails": [
@@ -40,10 +65,10 @@
       }
     ]
   },
-
   {
     "ExportId": "EXP20260006",
     "EmployeeName": "Đinh Thị Anh Thư",
+    "Destination": "Công ty C - Đà Nẵng",
     "TotalAmount": 146000,
     "ExportDate": "2026-05-26T15:20:00",
     "OrderDetails": [

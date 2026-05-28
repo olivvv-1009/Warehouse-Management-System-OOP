@@ -10,6 +10,7 @@ using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
 using WarehouseManagementSystem.WinForms.UI.Forms.Products;
 using WarehouseManagementSystem.WinForms.UI.Forms.Report;
 using WarehouseManagementSystem.WinForms.UI.Forms.SettingsForms;
+using WarehouseManagementSystem.WinForms.UI.Forms.Transaction;
 using WarehouseManagementSystem.WinForms.UI.Suppliers;
 using WarehouseManagementSystem.WinForms.Utils;
 
@@ -32,14 +33,14 @@ namespace WarehouseManagementSystem.WinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Account user = Session.CurrentUser;
+            Account? user = Session.CurrentUser;
 
             if (user != null)
             {
                 lbRole.Text = user.Role;
 
                 // lấy full name từ profile (không dùng var)
-                Profile profile = Session.CurrentProfile;
+                Profile? profile = Session.CurrentProfile;
 
                 if (profile != null)
                 {
@@ -112,6 +113,11 @@ namespace WarehouseManagementSystem.WinForms
         private void btnReport_Click(object sender, EventArgs e)
         {
             LoadView(new ReportForm());
+        }
+
+        private void btnTransaction_Click(object sender, EventArgs e)
+        {
+            LoadView(new TransactionForm());
         }
 
         private void btnExport_Click(object sender, EventArgs e)

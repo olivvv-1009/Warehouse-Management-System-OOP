@@ -266,6 +266,7 @@
             btnTransactions.TabIndex = 7;
             btnTransactions.Text = "Transactions";
             btnTransactions.UseVisualStyleBackColor = false;
+            btnTransactions.Click += btnTransaction_Click;
             // 
             // btnReport
             // 

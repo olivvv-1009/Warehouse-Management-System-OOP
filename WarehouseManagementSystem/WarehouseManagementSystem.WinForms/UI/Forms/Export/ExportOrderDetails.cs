@@ -28,13 +28,23 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private void LoadData()
         {
             lblTitle.Text = $"Export Order Details - {_invoice.ExportId}";
-            lblDestination.Text = "—";
+            lblDestination.Text = string.IsNullOrWhiteSpace(_invoice.Destination)
+                ? "—" : _invoice.Destination;
             lblDate.Text = _invoice.ExportDate.ToString("yyyy-MM-dd");
             lblStatus.Text = "Completed";
             lblStatus.ForeColor = Color.SeaGreen;
             lblCreatedBy.Text = _invoice.EmployeeName;
+        }
 
+        // ─── OnLoad: build sau khi form render xong (width chính xác) ─
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             BuildBatchSection();
+
+            // Hook resize để rebuild khi user kéo cửa sổ
+            flowBatches.Resize += (s, _) => BuildBatchSection();
         }
 
         // ─── Xây dựng section Products & Batch Allocations ───────
@@ -42,34 +52,40 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private void BuildBatchSection()
         {
             flowBatches.Controls.Clear();
+            flowBatches.AutoScroll = true;
+            flowBatches.WrapContents = false;
+            flowBatches.FlowDirection = FlowDirection.TopDown;
 
-            // Tiêu đề section
+            int w = flowBatches.ClientSize.Width;
+            int cardWidth = w > 80 ? w - 20 : 700; // trừ scrollbar + padding
+
+            // ── Tiêu đề "Products & Batch Allocations" ──
             Label sectionLbl = new Label();
             sectionLbl.Text = "Products & Batch Allocations";
             sectionLbl.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             sectionLbl.AutoSize = false;
-            sectionLbl.Height = 34;
-            sectionLbl.Width = GetCardWidth();
+            sectionLbl.Width = cardWidth;
+            sectionLbl.Height = 38;
+            sectionLbl.Margin = new Padding(0, 4, 0, 6);
             sectionLbl.TextAlign = ContentAlignment.MiddleLeft;
-            sectionLbl.Margin = new Padding(0, 0, 0, 4);
+            sectionLbl.ForeColor = Color.FromArgb(20, 20, 20);
             flowBatches.Controls.Add(sectionLbl);
 
-            // Mỗi OrderDetail = 1 sản phẩm
+            // ── Mỗi OrderDetail = 1 card sản phẩm ──
             foreach (OrderDetail detail in _invoice.OrderDetails)
             {
-                // Tên sản phẩm
                 string productName = detail.ProductId;
                 var product = _productService.GetProductById(detail.ProductId);
                 if (product != null) productName = product.Name;
 
-                // Lấy danh sách batch của sản phẩm này (FIFO)
                 List<Batch> batches = _batchRepo.GetByProductId(detail.ProductId);
                 batches.Sort((a, b) => a.ImportDate.CompareTo(b.ImportDate));
 
-                // Phân bổ FIFO: tính xem mỗi batch lấy bao nhiêu
-                List<(Batch batch, int qty)> allocations = AllocateFifo(batches, detail.Quantity);
+                List<(Batch batch, int qty)> allocations =
+                    AllocateFifo(batches, detail.Quantity);
 
-                Panel card = BuildProductCard(productName, detail.Quantity, allocations);
+                Panel card = BuildProductCard(productName, detail.Quantity,
+                                              allocations, cardWidth);
                 flowBatches.Controls.Add(card);
             }
         }
@@ -92,11 +108,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                 }
             }
 
-            // Nếu không tìm được batch nào phù hợp, vẫn hiển thị dòng tổng
             if (result.Count == 0 && batches.Count > 0)
-            {
                 result.Add((batches[0], needed));
-            }
 
             return result;
         }
@@ -106,101 +119,89 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private Panel BuildProductCard(
             string productName,
             int totalQty,
-            List<(Batch batch, int qty)> allocations)
+            List<(Batch batch, int qty)> allocations,
+            int cardWidth)
         {
-            int cardWidth = GetCardWidth();
+            const int PAD = 16;
+            int yPos = PAD;
 
             Panel card = new Panel();
             card.BackColor = Color.White;
             card.BorderStyle = BorderStyle.FixedSingle;
             card.Width = cardWidth;
-            card.Padding = new Padding(14, 10, 14, 10);
             card.Margin = new Padding(0, 0, 0, 10);
 
-            int yPos = 10;
+            // ── Header: product name (trái) + Total (phải) ──
+            int innerW = cardWidth - PAD * 2 - 2; // -2 for border
 
-            // ── Header: tên sản phẩm + total ──
             Label lblName = new Label();
             lblName.Text = productName;
-            lblName.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            lblName.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblName.AutoSize = false;
-            lblName.Width = cardWidth / 2;
-            lblName.Height = 26;
-            lblName.Location = new Point(14, yPos);
+            lblName.Width = (int)(innerW * 0.65);
+            lblName.Height = 30;
+            lblName.Location = new Point(PAD, yPos);
             lblName.TextAlign = ContentAlignment.MiddleLeft;
+            lblName.ForeColor = Color.FromArgb(20, 20, 20);
 
             Label lblTotal = new Label();
             lblTotal.Text = $"Total: {totalQty} units";
             lblTotal.Font = new Font("Segoe UI", 9.5F);
-            lblTotal.ForeColor = Color.FromArgb(80, 80, 80);
+            lblTotal.ForeColor = Color.FromArgb(90, 90, 90);
             lblTotal.AutoSize = false;
-            lblTotal.Width = cardWidth / 2 - 28;
-            lblTotal.Height = 26;
-            lblTotal.Location = new Point(cardWidth / 2, yPos);
+            lblTotal.Width = innerW - (int)(innerW * 0.65);
+            lblTotal.Height = 30;
+            lblTotal.Location = new Point(PAD + (int)(innerW * 0.65), yPos);
             lblTotal.TextAlign = ContentAlignment.MiddleRight;
 
             card.Controls.Add(lblName);
             card.Controls.Add(lblTotal);
-            yPos += 32;
+            yPos += 36;
 
             // ── Batch rows ──
+            int batchRowW = innerW;
+
             foreach (var (batch, qty) in allocations)
             {
                 Panel batchRow = new Panel();
                 batchRow.BackColor = Color.FromArgb(248, 250, 252);
-                batchRow.Width = cardWidth - 30;
-                batchRow.Height = 30;
-                batchRow.Location = new Point(14, yPos);
-                batchRow.BorderStyle = BorderStyle.None;
+                batchRow.Width = batchRowW;
+                batchRow.Height = 36;
+                batchRow.Location = new Point(PAD, yPos);
+                batchRow.BorderStyle = BorderStyle.FixedSingle;
 
+                // Batch ID — hiện đủ (không cắt)
                 Label lblBatchId = new Label();
                 lblBatchId.Text = batch.BatchId;
                 lblBatchId.Font = new Font("Segoe UI", 9.5F);
-                lblBatchId.ForeColor = Color.FromArgb(60, 60, 60);
+                lblBatchId.ForeColor = Color.FromArgb(50, 50, 50);
                 lblBatchId.AutoSize = false;
-                lblBatchId.Width = (cardWidth - 30) / 2;
-                lblBatchId.Height = 30;
+                lblBatchId.Width = (int)(batchRowW * 0.45);
+                lblBatchId.Height = 36;
                 lblBatchId.Location = new Point(10, 0);
                 lblBatchId.TextAlign = ContentAlignment.MiddleLeft;
 
+                // "X units from yyyy-MM-dd" bên phải
                 string importStr = batch.ImportDate.ToString("yyyy-MM-dd");
                 Label lblBatchInfo = new Label();
                 lblBatchInfo.Text = $"{qty} units from {importStr}";
                 lblBatchInfo.Font = new Font("Segoe UI", 9.5F);
                 lblBatchInfo.ForeColor = Color.FromArgb(80, 80, 80);
                 lblBatchInfo.AutoSize = false;
-                lblBatchInfo.Width = (cardWidth - 30) / 2 - 10;
-                lblBatchInfo.Height = 30;
-                lblBatchInfo.Location = new Point((cardWidth - 30) / 2, 0);
+                lblBatchInfo.Width = batchRowW - (int)(batchRowW * 0.45) - 10;
+                lblBatchInfo.Height = 36;
+                lblBatchInfo.Location = new Point((int)(batchRowW * 0.45), 0);
                 lblBatchInfo.TextAlign = ContentAlignment.MiddleRight;
 
                 batchRow.Controls.Add(lblBatchId);
                 batchRow.Controls.Add(lblBatchInfo);
                 card.Controls.Add(batchRow);
-                yPos += 34;
+                yPos += 40;
             }
 
-            yPos += 10;
+            yPos += PAD;
             card.Height = yPos;
             return card;
-        }
-
-        // ─── Helper: chiều rộng card ──────────────────────────────
-
-        private int GetCardWidth()
-        {
-            // flowBatches.ClientSize.Width có thể chưa sẵn lúc khởi tạo
-            int w = flowBatches.ClientSize.Width;
-            return w > 50 ? w - 6 : 720;
-        }
-
-        // ─── Resize: rebuild khi form thay đổi kích thước ────────
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            // Rebuild sau khi form đã render xong để GetCardWidth() chính xác
-            BuildBatchSection();
         }
 
         // ─── Close ───────────────────────────────────────────────
