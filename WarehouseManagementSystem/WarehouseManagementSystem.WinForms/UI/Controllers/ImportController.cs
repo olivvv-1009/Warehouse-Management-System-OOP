@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WarehouseManagementSystem.WinForms.Files;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Services;
 
@@ -36,7 +35,7 @@ namespace WarehouseManagementSystem.WinForms.Controllers
         }
 
         public List<ProductDisplayModel>
-    GetAllProducts()
+            GetAllProducts()
         {
             return _productService
                 .GetAllProducts();
@@ -76,10 +75,39 @@ namespace WarehouseManagementSystem.WinForms.Controllers
                 string productId,
                 int quantity)
         {
+            List<ProductDisplayModel>
+                products =
+                    _productService
+                        .GetAllProducts();
+
+            string category = "";
+
+            int i;
+
+            for (
+                i = 0;
+                i < products.Count;
+                i++
+            )
+            {
+                if (
+                    products[i].ProductID
+                    == productId
+                )
+                {
+                    category =
+                        products[i]
+                            .Category;
+
+                    break;
+                }
+            }
+
             WarehouseLocation location =
                 _locationService
                     .FindBestLocation(
                         productId,
+                        category,
                         quantity
                     );
 
@@ -116,9 +144,9 @@ namespace WarehouseManagementSystem.WinForms.Controllers
         }
 
         public bool CreateImportOrder(
-    string supplierId,
-    string employeeName,
-    List<OrderDetail> items)
+            string supplierId,
+            string employeeName,
+            List<OrderDetail> items)
         {
             return _importService
                 .CreateImportOrder(
@@ -129,7 +157,7 @@ namespace WarehouseManagementSystem.WinForms.Controllers
         }
 
         public List<ImportInvoice>
-    GetAll()
+            GetAll()
         {
             return _importService
                 .GetAll();

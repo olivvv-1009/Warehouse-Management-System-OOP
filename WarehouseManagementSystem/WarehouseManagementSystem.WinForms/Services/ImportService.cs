@@ -48,6 +48,23 @@ namespace WarehouseManagementSystem.WinForms.Services
                 new LocationAssignmentRule();
         }
 
+        // ================= SUPPLIER =================
+
+        public List<Supplier>
+            GetAllSuppliers()
+        {
+            return _supplierService.GetAll();
+        }
+
+        // ================= IMPORT =================
+
+        public bool ImportProduct(
+            InventoryItem item,
+            string locationCode)
+        {
+            return true;
+        }
+
         public bool CreateImportOrder(
             string supplierId,
             string employeeName,
@@ -114,8 +131,15 @@ namespace WarehouseManagementSystem.WinForms.Services
                     return false;
                 }
 
-                location.ProductId =
-                    item.ProductId;
+                if (
+                    string.IsNullOrWhiteSpace(
+                        location.ProductId
+                    )
+                )
+                {
+                    location.ProductId =
+                        item.ProductId;
+                }
 
                 location.UsedCapacity +=
                     item.Quantity;
@@ -254,6 +278,46 @@ namespace WarehouseManagementSystem.WinForms.Services
                 .Add(invoice);
 
             return true;
+        }
+
+        // ================= GET ALL =================
+
+        public List<ImportInvoice>
+            GetAll()
+        {
+            return _importRepository
+                .GetAll();
+        }
+
+        // ================= FIND =================
+
+        public ImportInvoice
+            FindById(
+                string importInvoiceId)
+        {
+            List<ImportInvoice>
+                invoices =
+                    _importRepository
+                        .GetAll();
+
+            int i;
+
+            for (
+                i = 0;
+                i < invoices.Count;
+                i++
+            )
+            {
+                if (
+                    invoices[i].ImportId
+                    == importInvoiceId
+                )
+                {
+                    return invoices[i];
+                }
+            }
+
+            return null;
         }
     }
 }
