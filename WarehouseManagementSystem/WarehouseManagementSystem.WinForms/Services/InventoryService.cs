@@ -71,10 +71,10 @@ namespace WarehouseManagementSystem.WinForms.Services
                     );
 
                 foreach (Batch batch
-                    in productBatches)
+    in productBatches)
                 {
                     totalQuantity +=
-                        batch.Quantity;
+                        batch.RemainingQuantity;
                 }
 
                 item.Quantity =

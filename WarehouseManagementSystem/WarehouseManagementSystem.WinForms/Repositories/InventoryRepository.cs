@@ -6,56 +6,155 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 {
     public class InventoryRepository
     {
-        private const string FilePath =
-            "inventory.json";
+        private const string ProductFile =
+            "products.json";
 
-        private List<InventoryItem> _inventoryItems;
+        private const string BatchFile =
+            "batch.json";
 
-        public InventoryRepository()
+        public List<InventoryItem>
+            GetAll()
         {
-            LoadData();
-        }
+            List<InventoryItem> result =
+                new List<InventoryItem>();
 
-        private void LoadData()
-        {
-            _inventoryItems =
-                FileHelper.ReadJsonList<
-                    InventoryItem
-                >(FilePath);
+            List<Product> products =
+                FileHelper.ReadJsonList<Product>(
+                    ProductFile
+                );
 
-            if (_inventoryItems == null)
+            List<Batch> batches =
+                FileHelper.ReadJsonList<Batch>(
+                    BatchFile
+                );
+
+            if (products == null)
             {
-                _inventoryItems =
-                    new List<InventoryItem>();
+                return result;
             }
+
+            if (batches == null)
+            {
+                batches =
+                    new List<Batch>();
+            }
+
+            foreach (Product product
+                in products)
+            {
+                int totalQuantity = 0;
+
+                foreach (Batch batch
+                    in batches)
+                {
+                    if (batch.ProductId
+                        == product.ProductID)
+                    {
+                        totalQuantity +=
+                            batch.RemainingQuantity;
+                    }
+                }
+
+                InventoryItem item =
+                    new InventoryItem();
+
+                item.ProductId =
+                    product.ProductID;
+
+                item.ProductName =
+                    product.Name;
+
+                item.MinStock =
+                    product.MinStock;
+
+                item.Quantity =
+                    totalQuantity;
+
+                result.Add(item);
+            }
+
+            return result;
         }
 
-        private void SaveData()
+        public List<InventoryItem>
+            GetByProductId(
+                string productId)
         {
-            FileHelper.WriteJsonList(
-                FilePath,
-                _inventoryItems
-            );
+            List<InventoryItem> result =
+                new List<InventoryItem>();
+
+            List<InventoryItem>
+                inventoryItems =
+                    GetAll();
+
+            foreach (InventoryItem item
+                in inventoryItems)
+            {
+                if (item.ProductId
+                    == productId)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
         }
 
-        public List<InventoryItem> GetAll()
+        public InventoryItem Find(
+            string productId)
         {
-            return new List<InventoryItem>( _inventoryItems);
+            List<InventoryItem>
+                inventoryItems =
+                    GetAll();
+
+            foreach (InventoryItem item
+                in inventoryItems)
+            {
+                if (item.ProductId
+                    == productId)
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
 
-        public void Add(InventoryItem item)
+        public int GetTotalQuantity(
+            string productId)
         {
-            _inventoryItems.Add(item);
+            int total = 0;
 
-            SaveData();
+            List<Batch> batches =
+                FileHelper.ReadJsonList<Batch>(
+                    BatchFile
+                );
+
+            if (batches == null)
+            {
+                return 0;
+            }
+
+            foreach (Batch batch
+                in batches)
+            {
+                if (batch.ProductId
+                    == productId)
+                {
+                    total +=
+                        batch.RemainingQuantity;
+                }
+            }
+
+            return total;
         }
 
         public int GetMinStock(
-     string productId)
+            string productId)
         {
             List<Product> products =
                 FileHelper.ReadJsonList<Product>(
-                    "products.json"
+                    ProductFile
                 );
 
             if (products == null)
@@ -76,84 +175,21 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             return 0;
         }
 
-
-
-        public void Update()
+        public bool IsLowStock(
+            string productId)
         {
-            SaveData();
-        }
-
-        public InventoryItem Find(
-            string productId,
-            string batchId,
-            string locationCode)
-        {
-            int i;
-
-            for (i = 0; i < _inventoryItems.Count; i++)
-            {
-                if (_inventoryItems[i].ProductId
-                    == productId
-                    && _inventoryItems[i].BatchId
-                    == batchId
-                    && _inventoryItems[i].LocationCode
-                    == locationCode)
-                {
-                    return _inventoryItems[i];
-                }
-            }
-
-            return null;
-        }
-
-
-        public List<InventoryItem>
-            GetByProductId(
-                string productId)
-        {
-            List<InventoryItem> result =
-                new List<InventoryItem>();
-
-            foreach (InventoryItem item
-                in _inventoryItems)
-            {
-                if (item.ProductId
-                    == productId)
-                {
-                    result.Add(item);
-                }
-            }
-
-            return result;
-        }
-
-        public int GetTotalQuantity(
-    string productId)
-        {
-            int total = 0;
-
-            List<Batch> batches =
-                FileHelper.ReadJsonList<Batch>(
-                    "batch.json"
+            int totalQuantity =
+                GetTotalQuantity(
+                    productId
                 );
 
-            if (batches == null)
-            {
-                return 0;
-            }
+            int minStock =
+                GetMinStock(
+                    productId
+                );
 
-            foreach (Batch batch
-                in batches)
-            {
-                if (batch.ProductId
-                    == productId)
-                {
-                    total +=
-                        batch.Quantity;
-                }
-            }
-
-            return total;
+            return totalQuantity
+                <= minStock;
         }
     }
 }
