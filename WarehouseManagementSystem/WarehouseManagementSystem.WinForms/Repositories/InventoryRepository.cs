@@ -51,7 +51,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                         == product.ProductID)
                     {
                         totalQuantity +=
-                            batch.RemainingQuantity;
+                            batch.AvailableQuantity;
                     }
                 }
 
@@ -142,7 +142,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
                     == productId)
                 {
                     total +=
-                        batch.RemainingQuantity;
+                        batch.AvailableQuantity;
                 }
             }
 

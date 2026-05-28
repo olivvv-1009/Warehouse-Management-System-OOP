@@ -272,11 +272,17 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                     foreach (var r in returns)
                         if (r.ReturnOrderId == refId)
                         {
-                            // ReturnOrder lưu EmployeeId, cần map sang FullName
+                            if (string.IsNullOrEmpty(r.EmployeeId)) return "";
                             var profileRepo = new ProfileRepository();
-                            var profile = profileRepo.GetAll()
-                                .FirstOrDefault(p => p.EmployeeId == r.EmployeeId);
-                            return profile?.FullName ?? r.EmployeeId;
+                            var profiles = profileRepo.GetAll();
+                            // Thử match theo EmployeeId trước
+                            var profile = profiles.FirstOrDefault(p => p.EmployeeId == r.EmployeeId);
+                            if (profile != null) return profile.FullName;
+                            // Fallback: match theo AccountId
+                            profile = profiles.FirstOrDefault(p => p.AccountId == r.EmployeeId);
+                            if (profile != null) return profile.FullName;
+                            // Cuối cùng trả EmployeeId để debug
+                            return r.EmployeeId;
                         }
                 }
             }
