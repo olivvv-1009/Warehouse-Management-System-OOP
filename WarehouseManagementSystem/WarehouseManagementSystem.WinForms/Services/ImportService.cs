@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using WarehouseManagementSystem.WinForms.Interfaces;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
+using WarehouseManagementSystem.WinForms.Rule;
 using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.Services
@@ -22,6 +21,12 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly SupplierService
             _supplierService;
 
+        private readonly ProductRepository
+            _productRepository;
+
+        private readonly LocationAssignmentRule
+            _locationRule;
+
         public ImportService()
         {
             _batchRepository =
@@ -35,151 +40,12 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _supplierService =
                 new SupplierService();
-        }
 
-        public List<ImportInvoice>
-            GetAll()
-        {
-            return _importRepository
-                .GetAll();
-        }
+            _productRepository =
+                new ProductRepository();
 
-        public ImportInvoice
-            FindById(
-                string importId)
-        {
-            List<ImportInvoice> invoices =
-                _importRepository
-                    .GetAll();
-
-            foreach (ImportInvoice invoice
-                in invoices)
-            {
-                if (invoice.ImportId
-                    == importId)
-                {
-                    return invoice;
-                }
-            }
-
-            return null;
-        }
-
-        public List<Supplier>
-            GetAllSuppliers()
-        {
-            return _supplierService
-                .GetAll();
-        }
-
-        public bool ImportProduct(
-            InventoryItem item,
-            string locationCode)
-        {
-            WarehouseLocation location =
-                _locationRepository
-                    .FindByCode(
-                        locationCode
-                    );
-
-            if (location == null)
-            {
-                return false;
-            }
-
-            if (
-                location.UsedCapacity
-                + item.Quantity
-                > location.Capacity
-            )
-            {
-                return false;
-            }
-
-            Batch batch =
-                new Batch();
-
-            batch.BatchId =
-                Guid.NewGuid()
-                    .ToString();
-
-            batch.ProductId =
-                item.ProductId;
-
-            batch.LocationCode =
-                locationCode;
-
-            batch.Quantity =
-                item.Quantity;
-
-            batch.RemainingQuantity =
-                item.Quantity;
-
-            batch.ImportDate =
-                DateTime.Now;
-
-            batch.Status =
-                "Available";
-
-            item.BatchId =
-                batch.BatchId;
-
-            item.LocationCode =
-                locationCode;
-
-            _batchRepository
-                .Add(batch);
-
-            location.UsedCapacity +=
-                item.Quantity;
-
-            _locationRepository
-                .Update();
-
-            ImportInvoice invoice =
-                new ImportInvoice();
-
-            invoice.ImportId =
-                Guid.NewGuid()
-                    .ToString();
-
-            invoice.SupplierId =
-                string.Empty;
-
-            invoice.EmployeeName =
-                string.Empty;
-
-            invoice.ImportDate =
-                DateTime.Now;
-
-            OrderDetail detail =
-                new OrderDetail();
-
-            detail.ProductId =
-                item.ProductId;
-
-            detail.BatchId =
-                batch.BatchId;
-
-            detail.Quantity =
-                item.Quantity;
-
-            detail.UnitPrice =
-                0;
-
-            detail.TotalPrice =
-                0;
-
-            detail.LocationCode =
-                locationCode;
-
-            invoice.OrderDetails
-                .Add(detail);
-
-            _importRepository
-                .Add(invoice);
-
-            return true;
+            _locationRule =
+                new LocationAssignmentRule();
         }
 
         public bool CreateImportOrder(
@@ -187,16 +53,158 @@ namespace WarehouseManagementSystem.WinForms.Services
             string employeeName,
             List<OrderDetail> items)
         {
+            List<WarehouseLocation> locations =
+                _locationRepository
+                    .GetAll();
+
+            List<Product> products =
+                _productRepository
+                    .GetAll();
+
+            int i;
+
+            for (
+                i = 0;
+                i < items.Count;
+                i++
+            )
+            {
+                OrderDetail item =
+                    items[i];
+
+                Product product =
+                    null;
+
+                int j;
+
+                for (
+                    j = 0;
+                    j < products.Count;
+                    j++
+                )
+                {
+                    if (
+                        products[j].ProductID
+                        == item.ProductId
+                    )
+                    {
+                        product =
+                            products[j];
+
+                        break;
+                    }
+                }
+
+                if (product == null)
+                {
+                    return false;
+                }
+
+                WarehouseLocation location =
+                    _locationRule
+                        .FindAvailableLocation(
+                            locations,
+                            item.ProductId,
+                            product.Category,
+                            item.Quantity
+                        );
+
+                if (location == null)
+                {
+                    return false;
+                }
+
+                location.ProductId =
+                    item.ProductId;
+
+                location.UsedCapacity +=
+                    item.Quantity;
+
+                List<Batch> oldBatches =
+                    _batchRepository
+                        .GetByProductId(
+                            item.ProductId
+                        );
+
+                int batchNumber =
+                    oldBatches.Count + 1;
+
+                Batch batch =
+                    new Batch();
+
+                batch.BatchId =
+                    "BAT-"
+                    + item.ProductId
+                    + "-"
+                    + batchNumber
+                        .ToString("D2");
+
+                batch.ProductId =
+                    item.ProductId;
+
+                batch.SupplierId =
+                    supplierId;
+
+                batch.LocationCode =
+                    location.LocationCode;
+
+                batch.Quantity =
+                    item.Quantity;
+
+                batch.RemainingQuantity =
+                    item.Quantity;
+
+                batch.ImportPrice =
+                    item.UnitPrice;
+
+                batch.ImportDate =
+                    DateTime.Now;
+
+                batch.Status =
+                    "Stored";
+
+                _batchRepository
+                    .Add(batch);
+
+                item.BatchId =
+                    batch.BatchId;
+
+                item.LocationCode =
+                    location.LocationCode;
+
+                item.Zone =
+                    location.Zone;
+
+                item.Rack =
+                    location.Rack;
+
+                item.Shelf =
+                    location.Shelf;
+            }
+
+            _locationRepository
+                .Update();
+
             List<ImportInvoice> invoices =
                 _importRepository
                     .GetAll();
 
             List<string> ids =
-                invoices
-                    .Select(
-                        x => x.ImportId
-                    )
-                    .ToList();
+                new List<string>();
+
+            int k;
+
+            for (
+                k = 0;
+                k < invoices.Count;
+                k++
+            )
+            {
+                ids.Add(
+                    invoices[k]
+                        .ImportId
+                );
+            }
 
             int nextNumber =
                 IdGenerator
@@ -226,10 +234,21 @@ namespace WarehouseManagementSystem.WinForms.Services
             invoice.OrderDetails =
                 items;
 
+            decimal totalAmount = 0;
+
+            for (
+                k = 0;
+                k < items.Count;
+                k++
+            )
+            {
+                totalAmount +=
+                    items[k]
+                        .TotalPrice;
+            }
+
             invoice.TotalAmount =
-                items.Sum(
-                    x => x.TotalPrice
-                );
+                totalAmount;
 
             _importRepository
                 .Add(invoice);
