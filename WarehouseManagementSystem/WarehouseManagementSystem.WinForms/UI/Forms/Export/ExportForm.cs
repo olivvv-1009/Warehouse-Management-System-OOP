@@ -4,180 +4,178 @@ using System.Drawing;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Repositories;
 using WarehouseManagementSystem.WinForms.Models;
+
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 {
     public partial class ExportForm : UserControl
     {
-        private readonly ExportRepository
-            _exportRepository;
+        private readonly ExportRepository _exportRepository;
 
         public ExportForm()
         {
             InitializeComponent();
-
-            _exportRepository =
-                new ExportRepository();
-
-            SetupDataGrid();
-
-            SetupUI();
-
+            _exportRepository = new ExportRepository();
+            SetupDataGridView();
             LoadExportOrders();
         }
 
-        private void SetupUI()
+        // ─── Setup giống hệt ImportForm ──────────────────────────
+
+        private void SetupDataGridView()
         {
-            dgvExportOrders.CellFormatting +=
-    dgvExportOrders_CellFormatting;
-            dgvExportOrders
-                .EnableHeadersVisualStyles =
-                false;
+            dgvExportOrders.Columns.Clear();
+            dgvExportOrders.AutoGenerateColumns = false;
+            dgvExportOrders.RowHeadersVisible = false;
+            dgvExportOrders.AllowUserToAddRows = false;
+            dgvExportOrders.AllowUserToDeleteRows = false;
+            dgvExportOrders.AllowUserToResizeRows = false;
+            dgvExportOrders.AllowUserToResizeColumns = false;
+            dgvExportOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvExportOrders.MultiSelect = false;
+            dgvExportOrders.ReadOnly = true;
 
-            dgvExportOrders
-                .ColumnHeadersDefaultCellStyle
-                .BackColor =
-                Color.FromArgb(
-                    0,
-                    122,
-                    204);
+            // Background & border
+            dgvExportOrders.BackgroundColor = Color.White;
+            dgvExportOrders.BorderStyle = BorderStyle.None;
+            dgvExportOrders.GridColor = Color.FromArgb(230, 230, 230);
+            dgvExportOrders.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvExportOrders.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 
-            dgvExportOrders
-                .ColumnHeadersDefaultCellStyle
-                .ForeColor =
-                Color.White;
+            // Row & header height
+            dgvExportOrders.RowTemplate.Height = 48;
+            dgvExportOrders.ColumnHeadersHeight = 55;
+            dgvExportOrders.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
-            dgvExportOrders
-                .RowsDefaultCellStyle
-                .BackColor =
-                Color.White;
+            // Header style
+            dgvExportOrders.EnableHeadersVisualStyles = false;
+            dgvExportOrders.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(245, 245, 245);
+            dgvExportOrders.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            dgvExportOrders.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvExportOrders.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
 
-            dgvExportOrders
-                .AlternatingRowsDefaultCellStyle
-                .BackColor =
-                Color.FromArgb(
-                    240,
-                    248,
-                    255);
+            // Cell style
+            dgvExportOrders.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgvExportOrders.DefaultCellStyle.Padding = new Padding(8);
+            dgvExportOrders.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+            dgvExportOrders.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(219, 234, 254);
+            dgvExportOrders.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            dgvExportOrders
-                .DefaultCellStyle
-                .SelectionBackColor =
-                Color.LightBlue;
+            // Alternating row
+            dgvExportOrders.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 250, 252);
 
-            dgvExportOrders
-                .DefaultCellStyle
-                .SelectionForeColor =
-                Color.Black;
+            // Fill & scroll
+            dgvExportOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvExportOrders.ScrollBars = ScrollBars.Vertical;
+            dgvExportOrders.Dock = DockStyle.Fill;
+
+            AddColumns();
+
+            // Column widths
+            dgvExportOrders.Columns["InvoiceId"].FillWeight = 90;
+            dgvExportOrders.Columns["Destination"].FillWeight = 160;
+            dgvExportOrders.Columns["Date"].FillWeight = 90;
+            dgvExportOrders.Columns["Items"].FillWeight = 60;
+            dgvExportOrders.Columns["Status"].FillWeight = 100;
+            dgvExportOrders.Columns["CreatedBy"].FillWeight = 150;
+            dgvExportOrders.Columns["Action"].FillWeight = 60;
+
+            dgvExportOrders.CellFormatting += dgvExportOrders_CellFormatting;
+            dgvExportOrders.CellClick += dgvExportOrders_CellClick;
         }
 
-        private void SetupDataGrid()
+        private void AddColumns()
         {
-            dgvExportOrders
-                .AutoGenerateColumns =
-                false;
+            dgvExportOrders.Columns.Add("InvoiceId", "Invoice ID");
+            dgvExportOrders.Columns.Add("Destination", "Destination");
+            dgvExportOrders.Columns.Add("Date", "Date");
+            dgvExportOrders.Columns.Add("Items", "Items");
+            dgvExportOrders.Columns.Add("Status", "Status");
+            dgvExportOrders.Columns.Add("CreatedBy", "Created By");
 
-            dgvExportOrders
-                .AllowUserToAddRows =
-                false;
-
-            dgvExportOrders
-                .ReadOnly =
-                true;
-
-            dgvExportOrders
-                .RowHeadersVisible =
-                false;
+            DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn();
+            actionColumn.Name = "Action";
+            actionColumn.HeaderText = "Actions";
+            actionColumn.Text = "👁";
+            actionColumn.UseColumnTextForButtonValue = true;
+            dgvExportOrders.Columns.Add(actionColumn);
         }
+
+        // ─── Load data ────────────────────────────────────────────
 
         private void LoadExportOrders()
         {
             dgvExportOrders.Rows.Clear();
 
-            List<ExportInvoice>
-                exports =
-                _exportRepository
-                .GetAll();
+            List<ExportInvoice> exports = _exportRepository.GetAll();
 
-            foreach (
-                ExportInvoice invoice
-                in exports
-            )
+            foreach (ExportInvoice invoice in exports)
             {
-                dgvExportOrders.Rows.Add(
+                int row = dgvExportOrders.Rows.Add(
                     invoice.ExportId,
-                    "Warehouse",
-                    invoice.ExportDate
-                        .ToString("yyyy-MM-dd"),
+                    "",                                          // Destination (chưa lưu)
+                    invoice.ExportDate.ToString("yyyy-MM-dd"),
                     invoice.OrderDetails.Count,
                     "Completed",
                     invoice.EmployeeName,
                     "👁"
                 );
+
+                // Tô màu ô Status giống Import
+                dgvExportOrders.Rows[row].Cells["Status"].Style.BackColor =
+                    Color.FromArgb(220, 252, 231);
+                dgvExportOrders.Rows[row].Cells["Status"].Style.ForeColor =
+                    Color.SeaGreen;
+                dgvExportOrders.Rows[row].Cells["Status"].Style.Font =
+                    new Font("Segoe UI", 10, FontStyle.Bold);
             }
         }
-        private void dgvExportOrders_CellFormatting(
-           object? sender,
-           DataGridViewCellFormattingEventArgs e)
+
+        // ─── Cell click: nút 👁 ───────────────────────────────────
+
+        private void dgvExportOrders_CellClick(
+            object? sender, DataGridViewCellEventArgs e)
         {
-            if (
-                dgvExportOrders.Columns[e.ColumnIndex]
-                .Name
-                ==
-                "Status"
-            )
+            if (e.RowIndex < 0) return;
+
+            if (dgvExportOrders.Columns[e.ColumnIndex].Name != "Action") return;
+
+            string exportId =
+                dgvExportOrders.Rows[e.RowIndex]
+                .Cells["InvoiceId"].Value?.ToString() ?? "";
+
+            ExportInvoice? invoice =
+                _exportRepository.GetAll()
+                .Find(x => x.ExportId == exportId);
+
+            if (invoice != null)
             {
-                if (
-                    e.Value?.ToString()
-                    ==
-                    "Completed"
-                )
-                {
-                    e.CellStyle.BackColor =
-                        Color.FromArgb(
-                            212,
-                            237,
-                            218
-                        );
-
-                    e.CellStyle.ForeColor =
-                        Color.FromArgb(
-                            40,
-                            167,
-                            69
-                        );
-
-                    e.CellStyle.SelectionBackColor =
-                        Color.FromArgb(
-                            212,
-                            237,
-                            218
-                        );
-
-                    e.CellStyle.SelectionForeColor =
-                        Color.FromArgb(
-                            40,
-                            167,
-                            69
-                        );
-
-                    e.CellStyle.Font =
-                        new Font(
-                            dgvExportOrders.Font,
-                            FontStyle.Bold
-                        );
-                }
+                ExportOrderDetails form = new ExportOrderDetails(invoice);
+                form.ShowDialog();
             }
         }
 
-        private void btnCreateExportInvoice_Click(
-    object sender,
-    EventArgs e)
-        {
-            CreateExportInvoice form =
-                new CreateExportInvoice();
+        // ─── CellFormatting ───────────────────────────────────────
 
-            form.ShowDialog();
+        private void dgvExportOrders_CellFormatting(
+            object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Đã set màu trực tiếp trong LoadExportOrders, không cần làm gì thêm
         }
-        
+
+        // ─── Buttons ──────────────────────────────────────────────
+
+        private void btnCreateExport_Click(object sender, EventArgs e)
+        {
+            CreateExportInvoice form = new CreateExportInvoice();
+            form.ShowDialog();
+            LoadExportOrders();
+        }
     }
 }

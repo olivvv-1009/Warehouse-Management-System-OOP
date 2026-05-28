@@ -8,475 +8,244 @@ using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 {
-    public partial class CreateImportOrder
-        : Form
+    public partial class CreateImportOrder : Form
     {
-        private readonly ImportController
-            _importController;
+        private readonly ImportController _importController;
 
         public CreateImportOrder()
         {
             InitializeComponent();
-
-            _importController =
-                new ImportController();
+            _importController = new ImportController();
         }
 
-        private void CreateImportOrder_Load(
-            object sender,
-            EventArgs e)
+        // ─── Load ─────────────────────────────────────────────────
+
+        private void CreateImportOrder_Load(object sender, EventArgs e)
         {
             if (Session.CurrentProfile != null)
             {
                 lbCreateby.Text =
-                    Session.CurrentProfile
-                        .FullName;
+                    Session.CurrentProfile.FullName;
             }
 
             flowProducts.AutoScroll = true;
-
             flowProducts.WrapContents = false;
-
-            flowProducts.FlowDirection =
-                FlowDirection.TopDown;
-
+            flowProducts.FlowDirection = FlowDirection.TopDown;
             flowProducts.HorizontalScroll.Enabled = true;
-
             flowProducts.HorizontalScroll.Visible = true;
 
-
-
             CreateHeader();
-
             LoadSuppliers();
-
             AddProductRowUI();
         }
 
+        // ─── Header row ───────────────────────────────────────────
+
         private void CreateHeader()
         {
-            Panel header =
-                new Panel();
-
+            Panel header = new Panel();
             header.Height = 55;
-
             header.Width = 1000;
+            header.BackColor = Color.FromArgb(245, 245, 245);
+            header.BorderStyle = BorderStyle.FixedSingle;
 
-            header.BackColor =
-                Color.FromArgb(245, 245, 245);
+            Label lbProduct = new Label();
+            lbProduct.Text = "Product";
+            lbProduct.Location = new Point(20, 18);
+            lbProduct.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
-            header.BorderStyle =
-                BorderStyle.FixedSingle;
+            Label lbQty = new Label();
+            lbQty.Text = "Quantity";
+            lbQty.Location = new Point(230, 18);
+            lbQty.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
+            Label lbPrice = new Label();
+            lbPrice.Text = "Price";
+            lbPrice.Location = new Point(360, 18);
+            lbPrice.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
-
-            Label lbProduct =
-                new Label();
-
-            lbProduct.Text =
-                "Product";
-
-            lbProduct.Location =
-                new Point(20, 18);
-
-            lbProduct.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold
-                );
-
-
-
-            Label lbQty =
-                new Label();
-
-            lbQty.Text =
-                "Quantity";
-
-            lbQty.Location =
-                new Point(230, 18);
-
-            lbQty.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold
-                );
-
-
-
-            Label lbPrice =
-                new Label();
-
-            lbPrice.Text =
-                "Price";
-
-            lbPrice.Location =
-                new Point(360, 18);
-
-            lbPrice.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold
-                );
-
-
-
-            Label lbLocation =
-                new Label();
-
-            lbLocation.Text =
-                "Warehouse";
-
-            lbLocation.Location =
-                new Point(500, 18);
-
-            lbLocation.Font =
-                new Font(
-                    "Segoe UI",
-                    10,
-                    FontStyle.Bold
-                );
-
-
+            Label lbLocation = new Label();
+            lbLocation.Text = "Warehouse";
+            lbLocation.Location = new Point(500, 18);
+            lbLocation.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             header.Controls.Add(lbProduct);
-
             header.Controls.Add(lbQty);
-
             header.Controls.Add(lbPrice);
-
             header.Controls.Add(lbLocation);
-
-
 
             flowProducts.Controls.Add(header);
         }
 
+        // ─── Load suppliers ───────────────────────────────────────
+
         private void LoadSuppliers()
         {
             List<Supplier> suppliers =
-                _importController
-                    .GetAllSuppliers();
+                _importController.GetAllSuppliers();
 
-            cbSupplier.DataSource =
-                suppliers;
-
-            cbSupplier.DisplayMember =
-                "SupplierName";
-
-            cbSupplier.ValueMember =
-                "SupplierId";
+            cbSupplier.DataSource = suppliers;
+            cbSupplier.DisplayMember = "SupplierName";
+            cbSupplier.ValueMember = "SupplierId";
         }
 
-        void AddProductRowUI()
+        // ─── Load products vào ComboBox ───────────────────────────
+
+        private void LoadProducts(ComboBox cbProduct)
         {
-            Panel row =
-                new Panel();
+            List<ProductDisplayModel> products =
+                _importController.GetAllProducts();
 
+            cbProduct.DataSource = products;
+            cbProduct.DisplayMember = "Name";
+            cbProduct.ValueMember = "ProductID";
+            cbProduct.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        // ─── Thêm row sản phẩm ───────────────────────────────────
+
+        private void AddProductRowUI()
+        {
+            Panel row = new Panel();
             row.Height = 70;
-
             row.Width = 1000;
+            row.BackColor = Color.White;
+            row.BorderStyle = BorderStyle.FixedSingle;
 
-            row.BackColor =
-                Color.White;
-
-            row.BorderStyle =
-                BorderStyle.FixedSingle;
-
-
-
-            ComboBox cbProduct =
-                new ComboBox();
-
-            cbProduct.Name =
-                "cbProduct";
-
-            cbProduct.Location =
-                new Point(20, 18);
-
+            ComboBox cbProduct = new ComboBox();
+            cbProduct.Name = "cbProduct";
+            cbProduct.Location = new Point(20, 18);
             cbProduct.Width = 160;
+            cbProduct.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cbProduct.DropDownStyle =
-                ComboBoxStyle.DropDownList;
-
-
-
-            NumericUpDown numQuantity =
-                new NumericUpDown();
-
-            numQuantity.Name =
-                "numQuantity";
-
-            numQuantity.Location =
-                new Point(230, 18);
-
+            NumericUpDown numQuantity = new NumericUpDown();
+            numQuantity.Name = "numQuantity";
+            numQuantity.Location = new Point(230, 18);
             numQuantity.Width = 80;
-
             numQuantity.Minimum = 1;
 
-
-
-            TextBox txtPrice =
-                new TextBox();
-
-            txtPrice.Name =
-                "txtPrice";
-
-            txtPrice.Location =
-                new Point(360, 18);
-
+            TextBox txtPrice = new TextBox();
+            txtPrice.Name = "txtPrice";
+            txtPrice.Location = new Point(360, 18);
             txtPrice.Width = 100;
 
-
-
-            Label lbZone =
-                new Label();
-
-            lbZone.Name =
-                "lbZone";
-
-            lbZone.Location =
-                new Point(500, 18);
-
-            lbZone.Size =
-                new Size(50, 28);
-
-            lbZone.BackColor =
-                Color.FromArgb(220, 230, 255);
-
-            lbZone.TextAlign =
-                ContentAlignment.MiddleCenter;
-
-
-
-            Label lbRack =
-                new Label();
-
-            lbRack.Name =
-                "lbRack";
-
-            lbRack.Location =
-                new Point(560, 18);
-
-            lbRack.Size =
-                new Size(65, 28);
-
-            lbRack.BackColor =
-                Color.FromArgb(220, 255, 220);
-
-            lbRack.TextAlign =
-                ContentAlignment.MiddleCenter;
-
-
-
-            Label lbShelf =
-                new Label();
-
-            lbShelf.Name =
-                "lbShelf";
-
-            lbShelf.Location =
-                new Point(635, 18);
-
-            lbShelf.Size =
-                new Size(75, 28);
-
-            lbShelf.BackColor =
-                Color.FromArgb(245, 220, 255);
-
-            lbShelf.TextAlign =
-                ContentAlignment.MiddleCenter;
-
-
-
-            Label lbCapacity =
-                new Label();
-
-            lbCapacity.Name =
-                "lbCapacity";
-
-            lbCapacity.Location =
-                new Point(730, 24);
-
-            lbCapacity.AutoSize = true;
-
-            lbCapacity.Text =
-                "Capacity: -";
-
-
-
-            Button btnRemove =
-                new Button();
-
-            btnRemove.Text = "×";
-
-            btnRemove.Location =
-                new Point(920, 16);
-
-            btnRemove.Width = 40;
-
-            btnRemove.Height = 30;
-
-
-
-            LoadProducts(cbProduct);
-
-
-
-            cbProduct.SelectedIndex = -1;
-
+            Label lbZone = new Label();
+            lbZone.Name = "lbZone";
+            lbZone.Location = new Point(500, 18);
+            lbZone.Size = new Size(50, 28);
+            lbZone.BackColor = Color.FromArgb(220, 230, 255);
+            lbZone.TextAlign = ContentAlignment.MiddleCenter;
             lbZone.Text = "";
 
+            Label lbRack = new Label();
+            lbRack.Name = "lbRack";
+            lbRack.Location = new Point(560, 18);
+            lbRack.Size = new Size(65, 28);
+            lbRack.BackColor = Color.FromArgb(220, 255, 220);
+            lbRack.TextAlign = ContentAlignment.MiddleCenter;
             lbRack.Text = "";
 
+            Label lbShelf = new Label();
+            lbShelf.Name = "lbShelf";
+            lbShelf.Location = new Point(635, 18);
+            lbShelf.Size = new Size(75, 28);
+            lbShelf.BackColor = Color.FromArgb(245, 220, 255);
+            lbShelf.TextAlign = ContentAlignment.MiddleCenter;
             lbShelf.Text = "";
 
+            Label lbCapacity = new Label();
+            lbCapacity.Name = "lbCapacity";
+            lbCapacity.Location = new Point(730, 24);
+            lbCapacity.AutoSize = true;
+            lbCapacity.Text = "Capacity: -";
 
+            Button btnRemove = new Button();
+            btnRemove.Text = "x";
+            btnRemove.Location = new Point(920, 16);
+            btnRemove.Width = 40;
+            btnRemove.Height = 30;
 
-            cbProduct.SelectionChangeCommitted +=
-                ProductChanged;
+            LoadProducts(cbProduct);
+            cbProduct.SelectedIndex = -1;
 
-            numQuantity.ValueChanged +=
-                QuantityChanged;
-
-            btnRemove.Click +=
-                RemoveRow;
-
-
+            cbProduct.SelectionChangeCommitted += ProductChanged;
+            numQuantity.ValueChanged += QuantityChanged;
+            btnRemove.Click += RemoveRow;
 
             row.Controls.Add(cbProduct);
-
             row.Controls.Add(numQuantity);
-
             row.Controls.Add(txtPrice);
-
             row.Controls.Add(lbZone);
-
             row.Controls.Add(lbRack);
-
             row.Controls.Add(lbShelf);
-
             row.Controls.Add(lbCapacity);
-
             row.Controls.Add(btnRemove);
-
-
 
             flowProducts.Controls.Add(row);
         }
 
-        private void LoadProducts(
-            ComboBox cbProduct)
+        // ─── Event: product / quantity thay đổi ──────────────────
+
+        private void ProductChanged(object? sender, EventArgs e)
         {
-            List<ProductDisplayModel> products =
-                _importController
-                    .GetAllProducts();
-
-            cbProduct.DataSource =
-                products;
-
-            cbProduct.DisplayMember =
-                "Name";
-
-            cbProduct.ValueMember =
-                "ProductID";
-
-            cbProduct.DropDownStyle =
-                ComboBoxStyle.DropDownList;
-        }
-
-        private void ProductChanged(
-            object sender,
-            EventArgs e)
-        {
-            ComboBox cbProduct =
-                (ComboBox)sender;
-
-            Panel row =
-                (Panel)cbProduct.Parent;
-
+            if (sender is not ComboBox cbProduct) return;
+            if (cbProduct.Parent is not Panel row) return;
             UpdateLocation(row);
         }
 
-        private void QuantityChanged(
-            object sender,
-            EventArgs e)
+        private void QuantityChanged(object? sender, EventArgs e)
         {
-            NumericUpDown numQuantity =
-                (NumericUpDown)sender;
-
-            Panel row =
-                (Panel)numQuantity.Parent;
-
+            if (sender is not NumericUpDown numQuantity) return;
+            if (numQuantity.Parent is not Panel row) return;
             UpdateLocation(row);
         }
 
-        private void UpdateLocation(
-            Panel row)
+        // ─── Cập nhật vị trí kho tự động ─────────────────────────
+
+        private void UpdateLocation(Panel row)
         {
-            ComboBox cbProduct =
-                (ComboBox)row.Controls["cbProduct"];
+            ComboBox? cbProduct =
+                row.Controls["cbProduct"] as ComboBox;
+            NumericUpDown? numQuantity =
+                row.Controls["numQuantity"] as NumericUpDown;
+            Label? lbZone =
+                row.Controls["lbZone"] as Label;
+            Label? lbRack =
+                row.Controls["lbRack"] as Label;
+            Label? lbShelf =
+                row.Controls["lbShelf"] as Label;
+            Label? lbCapacity =
+                row.Controls["lbCapacity"] as Label;
 
-            NumericUpDown numQuantity =
-                (NumericUpDown)row.Controls["numQuantity"];
+            if (cbProduct == null || numQuantity == null ||
+                lbZone == null || lbRack == null ||
+                lbShelf == null || lbCapacity == null) return;
 
-            Label lbZone =
-                (Label)row.Controls["lbZone"];
-
-            Label lbRack =
-                (Label)row.Controls["lbRack"];
-
-            Label lbShelf =
-                (Label)row.Controls["lbShelf"];
-
-            Label lbCapacity =
-                (Label)row.Controls["lbCapacity"];
-
-            if (cbProduct.SelectedValue == null)
-            {
-                return;
-            }
+            if (cbProduct.SelectedValue == null) return;
 
             string productId =
-                cbProduct.SelectedValue
-                    .ToString();
+                cbProduct.SelectedValue.ToString() ?? "";
 
-            int quantity =
-                (int)numQuantity.Value;
+            if (string.IsNullOrEmpty(productId)) return;
 
-            WarehouseLocation location =
-                _importController
-                    .AutoAssignLocation(
-                        productId,
-                        quantity
-                    );
+            int quantity = (int)numQuantity.Value;
+
+            WarehouseLocation? location =
+                _importController.AutoAssignLocation(
+                    productId, quantity);
 
             if (location == null)
             {
                 lbZone.Text = "";
-
                 lbRack.Text = "";
-
                 lbShelf.Text = "";
-
-                lbCapacity.Text =
-                    "No Space";
-
+                lbCapacity.Text = "No Space";
                 return;
             }
 
-            lbZone.Text =
-                location.Zone;
-
-            lbRack.Text =
-                location.Rack;
-
-            lbShelf.Text =
-                location.Shelf;
-
+            lbZone.Text = location.Zone;
+            lbRack.Text = location.Rack;
+            lbShelf.Text = location.Shelf;
             lbCapacity.Text =
                 "Capacity: "
                 + location.UsedCapacity
@@ -484,167 +253,169 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 + location.Capacity;
         }
 
-        private void RemoveRow(
-            object sender,
-            EventArgs e)
+        // ─── Xóa row ──────────────────────────────────────────────
+
+        private void RemoveRow(object? sender, EventArgs e)
         {
-            Button btn =
-                (Button)sender;
-
-            Panel row =
-                (Panel)btn.Parent;
-
-            flowProducts.Controls
-                .Remove(row);
+            if (sender is not Button btn) return;
+            if (btn.Parent is not Panel row) return;
+            flowProducts.Controls.Remove(row);
         }
 
-        private void btnAdd_Click(
-            object sender,
-            EventArgs e)
+        // ─── Button: Add Product ──────────────────────────────────
+
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             AddProductRowUI();
         }
 
-        private void btnAddProduct_Click(
-            object sender,
-            EventArgs e)
-        {
-            AddProductRowUI();
-        }
+        // ─── Button: Complete ─────────────────────────────────────
 
-        private void button5_Click(
-    object sender,
-    EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
             try
             {
-                List<OrderDetail> items =
-                    new List<OrderDetail>();
+                // Validate supplier
+                if (cbSupplier.SelectedValue == null)
+                {
+                    MessageBox.Show(
+                        "Please select a supplier!",
+                        "Validation",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                List<OrderDetail> items = new List<OrderDetail>();
 
                 foreach (Control control in flowProducts.Controls)
                 {
-                    if (!(control is Panel row))
-                    {
-                        continue;
-                    }
+                    if (control is not Panel row) continue;
 
-                    if (row.Controls["cbProduct"] == null)
-                    {
-                        continue;
-                    }
+                    // Bỏ qua header row (không có cbProduct)
+                    if (row.Controls["cbProduct"] == null) continue;
 
-                    ComboBox cbProduct =
-                        (ComboBox)row.Controls["cbProduct"];
+                    ComboBox? cbProduct =
+                        row.Controls["cbProduct"] as ComboBox;
+                    NumericUpDown? numQuantity =
+                        row.Controls["numQuantity"] as NumericUpDown;
+                    TextBox? txtPrice =
+                        row.Controls["txtPrice"] as TextBox;
+                    Label? lbZone =
+                        row.Controls["lbZone"] as Label;
+                    Label? lbRack =
+                        row.Controls["lbRack"] as Label;
+                    Label? lbShelf =
+                        row.Controls["lbShelf"] as Label;
 
-                    NumericUpDown numQuantity =
-                        (NumericUpDown)row.Controls["numQuantity"];
-
-                    TextBox txtPrice =
-                        (TextBox)row.Controls["txtPrice"];
-
-                    Label lbZone =
-                        (Label)row.Controls["lbZone"];
-
-                    Label lbRack =
-                        (Label)row.Controls["lbRack"];
-
-                    Label lbShelf =
-                        (Label)row.Controls["lbShelf"];
+                    if (cbProduct == null || numQuantity == null ||
+                        txtPrice == null || lbZone == null ||
+                        lbRack == null || lbShelf == null) continue;
 
                     if (cbProduct.SelectedValue == null)
                     {
                         MessageBox.Show(
-                            "Please select product!"
-                        );
-
+                            "Please select a product for all rows!",
+                            "Validation",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
                         return;
                     }
 
                     if (!decimal.TryParse(
-                            txtPrice.Text,
-                            out decimal price))
+                            txtPrice.Text, out decimal price)
+                        || price <= 0)
                     {
                         MessageBox.Show(
-                            "Invalid price!"
-                        );
-
+                            "Please enter a valid price (greater than 0)!",
+                            "Validation",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
                         return;
                     }
 
-                    OrderDetail item =
-                        new OrderDetail()
-                        {
-                            ProductId =
-                                cbProduct
-                                    .SelectedValue
-                                    .ToString(),
+                    string productId =
+                        cbProduct.SelectedValue.ToString() ?? "";
 
-                            Quantity =
-                                (int)numQuantity.Value,
+                    int qty = (int)numQuantity.Value;
 
-                            UnitPrice =
-                                price,
-
-                            TotalPrice =
-                                price *
-                                (int)numQuantity.Value,
-
-                            Zone =
-                                lbZone.Text,
-
-                            Rack =
-                                lbRack.Text,
-
-                            Shelf =
-                                lbShelf.Text,
-
-                            LocationCode =
-                                lbZone.Text + "-"
-                                + lbRack.Text + "-"
-                                + lbShelf.Text
-                        };
+                    OrderDetail item = new OrderDetail()
+                    {
+                        ProductId = productId,
+                        Quantity = qty,
+                        UnitPrice = price,
+                        TotalPrice = price * qty,
+                        Zone = lbZone.Text,
+                        Rack = lbRack.Text,
+                        Shelf = lbShelf.Text,
+                        LocationCode =
+                            lbZone.Text + "-"
+                            + lbRack.Text + "-"
+                            + lbShelf.Text
+                    };
 
                     items.Add(item);
                 }
 
-                bool result =
-                    _importController
-                        .CreateImportOrder(
-                            cbSupplier
-                                .SelectedValue
-                                .ToString(),
+                if (items.Count == 0)
+                {
+                    MessageBox.Show(
+                        "Please add at least one product!",
+                        "Validation",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
 
-                            Session
-                                .CurrentProfile
-                                .FullName,
+                string supplierId =
+                    cbSupplier.SelectedValue?.ToString() ?? "";
 
-                            items
-                        );
+                string employeeName =
+                    Session.CurrentProfile?.FullName ?? "";
+
+                bool result = _importController.CreateImportOrder(
+                    supplierId, employeeName, items);
 
                 if (result)
                 {
                     MessageBox.Show(
-                        "Create import order successfully!"
-                    );
-
+                        "Import order created successfully!",
+                        "Success",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
                     MessageBox.Show(
-                        "Create import order failed!"
-                    );
+                        "Failed to create import order. Please try again.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(
+                    "An error occurred: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
+        // ─── Button: Cancel ───────────────────────────────────────
+
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult confirm = MessageBox.Show(
+                "Are you sure you want to cancel?",
+                "Cancel",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+                this.Close();
         }
     }
 }
