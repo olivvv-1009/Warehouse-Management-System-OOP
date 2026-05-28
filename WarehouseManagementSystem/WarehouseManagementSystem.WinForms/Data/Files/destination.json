@@ -1,0 +1,32 @@
+﻿[
+  {
+    "DestinationId": "DST001",
+    "Name": "Chi nhánh Hà Nội",
+    "Address": "123 Hoàn Kiếm, Hà Nội"
+  },
+  {
+    "DestinationId": "DST002",
+    "Name": "Chi nhánh TP. Hồ Chí Minh",
+    "Address": "456 Quận 1, TP.HCM"
+  },
+  {
+    "DestinationId": "DST003",
+    "Name": "Chi nhánh Đà Nẵng",
+    "Address": "789 Hải Châu, Đà Nẵng"
+  },
+  {
+    "DestinationId": "DST004",
+    "Name": "Chi nhánh Cần Thơ",
+    "Address": "321 Ninh Kiều, Cần Thơ"
+  },
+  {
+    "DestinationId": "DST005",
+    "Name": "Chi nhánh Bình Dương",
+    "Address": "654 Thủ Dầu Một, Bình Dương"
+  },
+  {
+    "DestinationId": "DST006",
+    "Name": "Chi nhánh Đồng Nai",
+    "Address": "987 Biên Hòa, Đồng Nai"
+  }
+]

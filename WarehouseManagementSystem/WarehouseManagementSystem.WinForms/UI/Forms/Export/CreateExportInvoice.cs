@@ -18,6 +18,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private readonly ProductService _productService;
         private readonly BatchRepository _batchRepository;
         private readonly FifoRule _fifoRule;
+        private readonly DestinationRepository _destinationRepo;
 
         // ProductId -> (Name, Available)
         private Dictionary<string, (string Name, int Available)> _productMap = new();
@@ -30,13 +31,24 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             _productService = new ProductService();
             _batchRepository = new BatchRepository();
             _fifoRule = new FifoRule();
+            _destinationRepo = new DestinationRepository();
 
+            LoadDestinations();
             LoadProductMap();
             SetupDropdown();
             SetupEvents();
 
             lblEmployeeValue.Text = Session.CurrentProfile?.FullName ?? "";
             dtpDate.Value = DateTime.Now;
+        }
+
+        private void LoadDestinations()
+        {
+            var destinations = _destinationRepo.GetAll();
+            txtDestination.DataSource = destinations;
+            txtDestination.DisplayMember = "Name";
+            txtDestination.ValueMember = "DestinationId";
+            txtDestination.SelectedIndex = -1;
         }
 
         // ─── Load danh sách sản phẩm ─────────────────────────────
@@ -184,9 +196,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         {
             items = new List<(string, int, decimal)>();
 
-            if (string.IsNullOrWhiteSpace(txtDestination.Text))
+            if (txtDestination.SelectedItem == null)
             {
-                MessageBox.Show("Please enter a destination.",
+                MessageBox.Show("Please select a destination.",
                     "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
@@ -237,7 +249,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             if (!CollectExportItems(out var items)) return;
 
             string employee = Session.CurrentProfile?.FullName ?? "";
-            string destination = txtDestination.Text.Trim();
+            string destination = (txtDestination.SelectedItem as Models.Destination)?.Name ?? txtDestination.Text;
             bool allSuccess = true;
 
             foreach (var item in items)
@@ -263,9 +275,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 
         private void BtnSaveDraft_Click()
         {
-            if (string.IsNullOrWhiteSpace(txtDestination.Text))
+            if (txtDestination.SelectedItem == null)
             {
-                MessageBox.Show("Please enter a destination before saving draft.",
+                MessageBox.Show("Please select a destination before saving draft.",
                     "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
