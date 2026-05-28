@@ -6,9 +6,6 @@ namespace WarehouseManagementSystem.WinForms.Services
 {
     internal class InventoryService
     {
-        private readonly InventoryRepository
-    _inventoryRepository;
-
         private readonly ProductRepository
             _productRepository;
 
@@ -23,9 +20,6 @@ namespace WarehouseManagementSystem.WinForms.Services
 
         public InventoryService()
         {
-            _inventoryRepository =
-                new InventoryRepository();
-
             _productRepository =
                 new ProductRepository();
 
@@ -51,6 +45,20 @@ namespace WarehouseManagementSystem.WinForms.Services
             foreach (Product product
                 in products)
             {
+                int totalQuantity = 0;
+
+                List<Batch> productBatches =
+                    _batchRepository.GetByProductId(
+                        product.ProductID
+                    );
+
+                foreach (Batch batch
+                    in productBatches)
+                {
+                    totalQuantity +=
+                        batch.RemainingQuantity;
+                }
+
                 InventoryItem item =
                     new InventoryItem();
 
@@ -63,20 +71,6 @@ namespace WarehouseManagementSystem.WinForms.Services
                 item.MinStock =
                     product.MinStock;
 
-                int totalQuantity = 0;
-
-                List<Batch> productBatches =
-                    _batchRepository.GetByProductId(
-                        product.ProductID
-                    );
-
-                foreach (Batch batch
-    in productBatches)
-                {
-                    totalQuantity +=
-                        batch.RemainingQuantity;
-                }
-
                 item.Quantity =
                     totalQuantity;
 
@@ -86,14 +80,8 @@ namespace WarehouseManagementSystem.WinForms.Services
             return result;
         }
 
-        public void AddInventoryItem(
-            InventoryItem item)
-        {
-            _inventoryRepository.Add(item);
-        }
-
         public int GetTotalQuantity(
-    string productId)
+            string productId)
         {
             int total = 0;
 
@@ -135,6 +123,27 @@ namespace WarehouseManagementSystem.WinForms.Services
             return result;
         }
 
+        public InventoryItem
+            FindInventoryByProductId(
+                string productId)
+        {
+            List<InventoryItem>
+                inventoryItems =
+                    GetAllInventory();
+
+            foreach (InventoryItem item
+                in inventoryItems)
+            {
+                if (item.ProductId
+                    == productId)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
         public List<Batch>
             GetBatchesByProductId(
                 string productId)
@@ -155,13 +164,31 @@ namespace WarehouseManagementSystem.WinForms.Services
                 );
         }
 
-        public string GetSupplierNameByBatch(
-    string batchId)
+        public string
+            GetSupplierNameByBatch(
+                string batchId)
         {
             return _batchService
                 .GetSupplierNameByBatch(
                     batchId
                 );
+        }
+
+        public bool IsLowStock(
+            string productId)
+        {
+            InventoryItem item =
+                FindInventoryByProductId(
+                    productId
+                );
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return item.Quantity
+                <= item.MinStock;
         }
     }
 }

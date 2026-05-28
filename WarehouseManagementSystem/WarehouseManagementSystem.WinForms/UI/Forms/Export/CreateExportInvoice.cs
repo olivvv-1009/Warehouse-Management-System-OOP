@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
 using WarehouseManagementSystem.WinForms.Rule;
@@ -234,30 +235,72 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 
         private void BtnComplete_Click()
         {
-            if (!CollectExportItems(out var items)) return;
-
-            string employee = Session.CurrentProfile?.FullName ?? "";
-            string destination = txtDestination.Text.Trim();
-            bool allSuccess = true;
-
-            foreach (var item in items)
+            if (!CollectExportItems(
+                out var items))
             {
-                bool ok = _exportService.ExportProduct(
-                    item.ProductId, item.Quantity,
-                    employee, item.UnitPrice, destination);
-                if (!ok) { allSuccess = false; break; }
+                return;
             }
 
-            if (allSuccess)
+            string employee =
+                Session.CurrentProfile
+                    ?.FullName ?? "";
+
+            string destination =
+                txtDestination.Text
+                    .Trim();
+
+            List<OrderDetail> details =
+                new List<OrderDetail>();
+
+            foreach (var item
+                in items)
             {
-                MessageBox.Show("Export invoice created successfully!",
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                OrderDetail detail =
+                    new OrderDetail();
+
+                detail.ProductId =
+                    item.ProductId;
+
+                detail.Quantity =
+                    item.Quantity;
+
+                detail.UnitPrice =
+                    item.UnitPrice;
+
+                detail.TotalPrice =
+                    item.Quantity
+                    * item.UnitPrice;
+
+                details.Add(detail);
+            }
+
+            bool success =
+                _exportService
+                    .CreateExportInvoice(
+                        employee,
+                        destination,
+                        details
+                    );
+
+            if (success)
+            {
+                MessageBox.Show(
+                    "Export invoice created successfully!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
                 Close();
             }
             else
             {
-                MessageBox.Show("Failed to create export invoice. Please try again.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Failed to create export invoice.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
