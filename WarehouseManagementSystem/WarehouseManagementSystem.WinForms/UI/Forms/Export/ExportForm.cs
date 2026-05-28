@@ -119,7 +119,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             {
                 int row = dgvExportOrders.Rows.Add(
                     invoice.ExportId,
-                    "",                                          // Destination (chưa lưu)
+                    invoice.Destination,
                     invoice.ExportDate.ToString("yyyy-MM-dd"),
                     invoice.OrderDetails.Count,
                     "Completed",

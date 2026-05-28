@@ -7,7 +7,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
 {
     public partial class AddProductForm : Form
     {
-        public string ProductName => txtProductName.Text.Trim();
+        public new string ProductName => txtProductName.Text.Trim();
         public string Category => txtCategory.Text.Trim();
         public int MinimumStock => int.TryParse(txtMinStock.Text, out var val) ? val : 0;
 
@@ -16,7 +16,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
             InitializeComponent();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object? sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ProductName) || string.IsNullOrWhiteSpace(Category) || MinimumStock < 0)
             {
