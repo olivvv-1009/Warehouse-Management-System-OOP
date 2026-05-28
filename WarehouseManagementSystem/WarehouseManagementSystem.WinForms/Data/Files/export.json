@@ -3,19 +3,20 @@
     "ExportId": "EXP20260001",
     "EmployeeName": "Lê Minh Anh",
     "Destination": "TechHome Đà Nẵng",
-    "TotalAmount": 180000,
+    "TotalAmount": 0,
     "ExportDate": "2026-05-20T10:30:00",
     "OrderDetails": [
       {
-        "ProductId": "PR0005",
-        "BatchId": "BAT-PR0005-01",
+        "ProductId": "PR0001",
         "Quantity": 10,
-        "UnitPrice": 18000,
-        "TotalPrice": 180000,
-        "LocationCode": "B-R01-S01",
-        "Zone": "B",
-        "Rack": "R01",
-        "Shelf": "S01"
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      },
+      {
+        "ProductId": "PR0003",
+        "Quantity": 15,
+        "UnitPrice": 0,
+        "TotalPrice": 0
       }
     ]
   },
@@ -23,19 +24,20 @@
     "ExportId": "EXP20260002",
     "EmployeeName": "Lê Minh Anh",
     "Destination": "TechHome Hà Nội",
-    "TotalAmount": 225000,
+    "TotalAmount": 0,
     "ExportDate": "2026-05-21T10:30:00",
     "OrderDetails": [
       {
-        "ProductId": "PR0006",
-        "BatchId": "BAT-PR0006-01",
-        "Quantity": 15,
-        "UnitPrice": 15000,
-        "TotalPrice": 225000,
-        "LocationCode": "B-R02-S01",
-        "Zone": "B",
-        "Rack": "R02",
-        "Shelf": "S01"
+        "ProductId": "PR0005",
+        "Quantity": 6,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      },
+      {
+        "ProductId": "PR0007",
+        "Quantity": 10,
+        "UnitPrice": 0,
+        "TotalPrice": 0
       }
     ]
   },
@@ -43,19 +45,20 @@
     "ExportId": "EXP20260003",
     "EmployeeName": "Đinh Thị Anh Thư",
     "Destination": "TechHome Cần Thơ",
-    "TotalAmount": 200000,
+    "TotalAmount": 0,
     "ExportDate": "2026-05-23T10:30:00",
     "OrderDetails": [
       {
-        "ProductId": "PR0007",
-        "BatchId": "BAT-PR0007-01",
-        "Quantity": 20,
-        "UnitPrice": 10000,
-        "TotalPrice": 200000,
-        "LocationCode": "D-R01-S01",
-        "Zone": "D",
-        "Rack": "R01",
-        "Shelf": "S01"
+        "ProductId": "PR0006",
+        "Quantity": 12,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      },
+      {
+        "ProductId": "PR0008",
+        "Quantity": 7,
+        "UnitPrice": 0,
+        "TotalPrice": 0
       }
     ]
   },

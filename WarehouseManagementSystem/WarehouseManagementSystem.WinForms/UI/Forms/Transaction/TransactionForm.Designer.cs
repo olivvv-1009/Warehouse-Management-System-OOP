@@ -86,14 +86,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             lblAutoGen.ForeColor = Color.FromArgb(37, 99, 235);
             lblAutoGen.BackColor = Color.FromArgb(239, 246, 255);
             lblAutoGen.AutoSize = false;
-            lblAutoGen.Size = new Size(300, 30);
+            lblAutoGen.Size = new Size(340, 30);
             lblAutoGen.TextAlign = ContentAlignment.MiddleCenter;
             lblAutoGen.BorderStyle = BorderStyle.FixedSingle;
             lblAutoGen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblAutoGen.Location = new Point(panelTitle.Width - 300, 8);
+            lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
 
             panelTitle.Resize += (s, e) =>
-                lblAutoGen.Location = new Point(panelTitle.Width - 300, 8);
+                lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
 
             // ════════════════════════════════════════════════════
             // Row 1 — Filter panel

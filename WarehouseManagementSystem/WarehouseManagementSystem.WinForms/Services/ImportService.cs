@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using WarehouseManagementSystem.WinForms.Interfaces;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
+using WarehouseManagementSystem.WinForms.Rule;
 using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.Services
 {
     internal class ImportService
     {
-        private readonly InventoryRepository
-            _inventoryRepository;
-
         private readonly BatchRepository
             _batchRepository;
 
@@ -24,11 +21,14 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly SupplierService
             _supplierService;
 
+        private readonly ProductRepository
+            _productRepository;
+
+        private readonly LocationAssignmentRule
+            _locationRule;
+
         public ImportService()
         {
-            _inventoryRepository =
-                new InventoryRepository();
-
             _batchRepository =
                 new BatchRepository();
 
@@ -40,182 +40,211 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _supplierService =
                 new SupplierService();
+
+            _productRepository =
+                new ProductRepository();
+
+            _locationRule =
+                new LocationAssignmentRule();
         }
 
-        public List<ImportInvoice>
-    GetAll()
+        // ================= SUPPLIER =================
+
+        public List<Supplier>
+            GetAllSuppliers()
         {
-            return _importRepository
-                .GetAll();
+            return _supplierService.GetAll();
         }
 
-        public ImportInvoice
-            FindById(
-                string importId)
+        // ================= IMPORT =================
+
+        public bool ImportProduct(
+            InventoryItem item,
+            string locationCode)
         {
-            List<ImportInvoice> invoices =
-                _importRepository
+            return true;
+        }
+
+        public bool CreateImportOrder(
+            string supplierId,
+            string employeeName,
+            List<OrderDetail> items)
+        {
+            List<WarehouseLocation> locations =
+                _locationRepository
+                    .GetAll();
+
+            List<Product> products =
+                _productRepository
                     .GetAll();
 
             int i;
 
             for (
                 i = 0;
-                i < invoices.Count;
+                i < items.Count;
                 i++
             )
             {
-                if (
-                    invoices[i]
-                        .ImportId ==
-                    importId
+                OrderDetail item =
+                    items[i];
+
+                Product product =
+                    null;
+
+                int j;
+
+                for (
+                    j = 0;
+                    j < products.Count;
+                    j++
                 )
                 {
-                    return invoices[i];
+                    if (
+                        products[j].ProductID
+                        == item.ProductId
+                    )
+                    {
+                        product =
+                            products[j];
+
+                        break;
+                    }
                 }
+
+                if (product == null)
+                {
+                    return false;
+                }
+
+                WarehouseLocation location =
+                    _locationRule
+                        .FindAvailableLocation(
+                            locations,
+                            item.ProductId,
+                            product.Category,
+                            item.Quantity
+                        );
+
+                if (location == null)
+                {
+                    return false;
+                }
+
+                if (
+                    string.IsNullOrWhiteSpace(
+                        location.ProductId
+                    )
+                )
+                {
+                    location.ProductId =
+                        item.ProductId;
+                }
+
+                location.UsedCapacity +=
+                    item.Quantity;
+
+                List<Batch> oldBatches =
+                    _batchRepository
+                        .GetByProductId(
+                            item.ProductId
+                        );
+
+                int batchNumber =
+                    oldBatches.Count + 1;
+
+                Batch batch =
+                    new Batch();
+
+                batch.BatchId =
+                    "BAT-"
+                    + item.ProductId
+                    + "-"
+                    + batchNumber
+                        .ToString("D2");
+
+                batch.ProductId =
+                    item.ProductId;
+
+                batch.SupplierId =
+                    supplierId;
+
+                batch.LocationCode =
+                    location.LocationCode;
+
+                batch.Quantity =
+                    item.Quantity;
+
+                batch.RemainingQuantity =
+                    item.Quantity;
+
+                batch.ImportPrice =
+                    item.UnitPrice;
+
+                batch.ImportDate =
+                    DateTime.Now;
+
+                batch.Status =
+                    "Stored";
+
+                _batchRepository
+                    .Add(batch);
+
+                item.BatchId =
+                    batch.BatchId;
+
+                item.LocationCode =
+                    location.LocationCode;
+
+                item.Zone =
+                    location.Zone;
+
+                item.Rack =
+                    location.Rack;
+
+                item.Shelf =
+                    location.Shelf;
             }
-
-            return null;
-        }
-
-        public List<Supplier>
-            GetAllSuppliers()
-        {
-            return _supplierService
-                .GetAll();
-        }
-
-        public bool ImportProduct(
-    InventoryItem item,
-    string locationCode)
-        {
-            WarehouseLocation location =
-                _locationRepository
-                    .FindByCode(locationCode);
-
-            if (location == null)
-            {
-                return false;
-            }
-
-            if (
-                location.UsedCapacity
-                + item.Quantity
-                > location.Capacity
-            )
-            {
-                return false;
-            }
-
-            Batch batch =
-                new Batch();
-
-            batch.BatchId =
-                Guid.NewGuid()
-                    .ToString();
-
-            batch.ProductId =
-                item.ProductId;
-
-            batch.LocationCode =
-                locationCode;
-
-            batch.Quantity =
-                item.Quantity;
-
-            batch.ImportDate =
-                DateTime.Now;
-
-            item.BatchId =
-                batch.BatchId;
-
-            item.LocationCode =
-                locationCode;
-
-            _batchRepository
-                .Add(batch);
-
-            _inventoryRepository
-                .Add(item);
-
-            location.UsedCapacity +=
-                item.Quantity;
 
             _locationRepository
                 .Update();
 
-            ImportInvoice invoice =
-                new ImportInvoice();
-
-            invoice.ImportId =
-                Guid.NewGuid()
-                    .ToString();
-
-            invoice.SupplierId =
-                string.Empty;
-
-            invoice.EmployeeName =
-                string.Empty;
-
-            invoice.ImportDate =
-                DateTime.Now;
-
-            OrderDetail detail =
-                new OrderDetail();
-
-            detail.ProductId =
-                item.ProductId;
-
-            detail.BatchId =
-                batch.BatchId;
-
-            detail.Quantity =
-                item.Quantity;
-
-            detail.UnitPrice =
-                0;
-
-            detail.TotalPrice =
-                0;
-
-            detail.LocationCode =
-                locationCode;
-
-            invoice.OrderDetails
-                .Add(detail);
-
-            _importRepository
-                .Add(invoice);
-
-            return true;
-        }
-
-        public bool CreateImportOrder(
-    string supplierId,
-    string employeeName,
-    List<OrderDetail> items)
-        {
             List<ImportInvoice> invoices =
-                _importRepository.GetAll();
+                _importRepository
+                    .GetAll();
 
             List<string> ids =
-                invoices
-                    .Select(x => x.ImportId)
-                    .ToList();
+                new List<string>();
+
+            int k;
+
+            for (
+                k = 0;
+                k < invoices.Count;
+                k++
+            )
+            {
+                ids.Add(
+                    invoices[k]
+                        .ImportId
+                );
+            }
 
             int nextNumber =
-                IdGenerator.GetNextNumber(
-                    ids,
-                    "IMP"
-                );
+                IdGenerator
+                    .GetNextNumber(
+                        ids,
+                        "IMP"
+                    );
 
             ImportInvoice invoice =
                 new ImportInvoice();
 
             invoice.ImportId =
-                IdGenerator.GenerateImportId(
-                    nextNumber
-                );
+                IdGenerator
+                    .GenerateImportId(
+                        nextNumber
+                    );
 
             invoice.SupplierId =
                 supplierId;
@@ -229,15 +258,66 @@ namespace WarehouseManagementSystem.WinForms.Services
             invoice.OrderDetails =
                 items;
 
+            decimal totalAmount = 0;
+
+            for (
+                k = 0;
+                k < items.Count;
+                k++
+            )
+            {
+                totalAmount +=
+                    items[k]
+                        .TotalPrice;
+            }
+
             invoice.TotalAmount =
-                items.Sum(
-                    x => x.TotalPrice
-                );
+                totalAmount;
 
             _importRepository
                 .Add(invoice);
 
             return true;
+        }
+
+        // ================= GET ALL =================
+
+        public List<ImportInvoice>
+            GetAll()
+        {
+            return _importRepository
+                .GetAll();
+        }
+
+        // ================= FIND =================
+
+        public ImportInvoice
+            FindById(
+                string importInvoiceId)
+        {
+            List<ImportInvoice>
+                invoices =
+                    _importRepository
+                        .GetAll();
+
+            int i;
+
+            for (
+                i = 0;
+                i < invoices.Count;
+                i++
+            )
+            {
+                if (
+                    invoices[i].ImportId
+                    == importInvoiceId
+                )
+                {
+                    return invoices[i];
+                }
+            }
+
+            return null;
         }
     }
 }

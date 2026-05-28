@@ -701,39 +701,150 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Report
 
             pnlSummary.Controls.Add(tl);
         }
-        private void exportBtn_Click(object sender, EventArgs e)
+        private void exportBtn_Click(
+    object sender,
+    EventArgs e)
         {
-            if (currentGrid == null || currentGrid.DataSource == null)
+            FolderBrowserDialog folder =
+                new FolderBrowserDialog();
+
+            if (folder.ShowDialog()
+                != DialogResult.OK)
             {
-                MessageBox.Show("No data to export");
                 return;
             }
 
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "CSV file|*.csv";
-            sfd.FileName = "report.csv";
+            string folderPath =
+                folder.SelectedPath;
 
-            if (sfd.ShowDialog() == DialogResult.OK)
+            int originalIndex =
+                cboType.SelectedIndex;
+
+            // =========================
+            // EXPORT INVENTORY
+            // =========================
+
+            cboType.SelectedIndex = 0;
+
+            RefreshReport();
+
+            ExportCurrentReport(
+                folderPath,
+                "Inventory_Report"
+            );
+
+            // =========================
+            // EXPORT LOW STOCK
+            // =========================
+
+            cboType.SelectedIndex = 1;
+
+            RefreshReport();
+
+            ExportCurrentReport(
+                folderPath,
+                "Low_Stock_Report"
+            );
+
+            // =========================
+            // EXPORT IMPORT EXPORT
+            // =========================
+
+            cboType.SelectedIndex = 2;
+
+            RefreshReport();
+
+            ExportCurrentReport(
+                folderPath,
+                "Import_Export_Report"
+            );
+
+            // RESTORE
+
+            cboType.SelectedIndex =
+                originalIndex;
+
+            RefreshReport();
+
+            MessageBox.Show(
+                "All reports exported successfully!");
+        }
+
+        private void SaveChartImage(string path)
+        {
+            chartReport.SaveImage(path, ChartImageFormat.Png);
+        }
+
+        private void ExportCurrentReport(
+    string folderPath,
+    string fileName)
+        {
+            // =========================
+            // EXPORT TABLE
+            // =========================
+
+            if (dgvReport.Visible
+                &&
+                dgvReport.DataSource != null)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb =
+                    new StringBuilder();
 
-                for (int i = 0; i < currentGrid.Columns.Count; i++)
-                    sb.Append(currentGrid.Columns[i].HeaderText + ",");
+                // HEADER
+
+                for (int i = 0;
+                    i < dgvReport.Columns.Count;
+                    i++)
+                {
+                    sb.Append(
+                        dgvReport.Columns[i]
+                        .HeaderText
+                        + ",");
+                }
 
                 sb.AppendLine();
 
-                for (int i = 0; i < currentGrid.Rows.Count; i++)
+                // DATA
+
+                for (int i = 0;
+                    i < dgvReport.Rows.Count;
+                    i++)
                 {
-                    for (int j = 0; j < currentGrid.Columns.Count; j++)
-                        sb.Append(currentGrid.Rows[i].Cells[j].Value + ",");
+                    for (int j = 0;
+                        j < dgvReport.Columns.Count;
+                        j++)
+                    {
+                        object value =
+                            dgvReport.Rows[i]
+                            .Cells[j].Value;
+
+                        sb.Append(
+                            value + ",");
+                    }
 
                     sb.AppendLine();
                 }
 
-                System.IO.File.WriteAllText(sfd.FileName, sb.ToString());
+                System.IO.File.WriteAllText(
+                    folderPath + "\\" +
+                    fileName + ".csv",
+                    sb.ToString());
+            }
 
-                MessageBox.Show("Export success!");
+            // =========================
+            // EXPORT CHART
+            // =========================
+
+            if (chartReport.Visible
+                &&
+                chartReport.Series.Count > 0)
+            {
+                chartReport.SaveImage(
+                    folderPath + "\\" +
+                    fileName + "_Chart.png",
+                    ChartImageFormat.Png);
             }
         }
+
     }
 }

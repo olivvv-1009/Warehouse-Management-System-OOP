@@ -1,0 +1,37 @@
+﻿[
+  {
+    "BranchId": "BR001",
+    "BranchName": "Điện Máy TechHome Quận 1",
+    "BranchType": "Electronics Store",
+    "City": "TP.HCM",
+    "Address": "12 Nguyễn Huệ, Quận 1"
+  },
+  {
+    "BranchId": "BR002",
+    "BranchName": "TechHome Gò Vấp",
+    "BranchType": "Electronics Store",
+    "City": "TP.HCM",
+    "Address": "85 Phan Văn Trị, Gò Vấp"
+  },
+  {
+    "BranchId": "BR003",
+    "BranchName": "TechHome Hà Nội",
+    "BranchType": "Electronics Store",
+    "City": "Hà Nội",
+    "Address": "22 Cầu Giấy, Hà Nội"
+  },
+  {
+    "BranchId": "BR004",
+    "BranchName": "TechHome Đà Nẵng",
+    "BranchType": "Electronics Store",
+    "City": "Đà Nẵng",
+    "Address": "10 Hải Châu, Đà Nẵng"
+  },
+  {
+    "BranchId": "BR005",
+    "BranchName": "TechHome Cần Thơ",
+    "BranchType": "Electronics Store",
+    "City": "Cần Thơ",
+    "Address": "45 Ninh Kiều, Cần Thơ"
+  }
+]

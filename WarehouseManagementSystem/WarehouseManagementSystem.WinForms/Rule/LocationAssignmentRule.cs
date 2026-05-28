@@ -9,6 +9,7 @@ namespace WarehouseManagementSystem.WinForms.Rule
             FindAvailableLocation(
                 List<WarehouseLocation> locations,
                 string productId,
+                string category,
                 int quantity)
         {
             int i;
@@ -17,7 +18,10 @@ namespace WarehouseManagementSystem.WinForms.Rule
 
             string oldRack = "";
 
-
+            // =================
+            // RULE 1
+            // SAME PRODUCT
+            // =================
 
             for (
                 i = 0;
@@ -53,7 +57,10 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 }
             }
 
-
+            // =================
+            // RULE 2
+            // SAME RACK
+            // =================
 
             for (
                 i = 0;
@@ -66,8 +73,9 @@ namespace WarehouseManagementSystem.WinForms.Rule
                     locations[i].UsedCapacity;
 
                 if (
-                    locations[i].ProductId
-                        == null
+                    string.IsNullOrWhiteSpace(
+                        locations[i].ProductId
+                    )
                     &&
                     locations[i].Zone
                         == oldZone
@@ -83,7 +91,43 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 }
             }
 
+            // =================
+            // RULE 3
+            // CATEGORY ZONE
+            // =================
 
+            string targetZone = "";
+
+            if (
+                category == "Laptop"
+            )
+            {
+                targetZone = "A";
+            }
+            else if (
+                category == "Smartphone"
+            )
+            {
+                targetZone = "B";
+            }
+            else if (
+                category == "Accessory"
+            )
+            {
+                targetZone = "C";
+            }
+            else if (
+                category == "Tablet"
+            )
+            {
+                targetZone = "D";
+            }
+            else if (
+                category == "Monitor"
+            )
+            {
+                targetZone = "E";
+            }
 
             for (
                 i = 0;
@@ -96,6 +140,13 @@ namespace WarehouseManagementSystem.WinForms.Rule
                     locations[i].UsedCapacity;
 
                 if (
+                    string.IsNullOrWhiteSpace(
+                        locations[i].ProductId
+                    )
+                    &&
+                    locations[i].Zone
+                        == targetZone
+                    &&
                     remainingCapacity
                         >= quantity
                 )

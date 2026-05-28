@@ -37,6 +37,9 @@
             label12 = new Label();
             btnSaveSecurity = new Button();
             panel1 = new Panel();
+            cboRole = new ComboBox();
+            cboGender = new ComboBox();
+            label15 = new Label();
             dtBirth = new DateTimePicker();
             txtFullName = new TextBox();
             label7 = new Label();
@@ -60,9 +63,6 @@
             label10 = new Label();
             label11 = new Label();
             label8 = new Label();
-            label15 = new Label();
-            cboGender = new ComboBox();
-            cboRole = new ComboBox();
             tableLayoutPanel1.SuspendLayout();
             panel4.SuspendLayout();
             panel1.SuspendLayout();
@@ -74,8 +74,8 @@
             // 
             tableLayoutPanel1.BackColor = SystemColors.ButtonHighlight;
             tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 737F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 263F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(panel4, 1, 1);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
             tableLayoutPanel1.Controls.Add(panel2, 1, 0);
@@ -84,8 +84,8 @@
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 337F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 663F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Size = new Size(1470, 753);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -99,9 +99,9 @@
             panel4.Controls.Add(label12);
             panel4.Controls.Add(btnSaveSecurity);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(740, 340);
+            panel4.Location = new Point(738, 379);
             panel4.Name = "panel4";
-            panel4.Size = new Size(727, 657);
+            panel4.Size = new Size(729, 371);
             panel4.TabIndex = 0;
             // 
             // cbQuestion
@@ -179,8 +179,36 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(731, 331);
+            panel1.Size = new Size(729, 370);
             panel1.TabIndex = 0;
+            // 
+            // cboRole
+            // 
+            cboRole.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cboRole.FormattingEnabled = true;
+            cboRole.Location = new Point(172, 255);
+            cboRole.Name = "cboRole";
+            cboRole.Size = new Size(190, 30);
+            cboRole.TabIndex = 12;
+            // 
+            // cboGender
+            // 
+            cboGender.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cboGender.FormattingEnabled = true;
+            cboGender.Location = new Point(172, 190);
+            cboGender.Name = "cboGender";
+            cboGender.Size = new Size(190, 30);
+            cboGender.TabIndex = 11;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label15.Location = new Point(28, 198);
+            label15.Name = "label15";
+            label15.Size = new Size(86, 26);
+            label15.TabIndex = 10;
+            label15.Text = "Gender:";
             // 
             // dtBirth
             // 
@@ -249,9 +277,9 @@
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label3);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(740, 3);
+            panel2.Location = new Point(738, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(727, 331);
+            panel2.Size = new Size(729, 370);
             panel2.TabIndex = 1;
             // 
             // txtAddress
@@ -333,9 +361,9 @@
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label8);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(3, 340);
+            panel3.Location = new Point(3, 379);
             panel3.Name = "panel3";
-            panel3.Size = new Size(731, 657);
+            panel3.Size = new Size(729, 371);
             panel3.TabIndex = 2;
             // 
             // btnChangePassword
@@ -414,34 +442,6 @@
             label8.Size = new Size(205, 29);
             label8.TabIndex = 10;
             label8.Text = "Change Password";
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label15.Location = new Point(28, 198);
-            label15.Name = "label15";
-            label15.Size = new Size(86, 26);
-            label15.TabIndex = 10;
-            label15.Text = "Gender:";
-            // 
-            // cboGender
-            // 
-            cboGender.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cboGender.FormattingEnabled = true;
-            cboGender.Location = new Point(172, 190);
-            cboGender.Name = "cboGender";
-            cboGender.Size = new Size(190, 30);
-            cboGender.TabIndex = 11;
-            // 
-            // cboRole
-            // 
-            cboRole.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cboRole.FormattingEnabled = true;
-            cboRole.Location = new Point(172, 255);
-            cboRole.Name = "cboRole";
-            cboRole.Size = new Size(190, 30);
-            cboRole.TabIndex = 12;
             // 
             // Settings
             // 
