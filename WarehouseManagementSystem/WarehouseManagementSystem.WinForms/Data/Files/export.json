@@ -5,7 +5,20 @@
     "Destination": "Công ty D - TP.HCM",
     "TotalAmount": 0,
     "ExportDate": "2026-05-20T10:30:00",
-    "OrderDetails": []
+    "OrderDetails": [
+      {
+        "ProductId": "PR0001",
+        "Quantity": 10,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      },
+      {
+        "ProductId": "PR0003",
+        "Quantity": 15,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      }
+    ]
   },
   {
     "ExportId": "EXP20260002",
@@ -13,7 +26,20 @@
     "Destination": "Công ty E - Đà Nẵng",
     "TotalAmount": 0,
     "ExportDate": "2026-05-21T10:30:00",
-    "OrderDetails": []
+    "OrderDetails": [
+      {
+        "ProductId": "PR0005",
+        "Quantity": 6,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      },
+      {
+        "ProductId": "PR0007",
+        "Quantity": 10,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      }
+    ]
   },
   {
     "ExportId": "EXP20260003",
@@ -21,7 +47,20 @@
     "Destination": "Công ty F - Cần Thơ",
     "TotalAmount": 0,
     "ExportDate": "2026-05-23T10:30:00",
-    "OrderDetails": []
+    "OrderDetails": [
+      {
+        "ProductId": "PR0006",
+        "Quantity": 12,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      },
+      {
+        "ProductId": "PR0008",
+        "Quantity": 7,
+        "UnitPrice": 0,
+        "TotalPrice": 0
+      }
+    ]
   },
   {
     "ExportId": "EXP20260004",

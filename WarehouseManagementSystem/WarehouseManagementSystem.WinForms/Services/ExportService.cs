@@ -190,12 +190,15 @@ namespace WarehouseManagementSystem.WinForms.Services
             bool ok = _fifoRule.Apply(batches, quantity, out var deductions);
             if (!ok) return false;
 
+            // Lấy toàn bộ batch list để sửa trực tiếp (không phải copy)
+            var allBatches = _batchRepository.GetAll();
             foreach (var d in deductions)
             {
-                var batch = batches.First(x => x.BatchId == d.BatchId);
-                batch.Quantity -= d.QuantityToDeduct;
+                var batch = allBatches.FirstOrDefault(x => x.BatchId == d.BatchId);
+                if (batch != null)
+                    batch.ExportedQuantity += d.QuantityToDeduct;
             }
-            _batchRepository.Update();
+            _batchRepository.Update(allBatches);
 
             var invoices = _exportRepository.GetAll();
             int nextNumber = IdGenerator.GetNextNumber(invoices.Select(x => x.ExportId).ToList(), "EXP");
@@ -254,21 +257,24 @@ namespace WarehouseManagementSystem.WinForms.Services
             var invoice = _exportRepository.GetAll().FirstOrDefault(x => x.ExportId == exportId);
             if (invoice == null || invoice.Status == "Completed") return false;
 
+            // Lấy toàn bộ batch list 1 lần để sửa
+            var allBatches = _batchRepository.GetAll();
             foreach (var detail in invoice.OrderDetails)
             {
-                var batches = _batchRepository.GetByProductId(detail.ProductId);
+                var batches = allBatches.Where(x => x.ProductId == detail.ProductId).ToList();
                 bool ok = _fifoRule.Apply(batches, detail.Quantity, out var deductions);
                 if (!ok) return false;
 
                 foreach (var d in deductions)
                 {
-                    var batch = batches.First(x => x.BatchId == d.BatchId);
-                    batch.Quantity -= d.QuantityToDeduct;
+                    var batch = allBatches.FirstOrDefault(x => x.BatchId == d.BatchId);
+                    if (batch != null)
+                        batch.ExportedQuantity += d.QuantityToDeduct;
                 }
-                _batchRepository.Update();
 
                 CreateTransaction(detail.ProductId, detail.Quantity, exportId);
             }
+            _batchRepository.Update(allBatches);
             invoice.Status = "Completed";
             _exportRepository.Update(invoice);
             return true;

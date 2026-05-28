@@ -37,7 +37,7 @@ namespace WarehouseManagementSystem.WinForms.Rule
                     batches
                     .Where(
                         x =>
-                        x.Quantity > 0
+                        x.AvailableQuantity > 0
                     )
                     .OrderBy(
                         x =>
@@ -49,7 +49,7 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 orderedBatches
                 .Sum(
                     x =>
-                    x.Quantity
+                    x.AvailableQuantity
                 );
 
             if (
@@ -76,7 +76,7 @@ namespace WarehouseManagementSystem.WinForms.Rule
 
                 int takeQuantity =
                     Math.Min(
-                        batch.Quantity,
+                        batch.AvailableQuantity,
                         remaining
                     );
 
@@ -113,7 +113,7 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 )
                 .Sum(
                     x =>
-                    x.Quantity
+                    x.AvailableQuantity
                 );
         }
     }

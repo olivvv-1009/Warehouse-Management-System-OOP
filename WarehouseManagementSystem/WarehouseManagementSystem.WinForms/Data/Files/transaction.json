@@ -238,5 +238,29 @@
     "Quantity": 5,
     "Date": "2026-05-25T14:10:00",
     "ReferenceId": "EXP20260005"
+  },
+  {
+    "TransactionId": "TRN0031",
+    "ProductId": "PR0001",
+    "TransactionType": "RETURN",
+    "Quantity": 3,
+    "Date": "2026-05-15T10:00:00",
+    "ReferenceId": "RT20260001"
+  },
+  {
+    "TransactionId": "TRN0032",
+    "ProductId": "PR0005",
+    "TransactionType": "RETURN",
+    "Quantity": 2,
+    "Date": "2026-05-20T14:00:00",
+    "ReferenceId": "RT20260002"
+  },
+  {
+    "TransactionId": "TRN0033",
+    "ProductId": "PR0003",
+    "TransactionType": "RETURN",
+    "Quantity": 5,
+    "Date": "2026-05-25T09:30:00",
+    "ReferenceId": "RT20260003"
   }
 ]
