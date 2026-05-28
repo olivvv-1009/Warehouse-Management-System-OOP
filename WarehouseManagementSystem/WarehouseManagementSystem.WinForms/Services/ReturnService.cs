@@ -8,9 +8,11 @@ namespace WarehouseManagementSystem.WinForms.Services
 {
     public class ReturnService
     {
-        private ReturnRepository _repository;
-        private BatchRepository _batchRepository;
-        private TransactionRepository _transactionRepository;
+        private readonly ReturnRepository
+            _repository;
+
+        private readonly BatchRepository
+            _batchRepository;
 
         public ReturnService()
         {
@@ -38,7 +40,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 return false;
             }
 
-            // ===== AUTO GENERATE ID =====
+            // ===== GENERATE ID =====
 
             List<ReturnOrder> orders =
                 _repository
@@ -47,17 +49,11 @@ namespace WarehouseManagementSystem.WinForms.Services
             List<string> ids =
                 new List<string>();
 
-            int i;
-
-            for (
-                i = 0;
-                i < orders.Count;
-                i++
-            )
+            foreach (ReturnOrder order
+                in orders)
             {
                 ids.Add(
-                    orders[i]
-                        .ReturnOrderId
+                    order.ReturnOrderId
                 );
             }
 
@@ -80,47 +76,38 @@ namespace WarehouseManagementSystem.WinForms.Services
                 _batchRepository
                     .GetAll();
 
-            for (
-                i = 0;
-                i <
-                returnOrder
-                    .Details.Count;
-                i++
+            foreach (
+                ReturnOrderDetail detail
+                in returnOrder.Details
             )
             {
-                ReturnOrderDetail
-                    detail =
-                        returnOrder
-                            .Details[i];
-
-                int j;
-
-                for (
-                    j = 0;
-                    j < batches.Count;
-                    j++
-                )
+                foreach (Batch batch
+                    in batches)
                 {
                     if (
-                        batches[j]
-                            .ProductId
-                        == detail
-                            .ProductId
+                        batch.BatchId
+                        == detail.BatchId
                     )
                     {
-                        batches[j]
-                            .RemainingQuantity -=
-                                detail
-                                    .Quantity;
+                        batch.RemainingQuantity -=
+                            detail.Quantity;
 
                         if (
-                            batches[j]
-                                .RemainingQuantity
+                            batch.RemainingQuantity
                             < 0
                         )
                         {
-                            batches[j]
-                                .RemainingQuantity = 0;
+                            batch.RemainingQuantity =
+                                0;
+                        }
+
+                        if (
+                            batch.RemainingQuantity
+                            == 0
+                        )
+                        {
+                            batch.Status =
+                                "Out of Stock";
                         }
 
                         break;
@@ -171,16 +158,25 @@ namespace WarehouseManagementSystem.WinForms.Services
             }
 
             if (
-                detail.ProductId
-                == ""
+                string.IsNullOrWhiteSpace(
+                    detail.ProductId
+                )
             )
             {
                 return false;
             }
 
             if (
-                detail.Quantity
-                <= 0
+                string.IsNullOrWhiteSpace(
+                    detail.BatchId
+                )
+            )
+            {
+                return false;
+            }
+
+            if (
+                detail.Quantity <= 0
             )
             {
                 return false;

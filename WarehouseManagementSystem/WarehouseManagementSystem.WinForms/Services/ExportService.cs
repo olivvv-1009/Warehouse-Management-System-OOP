@@ -10,173 +10,111 @@ namespace WarehouseManagementSystem.WinForms.Services
 {
     internal class ExportService
     {
-        private readonly BatchRepository _batchRepository;
-        private readonly InventoryRepository _inventoryRepository;
-        private readonly ExportRepository _exportRepository;
-        private readonly TransactionRepository _transactionRepository;
-        private readonly FifoRule _fifoRule;
+        private readonly BatchRepository
+            _batchRepository;
+
+        private readonly ExportRepository
+            _exportRepository;
+
+        private readonly TransactionRepository
+            _transactionRepository;
+
+        private readonly FifoRule
+            _fifoRule;
 
         public ExportService()
         {
-            _batchRepository = new BatchRepository();
-            _inventoryRepository = new InventoryRepository();
-            _exportRepository = new ExportRepository();
-            _transactionRepository = new TransactionRepository();
-            _fifoRule = new FifoRule();
+            _batchRepository =
+                new BatchRepository();
+
+            _exportRepository =
+                new ExportRepository();
+
+            _transactionRepository =
+                new TransactionRepository();
+
+            _fifoRule =
+                new FifoRule();
         }
 
-        // ─── Save Draft (không trừ kho, không tạo transaction) ───
-        public string SaveDraft(
-            List<(string ProductId, int Quantity, decimal UnitPrice)> items,
+        public bool CreateExportInvoice(
             string employeeName,
-            string destination)
+            string destination,
+            List<OrderDetail> details)
         {
-            List<ExportInvoice> invoices = _exportRepository.GetAll();
-            int nextNumber = IdGenerator.GetNextNumber(
-                invoices.Select(x => x.ExportId).ToList(), "EXP");
-
-            ExportInvoice invoice = new ExportInvoice();
-            invoice.ExportId = IdGenerator.GenerateExportId(nextNumber);
-            invoice.EmployeeName = employeeName;
-            invoice.Destination = destination;
-            invoice.ExportDate = DateTime.Now;
-            invoice.Status = "Draft";
-
-            foreach (var item in items)
+            foreach (OrderDetail detail
+                in details)
             {
-                OrderDetail detail = new OrderDetail();
-                detail.ProductId = item.ProductId;
-                detail.Quantity = item.Quantity;
-                detail.UnitPrice = item.UnitPrice;
-                detail.TotalPrice = item.Quantity * item.UnitPrice;
-                invoice.OrderDetails.Add(detail);
-            }
-            invoice.TotalAmount = invoice.OrderDetails.Sum(d => d.TotalPrice);
+                List<Batch> batches =
+                    _batchRepository
+                        .GetByProductId(
+                            detail.ProductId
+                        );
 
-            _exportRepository.Add(invoice);
-            return invoice.ExportId;
-        }
+                bool success =
+                    _fifoRule.Apply(
+                        batches,
+                        detail.Quantity,
+                        out var deductions
+                    );
 
-        // ─── Complete Draft (trừ kho + tạo transaction) ──────────
-        public bool CompleteDraft(string exportId)
-        {
-            ExportInvoice? invoice = _exportRepository.GetAll()
-                .FirstOrDefault(x => x.ExportId == exportId);
-            if (invoice == null || invoice.Status == "Completed") return false;
-
-            foreach (var detail in invoice.OrderDetails)
-            {
-                List<Batch> batches = _batchRepository.GetByProductId(detail.ProductId);
-                bool ok = _fifoRule.Apply(batches, detail.Quantity, out var deductions);
-                if (!ok) return false;
-
-                foreach (var d in deductions)
+                if (!success)
                 {
-                    Batch batch = batches.First(x => x.BatchId == d.BatchId);
-                    batch.Quantity -= d.QuantityToDeduct;
-                }
-                _batchRepository.Update();
-
-                InventoryItem? inventory = _inventoryRepository
-                    .GetByProductId(detail.ProductId).FirstOrDefault();
-                if (inventory != null)
-                {
-                    inventory.Quantity -= detail.Quantity;
-                    _inventoryRepository.Update();
+                    return false;
                 }
 
-                CreateTransaction(detail.ProductId, detail.Quantity, exportId);
+                foreach (var deduction
+                    in deductions)
+                {
+                    Batch batch =
+                        batches.First(
+                            x => x.BatchId
+                                == deduction.BatchId
+                        );
+
+                    batch.RemainingQuantity -=
+                        deduction.QuantityToDeduct;
+
+                    if (
+                        batch.RemainingQuantity
+                        <= 0
+                    )
+                    {
+                        batch.RemainingQuantity =
+                            0;
+
+                        batch.Status =
+                            "Out of Stock";
+                    }
+                }
             }
 
-            invoice.Status = "Completed";
-            _exportRepository.Update(invoice);
-            return true;
-        }
+            _batchRepository
+                .Update();
 
-        public bool ExportProduct(
-            string productId,
-            int quantity,
-            string employeeName,
-            decimal unitPrice,
-            string destination = "")
-        {
-            List<Batch> batches =
-                _batchRepository.GetByProductId(productId);
-
-            bool success =
-                _fifoRule.Apply(
-                    batches,
-                    quantity,
-                    out var deductions);
-
-            if (!success)
-            {
-                return false;
-            }
-
-            foreach (var deduction in deductions)
-            {
-                Batch batch =
-                    batches.First(
-                        x => x.BatchId ==
-                        deduction.BatchId);
-
-                batch.Quantity -=
-                    deduction.QuantityToDeduct;
-            }
-
-            _batchRepository.Update();
-
-            InventoryItem? inventory = _inventoryRepository.GetByProductId(productId).FirstOrDefault();
-
-            if (inventory != null)
-            {
-                inventory.Quantity -= quantity;
-
-                _inventoryRepository.Update();
-            }
-
-            ExportInvoice invoice =
-                CreateInvoice(
-                    productId,
-                    quantity,
-                    employeeName,
-                    unitPrice,
-                    destination);
-
-            _exportRepository.Add(invoice);
-
-            CreateTransaction(
-                productId,
-                quantity,
-                invoice.ExportId);
-
-            return true;
-        }
-
-        private ExportInvoice CreateInvoice(
-            string productId,
-            int quantity,
-            string employeeName,
-            decimal unitPrice,
-            string destination = "")
-        {
             List<ExportInvoice> invoices =
-                _exportRepository.GetAll();
+                _exportRepository
+                    .GetAll();
 
             int nextNumber =
-                IdGenerator.GetNextNumber(
-                    invoices
-                        .Select(x => x.ExportId)
-                        .ToList(),
-                    "EXP");
+                IdGenerator
+                    .GetNextNumber(
+                        invoices
+                            .Select(
+                                x => x.ExportId
+                            )
+                            .ToList(),
+                        "EXP"
+                    );
 
             ExportInvoice invoice =
                 new ExportInvoice();
 
             invoice.ExportId =
-                IdGenerator.GenerateExportId(
-                    nextNumber);
+                IdGenerator
+                    .GenerateExportId(
+                        nextNumber
+                    );
 
             invoice.EmployeeName =
                 employeeName;
@@ -187,27 +125,28 @@ namespace WarehouseManagementSystem.WinForms.Services
             invoice.ExportDate =
                 DateTime.Now;
 
-            OrderDetail detail =
-                new OrderDetail();
-
-            detail.ProductId =
-                productId;
-
-            detail.Quantity =
-                quantity;
-
-            detail.UnitPrice =
-                unitPrice;
-
-            detail.TotalPrice =
-                quantity * unitPrice;
-
-            invoice.OrderDetails.Add(detail);
+            invoice.OrderDetails =
+                details;
 
             invoice.TotalAmount =
-                detail.TotalPrice;
+                details.Sum(
+                    x => x.TotalPrice
+                );
 
-            return invoice;
+            _exportRepository
+                .Add(invoice);
+
+            foreach (OrderDetail detail
+                in details)
+            {
+                CreateTransaction(
+                    detail.ProductId,
+                    detail.Quantity,
+                    invoice.ExportId
+                );
+            }
+
+            return true;
         }
 
         private void CreateTransaction(
@@ -216,22 +155,28 @@ namespace WarehouseManagementSystem.WinForms.Services
             string exportId)
         {
             List<Transaction> transactions =
-                _transactionRepository.GetAll();
+                _transactionRepository
+                    .GetAll();
 
             int nextNumber =
-                IdGenerator.GetNextNumber(
-                    transactions
-                        .Select(
-                            x => x.TransactionId)
-                        .ToList(),
-                    "TRN");
+                IdGenerator
+                    .GetNextNumber(
+                        transactions
+                            .Select(
+                                x => x.TransactionId
+                            )
+                            .ToList(),
+                        "TRN"
+                    );
 
             Transaction transaction =
                 new Transaction();
 
             transaction.TransactionId =
-                IdGenerator.GenerateTransactionId(
-                    nextNumber);
+                IdGenerator
+                    .GenerateTransactionId(
+                        nextNumber
+                    );
 
             transaction.ProductId =
                 productId;

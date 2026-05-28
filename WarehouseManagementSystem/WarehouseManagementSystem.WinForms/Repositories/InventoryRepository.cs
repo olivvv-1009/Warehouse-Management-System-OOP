@@ -76,6 +76,26 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             return result;
         }
 
+        public InventoryItem Find(
+            string productId)
+        {
+            List<InventoryItem>
+                inventoryItems =
+                    GetAll();
+
+            foreach (InventoryItem item
+                in inventoryItems)
+            {
+                if (item.ProductId
+                    == productId)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
         public List<InventoryItem>
             GetByProductId(
                 string productId)
@@ -98,26 +118,6 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             }
 
             return result;
-        }
-
-        public InventoryItem Find(
-            string productId)
-        {
-            List<InventoryItem>
-                inventoryItems =
-                    GetAll();
-
-            foreach (InventoryItem item
-                in inventoryItems)
-            {
-                if (item.ProductId
-                    == productId)
-                {
-                    return item;
-                }
-            }
-
-            return null;
         }
 
         public int GetTotalQuantity(
