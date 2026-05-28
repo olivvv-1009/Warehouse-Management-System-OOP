@@ -34,7 +34,9 @@ namespace WarehouseManagementSystem.WinForms.Services
                 string locationCode)
         {
             return _locationRepository
-                .FindByCode(locationCode);
+                .FindByCode(
+                    locationCode
+                );
         }
 
         public WarehouseLocation
@@ -47,6 +49,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         public WarehouseLocation
             FindBestLocation(
                 string productId,
+                string category,
                 int quantity)
         {
             List<WarehouseLocation> locations =
@@ -57,6 +60,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 .FindAvailableLocation(
                     locations,
                     productId,
+                    category,
                     quantity
                 );
         }
