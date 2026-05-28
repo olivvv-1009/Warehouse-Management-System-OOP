@@ -56,10 +56,9 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Padding = new Padding(19);
-            panel1.Size = new Size(873, 543);
+            panel1.Padding = new Padding(15, 15, 15, 15);
+            panel1.Size = new Size(698, 434);
             panel1.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -70,14 +69,13 @@
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
             tableLayoutPanel1.Controls.Add(dgvExportOrders, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(19, 19);
-            tableLayoutPanel1.Margin = new Padding(4);
+            tableLayoutPanel1.Location = new Point(15, 15);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-            tableLayoutPanel1.Size = new Size(835, 505);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(668, 404);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -85,16 +83,15 @@
             tableLayoutPanel2.ColumnCount = 2;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 69.73107F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.26893F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
             tableLayoutPanel2.Controls.Add(btnCreateExport, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(4, 4);
-            tableLayoutPanel2.Margin = new Padding(4);
+            tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(827, 56);
+            tableLayoutPanel2.Size = new Size(662, 45);
             tableLayoutPanel2.TabIndex = 3;
             // 
             // label1
@@ -102,10 +99,9 @@
             label1.AutoSize = true;
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(4, 0);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(568, 56);
+            label1.Size = new Size(455, 45);
             label1.TabIndex = 0;
             label1.Text = "Export Orders";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -115,14 +111,13 @@
             btnCreateExport.BackColor = Color.Tomato;
             btnCreateExport.Dock = DockStyle.Fill;
             btnCreateExport.ForeColor = Color.White;
-            btnCreateExport.Location = new Point(580, 4);
-            btnCreateExport.Margin = new Padding(4);
+            btnCreateExport.Location = new Point(464, 3);
             btnCreateExport.Name = "btnCreateExport";
-            btnCreateExport.Size = new Size(243, 48);
+            btnCreateExport.Size = new Size(195, 39);
             btnCreateExport.TabIndex = 2;
             btnCreateExport.Text = "Create Export Invoice";
             btnCreateExport.UseVisualStyleBackColor = false;
-            btnCreateExport.Click += btnCreateExport_Click;
+            btnCreateExport.Click += btnCreateExportInvoice_Click;
             // 
             // dgvExportOrders
             // 
@@ -148,7 +143,7 @@
             dgvExportOrders.ReadOnly = true;
             dgvExportOrders.RowHeadersVisible = false;
             dgvExportOrders.RowHeadersWidth = 51;
-            dgvExportOrders.Size = new Size(827, 433);
+            dgvExportOrders.Size = new Size(662, 346);
             dgvExportOrders.TabIndex = 2;
             // 
             // InvoiceId
@@ -203,11 +198,12 @@
             // 
             // ExportForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "ExportForm";
-            Size = new Size(873, 543);
+            Size = new Size(698, 434);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);

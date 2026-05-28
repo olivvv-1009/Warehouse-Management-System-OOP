@@ -61,7 +61,7 @@
             panel1.Padding = new Padding(19);
             panel1.Size = new Size(1066, 691);
             panel1.TabIndex = 1;
-            panel1.Paint += this.panel1_Paint;
+    
             // 
             // tableLayoutPanel1
             // 
@@ -80,7 +80,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
             tableLayoutPanel1.Size = new Size(1028, 653);
             tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Paint += this.tableLayoutPanel1_Paint;
+        
             // 
             // tableLayoutPanel2
             // 
@@ -100,7 +100,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 56F));
             tableLayoutPanel2.Size = new Size(1020, 56);
             tableLayoutPanel2.TabIndex = 3;
-            tableLayoutPanel2.Paint += this.tableLayoutPanel2_Paint;
+  
             // 
             // label1
             // 
@@ -114,7 +114,7 @@
             label1.TabIndex = 0;
             label1.Text = "Import Orders";
             label1.TextAlign = ContentAlignment.MiddleLeft;
-            label1.Click += this.label1_Click;
+
             // 
             // btnCreate
             // 
