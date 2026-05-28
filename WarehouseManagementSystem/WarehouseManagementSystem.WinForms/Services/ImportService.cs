@@ -27,6 +27,9 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly LocationAssignmentRule
             _locationRule;
 
+        private readonly TransactionRepository
+            _transactionRepository;
+
         public ImportService()
         {
             _batchRepository =
@@ -46,6 +49,9 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _locationRule =
                 new LocationAssignmentRule();
+
+            _transactionRepository =
+                new TransactionRepository();
         }
 
         // ================= SUPPLIER =================
@@ -89,7 +95,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 OrderDetail item =
                     items[i];
 
-                Product product =
+                Product? product =
                     null;
 
                 int j;
@@ -277,7 +283,84 @@ namespace WarehouseManagementSystem.WinForms.Services
             _importRepository
                 .Add(invoice);
 
+            // Ghi transaction cho từng sản phẩm
+            int t;
+            for (
+                t = 0;
+                t < items.Count;
+                t++
+            )
+            {
+                CreateTransaction(
+                    items[t].ProductId,
+                    items[t].Quantity,
+                    invoice.ImportId,
+                    employeeName
+                );
+            }
+
             return true;
+        }
+
+        private void CreateTransaction(
+            string productId,
+            int quantity,
+            string importId,
+            string employeeName)
+        {
+            List<Transaction> transactions =
+                _transactionRepository
+                    .GetAll();
+
+            List<string> txIds =
+                new List<string>();
+
+            int i;
+            for (
+                i = 0;
+                i < transactions.Count;
+                i++
+            )
+            {
+                txIds.Add(
+                    transactions[i]
+                        .TransactionId
+                );
+            }
+
+            int nextNumber =
+                IdGenerator
+                    .GetNextNumber(
+                        txIds,
+                        "TRN"
+                    );
+
+            Transaction transaction =
+                new Transaction();
+
+            transaction.TransactionId =
+                IdGenerator
+                    .GenerateTransactionId(
+                        nextNumber
+                    );
+
+            transaction.ProductId =
+                productId;
+
+            transaction.Quantity =
+                quantity;
+
+            transaction.TransactionType =
+                Transaction.Types.Import;
+
+            transaction.ReferenceId =
+                importId;
+
+            transaction.Date =
+                DateTime.Now;
+
+            _transactionRepository
+                .Add(transaction);
         }
 
         // ================= GET ALL =================
@@ -291,7 +374,7 @@ namespace WarehouseManagementSystem.WinForms.Services
 
         // ================= FIND =================
 
-        public ImportInvoice
+        public ImportInvoice?
             FindById(
                 string importInvoiceId)
         {

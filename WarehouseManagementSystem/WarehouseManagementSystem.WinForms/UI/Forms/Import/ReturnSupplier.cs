@@ -476,6 +476,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             returnOrder.Status =
                 "Pending";
 
+            returnOrder.EmployeeId =
+                Session.CurrentProfile != null
+                    ? Session.CurrentProfile.EmployeeId
+                    : "";
+
             for (
                 i = 0;
                 i <
