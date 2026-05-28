@@ -56,7 +56,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                     in productBatches)
                 {
                     totalQuantity +=
-                        batch.RemainingQuantity;
+                        batch.AvailableQuantity;
                 }
 
                 InventoryItem item =
@@ -94,7 +94,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 in batches)
             {
                 total +=
-                    batch.RemainingQuantity;
+                    batch.AvailableQuantity;
             }
 
             return total;
@@ -123,7 +123,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             return result;
         }
 
-        public InventoryItem
+        public InventoryItem?
             FindInventoryByProductId(
                 string productId)
         {
@@ -177,7 +177,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         public bool IsLowStock(
             string productId)
         {
-            InventoryItem item =
+            InventoryItem? item =
                 FindInventoryByProductId(
                     productId
                 );

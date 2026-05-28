@@ -18,7 +18,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private readonly ProductService _productService;
         private readonly BatchRepository _batchRepository;
         private readonly FifoRule _fifoRule;
-        private readonly DestinationRepository _destinationRepo;
+        private readonly BranchRepository _branchRepository;
 
         private Dictionary<string, (string Name, int Available)> _productMap = new();
 
@@ -30,7 +30,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             _productService = new ProductService();
             _batchRepository = new BatchRepository();
             _fifoRule = new FifoRule();
-            _destinationRepo = new DestinationRepository();
+            _branchRepository = new BranchRepository();
 
             LoadDestinations();
             LoadProductMap();
@@ -43,10 +43,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 
         private void LoadDestinations()
         {
-            var destinations = _destinationRepo.GetAll();
-            txtDestination.DataSource = destinations;
-            txtDestination.DisplayMember = "Name";
-            txtDestination.ValueMember = "DestinationId";
+            var branches = _branchRepository.GetAll();
+            txtDestination.DataSource = branches;
+            txtDestination.DisplayMember = "BranchName";
+            txtDestination.ValueMember = "BranchId";
             txtDestination.SelectedIndex = -1;
         }
 
@@ -226,18 +226,19 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             if (!CollectExportItems(out var items)) return;
 
             string employee = Session.CurrentProfile?.FullName ?? "";
-            string destination = (txtDestination.SelectedItem as Destination)?.Name ?? "";
-            bool allSuccess = true;
+            string destination = (txtDestination.SelectedItem as BranchInfo)?.BranchName ?? "";
 
-            foreach (var item in items)
+            var orderDetails = items.Select(item => new OrderDetail
             {
-                bool ok = _exportService.ExportProduct(
-                    item.ProductId, item.Quantity,
-                    employee, item.UnitPrice, destination);
-                if (!ok) { allSuccess = false; break; }
-            }
+                ProductId = item.ProductId,
+                Quantity = item.Quantity,
+                UnitPrice = item.UnitPrice,
+                TotalPrice = item.Quantity * item.UnitPrice
+            }).ToList();
 
-            if (allSuccess)
+            bool success = _exportService.CreateExportInvoice(employee, destination, orderDetails);
+
+            if (success)
             {
                 MessageBox.Show("Export invoice created successfully!",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -277,7 +278,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             }
 
             string employee = Session.CurrentProfile?.FullName ?? "";
-            string destination = (txtDestination.SelectedItem as Destination)?.Name ?? "";
+            string destination = (txtDestination.SelectedItem as BranchInfo)?.BranchName ?? "";
 
             _exportService.SaveDraft(items, employee, destination);
             Close();
