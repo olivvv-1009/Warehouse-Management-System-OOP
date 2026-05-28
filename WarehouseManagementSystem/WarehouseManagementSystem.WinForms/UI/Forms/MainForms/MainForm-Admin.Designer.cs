@@ -216,6 +216,7 @@
             btnExport.TabIndex = 4;
             btnExport.Text = "Export Orders";
             btnExport.UseVisualStyleBackColor = false;
+            btnExport.Click += btnExport_Click;
             // 
             // btnSupplier
             // 

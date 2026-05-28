@@ -106,5 +106,10 @@ namespace WarehouseManagementSystem.WinForms
         {
             LoadView(new DashboardForm());
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            LoadView(new Export)
+        }
     }
 }
