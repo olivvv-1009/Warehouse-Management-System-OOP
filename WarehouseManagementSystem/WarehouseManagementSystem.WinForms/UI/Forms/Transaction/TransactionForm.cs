@@ -28,6 +28,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             LoadData();
         }
 
+        // Reload mỗi khi được hiển thị lại (sau khi tạo export/import mới)
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (Visible)
+                LoadData();
+        }
+
         // ─── Setup DataGridView ───────────────────────────────────
 
         private void SetupDataGridView()

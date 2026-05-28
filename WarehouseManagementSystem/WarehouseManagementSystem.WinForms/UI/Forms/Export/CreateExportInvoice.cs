@@ -1,6 +1,8 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
@@ -17,8 +19,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private readonly BatchRepository _batchRepository;
         private readonly FifoRule _fifoRule;
 
-        private readonly List<Panel> _productRows;
-        private Panel? _rowContainer;
+        // ProductId -> (Name, Available)
+        private Dictionary<string, (string Name, int Available)> _productMap = new();
 
         public CreateExportInvoice()
         {
@@ -28,276 +30,197 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             _productService = new ProductService();
             _batchRepository = new BatchRepository();
             _fifoRule = new FifoRule();
-            _productRows = new List<Panel>();
-            _rowContainer = null;
 
-            SetupGrid();
+            LoadProductMap();
+            SetupDropdown();
             SetupEvents();
 
-            lblEmployeeValue.Text =
-                Session.CurrentProfile?.FullName ?? "";
-
+            lblEmployeeValue.Text = Session.CurrentProfile?.FullName ?? "";
             dtpDate.Value = DateTime.Now;
         }
 
-        // ─── Setup ───────────────────────────────────────────────
+        // ─── Load danh sách sản phẩm ─────────────────────────────
 
-        private void SetupGrid()
+        private void LoadProductMap()
         {
-            dgvProducts.EnableHeadersVisualStyles = false;
-            dgvProducts.ColumnHeadersHeight = 45;
-            dgvProducts.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
-            dgvProducts.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.FromArgb(80, 80, 80);
-            dgvProducts.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvProducts.RowTemplate.Height = 40;
-            dgvProducts.AllowUserToAddRows = false;
-            dgvProducts.ReadOnly = true;
+            _productMap.Clear();
+            var products = _productService.GetAllProducts();
+            foreach (var p in products)
+            {
+                var batches = _batchRepository.GetByProductId(p.ProductID);
+                int available = _fifoRule.GetAvailableQuantity(batches);
+                _productMap[p.ProductID] = (p.Name, available);
+            }
         }
+
+        private void SetupDropdown()
+        {
+            // Build display list: "Laptop Dell XPS 13 (Available: 40)"
+            var displayList = _productMap
+                .Select(kv => new
+                {
+                    Id = kv.Key,
+                    Display = $"{kv.Value.Name} (Available: {kv.Value.Available})"
+                })
+                .OrderBy(x => x.Display)
+                .ToList<object>();
+
+            colProduct.DataSource = displayList;
+            colProduct.DisplayMember = "Display";
+            colProduct.ValueMember = "Id";
+        }
+
+        // ─── Events ──────────────────────────────────────────────
 
         private void SetupEvents()
         {
-            btnAddProduct.Click += (object? s, EventArgs e) => AddProductRow();
-            btnComplete.Click += (object? s, EventArgs e) => btnComplete_Click();
-            btnSaveDraft.Click += (object? s, EventArgs e) => btnSaveDraft_Click();
-            btnCancel.Click += (object? s, EventArgs e) => btnCancel_Click();
+            btnAddProduct.Click += (s, e) => AddProductRow();
+            btnComplete.Click += (s, e) => BtnComplete_Click();
+            btnSaveDraft.Click += (s, e) => BtnSaveDraft_Click();
+            btnCancel.Click += (s, e) => BtnCancel_Click();
+
+            dgvProducts.CellValueChanged += DgvProducts_CellValueChanged;
+            dgvProducts.CellClick += DgvProducts_CellClick;
+
+            // Commit combobox selection ngay lập tức
+            dgvProducts.CurrentCellDirtyStateChanged += (s, e) =>
+            {
+                if (dgvProducts.IsCurrentCellDirty &&
+                    dgvProducts.CurrentCell is DataGridViewComboBoxCell)
+                    dgvProducts.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            };
+
+            // Bắt lỗi combo (tránh crash khi chưa chọn)
+            dgvProducts.DataError += (s, e) => e.Cancel = true;
         }
 
-        // ─── Load products vào ComboBox ───────────────────────────
-
-        private void LoadProducts(ComboBox cb)
-        {
-            List<ProductDisplayModel> products =
-                _productService.GetAllProducts();
-
-            cb.DataSource = products;
-            cb.DisplayMember = "Name";
-            cb.ValueMember = "ProductID";
-            cb.DropDownStyle = ComboBoxStyle.DropDownList;
-            cb.SelectedIndex = -1;
-        }
-
-        // ─── Row container ────────────────────────────────────────
-
-        private void EnsureRowContainer()
-        {
-            if (_rowContainer != null) return;
-
-            _rowContainer = new Panel();
-            _rowContainer.AutoSize = true;
-            _rowContainer.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            _rowContainer.Location = new Point(
-                dgvProducts.Left,
-                dgvProducts.Bottom + 5);
-            _rowContainer.Width = dgvProducts.Width;
-            _rowContainer.BackColor = Color.White;
-
-            panelMain.Controls.Add(_rowContainer);
-            dgvProducts.Visible = false;
-        }
-
-        // ─── Thêm row sản phẩm ───────────────────────────────────
+        // ─── Thêm row ────────────────────────────────────────────
 
         private void AddProductRow()
         {
-            Panel row = new Panel();
-            row.Height = 50;
-            row.BackColor = Color.White;
-            row.BorderStyle = BorderStyle.FixedSingle;
-
-            ComboBox cbProduct = new ComboBox();
-            cbProduct.Name = "cbProduct";
-            cbProduct.Location = new Point(5, 10);
-            cbProduct.Width = 200;
-            LoadProducts(cbProduct);
-
-            Label lblAvailable = new Label();
-            lblAvailable.Name = "lblAvailable";
-            lblAvailable.Location = new Point(215, 14);
-            lblAvailable.Size = new Size(90, 25);
-            lblAvailable.Text = "-";
-            lblAvailable.TextAlign = ContentAlignment.MiddleCenter;
-            lblAvailable.BackColor = Color.FromArgb(230, 245, 255);
-
-            NumericUpDown numQty = new NumericUpDown();
-            numQty.Name = "numQty";
-            numQty.Location = new Point(315, 12);
-            numQty.Width = 80;
-            numQty.Minimum = 1;
-            numQty.Maximum = 99999;
-            numQty.Value = 1;
-
-            Label lblFifo = new Label();
-            lblFifo.Name = "lblFifo";
-            lblFifo.Location = new Point(405, 14);
-            lblFifo.Size = new Size(170, 25);
-            lblFifo.Text = "-";
-            lblFifo.TextAlign = ContentAlignment.MiddleLeft;
-            lblFifo.ForeColor = Color.RoyalBlue;
-
-            Button btnRemove = new Button();
-            btnRemove.Text = "x";
-            btnRemove.Location = new Point(585, 12);
-            btnRemove.Size = new Size(30, 26);
-            btnRemove.ForeColor = Color.Red;
-
-            cbProduct.SelectionChangeCommitted +=
-                (object? s, EventArgs e) => UpdateRowInfo(row);
-            numQty.ValueChanged +=
-                (object? s, EventArgs e) => UpdateRowInfo(row);
-            btnRemove.Click +=
-                (object? s, EventArgs e) => RemoveProductRow(row);
-
-            row.Controls.Add(cbProduct);
-            row.Controls.Add(lblAvailable);
-            row.Controls.Add(numQty);
-            row.Controls.Add(lblFifo);
-            row.Controls.Add(btnRemove);
-
-            EnsureRowContainer();
-
-            int yOffset = _productRows.Count * 55;
-            row.Location = new Point(0, yOffset);
-            row.Width = _rowContainer!.Width;
-
-            _rowContainer.Controls.Add(row);
-            _productRows.Add(row);
+            int idx = dgvProducts.Rows.Add();
+            var row = dgvProducts.Rows[idx];
+            row.Cells["colQuantity"].Value = 1;
+            row.Cells["colAvailable"].Value = "-";
+            row.Cells["colFifo"].Value = "-";
         }
 
-        private void RemoveProductRow(Panel row)
+        // ─── Xoá row ─────────────────────────────────────────────
+
+        private void RemoveRow(int rowIndex)
         {
-            _productRows.Remove(row);
-            _rowContainer?.Controls.Remove(row);
-
-            for (int i = 0; i < _productRows.Count; i++)
-            {
-                _productRows[i].Location = new Point(0, i * 55);
-            }
-
-            RefreshFifoPreview();
+            if (rowIndex >= 0 && rowIndex < dgvProducts.Rows.Count)
+                dgvProducts.Rows.RemoveAt(rowIndex);
         }
 
-        // ─── Cập nhật Available & FIFO preview ───────────────────
+        // ─── Cell events ─────────────────────────────────────────
 
-        private void UpdateRowInfo(Panel row)
+        private void DgvProducts_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
-            ComboBox? cbProduct =
-                row.Controls["cbProduct"] as ComboBox;
-            Label? lblAvailable =
-                row.Controls["lblAvailable"] as Label;
-            Label? lblFifo =
-                row.Controls["lblFifo"] as Label;
-            NumericUpDown? numQty =
-                row.Controls["numQty"] as NumericUpDown;
+            if (e.RowIndex < 0) return;
+            if (dgvProducts.Columns[e.ColumnIndex].Name == "colRemove")
+                RemoveRow(e.RowIndex);
+        }
 
-            if (cbProduct == null || lblAvailable == null ||
-                lblFifo == null || numQty == null) return;
+        private void DgvProducts_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            string col = dgvProducts.Columns[e.ColumnIndex].Name;
+            if (col == "colProduct" || col == "colQuantity")
+                UpdateRowInfo(e.RowIndex);
+        }
 
-            if (cbProduct.SelectedValue == null) return;
+        // ─── Cập nhật Available + FIFO ───────────────────────────
 
-            string productId =
-                cbProduct.SelectedValue.ToString() ?? "";
-
+        private void UpdateRowInfo(int rowIndex)
+        {
+            var row = dgvProducts.Rows[rowIndex];
+            var productId = row.Cells["colProduct"].Value?.ToString();
             if (string.IsNullOrEmpty(productId)) return;
 
-            List<Batch> batches =
-                _batchRepository.GetByProductId(productId);
+            if (!int.TryParse(row.Cells["colQuantity"].Value?.ToString(), out int qty) || qty <= 0)
+                qty = 1;
 
-            int available =
-                _fifoRule.GetAvailableQuantity(batches);
+            var batches = _batchRepository.GetByProductId(productId);
+            int available = _fifoRule.GetAvailableQuantity(batches);
 
-            lblAvailable.Text = available.ToString();
-            lblAvailable.ForeColor =
-                available > 0 ? Color.DarkGreen : Color.Red;
+            // Available
+            row.Cells["colAvailable"].Value = available.ToString();
+            row.Cells["colAvailable"].Style.ForeColor =
+                available > 0 ? Color.FromArgb(21, 128, 61) : Color.FromArgb(185, 28, 28);
+            row.Cells["colAvailable"].Style.Font =
+                new Font("Segoe UI", 10F, FontStyle.Bold);
 
-            numQty.Maximum = available > 0 ? available : 1;
-
-            int qty = (int)numQty.Value;
-
-            bool canExport = _fifoRule.Apply(
-                batches, qty, out var deductions);
-
-            if (canExport && deductions != null)
+            // FIFO Allocation — format: "b010: 2 units (2026-02-10)"
+            bool canExport = _fifoRule.Apply(batches, qty, out var deductions);
+            if (canExport && deductions != null && deductions.Count > 0)
             {
-                lblFifo.Text = $"{deductions.Count} batch(es)";
-                lblFifo.ForeColor = Color.SeaGreen;
+                // Lấy batch đầu tiên để hiển thị (giống Figma)
+                var first = deductions[0];
+                var batch = batches.FirstOrDefault(b => b.BatchId == first.BatchId);
+                string date = batch?.ImportDate.ToString("yyyy-MM-dd") ?? "";
+                string fifo = deductions.Count == 1
+                    ? $"{first.BatchId}: {first.QuantityToDeduct} units ({date})"
+                    : string.Join(", ", deductions.Select(d =>
+                    {
+                        var b = batches.FirstOrDefault(x => x.BatchId == d.BatchId);
+                        return $"{d.BatchId}: {d.QuantityToDeduct}u ({b?.ImportDate:yyyy-MM-dd})";
+                    }));
+
+                row.Cells["colFifo"].Value = fifo;
+                row.Cells["colFifo"].Style.ForeColor = Color.FromArgb(37, 99, 235);
             }
             else
             {
-                lblFifo.Text = "Not enough stock";
-                lblFifo.ForeColor = Color.Red;
+                row.Cells["colFifo"].Value = "Not enough stock";
+                row.Cells["colFifo"].Style.ForeColor = Color.FromArgb(185, 28, 28);
             }
         }
 
-        private void RefreshFifoPreview()
-        {
-            foreach (Panel row in _productRows)
-                UpdateRowInfo(row);
-        }
-
-        // ─── Thu thập dữ liệu ────────────────────────────────────
+        // ─── Validate & thu thập dữ liệu ─────────────────────────
 
         private bool CollectExportItems(
             out List<(string ProductId, int Quantity, decimal UnitPrice)> items)
         {
             items = new List<(string, int, decimal)>();
 
-            if (_productRows.Count == 0)
-            {
-                MessageBox.Show(
-                    "Please add at least one product.",
-                    "Validation",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(txtDestination.Text))
             {
-                MessageBox.Show(
-                    "Please enter a destination.",
-                    "Validation",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter a destination.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
-            foreach (Panel row in _productRows)
+            if (dgvProducts.Rows.Count == 0)
             {
-                ComboBox? cbProduct =
-                    row.Controls["cbProduct"] as ComboBox;
-                NumericUpDown? numQty =
-                    row.Controls["numQty"] as NumericUpDown;
+                MessageBox.Show("Please add at least one product.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
 
-                if (cbProduct == null || numQty == null) continue;
-
-                if (cbProduct.SelectedValue == null)
+            foreach (DataGridViewRow row in dgvProducts.Rows)
+            {
+                var productId = row.Cells["colProduct"].Value?.ToString();
+                if (string.IsNullOrEmpty(productId))
                 {
-                    MessageBox.Show(
-                        "Please select a product for all rows.",
-                        "Validation",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select a product for all rows.",
+                        "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
 
-                string productId =
-                    cbProduct.SelectedValue.ToString() ?? "";
-                int qty = (int)numQty.Value;
-
-                List<Batch> batches =
-                    _batchRepository.GetByProductId(productId);
-
-                bool ok = _fifoRule.Apply(batches, qty, out _);
-
-                if (!ok)
+                if (!int.TryParse(row.Cells["colQuantity"].Value?.ToString(), out int qty) || qty <= 0)
                 {
-                    MessageBox.Show(
-                        $"Not enough stock for \"{cbProduct.Text}\".",
-                        "Insufficient Stock",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("Please enter a valid quantity (> 0) for all rows.",
+                        "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                var batches = _batchRepository.GetByProductId(productId);
+                if (!_fifoRule.Apply(batches, qty, out _))
+                {
+                    string name = row.Cells["colProduct"].FormattedValue?.ToString() ?? productId;
+                    MessageBox.Show($"Not enough stock for \"{name}\".",
+                        "Insufficient Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
 
@@ -309,84 +232,53 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 
         // ─── Button handlers ──────────────────────────────────────
 
-        private void btnComplete_Click()
+        private void BtnComplete_Click()
         {
             if (!CollectExportItems(out var items)) return;
 
-            string employeeName =
-                Session.CurrentProfile?.FullName ?? "";
-
+            string employee = Session.CurrentProfile?.FullName ?? "";
             string destination = txtDestination.Text.Trim();
-
             bool allSuccess = true;
 
             foreach (var item in items)
             {
-                bool success = _exportService.ExportProduct(
-                    item.ProductId,
-                    item.Quantity,
-                    employeeName,
-                    item.UnitPrice,
-                    destination);
-
-                if (!success) { allSuccess = false; break; }
+                bool ok = _exportService.ExportProduct(
+                    item.ProductId, item.Quantity,
+                    employee, item.UnitPrice, destination);
+                if (!ok) { allSuccess = false; break; }
             }
 
             if (allSuccess)
             {
-                MessageBox.Show(
-                    "Export invoice created successfully!",
-                    "Success",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                this.Close();
+                MessageBox.Show("Export invoice created successfully!",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
             }
             else
             {
-                MessageBox.Show(
-                    "Failed to create export invoice. Please try again.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Failed to create export invoice. Please try again.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnSaveDraft_Click()
+        private void BtnSaveDraft_Click()
         {
             if (string.IsNullOrWhiteSpace(txtDestination.Text))
             {
-                MessageBox.Show(
-                    "Please enter a destination before saving draft.",
-                    "Validation",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter a destination before saving draft.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            MessageBox.Show(
-                "Draft saved. Note: stock has NOT been deducted yet.",
-                "Draft Saved",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            MessageBox.Show("Draft saved. Note: stock has NOT been deducted yet.",
+                "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnCancel_Click()
+        private void BtnCancel_Click()
         {
-            DialogResult confirm = MessageBox.Show(
+            var confirm = MessageBox.Show(
                 "Are you sure you want to cancel? All changes will be lost.",
-                "Cancel",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (confirm == DialogResult.Yes)
-                this.Close();
+                "Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes) Close();
         }
-
-        // ─── Stubs từ Designer ────────────────────────────────────
-
-        private void label3_Click(object sender, EventArgs e) { }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) { }
     }
 }
-

@@ -1,396 +1,458 @@
-﻿namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
+﻿#nullable enable
+namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 {
     partial class CreateExportInvoice
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null!;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && components != null) components.Dispose();
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             panelMain = new Panel();
-            tableButton = new TableLayoutPanel();
-            btnComplete = new Button();
-            btnSaveDraft = new Button();
-            btnCancel = new Button();
-            panel1 = new Panel();
-            label7 = new Label();
-            label6 = new Label();
-            dgvProducts = new DataGridView();
-            Product = new DataGridViewTextBoxColumn();
-            Available = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            FIFO_Allocation = new DataGridViewTextBoxColumn();
-            tableProductHeader = new TableLayoutPanel();
-            label5 = new Label();
-            btnAddProduct = new Button();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            lblEmployeeValue = new Label();
+            lblTitle = new Label();
+            tableTop = new TableLayoutPanel();
+            lblDestLabel = new Label();
+            lblDateLabel = new Label();
+            lblEmpLabel = new Label();
             txtDestination = new TextBox();
             dtpDate = new DateTimePicker();
-            label1 = new Label();
+            lblEmployeeValue = new Label();
+            panelProductsHeader = new Panel();
+            label5 = new Label();
+            btnAddProduct = new Button();
+            dgvProducts = new DataGridView();
+            colProduct = new DataGridViewComboBoxColumn();
+            colAvailable = new DataGridViewTextBoxColumn();
+            colQuantity = new DataGridViewTextBoxColumn();
+            colFifo = new DataGridViewTextBoxColumn();
+            colRemove = new DataGridViewButtonColumn();
+            panelFifoNote = new Panel();
+            lblFifoTitle = new Label();
+            lblFifoDesc = new Label();
+            panelButtons = new Panel();
+            btnCancel = new Button();
+            btnSaveDraft = new Button();
+            btnComplete = new Button();
             panelMain.SuspendLayout();
-            tableButton.SuspendLayout();
-            panel1.SuspendLayout();
+            tableTop.SuspendLayout();
+            panelProductsHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
-            tableProductHeader.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            panelFifoNote.SuspendLayout();
+            panelButtons.SuspendLayout();
             SuspendLayout();
             // 
             // panelMain
             // 
             panelMain.BackColor = Color.White;
-            panelMain.Controls.Add(tableButton);
-            panelMain.Controls.Add(panel1);
+            panelMain.Controls.Add(lblTitle);
+            panelMain.Controls.Add(tableTop);
+            panelMain.Controls.Add(panelProductsHeader);
             panelMain.Controls.Add(dgvProducts);
-            panelMain.Controls.Add(tableProductHeader);
-            panelMain.Controls.Add(tableLayoutPanel1);
-            panelMain.Controls.Add(label1);
+            panelMain.Controls.Add(panelFifoNote);
+            panelMain.Controls.Add(panelButtons);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 0);
-            panelMain.Margin = new Padding(2, 2, 2, 2);
+            panelMain.Margin = new Padding(4);
             panelMain.Name = "panelMain";
-            panelMain.Padding = new Padding(20, 20, 20, 20);
-            panelMain.Size = new Size(1044, 542);
+            panelMain.Padding = new Padding(35, 25, 35, 20);
+            panelMain.Size = new Size(970, 662);
             panelMain.TabIndex = 0;
             // 
-            // tableButton
+            // lblTitle
             // 
-            tableButton.ColumnCount = 3;
-            tableButton.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-            tableButton.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-            tableButton.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34F));
-            tableButton.Controls.Add(btnComplete, 2, 0);
-            tableButton.Controls.Add(btnSaveDraft, 1, 0);
-            tableButton.Controls.Add(btnCancel, 0, 0);
-            tableButton.Location = new Point(650, 473);
-            tableButton.Margin = new Padding(2, 2, 2, 2);
-            tableButton.Name = "tableButton";
-            tableButton.RowCount = 1;
-            tableButton.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableButton.RowStyles.Add(new RowStyle(SizeType.Absolute, 43F));
-            tableButton.Size = new Size(372, 47);
-            tableButton.TabIndex = 5;
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(20, 20, 20);
+            lblTitle.Location = new Point(35, 25);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(342, 45);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Create Export Invoice";
             // 
-            // btnComplete
+            // tableTop
             // 
-            btnComplete.BackColor = Color.LightCoral;
-            btnComplete.Dock = DockStyle.Fill;
-            btnComplete.Location = new Point(246, 2);
-            btnComplete.Margin = new Padding(2, 2, 2, 2);
-            btnComplete.Name = "btnComplete";
-            btnComplete.Size = new Size(124, 43);
-            btnComplete.TabIndex = 2;
-            btnComplete.Text = "Complete";
-            btnComplete.UseVisualStyleBackColor = false;
+            tableTop.ColumnCount = 3;
+            tableTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36F));
+            tableTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32F));
+            tableTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32F));
+            tableTop.Controls.Add(lblDestLabel, 0, 0);
+            tableTop.Controls.Add(lblDateLabel, 1, 0);
+            tableTop.Controls.Add(lblEmpLabel, 2, 0);
+            tableTop.Controls.Add(txtDestination, 0, 1);
+            tableTop.Controls.Add(dtpDate, 1, 1);
+            tableTop.Controls.Add(lblEmployeeValue, 2, 1);
+            tableTop.Location = new Point(35, 82);
+            tableTop.Margin = new Padding(4);
+            tableTop.Name = "tableTop";
+            tableTop.RowCount = 2;
+            tableTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
+            tableTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            tableTop.Size = new Size(900, 80);
+            tableTop.TabIndex = 1;
             // 
-            // btnSaveDraft
+            // lblDestLabel
             // 
-            btnSaveDraft.Dock = DockStyle.Fill;
-            btnSaveDraft.Location = new Point(124, 2);
-            btnSaveDraft.Margin = new Padding(2, 2, 2, 2);
-            btnSaveDraft.Name = "btnSaveDraft";
-            btnSaveDraft.Size = new Size(118, 43);
-            btnSaveDraft.TabIndex = 1;
-            btnSaveDraft.Text = "Save Draft";
-            btnSaveDraft.UseVisualStyleBackColor = true;
+            lblDestLabel.Dock = DockStyle.Fill;
+            lblDestLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblDestLabel.ForeColor = Color.FromArgb(50, 50, 50);
+            lblDestLabel.Location = new Point(4, 0);
+            lblDestLabel.Margin = new Padding(4, 0, 4, 0);
+            lblDestLabel.Name = "lblDestLabel";
+            lblDestLabel.Size = new Size(316, 32);
+            lblDestLabel.TabIndex = 0;
+            lblDestLabel.Text = "Destination *";
+            lblDestLabel.TextAlign = ContentAlignment.BottomLeft;
             // 
-            // btnCancel
+            // lblDateLabel
             // 
-            btnCancel.Dock = DockStyle.Fill;
-            btnCancel.Location = new Point(2, 2);
-            btnCancel.Margin = new Padding(2, 2, 2, 2);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(118, 43);
-            btnCancel.TabIndex = 0;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            lblDateLabel.Dock = DockStyle.Fill;
+            lblDateLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblDateLabel.ForeColor = Color.FromArgb(50, 50, 50);
+            lblDateLabel.Location = new Point(328, 0);
+            lblDateLabel.Margin = new Padding(4, 0, 4, 0);
+            lblDateLabel.Name = "lblDateLabel";
+            lblDateLabel.Size = new Size(280, 32);
+            lblDateLabel.TabIndex = 1;
+            lblDateLabel.Text = "Date *";
+            lblDateLabel.TextAlign = ContentAlignment.BottomLeft;
             // 
-            // panel1
+            // lblEmpLabel
             // 
-            panel1.BackColor = Color.AliceBlue;
-            panel1.Controls.Add(label7);
-            panel1.Controls.Add(label6);
-            panel1.Location = new Point(21, 381);
-            panel1.Margin = new Padding(2, 2, 2, 2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1001, 61);
-            panel1.TabIndex = 4;
+            lblEmpLabel.Dock = DockStyle.Fill;
+            lblEmpLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblEmpLabel.ForeColor = Color.FromArgb(50, 50, 50);
+            lblEmpLabel.Location = new Point(616, 0);
+            lblEmpLabel.Margin = new Padding(4, 0, 4, 0);
+            lblEmpLabel.Name = "lblEmpLabel";
+            lblEmpLabel.Size = new Size(280, 32);
+            lblEmpLabel.TabIndex = 2;
+            lblEmpLabel.Text = "Created By Employee";
+            lblEmpLabel.TextAlign = ContentAlignment.BottomLeft;
             // 
-            // label7
+            // txtDestination
             // 
-            label7.AutoSize = true;
-            label7.ForeColor = SystemColors.HotTrack;
-            label7.Location = new Point(14, 30);
-            label7.Margin = new Padding(2, 0, 2, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(467, 20);
-            label7.TabIndex = 1;
-            label7.Text = "Products will be automatically allocated from the oldest batches first.";
+            txtDestination.BorderStyle = BorderStyle.FixedSingle;
+            txtDestination.Dock = DockStyle.Fill;
+            txtDestination.Font = new Font("Segoe UI", 10F);
+            txtDestination.Location = new Point(0, 34);
+            txtDestination.Margin = new Padding(0, 2, 18, 0);
+            txtDestination.Name = "txtDestination";
+            txtDestination.PlaceholderText = "e.g., Customer A - HCM";
+            txtDestination.Size = new Size(306, 34);
+            txtDestination.TabIndex = 3;
             // 
-            // label6
+            // dtpDate
             // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.AliceBlue;
-            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label6.ForeColor = Color.RoyalBlue;
-            label6.Location = new Point(14, 10);
-            label6.Margin = new Padding(2, 0, 2, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(183, 20);
-            label6.TabIndex = 0;
-            label6.Text = "FIFO (First-In-First-Out): ";
+            dtpDate.Dock = DockStyle.Fill;
+            dtpDate.Font = new Font("Segoe UI", 10F);
+            dtpDate.Format = DateTimePickerFormat.Short;
+            dtpDate.Location = new Point(324, 34);
+            dtpDate.Margin = new Padding(0, 2, 18, 0);
+            dtpDate.Name = "dtpDate";
+            dtpDate.Size = new Size(270, 34);
+            dtpDate.TabIndex = 4;
             // 
-            // dgvProducts
+            // lblEmployeeValue
             // 
-            dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { Product, Available, Quantity, FIFO_Allocation });
-            dgvProducts.Location = new Point(21, 253);
-            dgvProducts.Margin = new Padding(2, 2, 2, 2);
-            dgvProducts.Name = "dgvProducts";
-            dgvProducts.RowHeadersVisible = false;
-            dgvProducts.RowHeadersWidth = 62;
-            dgvProducts.Size = new Size(1001, 98);
-            dgvProducts.TabIndex = 3;
+            lblEmployeeValue.Dock = DockStyle.Fill;
+            lblEmployeeValue.Font = new Font("Segoe UI", 10F);
+            lblEmployeeValue.ForeColor = Color.FromArgb(100, 100, 100);
+            lblEmployeeValue.Location = new Point(612, 34);
+            lblEmployeeValue.Margin = new Padding(0, 2, 0, 0);
+            lblEmployeeValue.Name = "lblEmployeeValue";
+            lblEmployeeValue.Size = new Size(288, 46);
+            lblEmployeeValue.TabIndex = 5;
+            lblEmployeeValue.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // Product
+            // panelProductsHeader
             // 
-            Product.HeaderText = "Product";
-            Product.MinimumWidth = 8;
-            Product.Name = "Product";
-            // 
-            // Available
-            // 
-            Available.HeaderText = "Available";
-            Available.MinimumWidth = 8;
-            Available.Name = "Available";
-            // 
-            // Quantity
-            // 
-            Quantity.HeaderText = "Quantity";
-            Quantity.MinimumWidth = 8;
-            Quantity.Name = "Quantity";
-            // 
-            // FIFO_Allocation
-            // 
-            FIFO_Allocation.HeaderText = "FIFO_Allocation";
-            FIFO_Allocation.MinimumWidth = 8;
-            FIFO_Allocation.Name = "FIFO_Allocation";
-            // 
-            // tableProductHeader
-            // 
-            tableProductHeader.ColumnCount = 2;
-            tableProductHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
-            tableProductHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            tableProductHeader.Controls.Add(label5, 0, 0);
-            tableProductHeader.Controls.Add(btnAddProduct, 1, 0);
-            tableProductHeader.Location = new Point(21, 176);
-            tableProductHeader.Margin = new Padding(2, 2, 2, 2);
-            tableProductHeader.Name = "tableProductHeader";
-            tableProductHeader.RowCount = 1;
-            tableProductHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableProductHeader.Size = new Size(1001, 48);
-            tableProductHeader.TabIndex = 2;
+            panelProductsHeader.BackColor = Color.Transparent;
+            panelProductsHeader.Controls.Add(label5);
+            panelProductsHeader.Controls.Add(btnAddProduct);
+            panelProductsHeader.Location = new Point(35, 180);
+            panelProductsHeader.Margin = new Padding(4);
+            panelProductsHeader.Name = "panelProductsHeader";
+            panelProductsHeader.Size = new Size(900, 45);
+            panelProductsHeader.TabIndex = 2;
             // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.Left;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label5.Location = new Point(2, 14);
-            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.ForeColor = Color.FromArgb(50, 50, 50);
+            label5.Location = new Point(0, 10);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(82, 20);
+            label5.Size = new Size(100, 25);
             label5.TabIndex = 0;
             label5.Text = "Products *";
             // 
             // btnAddProduct
             // 
-            btnAddProduct.Anchor = AnchorStyles.None;
-            btnAddProduct.BackColor = Color.SeaShell;
+            btnAddProduct.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAddProduct.BackColor = Color.White;
+            btnAddProduct.FlatAppearance.BorderColor = Color.FromArgb(37, 99, 235);
+            btnAddProduct.FlatStyle = FlatStyle.Flat;
             btnAddProduct.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnAddProduct.Location = new Point(784, 10);
-            btnAddProduct.Margin = new Padding(2, 2, 2, 2);
+            btnAddProduct.ForeColor = Color.FromArgb(37, 99, 235);
+            btnAddProduct.Location = new Point(738, 4);
+            btnAddProduct.Margin = new Padding(4);
             btnAddProduct.Name = "btnAddProduct";
-            btnAddProduct.Size = new Size(132, 27);
+            btnAddProduct.Size = new Size(162, 38);
             btnAddProduct.TabIndex = 1;
             btnAddProduct.Text = "+ Add Product";
             btnAddProduct.UseVisualStyleBackColor = false;
             // 
-            // tableLayoutPanel1
+            // dgvProducts
             // 
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34F));
-            tableLayoutPanel1.Controls.Add(label4, 2, 0);
-            tableLayoutPanel1.Controls.Add(label3, 1, 0);
-            tableLayoutPanel1.Controls.Add(label2, 0, 0);
-            tableLayoutPanel1.Controls.Add(lblEmployeeValue, 2, 1);
-            tableLayoutPanel1.Controls.Add(txtDestination, 0, 1);
-            tableLayoutPanel1.Controls.Add(dtpDate, 1, 1);
-            tableLayoutPanel1.Location = new Point(22, 63);
-            tableLayoutPanel1.Margin = new Padding(2, 2, 2, 2);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
-            tableLayoutPanel1.Size = new Size(1000, 83);
-            tableLayoutPanel1.TabIndex = 1;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            dgvProducts.AllowUserToAddRows = false;
+            dgvProducts.AllowUserToDeleteRows = false;
+            dgvProducts.AllowUserToResizeRows = false;
+            dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProducts.BackgroundColor = Color.White;
+            dgvProducts.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(248, 249, 250);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(80, 80, 80);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvProducts.ColumnHeadersHeight = 40;
+            dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { colProduct, colAvailable, colQuantity, colFifo, colRemove });
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            dataGridViewCellStyle6.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvProducts.DefaultCellStyle = dataGridViewCellStyle6;
+            dgvProducts.EnableHeadersVisualStyles = false;
+            dgvProducts.GridColor = Color.FromArgb(230, 230, 230);
+            dgvProducts.Location = new Point(35, 230);
+            dgvProducts.Margin = new Padding(4);
+            dgvProducts.MultiSelect = false;
+            dgvProducts.Name = "dgvProducts";
+            dgvProducts.RowHeadersVisible = false;
+            dgvProducts.RowHeadersWidth = 62;
+            dgvProducts.RowTemplate.Height = 48;
+            dgvProducts.ScrollBars = ScrollBars.Vertical;
+            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProducts.Size = new Size(900, 250);
+            dgvProducts.TabIndex = 3;
             // 
-            // label4
+            // colProduct
             // 
-            label4.Anchor = AnchorStyles.None;
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label4.Location = new Point(751, 10);
-            label4.Margin = new Padding(2, 0, 2, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(157, 20);
-            label4.TabIndex = 2;
-            label4.Text = "Created By Employee";
+            colProduct.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            colProduct.FillWeight = 220F;
+            colProduct.FlatStyle = FlatStyle.Flat;
+            colProduct.HeaderText = "Product";
+            colProduct.MinimumWidth = 8;
+            colProduct.Name = "colProduct";
             // 
-            // label3
+            // colAvailable
             // 
-            label3.Anchor = AnchorStyles.None;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label3.Location = new Point(468, 10);
-            label3.Margin = new Padding(2, 0, 2, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(53, 20);
-            label3.TabIndex = 1;
-            label3.Text = "Date *";
-            label3.Click += label3_Click;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            colAvailable.DefaultCellStyle = dataGridViewCellStyle2;
+            colAvailable.FillWeight = 80F;
+            colAvailable.HeaderText = "Available";
+            colAvailable.MinimumWidth = 8;
+            colAvailable.Name = "colAvailable";
+            colAvailable.ReadOnly = true;
             // 
-            // label2
+            // colQuantity
             // 
-            label2.Anchor = AnchorStyles.None;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label2.Location = new Point(114, 10);
-            label2.Margin = new Padding(2, 0, 2, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(101, 20);
-            label2.TabIndex = 0;
-            label2.Text = "Destination *";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colQuantity.DefaultCellStyle = dataGridViewCellStyle3;
+            colQuantity.FillWeight = 80F;
+            colQuantity.HeaderText = "Quantity";
+            colQuantity.MinimumWidth = 8;
+            colQuantity.Name = "colQuantity";
             // 
-            // lblEmployeeValue
+            // colFifo
             // 
-            lblEmployeeValue.Anchor = AnchorStyles.None;
-            lblEmployeeValue.AutoSize = true;
-            lblEmployeeValue.Location = new Point(830, 52);
-            lblEmployeeValue.Margin = new Padding(2, 0, 2, 0);
-            lblEmployeeValue.Name = "lblEmployeeValue";
-            lblEmployeeValue.Size = new Size(0, 20);
-            lblEmployeeValue.TabIndex = 5;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(37, 99, 235);
+            colFifo.DefaultCellStyle = dataGridViewCellStyle4;
+            colFifo.FillWeight = 160F;
+            colFifo.HeaderText = "FIFO Allocation";
+            colFifo.MinimumWidth = 8;
+            colFifo.Name = "colFifo";
+            colFifo.ReadOnly = true;
             // 
-            // txtDestination
+            // colRemove
             // 
-            txtDestination.Anchor = AnchorStyles.None;
-            txtDestination.Location = new Point(10, 48);
-            txtDestination.Margin = new Padding(2, 2, 2, 2);
-            txtDestination.Name = "txtDestination";
-            txtDestination.Size = new Size(310, 27);
-            txtDestination.TabIndex = 3;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(185, 28, 28);
+            colRemove.DefaultCellStyle = dataGridViewCellStyle5;
+            colRemove.FillWeight = 36F;
+            colRemove.FlatStyle = FlatStyle.Flat;
+            colRemove.HeaderText = "";
+            colRemove.MinimumWidth = 8;
+            colRemove.Name = "colRemove";
+            colRemove.Text = "✕";
+            colRemove.UseColumnTextForButtonValue = true;
             // 
-            // dtpDate
+            // panelFifoNote
             // 
-            dtpDate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            dtpDate.CustomFormat = "MM/dd/yyyy";
-            dtpDate.DropDownAlign = LeftRightAlignment.Right;
-            dtpDate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dtpDate.Location = new Point(332, 48);
-            dtpDate.Margin = new Padding(2, 2, 2, 2);
-            dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(326, 27);
-            dtpDate.TabIndex = 4;
+            panelFifoNote.BackColor = Color.FromArgb(239, 246, 255);
+            panelFifoNote.Controls.Add(lblFifoTitle);
+            panelFifoNote.Controls.Add(lblFifoDesc);
+            panelFifoNote.Location = new Point(35, 495);
+            panelFifoNote.Margin = new Padding(4);
+            panelFifoNote.Name = "panelFifoNote";
+            panelFifoNote.Padding = new Padding(18, 10, 18, 10);
+            panelFifoNote.Size = new Size(900, 72);
+            panelFifoNote.TabIndex = 4;
             // 
-            // label1
+            // lblFifoTitle
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label1.Location = new Point(21, 7);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(294, 37);
-            label1.TabIndex = 0;
-            label1.Text = "Create Export Invoice";
+            lblFifoTitle.AutoSize = true;
+            lblFifoTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblFifoTitle.ForeColor = Color.FromArgb(37, 99, 235);
+            lblFifoTitle.Location = new Point(18, 12);
+            lblFifoTitle.Margin = new Padding(4, 0, 4, 0);
+            lblFifoTitle.Name = "lblFifoTitle";
+            lblFifoTitle.Size = new Size(214, 25);
+            lblFifoTitle.TabIndex = 0;
+            lblFifoTitle.Text = "FIFO (First-In-First-Out):";
+            // 
+            // lblFifoDesc
+            // 
+            lblFifoDesc.AutoSize = true;
+            lblFifoDesc.Font = new Font("Segoe UI", 9F);
+            lblFifoDesc.ForeColor = Color.FromArgb(37, 99, 235);
+            lblFifoDesc.Location = new Point(18, 38);
+            lblFifoDesc.Margin = new Padding(4, 0, 4, 0);
+            lblFifoDesc.Name = "lblFifoDesc";
+            lblFifoDesc.Size = new Size(556, 25);
+            lblFifoDesc.TabIndex = 1;
+            lblFifoDesc.Text = "Products will be automatically allocated from the oldest batches first.";
+            // 
+            // panelButtons
+            // 
+            panelButtons.BackColor = Color.Transparent;
+            panelButtons.Controls.Add(btnCancel);
+            panelButtons.Controls.Add(btnSaveDraft);
+            panelButtons.Controls.Add(btnComplete);
+            panelButtons.Location = new Point(35, 585);
+            panelButtons.Margin = new Padding(4);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Size = new Size(900, 60);
+            panelButtons.TabIndex = 5;
+            // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.White;
+            btnCancel.FlatAppearance.BorderColor = Color.FromArgb(200, 200, 200);
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.Font = new Font("Segoe UI", 9.5F);
+            btnCancel.Location = new Point(482, 5);
+            btnCancel.Margin = new Padding(4);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(138, 50);
+            btnCancel.TabIndex = 0;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // btnSaveDraft
+            // 
+            btnSaveDraft.BackColor = Color.White;
+            btnSaveDraft.FlatAppearance.BorderColor = Color.FromArgb(200, 200, 200);
+            btnSaveDraft.FlatStyle = FlatStyle.Flat;
+            btnSaveDraft.Font = new Font("Segoe UI", 9.5F);
+            btnSaveDraft.Location = new Point(625, 5);
+            btnSaveDraft.Margin = new Padding(4);
+            btnSaveDraft.Name = "btnSaveDraft";
+            btnSaveDraft.Size = new Size(138, 50);
+            btnSaveDraft.TabIndex = 1;
+            btnSaveDraft.Text = "Save Draft";
+            btnSaveDraft.UseVisualStyleBackColor = false;
+            // 
+            // btnComplete
+            // 
+            btnComplete.BackColor = Color.FromArgb(220, 53, 69);
+            btnComplete.FlatAppearance.BorderSize = 0;
+            btnComplete.FlatStyle = FlatStyle.Flat;
+            btnComplete.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnComplete.ForeColor = Color.White;
+            btnComplete.Location = new Point(768, 5);
+            btnComplete.Margin = new Padding(4);
+            btnComplete.Name = "btnComplete";
+            btnComplete.Size = new Size(138, 50);
+            btnComplete.TabIndex = 2;
+            btnComplete.Text = "Complete";
+            btnComplete.UseVisualStyleBackColor = false;
             // 
             // CreateExportInvoice
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1044, 542);
+            ClientSize = new Size(970, 662);
             Controls.Add(panelMain);
-            Margin = new Padding(2, 2, 2, 2);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "CreateExportInvoice";
-            Text = "CreateExportInvoice";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Create Export Invoice";
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
-            tableButton.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            tableTop.ResumeLayout(false);
+            tableTop.PerformLayout();
+            panelProductsHeader.ResumeLayout(false);
+            panelProductsHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
-            tableProductHeader.ResumeLayout(false);
-            tableProductHeader.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            panelFifoNote.ResumeLayout(false);
+            panelFifoNote.PerformLayout();
+            panelButtons.ResumeLayout(false);
             ResumeLayout(false);
         }
 
-        #endregion
-
-        private Panel panelMain;
-        private Label label1;
-        private TableLayoutPanel tableLayoutPanel1;
-        private Label label3;
-        private Label label2;
-        private Label label4;
-        private TextBox txtDestination;
-        private DateTimePicker dtpDate;
-        private Label lblEmployeeValue;
-        private TableLayoutPanel tableProductHeader;
-        private Label label5;
-        private DataGridView dgvProducts;
-        private Button btnAddProduct;
-        private TableLayoutPanel tableButton;
-        private Panel panel1;
-        private Label label7;
-        private Label label6;
-        private Button btnCancel;
-        private Button btnComplete;
-        private Button btnSaveDraft;
-        private DataGridViewTextBoxColumn Product;
-        private DataGridViewTextBoxColumn Available;
-        private DataGridViewTextBoxColumn Quantity;
-        private DataGridViewTextBoxColumn FIFO_Allocation;
+        // ── Fields ───────────────────────────────────────────────
+        private System.Windows.Forms.Panel panelMain = null!;
+        private System.Windows.Forms.Label lblTitle = null!;
+        private System.Windows.Forms.TableLayoutPanel tableTop = null!;
+        private System.Windows.Forms.Label lblDestLabel = null!;
+        private System.Windows.Forms.Label lblDateLabel = null!;
+        private System.Windows.Forms.Label lblEmpLabel = null!;
+        private System.Windows.Forms.TextBox txtDestination = null!;
+        private System.Windows.Forms.DateTimePicker dtpDate = null!;
+        private System.Windows.Forms.Label lblEmployeeValue = null!;
+        private System.Windows.Forms.Panel panelProductsHeader = null!;
+        private System.Windows.Forms.Label label5 = null!;
+        private System.Windows.Forms.Button btnAddProduct = null!;
+        private System.Windows.Forms.DataGridView dgvProducts = null!;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colProduct = null!;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAvailable = null!;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colQuantity = null!;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFifo = null!;
+        private System.Windows.Forms.DataGridViewButtonColumn colRemove = null!;
+        private System.Windows.Forms.Panel panelFifoNote = null!;
+        private System.Windows.Forms.Label lblFifoTitle = null!;
+        private System.Windows.Forms.Label lblFifoDesc = null!;
+        private System.Windows.Forms.Panel panelButtons = null!;
+        private System.Windows.Forms.Button btnCancel = null!;
+        private System.Windows.Forms.Button btnSaveDraft = null!;
+        private System.Windows.Forms.Button btnComplete = null!;
     }
 }
-

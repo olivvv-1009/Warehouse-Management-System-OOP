@@ -2,7 +2,7 @@
   {
     "ExportId": "EXP20260001",
     "EmployeeName": "Lê Minh Anh",
-    "Destination": "",
+    "Destination": "Công ty D - TP.HCM",
     "TotalAmount": 0,
     "ExportDate": "2026-05-20T10:30:00",
     "OrderDetails": []
@@ -10,7 +10,7 @@
   {
     "ExportId": "EXP20260002",
     "EmployeeName": "Lê Minh Anh",
-    "Destination": "",
+    "Destination": "Công ty E - Đà Nẵng",
     "TotalAmount": 0,
     "ExportDate": "2026-05-21T10:30:00",
     "OrderDetails": []
@@ -18,7 +18,7 @@
   {
     "ExportId": "EXP20260003",
     "EmployeeName": "Đinh Thị Anh Thư",
-    "Destination": "",
+    "Destination": "Công ty F - Cần Thơ",
     "TotalAmount": 0,
     "ExportDate": "2026-05-23T10:30:00",
     "OrderDetails": []
