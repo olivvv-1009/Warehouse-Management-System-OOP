@@ -15,6 +15,8 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public DateTime ExportDate { get; set; }
 
+        public string Status { get; set; }
+
         public List<OrderDetail> OrderDetails
         {
             get;
@@ -23,22 +25,13 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public ExportInvoice()
         {
-            ExportId =
-                string.Empty;
-
-            EmployeeName =
-                string.Empty;
-
-            Destination =
-                string.Empty;
-
+            ExportId = string.Empty;
+            EmployeeName = string.Empty;
+            Destination = string.Empty;
             TotalAmount = 0;
-
-            ExportDate =
-                DateTime.Now;
-
-            OrderDetails =
-                new List<OrderDetail>();
+            ExportDate = DateTime.Now;
+            Status = "Completed";
+            OrderDetails = new List<OrderDetail>();
         }
     }
 }

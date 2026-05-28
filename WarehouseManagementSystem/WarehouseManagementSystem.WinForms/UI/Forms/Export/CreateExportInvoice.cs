@@ -269,8 +269,29 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                     "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show("Draft saved. Note: stock has NOT been deducted yet.",
-                "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (dgvProducts.Rows.Count == 0)
+            {
+                MessageBox.Show("Please add at least one product.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var items = new List<(string ProductId, int Quantity, decimal UnitPrice)>();
+            foreach (DataGridViewRow row in dgvProducts.Rows)
+            {
+                var productId = row.Cells["colProduct"].Value?.ToString();
+                if (string.IsNullOrEmpty(productId)) continue;
+                int.TryParse(row.Cells["colQuantity"].Value?.ToString(), out int qty);
+                if (qty <= 0) qty = 1;
+                items.Add((productId, qty, 0m));
+            }
+
+            string employee = Session.CurrentProfile?.FullName ?? "";
+            string destination = txtDestination.Text.Trim();
+
+            string draftId = _exportService.SaveDraft(items, employee, destination);
+            Close();
         }
 
         private void BtnCancel_Click()
