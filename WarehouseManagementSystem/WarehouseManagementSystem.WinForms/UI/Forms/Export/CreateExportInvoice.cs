@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
 using WarehouseManagementSystem.WinForms.Rule;
@@ -19,8 +18,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
         private readonly ProductService _productService;
         private readonly BatchRepository _batchRepository;
         private readonly FifoRule _fifoRule;
+        private readonly DestinationRepository _destinationRepo;
 
-        // ProductId -> (Name, Available)
         private Dictionary<string, (string Name, int Available)> _productMap = new();
 
         public CreateExportInvoice()
@@ -31,7 +30,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             _productService = new ProductService();
             _batchRepository = new BatchRepository();
             _fifoRule = new FifoRule();
+            _destinationRepo = new DestinationRepository();
 
+            LoadDestinations();
             LoadProductMap();
             SetupDropdown();
             SetupEvents();
@@ -40,7 +41,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             dtpDate.Value = DateTime.Now;
         }
 
-        // ─── Load danh sách sản phẩm ─────────────────────────────
+        private void LoadDestinations()
+        {
+            var destinations = _destinationRepo.GetAll();
+            txtDestination.DataSource = destinations;
+            txtDestination.DisplayMember = "Name";
+            txtDestination.ValueMember = "DestinationId";
+            txtDestination.SelectedIndex = -1;
+        }
 
         private void LoadProductMap()
         {
@@ -56,7 +64,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 
         private void SetupDropdown()
         {
-            // Build display list: "Laptop Dell XPS 13 (Available: 40)"
             var displayList = _productMap
                 .Select(kv => new
                 {
@@ -71,8 +78,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             colProduct.ValueMember = "Id";
         }
 
-        // ─── Events ──────────────────────────────────────────────
-
         private void SetupEvents()
         {
             btnAddProduct.Click += (s, e) => AddProductRow();
@@ -83,7 +88,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             dgvProducts.CellValueChanged += DgvProducts_CellValueChanged;
             dgvProducts.CellClick += DgvProducts_CellClick;
 
-            // Commit combobox selection ngay lập tức
             dgvProducts.CurrentCellDirtyStateChanged += (s, e) =>
             {
                 if (dgvProducts.IsCurrentCellDirty &&
@@ -91,11 +95,8 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                     dgvProducts.CommitEdit(DataGridViewDataErrorContexts.Commit);
             };
 
-            // Bắt lỗi combo (tránh crash khi chưa chọn)
             dgvProducts.DataError += (s, e) => e.Cancel = true;
         }
-
-        // ─── Thêm row ────────────────────────────────────────────
 
         private void AddProductRow()
         {
@@ -106,15 +107,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             row.Cells["colFifo"].Value = "-";
         }
 
-        // ─── Xoá row ─────────────────────────────────────────────
-
         private void RemoveRow(int rowIndex)
         {
             if (rowIndex >= 0 && rowIndex < dgvProducts.Rows.Count)
                 dgvProducts.Rows.RemoveAt(rowIndex);
         }
-
-        // ─── Cell events ─────────────────────────────────────────
 
         private void DgvProducts_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
@@ -131,8 +128,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                 UpdateRowInfo(e.RowIndex);
         }
 
-        // ─── Cập nhật Available + FIFO ───────────────────────────
-
         private void UpdateRowInfo(int rowIndex)
         {
             var row = dgvProducts.Rows[rowIndex];
@@ -145,18 +140,15 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             var batches = _batchRepository.GetByProductId(productId);
             int available = _fifoRule.GetAvailableQuantity(batches);
 
-            // Available
             row.Cells["colAvailable"].Value = available.ToString();
             row.Cells["colAvailable"].Style.ForeColor =
                 available > 0 ? Color.FromArgb(21, 128, 61) : Color.FromArgb(185, 28, 28);
             row.Cells["colAvailable"].Style.Font =
                 new Font("Segoe UI", 10F, FontStyle.Bold);
 
-            // FIFO Allocation — format: "b010: 2 units (2026-02-10)"
             bool canExport = _fifoRule.Apply(batches, qty, out var deductions);
             if (canExport && deductions != null && deductions.Count > 0)
             {
-                // Lấy batch đầu tiên để hiển thị (giống Figma)
                 var first = deductions[0];
                 var batch = batches.FirstOrDefault(b => b.BatchId == first.BatchId);
                 string date = batch?.ImportDate.ToString("yyyy-MM-dd") ?? "";
@@ -178,16 +170,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             }
         }
 
-        // ─── Validate & thu thập dữ liệu ─────────────────────────
-
         private bool CollectExportItems(
             out List<(string ProductId, int Quantity, decimal UnitPrice)> items)
         {
             items = new List<(string, int, decimal)>();
 
-            if (string.IsNullOrWhiteSpace(txtDestination.Text))
+            if (txtDestination.SelectedItem == null)
             {
-                MessageBox.Show("Please enter a destination.",
+                MessageBox.Show("Please select a destination.",
                     "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
@@ -231,89 +221,66 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             return true;
         }
 
-        // ─── Button handlers ──────────────────────────────────────
-
         private void BtnComplete_Click()
         {
-            if (!CollectExportItems(
-                out var items))
+            if (!CollectExportItems(out var items)) return;
+
+            string employee = Session.CurrentProfile?.FullName ?? "";
+            string destination = (txtDestination.SelectedItem as Destination)?.Name ?? "";
+            bool allSuccess = true;
+
+            foreach (var item in items)
             {
-                return;
+                bool ok = _exportService.ExportProduct(
+                    item.ProductId, item.Quantity,
+                    employee, item.UnitPrice, destination);
+                if (!ok) { allSuccess = false; break; }
             }
 
-            string employee =
-                Session.CurrentProfile
-                    ?.FullName ?? "";
-
-            string destination =
-                txtDestination.Text
-                    .Trim();
-
-            List<OrderDetail> details =
-                new List<OrderDetail>();
-
-            foreach (var item
-                in items)
+            if (allSuccess)
             {
-                OrderDetail detail =
-                    new OrderDetail();
-
-                detail.ProductId =
-                    item.ProductId;
-
-                detail.Quantity =
-                    item.Quantity;
-
-                detail.UnitPrice =
-                    item.UnitPrice;
-
-                detail.TotalPrice =
-                    item.Quantity
-                    * item.UnitPrice;
-
-                details.Add(detail);
-            }
-
-            bool success =
-                _exportService
-                    .CreateExportInvoice(
-                        employee,
-                        destination,
-                        details
-                    );
-
-            if (success)
-            {
-                MessageBox.Show(
-                    "Export invoice created successfully!",
-                    "Success",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
+                MessageBox.Show("Export invoice created successfully!",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
             else
             {
-                MessageBox.Show(
-                    "Failed to create export invoice.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Failed to create export invoice. Please try again.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnSaveDraft_Click()
         {
-            if (string.IsNullOrWhiteSpace(txtDestination.Text))
+            if (txtDestination.SelectedItem == null)
             {
-                MessageBox.Show("Please enter a destination before saving draft.",
+                MessageBox.Show("Please select a destination before saving draft.",
                     "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show("Draft saved. Note: stock has NOT been deducted yet.",
-                "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (dgvProducts.Rows.Count == 0)
+            {
+                MessageBox.Show("Please add at least one product.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var items = new List<(string ProductId, int Quantity, decimal UnitPrice)>();
+            foreach (DataGridViewRow row in dgvProducts.Rows)
+            {
+                var productId = row.Cells["colProduct"].Value?.ToString();
+                if (string.IsNullOrEmpty(productId)) continue;
+                int.TryParse(row.Cells["colQuantity"].Value?.ToString(), out int qty);
+                if (qty <= 0) qty = 1;
+                items.Add((productId, qty, 0m));
+            }
+
+            string employee = Session.CurrentProfile?.FullName ?? "";
+            string destination = (txtDestination.SelectedItem as Destination)?.Name ?? "";
+
+            _exportService.SaveDraft(items, employee, destination);
+            Close();
         }
 
         private void BtnCancel_Click()

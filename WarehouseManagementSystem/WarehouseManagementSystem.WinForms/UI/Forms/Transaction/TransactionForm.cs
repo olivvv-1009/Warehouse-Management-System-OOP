@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
@@ -12,6 +13,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
     {
         private readonly TransactionRepository _transactionRepo;
         private readonly ProductService _productService;
+        private readonly ReturnRepository _returnRepo;
 
         // Dữ liệu gốc để filter
         private List<Models.Transaction> _allTransactions;
@@ -21,6 +23,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             InitializeComponent();
             _transactionRepo = new TransactionRepository();
             _productService = new ProductService();
+            _returnRepo = new ReturnRepository();
             _allTransactions = new List<Models.Transaction>();
 
             SetupDataGridView();
@@ -127,7 +130,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
         private void SetupFilters()
         {
             cmbType.Items.Clear();
-            cmbType.Items.AddRange(new object[] { "All Types", "IMPORT", "EXPORT" });
+            cmbType.Items.AddRange(new object[] { "All Types", "IMPORT", "EXPORT", "RETURN" });
             cmbType.SelectedIndex = 0;
             cmbType.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -263,6 +266,19 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                         if (inv.ExportId == refId)
                             return inv.EmployeeName;
                 }
+                else if (type == "RETURN")
+                {
+                    var returns = _returnRepo.GetAll();
+                    foreach (var r in returns)
+                        if (r.ReturnOrderId == refId)
+                        {
+                            // ReturnOrder lưu EmployeeId, cần map sang FullName
+                            var profileRepo = new ProfileRepository();
+                            var profile = profileRepo.GetAll()
+                                .FirstOrDefault(p => p.EmployeeId == r.EmployeeId);
+                            return profile?.FullName ?? r.EmployeeId;
+                        }
+                }
             }
             catch { }
 
@@ -290,6 +306,12 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                 {
                     e.CellStyle.BackColor = Color.FromArgb(254, 226, 226);
                     e.CellStyle.ForeColor = Color.FromArgb(185, 28, 28);
+                    e.CellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+                }
+                else if (type == "RETURN")
+                {
+                    e.CellStyle.BackColor = Color.FromArgb(255, 237, 213);
+                    e.CellStyle.ForeColor = Color.FromArgb(154, 52, 18);
                     e.CellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
                 }
             }

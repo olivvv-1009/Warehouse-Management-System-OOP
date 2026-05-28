@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
 using WarehouseManagementSystem.WinForms.Utils;
@@ -7,19 +8,15 @@ namespace WarehouseManagementSystem.WinForms.Services
 {
     public class ReturnService
     {
-        private readonly ReturnRepository
-            _repository;
-
-        private readonly BatchRepository
-            _batchRepository;
+        private readonly ReturnRepository _repository;
+        private readonly BatchRepository _batchRepository;
+        private readonly TransactionRepository _transactionRepository;
 
         public ReturnService()
         {
-            _repository =
-                new ReturnRepository();
-
-            _batchRepository =
-                new BatchRepository();
+            _repository = new ReturnRepository();
+            _batchRepository = new BatchRepository();
+            _transactionRepository = new TransactionRepository();
         }
 
         // ================= GET ALL =================
@@ -123,10 +120,28 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             // ===== SAVE RETURN ORDER =====
 
-            return _repository
-                .Add(
-                    returnOrder
-                );
+            bool saved = _repository.Add(returnOrder);
+
+            if (saved)
+            {
+                // Tạo transaction RETURN cho mỗi sản phẩm
+                foreach (var detail in returnOrder.Details)
+                {
+                    List<Transaction> transactions = _transactionRepository.GetAll();
+                    int txNextNumber = IdGenerator.GetNextNumber(
+                        transactions.Select(x => x.TransactionId).ToList(), "TRN");
+
+                    Transaction transaction = new Transaction();
+                    transaction.TransactionId = IdGenerator.GenerateTransactionId(txNextNumber);
+                    transaction.ProductId = detail.ProductId;
+                    transaction.Quantity = detail.Quantity;
+                    transaction.TransactionType = Transaction.Types.Return;
+                    transaction.ReferenceId = returnOrder.ReturnOrderId;
+                    _transactionRepository.Add(transaction);
+                }
+            }
+
+            return saved;
         }
 
         // ================= ADD DETAIL =================
