@@ -2,87 +2,153 @@
   {
     "ExportId": "EXP20260001",
     "EmployeeName": "Lê Minh Anh",
-    "Destination": "Công ty D - TP.HCM",
-    "TotalAmount": 0,
+    "Destination": "TechHome Đà Nẵng",
+    "TotalAmount": 180000,
     "ExportDate": "2026-05-20T10:30:00",
-    "OrderDetails": []
+    "OrderDetails": [
+      {
+        "ProductId": "PR0005",
+        "BatchId": "BAT-PR0005-01",
+        "Quantity": 10,
+        "UnitPrice": 18000,
+        "TotalPrice": 180000,
+        "LocationCode": "B-R01-S01",
+        "Zone": "B",
+        "Rack": "R01",
+        "Shelf": "S01"
+      }
+    ]
   },
   {
     "ExportId": "EXP20260002",
     "EmployeeName": "Lê Minh Anh",
-    "Destination": "Công ty E - Đà Nẵng",
-    "TotalAmount": 0,
+    "Destination": "TechHome Hà Nội",
+    "TotalAmount": 225000,
     "ExportDate": "2026-05-21T10:30:00",
-    "OrderDetails": []
+    "OrderDetails": [
+      {
+        "ProductId": "PR0006",
+        "BatchId": "BAT-PR0006-01",
+        "Quantity": 15,
+        "UnitPrice": 15000,
+        "TotalPrice": 225000,
+        "LocationCode": "B-R02-S01",
+        "Zone": "B",
+        "Rack": "R02",
+        "Shelf": "S01"
+      }
+    ]
   },
   {
     "ExportId": "EXP20260003",
     "EmployeeName": "Đinh Thị Anh Thư",
-    "Destination": "Công ty F - Cần Thơ",
-    "TotalAmount": 0,
+    "Destination": "TechHome Cần Thơ",
+    "TotalAmount": 200000,
     "ExportDate": "2026-05-23T10:30:00",
-    "OrderDetails": []
+    "OrderDetails": [
+      {
+        "ProductId": "PR0007",
+        "BatchId": "BAT-PR0007-01",
+        "Quantity": 20,
+        "UnitPrice": 10000,
+        "TotalPrice": 200000,
+        "LocationCode": "D-R01-S01",
+        "Zone": "D",
+        "Rack": "R01",
+        "Shelf": "S01"
+      }
+    ]
   },
   {
     "ExportId": "EXP20260004",
     "EmployeeName": "Nguyễn Đinh Thảo Nhi",
-    "Destination": "Công ty A - Hà Nội",
+    "Destination": "TechHome Hà Nội",
     "TotalAmount": 118000,
     "ExportDate": "2026-05-24T09:00:00",
     "OrderDetails": [
       {
         "ProductId": "PR0012",
+        "BatchId": "BAT-PR0012-01",
         "Quantity": 20,
         "UnitPrice": 3500,
-        "TotalPrice": 70000
+        "TotalPrice": 70000,
+        "LocationCode": "A-R01-S03",
+        "Zone": "A",
+        "Rack": "R01",
+        "Shelf": "S03"
       },
       {
         "ProductId": "PR0014",
+        "BatchId": "BAT-PR0014-01",
         "Quantity": 15,
         "UnitPrice": 3200,
-        "TotalPrice": 48000
+        "TotalPrice": 48000,
+        "LocationCode": "E-R01-S01",
+        "Zone": "E",
+        "Rack": "R01",
+        "Shelf": "S01"
       }
     ]
   },
   {
     "ExportId": "EXP20260005",
     "EmployeeName": "Lê Minh Anh",
-    "Destination": "Công ty B - TP.HCM",
+    "Destination": "TechHome Quận 1",
     "TotalAmount": 70000,
     "ExportDate": "2026-05-25T14:10:00",
     "OrderDetails": [
       {
         "ProductId": "PR0010",
+        "BatchId": "BAT-PR0010-01",
         "Quantity": 10,
         "UnitPrice": 3000,
-        "TotalPrice": 30000
+        "TotalPrice": 30000,
+        "LocationCode": "C-R01-S02",
+        "Zone": "C",
+        "Rack": "R01",
+        "Shelf": "S02"
       },
       {
         "ProductId": "PR0015",
+        "BatchId": "BAT-PR0015-01",
         "Quantity": 5,
         "UnitPrice": 8000,
-        "TotalPrice": 40000
+        "TotalPrice": 40000,
+        "LocationCode": "C-R01-S05",
+        "Zone": "C",
+        "Rack": "R01",
+        "Shelf": "S05"
       }
     ]
   },
   {
     "ExportId": "EXP20260006",
     "EmployeeName": "Đinh Thị Anh Thư",
-    "Destination": "Công ty C - Đà Nẵng",
+    "Destination": "TechHome Gò Vấp",
     "TotalAmount": 146000,
     "ExportDate": "2026-05-26T15:20:00",
     "OrderDetails": [
       {
         "ProductId": "PR0013",
+        "BatchId": "BAT-PR0013-01",
         "Quantity": 12,
         "UnitPrice": 6500,
-        "TotalPrice": 78000
+        "TotalPrice": 78000,
+        "LocationCode": "A-R01-S04",
+        "Zone": "A",
+        "Rack": "R01",
+        "Shelf": "S04"
       },
       {
         "ProductId": "PR0009",
+        "BatchId": "BAT-PR0009-01",
         "Quantity": 8,
         "UnitPrice": 8500,
-        "TotalPrice": 68000
+        "TotalPrice": 68000,
+        "LocationCode": "A-R01-S02",
+        "Zone": "A",
+        "Rack": "R01",
+        "Shelf": "S02"
       }
     ]
   }

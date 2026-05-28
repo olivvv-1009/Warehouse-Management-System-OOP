@@ -223,7 +223,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                 string employee = GetEmployeeFromReference(t.ReferenceId, t.TransactionType);
 
                 // Qty display: +x hoặc -x
-                string qtyText = t.TransactionType == "EXPORT"
+                string qtyText = (t.TransactionType == "EXPORT" || t.TransactionType == "RETURN")
                     ? $"-{t.Quantity}"
                     : $"+{t.Quantity}";
 

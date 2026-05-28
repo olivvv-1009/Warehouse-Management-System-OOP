@@ -103,5 +103,13 @@
     "Category": "Accessory",
     "MinStock": 20,
     "CreatedAt": "2026-05-20T15:20:00"
+  },
+  {
+    "ProductID": "PR0016",
+    "Name": "IPHONE 17 PRO MAX",
+    "Category": "Smartphone",
+    "MinStock": 20,
+    "CreatedAt": "2026-05-28T22:37:04.0340053+07:00"
   }
 ]
+

@@ -1,1 +1,60 @@
-﻿
+﻿[
+  {
+    "ReturnOrderId": "RT0001",
+    "ImportInvoiceId": "IMP20260004",
+    "SupplierId": "SP0003",
+    "EmployeeId": "",
+    "ReturnDate": "2026-05-21T00:24:41.9764504+07:00",
+    "Status": "Pending",
+    "Details": [
+      {
+        "ProductId": "PR0006",
+        "BatchId": "",
+        "Quantity": 2,
+        "UnitPrice": 1450,
+        "ReturnReason": "l\u1ED7i faceid",
+        "TotalPrice": 2900
+      }
+    ],
+    "TotalAmount": 2900
+  },
+  {
+    "ReturnOrderId": "RT0002",
+    "ImportInvoiceId": "IMP20260001",
+    "SupplierId": "SP0001",
+    "EmployeeId": "",
+    "ReturnDate": "2026-05-21T00:26:11.9626327+07:00",
+    "Status": "Pending",
+    "Details": [
+      {
+        "ProductId": "PR0001",
+        "BatchId": "",
+        "Quantity": 10,
+        "UnitPrice": 4500,
+        "ReturnReason": "dfsdfs",
+        "TotalPrice": 45000
+      }
+    ],
+    "TotalAmount": 45000
+  },
+  {
+    "ReturnOrderId": "RT0003",
+    "ImportInvoiceId": "IMP20260009",
+    "SupplierId": "SP0002",
+    "EmployeeId": "",
+    "ReturnDate": "2026-05-29T01:40:08.786128+07:00",
+    "Status": "Pending",
+    "Details": [
+      {
+        "ProductId": "PR0016",
+        "BatchId": "",
+        "Quantity": 10,
+        "UnitPrice": 35000000,
+        "ReturnReason": "h\u01B0 cam",
+        "TotalPrice": 350000000
+      }
+    ],
+    "TotalAmount": 350000000
+  }
+]
+

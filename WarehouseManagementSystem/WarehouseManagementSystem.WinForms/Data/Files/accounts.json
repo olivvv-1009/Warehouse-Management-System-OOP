@@ -1,46 +1,58 @@
 ﻿[
-    {
-        "AccountId": "ACC001",
-        "Username": "MinhAnh",
-        "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
-        "Role": "Admin",
-        "IsActive": true,
-        "FailedLoginAttempts": 0,
-        "IsLocked": false,
-        "SecurityQuestion": "Tên thú cưng?",
-        "SecurityAnswerHash": "07a08ff37f24f835b9bc78292754e7497bb87a70eae4d56e10707de93656b274"
-    },
-    {
-        "AccountId": "ACC002",
-        "Username": "AnhThu",
-        "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
-        "Role": "Staff",
-        "IsActive": true,
-        "FailedLoginAttempts": 0,
-        "IsLocked": false,
-        "SecurityQuestion": "Màu yêu thích?",
-        "SecurityAnswerHash": "4f1f0b58ff2e9c3f7408e253653d214df2e7993b436ab334c8dea171f8c47cb7"
-    },
-    {
-        "AccountId": "ACC003",
-        "Username": "HuuThong",
-        "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
-        "Role": "Staff",
-        "IsActive": true,
-        "FailedLoginAttempts": 0,
-        "IsLocked": false,
-        "SecurityQuestion": "Môn học yêu thích?",
-        "SecurityAnswerHash": "4f1f0b58ff2e9c3f7408e253653d214df2e7993b436ab334c8dea171f8c47cb7"
-    },
+  {
+    "AccountId": "ACC001",
+    "Username": "MinhAnh",
+    "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+    "Role": "Admin",
+    "SecurityQuestion": "T\u00EAn th\u00FA c\u01B0ng?",
+    "SecurityAnswerHash": "07a08ff37f24f835b9bc78292754e7497bb87a70eae4d56e10707de93656b274",
+    "IsActive": true,
+    "FailedLoginAttempts": 0,
+    "IsLocked": false
+  },
+  {
+    "AccountId": "ACC002",
+    "Username": "AnhThu",
+    "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+    "Role": "Staff",
+    "SecurityQuestion": "M\u00E0u y\u00EAu th\u00EDch?",
+    "SecurityAnswerHash": "4f1f0b58ff2e9c3f7408e253653d214df2e7993b436ab334c8dea171f8c47cb7",
+    "IsActive": true,
+    "FailedLoginAttempts": 0,
+    "IsLocked": false
+  },
+  {
+    "AccountId": "ACC003",
+    "Username": "HuuThong",
+    "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+    "Role": "Staff",
+    "SecurityQuestion": "M\u00F4n h\u1ECDc y\u00EAu th\u00EDch?",
+    "SecurityAnswerHash": "4f1f0b58ff2e9c3f7408e253653d214df2e7993b436ab334c8dea171f8c47cb7",
+    "IsActive": true,
+    "FailedLoginAttempts": 0,
+    "IsLocked": false
+  },
   {
     "AccountId": "ACC004",
     "Username": "ThaoNhi",
     "PasswordHash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
     "Role": "Staff",
+    "SecurityQuestion": "T\u00EAn tr\u01B0\u1EDDng c\u1EA5p 3?",
+    "SecurityAnswerHash": "1ecc5d05708a46525683eafb5b1c01b760c096530b6b7fa628bb496da531ff72",
     "IsActive": true,
     "FailedLoginAttempts": 0,
-    "IsLocked": false,
-    "SecurityQuestion": "Tên trường cấp 3?",
-    "SecurityAnswerHash": "1ecc5d05708a46525683eafb5b1c01b760c096530b6b7fa628bb496da531ff72"
+    "IsLocked": false
+  },
+  {
+    "AccountId": "ACC005",
+    "Username": "Ng\u00F4Th\u1ECBThuDuy\u00EAn",
+    "PasswordHash": "4cc8f4d609b717356701c57a03e737e5ac8fe885da8c7163d3de47e01849c635",
+    "Role": "Admin",
+    "SecurityQuestion": "",
+    "SecurityAnswerHash": "",
+    "IsActive": true,
+    "FailedLoginAttempts": 0,
+    "IsLocked": false
   }
 ]
+
