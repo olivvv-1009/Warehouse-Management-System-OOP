@@ -197,6 +197,7 @@
             btnExport.TabIndex = 4;
             btnExport.Text = "Export Orders";
             btnExport.UseVisualStyleBackColor = false;
+            btnExport.Click += btnExport_Click;
             // 
             // tableLayoutPanel3
             // 
@@ -288,6 +289,7 @@
             btnTransactions.TabIndex = 7;
             btnTransactions.Text = "Transactions";
             btnTransactions.UseVisualStyleBackColor = false;
+            btnTransactions.Click += btnTransaction_Click;
             // 
             // tableLayoutPanel5
             // 

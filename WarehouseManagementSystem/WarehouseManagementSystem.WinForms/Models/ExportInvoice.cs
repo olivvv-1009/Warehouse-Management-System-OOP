@@ -9,6 +9,8 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public string EmployeeName { get; set; }
 
+        public string Destination { get; set; }
+
         public decimal TotalAmount { get; set; }
 
         public DateTime ExportDate { get; set; }
@@ -25,6 +27,9 @@ namespace WarehouseManagementSystem.WinForms.Models
                 string.Empty;
 
             EmployeeName =
+                string.Empty;
+
+            Destination =
                 string.Empty;
 
             TotalAmount = 0;

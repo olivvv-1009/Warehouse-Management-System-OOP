@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using WarehouseManagementSystem.WinForms.Controllers;
 using WarehouseManagementSystem.WinForms.Models;
+using TxModel = WarehouseManagementSystem.WinForms.Models.Transaction;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
 {
@@ -24,7 +25,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
         }
 
         private void DashboardForm_Load(
-            object sender,
+            object? sender,
             EventArgs e
         )
         {
@@ -242,7 +243,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
             exportSeries["PointWidth"] =
                 "0.35";
 
-            List<Transaction>
+            List<TxModel>
                 transactions =
                     controller
                         .GetAllTransactions();
@@ -305,7 +306,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
                     j++
                 )
                 {
-                    Transaction transaction =
+                    TxModel transaction =
                         transactions[j];
 
                     if (
@@ -317,7 +318,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
                         if (
                             transaction.TransactionType
                             ==
-                            Transaction.Types.Import
+                            TxModel.Types.Import
                         )
                         {
                             importTotal +=
@@ -327,7 +328,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
                         if (
                             transaction.TransactionType
                             ==
-                            Transaction.Types.Export
+                            TxModel.Types.Export
                         )
                         {
                             exportTotal +=
@@ -562,7 +563,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Dashboard
                 "Date"
             );
 
-            List<Transaction>
+            List<TxModel>
                 transactions =
                     controller
                         .GetRecentTransactions();
