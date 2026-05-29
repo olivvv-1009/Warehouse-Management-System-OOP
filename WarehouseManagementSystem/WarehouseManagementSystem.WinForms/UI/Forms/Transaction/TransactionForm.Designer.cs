@@ -92,8 +92,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             lblAutoGen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
 
-            panelTitle.Resize += (s, e) =>
-                lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
+            panelTitle.Resize += (s, e) => { lblAutoGen.Location = new Point(panelTitle.Width - 340, 8); };
 
             // ════════════════════════════════════════════════════
             // Row 1 — Filter panel
