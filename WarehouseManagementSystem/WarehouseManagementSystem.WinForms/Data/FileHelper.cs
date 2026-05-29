@@ -162,26 +162,16 @@ namespace WarehouseManagementSystem.WinForms.Files
         // =====================================
 
         public static void WriteJsonFile(
-            string fileName,
-            string jsonContent)
+    string fileName,
+    string jsonContent)
         {
             string filePath =
                 GetFilePath(fileName);
 
-            try
-            {
-                EnsureDirectoriesExist();
-
-                File.WriteAllText(
-                    filePath,
-                    jsonContent);
-            }
-            catch (Exception ex)
-            {
-                throw new IOException(
-                    $"Error writing file: {fileName}",
-                    ex);
-            }
+            File.WriteAllText(
+                filePath,
+                jsonContent
+            );
         }
 
         // =====================================

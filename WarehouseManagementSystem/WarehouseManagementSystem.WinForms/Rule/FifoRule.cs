@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Rule
@@ -10,10 +9,7 @@ namespace WarehouseManagementSystem.WinForms.Rule
         public bool Apply(
             IEnumerable<Batch> batches,
             int requiredQuantity,
-            out List<
-                (string BatchId,
-                int QuantityToDeduct)
-            > deductions)
+            out List<FifoDeduction> deductions)
         {
             if (batches == null)
             {
@@ -23,34 +19,74 @@ namespace WarehouseManagementSystem.WinForms.Rule
             }
 
             deductions =
-                new List<
-                    (string, int)
-                >();
+                new List<FifoDeduction>();
 
             if (requiredQuantity <= 0)
             {
                 return false;
             }
 
-            List<Batch>
-                orderedBatches =
-                    batches
-                    .Where(
-                        x =>
-                        x.AvailableQuantity > 0
-                    )
-                    .OrderBy(
-                        x =>
-                        x.ImportDate
-                    )
-                    .ToList();
+            List<Batch> orderedBatches =
+                new List<Batch>();
 
-            int totalQuantity =
-                orderedBatches
-                .Sum(
-                    x =>
-                    x.AvailableQuantity
-                );
+            foreach (
+                Batch batch
+                in batches
+            )
+            {
+                if (
+                    batch.AvailableQuantity > 0
+                )
+                {
+                    orderedBatches.Add(
+                        batch
+                    );
+                }
+            }
+
+            // Sắp xếp theo CreatedDate tăng dần
+            for (
+                int i = 0;
+                i < orderedBatches.Count - 1;
+                i++
+            )
+            {
+                for (
+                    int j = i + 1;
+                    j < orderedBatches.Count;
+                    j++
+                )
+                {
+                    if (
+                        orderedBatches[i]
+                            .CreatedDate
+                        >
+                        orderedBatches[j]
+                            .CreatedDate
+                    )
+                    {
+                        Batch temp =
+                            orderedBatches[i];
+
+                        orderedBatches[i] =
+                            orderedBatches[j];
+
+                        orderedBatches[j] =
+                            temp;
+                    }
+                }
+            }
+
+            int totalQuantity = 0;
+
+            foreach (
+                Batch batch
+                in orderedBatches
+            )
+            {
+                totalQuantity +=
+                    batch.AvailableQuantity;
+            }
 
             if (
                 totalQuantity
@@ -80,11 +116,17 @@ namespace WarehouseManagementSystem.WinForms.Rule
                         remaining
                     );
 
+                FifoDeduction deduction =
+                    new FifoDeduction();
+
+                deduction.BatchId =
+                    batch.BatchId;
+
+                deduction.QuantityToDeduct =
+                    takeQuantity;
+
                 deductions.Add(
-                    (
-                        batch.BatchId,
-                        takeQuantity
-                    )
+                    deduction
                 );
 
                 remaining -=
@@ -94,10 +136,8 @@ namespace WarehouseManagementSystem.WinForms.Rule
             return true;
         }
 
-        public int
-        GetAvailableQuantity(
-            IEnumerable<Batch>
-            batches)
+        public int GetAvailableQuantity(
+            IEnumerable<Batch> batches)
         {
             if (
                 batches == null
@@ -106,15 +146,23 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 return 0;
             }
 
-            return batches
-                .Where(
-                    x =>
-                    x.Quantity > 0
+            int total = 0;
+
+            foreach (
+                Batch batch
+                in batches
+            )
+            {
+                if (
+                    batch.Quantity > 0
                 )
-                .Sum(
-                    x =>
-                    x.AvailableQuantity
-                );
+                {
+                    total +=
+                        batch.AvailableQuantity;
+                }
+            }
+
+            return total;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
 
         private void InitializeComponent()
         {
-            // ── Khởi tạo controls ─────────────────────────────────
             tableMain = new TableLayoutPanel();
             panelTitle = new Panel();
             lblTitle = new Label();
@@ -35,73 +34,84 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             dtpEnd = new DateTimePicker();
             panelCards = new Panel();
             cardTotalTx = new Panel();
+            cardImport = new Panel();
+            cardExport = new Panel();
+            dgvTransactions = new DataGridView();
             lblTotalTxLabel = new Label();
             lblTotalTx = new Label();
-            cardImport = new Panel();
             lblImportLabel = new Label();
             lblTotalImport = new Label();
-            cardExport = new Panel();
             lblExportLabel = new Label();
             lblTotalExport = new Label();
-            dgvTransactions = new DataGridView();
-
-            SuspendLayout();
             tableMain.SuspendLayout();
-
-            // ════════════════════════════════════════════════════
-            // TableLayoutPanel chính — 4 hàng cố định + 1 fill
-            // ════════════════════════════════════════════════════
-            tableMain.Dock = DockStyle.Fill;
+            panelTitle.SuspendLayout();
+            panelFilter.SuspendLayout();
+            panelCards.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
+            SuspendLayout();
+            // 
+            // tableMain
+            // 
             tableMain.BackColor = Color.FromArgb(245, 246, 250);
-            tableMain.Padding = new Padding(20, 16, 20, 12);
             tableMain.ColumnCount = 1;
-            tableMain.RowCount = 4;
             tableMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));   // Row 0: Title
-            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));   // Row 1: Filter
-            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 108F));  // Row 2: Cards
-            tableMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));   // Row 3: Grid (fill)
             tableMain.Controls.Add(panelTitle, 0, 0);
             tableMain.Controls.Add(panelFilter, 0, 1);
             tableMain.Controls.Add(panelCards, 0, 2);
             tableMain.Controls.Add(dgvTransactions, 0, 3);
-
-            // ════════════════════════════════════════════════════
-            // Row 0 — Title panel
-            // ════════════════════════════════════════════════════
-            panelTitle.Dock = DockStyle.Fill;
+            tableMain.Dock = DockStyle.Fill;
+            tableMain.Location = new Point(0, 0);
+            tableMain.Name = "tableMain";
+            tableMain.Padding = new Padding(20, 16, 20, 12);
+            tableMain.RowCount = 4;
+            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
+            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));
+            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 108F));
+            tableMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableMain.Size = new Size(1036, 554);
+            tableMain.TabIndex = 0;
+            // 
+            // panelTitle
+            // 
             panelTitle.BackColor = Color.Transparent;
-            panelTitle.Margin = new Padding(0, 0, 0, 8);
             panelTitle.Controls.Add(lblTitle);
             panelTitle.Controls.Add(lblAutoGen);
-
-            lblTitle.Text = "Transactions";
+            panelTitle.Dock = DockStyle.Fill;
+            panelTitle.Location = new Point(20, 16);
+            panelTitle.Margin = new Padding(0, 0, 0, 8);
+            panelTitle.Name = "panelTitle";
+            panelTitle.Size = new Size(996, 44);
+            panelTitle.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(20, 20, 20);
-            lblTitle.AutoSize = true;
             lblTitle.Location = new Point(0, 6);
-
-            lblAutoGen.Text = "Auto-Generated:  No manual entry allowed";
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(193, 41);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Transactions";
+            // 
+            // lblAutoGen
+            // 
+            lblAutoGen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblAutoGen.BackColor = Color.FromArgb(239, 246, 255);
+            lblAutoGen.BorderStyle = BorderStyle.FixedSingle;
             lblAutoGen.Font = new Font("Segoe UI", 9F);
             lblAutoGen.ForeColor = Color.FromArgb(37, 99, 235);
-            lblAutoGen.BackColor = Color.FromArgb(239, 246, 255);
-            lblAutoGen.AutoSize = false;
+            lblAutoGen.Location = new Point(1296, 8);
+            lblAutoGen.Name = "lblAutoGen";
             lblAutoGen.Size = new Size(340, 30);
+            lblAutoGen.TabIndex = 1;
+            lblAutoGen.Text = "Auto-Generated:  No manual entry allowed";
             lblAutoGen.TextAlign = ContentAlignment.MiddleCenter;
-            lblAutoGen.BorderStyle = BorderStyle.FixedSingle;
-            lblAutoGen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
-
-            panelTitle.Resize += (s, e) =>
-                lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
-
-            // ════════════════════════════════════════════════════
-            // Row 1 — Filter panel
-            // ════════════════════════════════════════════════════
-            panelFilter.Dock = DockStyle.Fill;
+            // 
+            // panelFilter
+            // 
             panelFilter.BackColor = Color.White;
             panelFilter.BorderStyle = BorderStyle.FixedSingle;
-            panelFilter.Margin = new Padding(0, 0, 0, 8);
             panelFilter.Controls.Add(lblTypeHeader);
             panelFilter.Controls.Add(cmbType);
             panelFilter.Controls.Add(lblProductHeader);
@@ -112,145 +122,212 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             panelFilter.Controls.Add(lblEndHeader);
             panelFilter.Controls.Add(chkEnd);
             panelFilter.Controls.Add(dtpEnd);
-
-            lblTypeHeader.Text = "Transaction Type";
+            panelFilter.Dock = DockStyle.Fill;
+            panelFilter.Location = new Point(20, 68);
+            panelFilter.Margin = new Padding(0, 0, 0, 8);
+            panelFilter.Name = "panelFilter";
+            panelFilter.Size = new Size(996, 80);
+            panelFilter.TabIndex = 1;
+            // 
+            // lblTypeHeader
+            // 
+            lblTypeHeader.AutoSize = true;
             lblTypeHeader.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
             lblTypeHeader.ForeColor = Color.FromArgb(80, 80, 80);
-            lblTypeHeader.AutoSize = true;
             lblTypeHeader.Location = new Point(16, 12);
-
-            cmbType.Location = new Point(16, 34);
-            cmbType.Size = new Size(160, 28);
+            lblTypeHeader.Name = "lblTypeHeader";
+            lblTypeHeader.Size = new Size(127, 20);
+            lblTypeHeader.TabIndex = 0;
+            lblTypeHeader.Text = "Transaction Type";
+            // 
+            // cmbType
+            // 
             cmbType.Font = new Font("Segoe UI", 9.5F);
-
-            lblProductHeader.Text = "Product";
+            cmbType.Location = new Point(16, 34);
+            cmbType.Name = "cmbType";
+            cmbType.Size = new Size(160, 29);
+            cmbType.TabIndex = 1;
+            // 
+            // lblProductHeader
+            // 
+            lblProductHeader.AutoSize = true;
             lblProductHeader.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
             lblProductHeader.ForeColor = Color.FromArgb(80, 80, 80);
-            lblProductHeader.AutoSize = true;
             lblProductHeader.Location = new Point(196, 12);
-
-            cmbProduct.Location = new Point(196, 34);
-            cmbProduct.Size = new Size(220, 28);
+            lblProductHeader.Name = "lblProductHeader";
+            lblProductHeader.Size = new Size(64, 20);
+            lblProductHeader.TabIndex = 2;
+            lblProductHeader.Text = "Product";
+            // 
+            // cmbProduct
+            // 
             cmbProduct.Font = new Font("Segoe UI", 9.5F);
-
-            lblStartHeader.Text = "Start Date";
+            cmbProduct.Location = new Point(196, 34);
+            cmbProduct.Name = "cmbProduct";
+            cmbProduct.Size = new Size(220, 29);
+            cmbProduct.TabIndex = 3;
+            // 
+            // lblStartHeader
+            // 
+            lblStartHeader.AutoSize = true;
             lblStartHeader.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
             lblStartHeader.ForeColor = Color.FromArgb(80, 80, 80);
-            lblStartHeader.AutoSize = true;
             lblStartHeader.Location = new Point(440, 12);
-
+            lblStartHeader.Name = "lblStartHeader";
+            lblStartHeader.Size = new Size(80, 20);
+            lblStartHeader.TabIndex = 4;
+            lblStartHeader.Text = "Start Date";
+            // 
+            // chkStart
+            // 
             chkStart.Location = new Point(440, 36);
+            chkStart.Name = "chkStart";
             chkStart.Size = new Size(16, 16);
-            chkStart.Checked = false;
-            chkStart.CheckedChanged += (s, e) => { dtpStart.Enabled = chkStart.Checked; ApplyFilter(); };
-
-            dtpStart.Location = new Point(462, 32);
-            dtpStart.Size = new Size(160, 28);
+            chkStart.TabIndex = 5;
+            // 
+            // dtpStart
+            // 
+            dtpStart.Enabled = false;
             dtpStart.Font = new Font("Segoe UI", 9.5F);
             dtpStart.Format = DateTimePickerFormat.Short;
-            dtpStart.Enabled = false;
-
-            lblEndHeader.Text = "End Date";
+            dtpStart.Location = new Point(462, 32);
+            dtpStart.Name = "dtpStart";
+            dtpStart.Size = new Size(160, 29);
+            dtpStart.TabIndex = 6;
+            // 
+            // lblEndHeader
+            // 
+            lblEndHeader.AutoSize = true;
             lblEndHeader.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
             lblEndHeader.ForeColor = Color.FromArgb(80, 80, 80);
-            lblEndHeader.AutoSize = true;
             lblEndHeader.Location = new Point(642, 12);
-
+            lblEndHeader.Name = "lblEndHeader";
+            lblEndHeader.Size = new Size(72, 20);
+            lblEndHeader.TabIndex = 7;
+            lblEndHeader.Text = "End Date";
+            // 
+            // chkEnd
+            // 
             chkEnd.Location = new Point(642, 36);
+            chkEnd.Name = "chkEnd";
             chkEnd.Size = new Size(16, 16);
-            chkEnd.Checked = false;
-            chkEnd.CheckedChanged += (s, e) => { dtpEnd.Enabled = chkEnd.Checked; ApplyFilter(); };
-
-            dtpEnd.Location = new Point(664, 32);
-            dtpEnd.Size = new Size(160, 28);
+            chkEnd.TabIndex = 8;
+            // 
+            // dtpEnd
+            // 
+            dtpEnd.Enabled = false;
             dtpEnd.Font = new Font("Segoe UI", 9.5F);
             dtpEnd.Format = DateTimePickerFormat.Short;
-            dtpEnd.Enabled = false;
-
-            // ════════════════════════════════════════════════════
-            // Row 2 — Cards panel (3 card ngang nhau)
-            // ════════════════════════════════════════════════════
-            panelCards.Dock = DockStyle.Fill;
+            dtpEnd.Location = new Point(664, 32);
+            dtpEnd.Name = "dtpEnd";
+            dtpEnd.Size = new Size(160, 29);
+            dtpEnd.TabIndex = 9;
+            // 
+            // panelCards
+            // 
             panelCards.BackColor = Color.Transparent;
-            panelCards.Margin = new Padding(0, 0, 0, 8);
             panelCards.Controls.Add(cardTotalTx);
             panelCards.Controls.Add(cardImport);
             panelCards.Controls.Add(cardExport);
-
-            BuildCard(cardTotalTx, lblTotalTxLabel, "TOTAL TRANSACTIONS",
-                      lblTotalTx, "0", Color.FromArgb(100, 116, 139));
-            BuildCard(cardImport, lblImportLabel, "TOTAL IMPORTED",
-                      lblTotalImport, "0", Color.FromArgb(21, 128, 61));
-            BuildCard(cardExport, lblExportLabel, "TOTAL EXPORTED",
-                      lblTotalExport, "0", Color.FromArgb(185, 28, 28));
-
-            // Căn 3 card đều nhau khi resize
-            panelCards.Resize += (s, e) => LayoutCards();
-            panelCards.VisibleChanged += (s, e) => LayoutCards();
-
-            // ════════════════════════════════════════════════════
-            // Row 3 — DataGridView (fill)
-            // ════════════════════════════════════════════════════
-            dgvTransactions.Dock = DockStyle.Fill;
+            panelCards.Dock = DockStyle.Fill;
+            panelCards.Location = new Point(20, 156);
+            panelCards.Margin = new Padding(0, 0, 0, 8);
+            panelCards.Name = "panelCards";
+            panelCards.Size = new Size(996, 100);
+            panelCards.TabIndex = 2;
+            // 
+            // cardTotalTx
+            // 
+            cardTotalTx.Location = new Point(0, 0);
+            cardTotalTx.Name = "cardTotalTx";
+            cardTotalTx.Size = new Size(200, 100);
+            cardTotalTx.TabIndex = 0;
+            // 
+            // cardImport
+            // 
+            cardImport.Location = new Point(0, 0);
+            cardImport.Name = "cardImport";
+            cardImport.Size = new Size(200, 100);
+            cardImport.TabIndex = 1;
+            // 
+            // cardExport
+            // 
+            cardExport.Location = new Point(0, 0);
+            cardExport.Name = "cardExport";
+            cardExport.Size = new Size(200, 100);
+            cardExport.TabIndex = 2;
+            // 
+            // dgvTransactions
+            // 
             dgvTransactions.BackgroundColor = Color.White;
+            dgvTransactions.ColumnHeadersHeight = 29;
+            dgvTransactions.Dock = DockStyle.Fill;
+            dgvTransactions.Location = new Point(20, 264);
             dgvTransactions.Margin = new Padding(0);
-
-            // ════════════════════════════════════════════════════
-            // UserControl
-            // ════════════════════════════════════════════════════
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            dgvTransactions.Name = "dgvTransactions";
+            dgvTransactions.RowHeadersWidth = 51;
+            dgvTransactions.Size = new Size(996, 278);
+            dgvTransactions.TabIndex = 3;
+            // 
+            // lblTotalTxLabel
+            // 
+            lblTotalTxLabel.Location = new Point(0, 0);
+            lblTotalTxLabel.Name = "lblTotalTxLabel";
+            lblTotalTxLabel.Size = new Size(100, 23);
+            lblTotalTxLabel.TabIndex = 0;
+            // 
+            // lblTotalTx
+            // 
+            lblTotalTx.Location = new Point(0, 0);
+            lblTotalTx.Name = "lblTotalTx";
+            lblTotalTx.Size = new Size(100, 23);
+            lblTotalTx.TabIndex = 0;
+            // 
+            // lblImportLabel
+            // 
+            lblImportLabel.Location = new Point(0, 0);
+            lblImportLabel.Name = "lblImportLabel";
+            lblImportLabel.Size = new Size(100, 23);
+            lblImportLabel.TabIndex = 0;
+            // 
+            // lblTotalImport
+            // 
+            lblTotalImport.Location = new Point(0, 0);
+            lblTotalImport.Name = "lblTotalImport";
+            lblTotalImport.Size = new Size(100, 23);
+            lblTotalImport.TabIndex = 0;
+            // 
+            // lblExportLabel
+            // 
+            lblExportLabel.Location = new Point(0, 0);
+            lblExportLabel.Name = "lblExportLabel";
+            lblExportLabel.Size = new Size(100, 23);
+            lblExportLabel.TabIndex = 0;
+            // 
+            // lblTotalExport
+            // 
+            lblTotalExport.Location = new Point(0, 0);
+            lblTotalExport.Name = "lblTotalExport";
+            lblTotalExport.Size = new Size(100, 23);
+            lblTotalExport.TabIndex = 0;
+            // 
+            // TransactionForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableMain);
             Name = "TransactionForm";
-            Dock = DockStyle.Fill;
-
+            Size = new Size(1036, 554);
             tableMain.ResumeLayout(false);
+            panelTitle.ResumeLayout(false);
+            panelTitle.PerformLayout();
+            panelFilter.ResumeLayout(false);
+            panelFilter.PerformLayout();
+            panelCards.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvTransactions).EndInit();
             ResumeLayout(false);
         }
 
-        private void BuildCard(Panel card, Label lblLabel, string labelText,
-                               Label lblValue, string defaultVal, Color valueColor)
-        {
-            card.BackColor = Color.White;
-            card.BorderStyle = BorderStyle.FixedSingle;
-
-            lblLabel.Text = labelText;
-            lblLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
-            lblLabel.ForeColor = Color.FromArgb(120, 120, 120);
-            lblLabel.AutoSize = false;
-            lblLabel.Location = new Point(16, 14);
-            lblLabel.Size = new Size(card.Width - 32, 20);
-            lblLabel.TextAlign = ContentAlignment.MiddleLeft;
-
-            lblValue.Text = defaultVal;
-            lblValue.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            lblValue.ForeColor = valueColor;
-            lblValue.AutoSize = false;
-            lblValue.Location = new Point(16, 38);
-            lblValue.Size = new Size(card.Width - 32, 44);
-            lblValue.TextAlign = ContentAlignment.MiddleLeft;
-
-            card.Controls.Add(lblLabel);
-            card.Controls.Add(lblValue);
-        }
-
-        private void LayoutCards()
-        {
-            int w = panelCards.ClientSize.Width;
-            int h = panelCards.ClientSize.Height;
-            int gap = 12;
-            int cardW = (w - gap * 2) / 3;
-            if (cardW < 80) return;
-
-            cardTotalTx.SetBounds(0, 0, cardW, h);
-            cardImport.SetBounds(cardW + gap, 0, cardW, h);
-            cardExport.SetBounds((cardW + gap) * 2, 0, cardW, h);
-
-            // cập nhật width của labels bên trong
-            foreach (var card in new[] { cardTotalTx, cardImport, cardExport })
-                foreach (Control c in card.Controls)
-                    c.Width = cardW - 32;
-        }
 
         // ── Fields ────────────────────────────────────────────────
         private TableLayoutPanel tableMain = null!;

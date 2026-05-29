@@ -179,8 +179,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             );
 
             dgvBatch.Columns.Add(
-                "colQuantity",
-                "Quantity"
+    "colQuantity",
+    "Quantity"
+);
+
+            dgvBatch.Columns.Add(
+                "colRemainingQuantity",
+                "Remaining Qty"
             );
 
             dgvBatch.Columns.Add(
@@ -319,20 +324,20 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
                 }
 
                 dgvBatch.Rows.Add(
-                    batch.BatchId,
-                    supplierName,
-                    batch.AvailableQuantity,
-                    batch.ImportDate
-                        .ToString(
-                            "yyyy-MM-dd"
-                        ),
-                    batch.ImportPrice,
-                    zone,
-                    rack,
-                    shelf,
-                    batch.Status,
-                    "View"
-                );
+    batch.BatchId,
+    supplierName,
+    batch.Quantity,
+    batch.RemainingQuantity,
+    batch.CreatedDate.ToString(
+        "yyyy-MM-dd"
+    ),
+    batch.ImportPrice,
+    zone,
+    rack,
+    shelf,
+    batch.Status,
+    "View"
+);
             }
         }
 

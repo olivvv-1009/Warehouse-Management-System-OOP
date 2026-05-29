@@ -25,6 +25,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.inventory
             LoadInventory();
         }
 
+        public void ReloadData()
+        {
+            LoadInventory();
+        }
+
         private void SetupUI()
         {
             BackColor =

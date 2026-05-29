@@ -141,9 +141,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                     ? "Completed" : invoice.Status;
 
                 int rowIdx = dgvExportOrders.Rows.Add(
-                    invoice.ExportId,
+                    invoice.InvoiceId,
                     invoice.Destination,
-                    invoice.ExportDate.ToString("yyyy-MM-dd"),
+                    invoice.CreatedDate.ToString("yyyy-MM-dd"),
                     invoice.OrderDetails.Count,
                     status,
                     invoice.EmployeeName
@@ -187,13 +187,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             if (e.RowIndex < 0) return;
 
             string colName = dgvExportOrders.Columns[e.ColumnIndex].Name;
-            string exportId = dgvExportOrders.Rows[e.RowIndex]
+            string InvoiceId = dgvExportOrders.Rows[e.RowIndex]
                 .Cells["InvoiceId"].Value?.ToString() ?? "";
 
             if (colName == "ActionView")
             {
                 ExportInvoice? invoice = _exportRepository.GetAll()
-                    .Find(x => x.ExportId == exportId);
+                    .Find(x => x.InvoiceId == InvoiceId);
                 if (invoice != null)
                 {
                     ExportOrderDetails form = new ExportOrderDetails(invoice);
@@ -207,14 +207,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                 if (status != "Draft") return;
 
                 var confirm = MessageBox.Show(
-                    $"Complete invoice {exportId}? Stock will be deducted.",
+                    $"Complete invoice {InvoiceId}? Stock will be deducted.",
                     "Confirm Complete",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (confirm != DialogResult.Yes) return;
 
-                bool ok = _exportService.CompleteDraft(exportId);
+                bool ok = _exportService.CompleteDraft(InvoiceId);
                 if (ok)
                 {
                     MessageBox.Show("Invoice completed successfully!",

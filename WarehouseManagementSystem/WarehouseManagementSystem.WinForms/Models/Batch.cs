@@ -19,10 +19,16 @@ namespace WarehouseManagementSystem.WinForms.Models
         public int RemainingQuantity { get; set; }
 
         // Số lượng khả dụng để xuất = Quantity - ExportedQuantity
-        public int AvailableQuantity => Quantity - ExportedQuantity;
+        public int AvailableQuantity
+        {
+            get
+            {
+                return RemainingQuantity;
+            }
+        }
 
         public decimal ImportPrice { get; set; }
-        public DateTime ImportDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
 
         public Batch()
@@ -34,7 +40,7 @@ namespace WarehouseManagementSystem.WinForms.Models
             ExportedQuantity = 0;
             RemainingQuantity = 0;
             ImportPrice = 0;
-            ImportDate = DateTime.Now;
+            CreatedDate = DateTime.Now;
             Status = "Stored";
         }
     }

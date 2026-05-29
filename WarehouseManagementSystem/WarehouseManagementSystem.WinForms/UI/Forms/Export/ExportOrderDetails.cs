@@ -27,10 +27,10 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
 
         private void LoadData()
         {
-            lblTitle.Text = $"Export Order Details - {_invoice.ExportId}";
+            lblTitle.Text = $"Export Order Details - {_invoice.InvoiceId}";
             lblDestination.Text = string.IsNullOrWhiteSpace(_invoice.Destination)
                 ? "—" : _invoice.Destination;
-            lblDate.Text = _invoice.ExportDate.ToString("yyyy-MM-dd");
+            lblDate.Text = _invoice.CreatedDate.ToString("yyyy-MM-dd");
             lblStatus.Text = "Completed";
             lblStatus.ForeColor = Color.SeaGreen;
             lblCreatedBy.Text = _invoice.EmployeeName;
@@ -79,7 +79,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                 if (product != null) productName = product.Name;
 
                 List<Batch> batches = _batchRepo.GetByProductId(detail.ProductId);
-                batches.Sort((a, b) => a.ImportDate.CompareTo(b.ImportDate));
+                batches.Sort((a, b) => a.CreatedDate.CompareTo(b.CreatedDate));
 
                 List<(Batch batch, int qty)> allocations =
                     AllocateFifo(batches, detail.Quantity);
@@ -182,7 +182,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                 lblBatchId.TextAlign = ContentAlignment.MiddleLeft;
 
                 // "X units from yyyy-MM-dd" bên phải
-                string importStr = batch.ImportDate.ToString("yyyy-MM-dd");
+                string importStr = batch.CreatedDate.ToString("yyyy-MM-dd");
                 Label lblBatchInfo = new Label();
                 lblBatchInfo.Text = $"{qty} units from {importStr}";
                 lblBatchInfo.Font = new Font("Segoe UI", 9.5F);

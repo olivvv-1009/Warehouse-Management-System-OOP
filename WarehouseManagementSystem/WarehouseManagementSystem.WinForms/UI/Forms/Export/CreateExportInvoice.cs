@@ -151,13 +151,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             {
                 var first = deductions[0];
                 var batch = batches.FirstOrDefault(b => b.BatchId == first.BatchId);
-                string date = batch?.ImportDate.ToString("yyyy-MM-dd") ?? "";
+                string date = batch?.CreatedDate.ToString("yyyy-MM-dd") ?? "";
                 string fifo = deductions.Count == 1
                     ? $"{first.BatchId}: {first.QuantityToDeduct} units ({date})"
                     : string.Join(", ", deductions.Select(d =>
                     {
                         var b = batches.FirstOrDefault(x => x.BatchId == d.BatchId);
-                        return $"{d.BatchId}: {d.QuantityToDeduct}u ({b?.ImportDate:yyyy-MM-dd})";
+                        return $"{d.BatchId}: {d.QuantityToDeduct}u ({b?.CreatedDate:yyyy-MM-dd})";
                     }));
 
                 row.Cells["colFifo"].Value = fifo;

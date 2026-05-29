@@ -196,6 +196,17 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 "TotalValue",
                 "Total Value"
             );
+            dgvProducts.Columns.Add(
+                 "BatchId",
+                 "BatchId"
+            );
+
+            dgvProducts.Columns["BatchId"]
+                .Visible = false;
+
+            dgvProducts.Columns["ImportedQuantity"].ValueType = typeof(int);
+            dgvProducts.Columns["ReturnQuantity"].ValueType = typeof(int);
+            dgvProducts.Columns["TotalValue"].ValueType = typeof(decimal);
 
             dgvProducts.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode
@@ -255,7 +266,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             {
                 cboImportInvoice.Items.Add(
                     invoices[i]
-                        .ImportId
+                        .InvoiceId
                 );
             }
         }
@@ -304,12 +315,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                         );
 
                 dgvProducts.Rows.Add(
-                    detail.ProductId,
-                    productName,
-                    detail.Quantity,
-                    0,
-                    0
-                );
+    detail.ProductId,
+    productName,
+    detail.Quantity,
+    0,
+    0m,
+    detail.BatchId
+);
             }
         }
 
@@ -363,19 +375,21 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             decimal importPrice =
                 0;
 
-            List<Batch> batches =
+            string batchId =
+    row.Cells["BatchId"]
+        .Value
+        .ToString();
+
+            Batch batch =
                 _batchRepository
-                    .GetByProductId(
-                        productId
+                    .FindById(
+                        batchId
                     );
 
-            if (
-                batches.Count > 0
-            )
+            if (batch != null)
             {
                 importPrice =
-                    batches[0]
-                        .ImportPrice;
+                    batch.ImportPrice;
             }
 
             decimal totalValue =
@@ -444,7 +458,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             {
                 ids.Add(
                     orders[i]
-                        .ReturnOrderId
+                        .InvoiceId
                 );
             }
 
@@ -458,19 +472,19 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             ReturnOrder returnOrder =
                 new ReturnOrder();
 
-            returnOrder.ReturnOrderId =
+            returnOrder.InvoiceId =
                 IdGenerator
                     .GenerateReturnId(
                         nextNumber
                     );
 
             returnOrder.ImportInvoiceId =
-                invoice.ImportId;
+                invoice.InvoiceId;
 
             returnOrder.SupplierId =
                 invoice.SupplierId;
 
-            returnOrder.ReturnDate =
+            returnOrder.CreatedDate =
                 dtpReturnDate.Value;
 
             returnOrder.Status =
@@ -498,25 +512,31 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     continue;
                 }
 
-                int quantityToReturn = 0;
+                object value =
+    dgvProducts.Rows[i]
+        .Cells[3]
+        .Value;
 
-                bool isValid =
-                    int.TryParse(
-                        dgvProducts
-                            .Rows[i]
-                            .Cells[3]
-                            .Value
-                            .ToString(),
-                        out quantityToReturn
-                    );
-
-                if (!isValid)
+                if (
+                    value == null ||
+                    string.IsNullOrWhiteSpace(
+                        value.ToString()
+                    )
+                )
                 {
-                    MessageBox.Show(
-                        "Invalid quantity."
-                    );
+                    continue;
+                }
 
-                    return;
+                int quantityToReturn;
+
+                if (
+                    !int.TryParse(
+                        value.ToString(),
+                        out quantityToReturn
+                    )
+                )
+                {
+                    continue;
                 }
 
                 if (
@@ -546,29 +566,27 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     return;
                 }
 
-                string productId =
-                    dgvProducts
-                        .Rows[i]
-                        .Cells[0]
-                        .Value
-                        .ToString();
+                string productId = dgvProducts.Rows[i].Cells[0].Value.ToString();
 
-                decimal importPrice =
-                    0;
+                string batchId =
+    dgvProducts.Rows[i]
+        .Cells["BatchId"]
+        .Value
+        .ToString();
 
-                List<Batch> batches =
+                Batch batch =
                     _batchRepository
-                        .GetByProductId(
-                            productId
+                        .FindById(
+                            batchId
                         );
 
-                if (
-                    batches.Count > 0
-                )
+                if (batch == null)
                 {
-                    importPrice =
-                        batches[0]
-                            .ImportPrice;
+                    MessageBox.Show(
+                        "Batch not found."
+                    );
+
+                    return;
                 }
 
                 ReturnOrderDetail
@@ -578,11 +596,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 detail.ProductId =
                     productId;
 
+                detail.BatchId =
+                    batch.BatchId;
+
                 detail.Quantity =
                     quantityToReturn;
 
                 detail.UnitPrice =
-                    importPrice;
+                    batch.ImportPrice;
 
                 detail.ReturnReason =
                     txtReason.Text;
@@ -648,7 +669,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
             dtpReturnDate.Value =
                 _returnOrder
-                    .ReturnDate;
+                    .CreatedDate;
 
             txtReason.Text =
                 "";
@@ -680,12 +701,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                         );
 
                 dgvProducts.Rows.Add(
-                    detail.ProductId,
-                    productName,
-                    detail.Quantity,
-                    detail.Quantity,
-                    detail.TotalPrice
-                );
+    detail.ProductId,
+    productName,
+    detail.Quantity,
+    detail.Quantity,
+    detail.TotalPrice,
+    detail.BatchId
+);
 
                 if (
                     txtReason.Text

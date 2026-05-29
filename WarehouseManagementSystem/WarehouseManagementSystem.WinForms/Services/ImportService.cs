@@ -187,7 +187,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 batch.ImportPrice =
                     item.UnitPrice;
 
-                batch.ImportDate =
+                batch.CreatedDate =
                     DateTime.Now;
 
                 batch.Status =
@@ -232,7 +232,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             {
                 ids.Add(
                     invoices[k]
-                        .ImportId
+                        .InvoiceId
                 );
             }
 
@@ -246,7 +246,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             ImportInvoice invoice =
                 new ImportInvoice();
 
-            invoice.ImportId =
+            invoice.InvoiceId =
                 IdGenerator
                     .GenerateImportId(
                         nextNumber
@@ -258,7 +258,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             invoice.EmployeeName =
                 employeeName;
 
-            invoice.ImportDate =
+            invoice.CreatedDate =
                 DateTime.Now;
 
             invoice.OrderDetails =
@@ -294,7 +294,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 CreateTransaction(
                     items[t].ProductId,
                     items[t].Quantity,
-                    invoice.ImportId,
+                    invoice.InvoiceId,
                     employeeName
                 );
             }
@@ -305,7 +305,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         private void CreateTransaction(
             string productId,
             int quantity,
-            string importId,
+            string InvoiceId,
             string employeeName)
         {
             List<Transaction> transactions =
@@ -354,7 +354,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                 Transaction.Types.Import;
 
             transaction.ReferenceId =
-                importId;
+                InvoiceId;
 
             transaction.Date =
                 DateTime.Now;
@@ -392,7 +392,7 @@ namespace WarehouseManagementSystem.WinForms.Services
             )
             {
                 if (
-                    invoices[i].ImportId
+                    invoices[i].InvoiceId
                     == importInvoiceId
                 )
                 {
