@@ -216,7 +216,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
             lblDate.Text =
                 _invoice
-                    .ImportDate
+                    .CreatedDate
                     .ToString(
                         "yyyy-MM-dd"
                     );

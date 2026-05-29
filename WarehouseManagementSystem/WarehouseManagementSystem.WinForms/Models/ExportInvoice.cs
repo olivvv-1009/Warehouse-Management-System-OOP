@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    public class ExportInvoice
+    public class ExportInvoice : Invoice
     {
-        public string ExportId { get; set; }
+        public string EmployeeName
+        {
+            get;
+            set;
+        }
 
-        public string EmployeeName { get; set; }
+        public string Destination
+        {
+            get;
+            set;
+        }
 
-        public string Destination { get; set; }
-
-        public decimal TotalAmount { get; set; }
-
-        public DateTime ExportDate { get; set; }
-
-        public string Status { get; set; }
-
-        public List<OrderDetail> OrderDetails
+        public List<OrderDetail>
+            OrderDetails
         {
             get;
             set;
@@ -25,13 +25,14 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public ExportInvoice()
         {
-            ExportId = string.Empty;
-            EmployeeName = string.Empty;
-            Destination = string.Empty;
-            TotalAmount = 0;
-            ExportDate = DateTime.Now;
-            Status = "Completed";
-            OrderDetails = new List<OrderDetail>();
+            EmployeeName =
+                string.Empty;
+
+            Destination =
+                string.Empty;
+
+            OrderDetails =
+                new List<OrderDetail>();
         }
     }
 }

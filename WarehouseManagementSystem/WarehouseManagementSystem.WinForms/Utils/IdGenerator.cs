@@ -13,13 +13,13 @@ namespace WarehouseManagementSystem.WinForms.Utils
             return $"PR{nextNumber:D4}";
         }
 
-        // Generate Batch ID: BA0001, BA0002, ...
-        public static string GenerateBatchId(int nextNumber)
+        // Generate Batch ID: BAT-PR0001-01, BAT-PR0001-02, ...
+        public static string GenerateBatchId(string productId, int batchNumber)
         {
-            return $"BA{nextNumber:D4}";
+            return $"BAT-{productId}-{batchNumber:D2}";
         }
 
-        // Generate Supplier ID: S001, S002, ...
+        // Generate Supplier ID: SP0001, SP0002, ...
         public static string GenerateSupplierId(int nextNumber)
         {
             return $"SP{nextNumber:D4}";

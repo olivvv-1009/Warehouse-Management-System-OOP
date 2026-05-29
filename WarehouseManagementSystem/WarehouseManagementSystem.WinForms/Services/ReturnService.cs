@@ -45,13 +45,12 @@ namespace WarehouseManagementSystem.WinForms.Services
                     .GetAll();
 
             List<string> ids =
-                new List<string>();
+    new List<string>();
 
-            foreach (ReturnOrder order
-                in orders)
+            foreach (ReturnOrder order in orders)
             {
                 ids.Add(
-                    order.ReturnOrderId
+                    order.InvoiceId
                 );
             }
 
@@ -62,7 +61,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                         "RT"
                     );
 
-            returnOrder.ReturnOrderId =
+            returnOrder.InvoiceId =
                 IdGenerator
                     .GenerateReturnId(
                         nextNumber
@@ -71,41 +70,24 @@ namespace WarehouseManagementSystem.WinForms.Services
             // ===== UPDATE BATCH =====
 
             List<Batch> batches =
-                _batchRepository
-                    .GetAll();
+                _batchRepository.GetAll();
 
-            foreach (
-                ReturnOrderDetail detail
-                in returnOrder.Details
-            )
+            foreach (ReturnOrderDetail detail in returnOrder.Details)
             {
-                foreach (Batch batch
-                    in batches)
+                foreach (Batch batch in batches)
                 {
-                    if (
-                        batch.BatchId
-                        == detail.BatchId
-                    )
+                    if (batch.BatchId == detail.BatchId)
                     {
-                        batch.RemainingQuantity -=
-                            detail.Quantity;
+                        batch.RemainingQuantity -= detail.Quantity;
 
-                        if (
-                            batch.RemainingQuantity
-                            < 0
-                        )
+                        if (batch.RemainingQuantity < 0)
                         {
-                            batch.RemainingQuantity =
-                                0;
+                            batch.RemainingQuantity = 0;
                         }
 
-                        if (
-                            batch.RemainingQuantity
-                            == 0
-                        )
+                        if (batch.RemainingQuantity == 0)
                         {
-                            batch.Status =
-                                "Out of Stock";
+                            batch.Status = "Out of Stock";
                         }
 
                         break;
@@ -113,10 +95,8 @@ namespace WarehouseManagementSystem.WinForms.Services
                 }
             }
 
-            _batchRepository
-                .Update(
-                    batches
-                );
+            _batchRepository.Update(batches);
+
 
             // ===== SAVE RETURN ORDER =====
 
@@ -136,7 +116,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                     transaction.ProductId = detail.ProductId;
                     transaction.Quantity = detail.Quantity;
                     transaction.TransactionType = Transaction.Types.Return;
-                    transaction.ReferenceId = returnOrder.ReturnOrderId;
+                    transaction.ReferenceId = returnOrder.InvoiceId;
                     _transactionRepository.Add(transaction);
                 }
             }
@@ -147,7 +127,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         // ================= ADD DETAIL =================
 
         public bool AddProductToReturnOrder(
-            string returnOrderId,
+            string InvoiceId,
             ReturnOrderDetail detail)
         {
             if (detail == null)
@@ -182,7 +162,7 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             return _repository
                 .AddDetail(
-                    returnOrderId,
+                    InvoiceId,
                     detail
                 );
         }
@@ -190,22 +170,22 @@ namespace WarehouseManagementSystem.WinForms.Services
         // ================= FIND =================
 
         public ReturnOrder FindById(
-            string returnOrderId)
+            string InvoiceId)
         {
             return _repository
                 .FindById(
-                    returnOrderId
+                    InvoiceId
                 );
         }
 
         // ================= DELETE =================
 
         public bool Delete(
-            string returnOrderId)
+            string InvoiceId)
         {
             return _repository
                 .Delete(
-                    returnOrderId
+                    InvoiceId
                 );
         }
 

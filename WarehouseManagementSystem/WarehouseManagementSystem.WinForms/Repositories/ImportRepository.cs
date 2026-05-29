@@ -76,5 +76,31 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
             return true;
         }
+
+        public ImportInvoice FindById(
+    string InvoiceId)
+        {
+            int i;
+
+            for (
+                i = 0;
+                i < _invoices.Count;
+                i++
+            )
+            {
+                if (
+                    _invoices[i]
+                        .InvoiceId
+                    == InvoiceId
+                )
+                {
+                    return _invoices[i];
+                }
+            }
+
+            return null;
+        }
     }
+
+
 }

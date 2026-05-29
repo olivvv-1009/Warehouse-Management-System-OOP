@@ -1,53 +1,53 @@
 ﻿[
-  {
-    "ReturnOrderId": "RT20260001",
-    "ImportInvoiceId": "IMP20260001",
-    "SupplierId": "SUP001",
-    "EmployeeId": "EMP0001",
-    "ReturnDate": "2026-05-15T10:00:00",
-    "Status": "Completed",
-    "Details": [
-      {
-        "ProductId": "PR0001",
-        "BatchId": "B001",
-        "Quantity": 3,
-        "UnitPrice": 50000000,
-        "ReturnReason": "Defective"
-      }
-    ]
-  },
-  {
-    "ReturnOrderId": "RT20260002",
-    "ImportInvoiceId": "IMP20260002",
-    "SupplierId": "SUP002",
-    "EmployeeId": "EMP0004",
-    "ReturnDate": "2026-05-20T14:00:00",
-    "Status": "Completed",
-    "Details": [
-      {
-        "ProductId": "PR0005",
-        "BatchId": "B005",
-        "Quantity": 2,
-        "UnitPrice": 30000000,
-        "ReturnReason": "Wrong item"
-      }
-    ]
-  },
-  {
-    "ReturnOrderId": "RT20260003",
-    "ImportInvoiceId": "IMP20260003",
-    "SupplierId": "SUP001",
-    "EmployeeId": "EMP0002",
-    "ReturnDate": "2026-05-25T09:30:00",
-    "Status": "Completed",
-    "Details": [
-      {
-        "ProductId": "PR0003",
-        "BatchId": "B003",
-        "Quantity": 5,
-        "UnitPrice": 1500000,
-        "ReturnReason": "Expired"
-      }
-    ]
-  }
+    {
+        "InvoiceId": "RT0001",
+        "ImportInvoiceId": "IMP0001",
+        "SupplierId": "SP0001",
+        "EmployeeId": "EMP0001",
+        "CreatedDate": "2026-05-15T10:00:00",
+        "Status": "Completed",
+        "Details": [
+            {
+                "ProductId": "PR0001",
+                "BatchId": "BA0001",
+                "Quantity": 3,
+                "UnitPrice": 50000000,
+                "ReturnReason": "Defective"
+            }
+        ]
+    },
+    {
+        "InvoiceId": "RT0002",
+        "ImportInvoiceId": "IMP0002",
+        "SupplierId": "SP0002",
+        "EmployeeId": "EMP0004",
+        "CreatedDate": "2026-05-20T14:00:00",
+        "Status": "Completed",
+        "Details": [
+            {
+                "ProductId": "PR0005",
+                "BatchId": "BA0005",
+                "Quantity": 2,
+                "UnitPrice": 30000000,
+                "ReturnReason": "Wrong item"
+            }
+        ]
+    },
+    {
+        "InvoiceId": "RT0003",
+        "ImportInvoiceId": "IMP0003",
+        "SupplierId": "SP0001",
+        "EmployeeId": "EMP0002",
+        "CreatedDate": "2026-05-25T09:30:00",
+        "Status": "Completed",
+        "Details": [
+            {
+                "ProductId": "PR0003",
+                "BatchId": "BA0003",
+                "Quantity": 5,
+                "UnitPrice": 1500000,
+                "ReturnReason": "Expired"
+            }
+        ]
+    }
 ]

@@ -19,14 +19,79 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
         public TransactionForm()
         {
             InitializeComponent();
+
             _transactionRepo = new TransactionRepository();
             _productService = new ProductService();
             _returnRepo = new ReturnRepository();
             _allTransactions = new List<Models.Transaction>();
 
+            // Setup UI trước
             SetupDataGridView();
             SetupFilters();
+
+            // Events
+            panelTitle.Resize += PanelTitle_Resize;
+            chkStart.CheckedChanged += ChkStart_CheckedChanged;
+            chkEnd.CheckedChanged += ChkEnd_CheckedChanged;
+            panelCards.Resize += PanelCards_Resize;
+            panelCards.VisibleChanged += PanelCards_VisibleChanged;
+
+            // Build cards
+            BuildCard(
+                cardTotalTx,
+                lblTotalTxLabel,
+                "TOTAL TRANSACTIONS",
+                lblTotalTx,
+                "0",
+                Color.FromArgb(100, 116, 139));
+
+            BuildCard(
+                cardImport,
+                lblImportLabel,
+                "TOTAL IMPORTED",
+                lblTotalImport,
+                "0",
+                Color.FromArgb(21, 128, 61));
+
+            BuildCard(
+                cardExport,
+                lblExportLabel,
+                "TOTAL EXPORTED",
+                lblTotalExport,
+                "0",
+                Color.FromArgb(185, 28, 28));
+
+            LayoutCards();
+
+            // Load data cuối cùng
             LoadData();
+        }
+
+        private void PanelTitle_Resize(object sender, EventArgs e)
+        {
+            lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
+        }
+
+        private void ChkStart_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpStart.Enabled = chkStart.Checked;
+            ApplyFilter();
+        }
+
+        private void ChkEnd_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpEnd.Enabled = chkEnd.Checked;
+            ApplyFilter();
+        }
+
+        private void PanelCards_Resize(object sender, EventArgs e)
+        {
+            LayoutCards();
+        }
+
+        private void PanelCards_VisibleChanged(object sender, EventArgs e)
+        {
+            LayoutCards();
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -34,6 +99,59 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             base.OnVisibleChanged(e);
             if (Visible)
                 LoadData();
+        }
+
+        private void BuildCard(
+    Panel card,
+    Label lblLabel,
+    string labelText,
+    Label lblValue,
+    string defaultVal,
+    Color valueColor)
+        {
+            card.BackColor = Color.White;
+            card.BorderStyle = BorderStyle.FixedSingle;
+
+            lblLabel.Text = labelText;
+            lblLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblLabel.ForeColor = Color.FromArgb(120, 120, 120);
+            lblLabel.AutoSize = false;
+            lblLabel.Location = new Point(16, 14);
+            lblLabel.Size = new Size(card.Width - 32, 20);
+            lblLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+            lblValue.Text = defaultVal;
+            lblValue.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblValue.ForeColor = valueColor;
+            lblValue.AutoSize = false;
+            lblValue.Location = new Point(16, 38);
+            lblValue.Size = new Size(card.Width - 32, 44);
+            lblValue.TextAlign = ContentAlignment.MiddleLeft;
+
+            card.Controls.Add(lblLabel);
+            card.Controls.Add(lblValue);
+        }
+
+        private void LayoutCards()
+        {
+            int w = panelCards.ClientSize.Width;
+            int h = panelCards.ClientSize.Height;
+            int gap = 12;
+            int cardW = (w - gap * 2) / 3;
+
+            if (cardW < 80) return;
+
+            cardTotalTx.SetBounds(0, 0, cardW, h);
+            cardImport.SetBounds(cardW + gap, 0, cardW, h);
+            cardExport.SetBounds((cardW + gap) * 2, 0, cardW, h);
+
+            foreach (var card in new[] { cardTotalTx, cardImport, cardExport })
+            {
+                foreach (Control c in card.Controls)
+                {
+                    c.Width = cardW - 32;
+                }
+            }
         }
 
         // ─── Setup DataGridView ───────────────────────────────────
@@ -300,7 +418,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                     List<ImportInvoice> invoices = importRepo.GetAll();
                     foreach (ImportInvoice inv in invoices)
                     {
-                        if (inv.ImportId == refId)
+                        if (inv.InvoiceId == refId)
                             return inv.EmployeeName;
                     }
                 }
@@ -310,7 +428,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                     List<ExportInvoice> invoices = exportRepo.GetAll();
                     foreach (ExportInvoice inv in invoices)
                     {
-                        if (inv.ExportId == refId)
+                        if (inv.InvoiceId == refId)
                             return inv.EmployeeName;
                     }
                 }
@@ -319,7 +437,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
                     List<ReturnOrder> returns = _returnRepo.GetAll();
                     foreach (ReturnOrder r in returns)
                     {
-                        if (r.ReturnOrderId == refId)
+                        if (r.InvoiceId == refId)
                         {
                             if (string.IsNullOrEmpty(r.EmployeeId))
                                 return "";

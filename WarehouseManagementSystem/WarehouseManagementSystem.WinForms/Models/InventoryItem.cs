@@ -16,7 +16,7 @@ namespace WarehouseManagementSystem.WinForms.Models
 
         public int MinStock { get; set; }
 
-        public DateTime ImportDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public DateTime LastUpdated { get; set; }
 
@@ -52,7 +52,7 @@ namespace WarehouseManagementSystem.WinForms.Models
 
             MinStock = 0;
 
-            ImportDate = DateTime.Now;
+            CreatedDate = DateTime.Now;
 
             LastUpdated = DateTime.Now;
         }

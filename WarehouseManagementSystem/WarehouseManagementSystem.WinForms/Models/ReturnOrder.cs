@@ -3,59 +3,43 @@ using System.Collections.Generic;
 
 namespace WarehouseManagementSystem.WinForms.Models
 {
-    public class ReturnOrder
+    public class ReturnOrder : Invoice
     {
-        // Mã phiếu trả
-        public string ReturnOrderId { get; set; }
-
-        // Đơn nhập gốc
-        public string ImportInvoiceId { get; set; }
-
-        // Nhà cung cấp
-        public string SupplierId { get; set; }
-
-        // Nhân viên tạo phiếu
-        public string EmployeeId { get; set; }
-
-        // Ngày trả hàng
-        public DateTime ReturnDate { get; set; }
-
-        // Trạng thái phiếu
-        public string Status { get; set; }
-
-        // Danh sách sản phẩm trả
-        public List<ReturnOrderDetail> Details
-        { get; set; }
-
-        // Tổng tiền phiếu trả
-        public decimal TotalAmount
+        public string EmployeeId
         {
-            get
-            {
-                decimal total = 0;
+            get;
+            set;
+        }
 
-                foreach (var detail in Details)
-                {
-                    total += detail.TotalPrice;
-                }
+        public string ImportInvoiceId
+        {
+            get;
+            set;
+        }
 
-                return total;
-            }
+        public string SupplierId
+        {
+            get;
+            set;
+        }
+
+        public List<ReturnOrderDetail>
+            Details
+        {
+            get;
+            set;
         }
 
         public ReturnOrder()
         {
-            ReturnOrderId = string.Empty;
+            EmployeeId =
+                string.Empty;
 
-            ImportInvoiceId = string.Empty;
+            ImportInvoiceId =
+                string.Empty;
 
-            SupplierId = string.Empty;
-
-            EmployeeId = string.Empty;
-
-            Status = "Pending";
-
-            ReturnDate = DateTime.Now;
+            SupplierId =
+                string.Empty;
 
             Details =
                 new List<ReturnOrderDetail>();

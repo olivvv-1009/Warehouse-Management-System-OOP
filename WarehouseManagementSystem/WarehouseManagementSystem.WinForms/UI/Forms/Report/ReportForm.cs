@@ -484,7 +484,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Report
 
                 while (i < imports.Count)
                 {
-                    if (imports[i].ImportDate.Date
+                    if (imports[i].CreatedDate.Date
                         == currentDate.Date)
                     {
                         int j = 0;
@@ -525,7 +525,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Report
 
                 while (i < exports.Count)
                 {
-                    if (exports[i].ExportDate.Date
+                    if (exports[i].CreatedDate.Date
                         == currentDate.Date)
                     {
                         int j = 0;

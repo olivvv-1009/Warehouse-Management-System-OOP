@@ -56,14 +56,15 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                 new Font("Segoe UI", 10, FontStyle.Bold);
             dgvImportOrders.DefaultCellStyle.Font = new Font("Segoe UI", 10);
             dgvImportOrders.DefaultCellStyle.Padding = new Padding(8);
-            dgvImportOrders.DefaultCellStyle.SelectionBackColor = Color.FromArgb(219, 234, 254);
-            dgvImportOrders.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvImportOrders.DefaultCellStyle.SelectionBackColor =Color.FromArgb(219, 234, 254);
+            dgvImportOrders.DefaultCellStyle.SelectionForeColor =Color.Black;
+            dgvImportOrders.ClearSelection();
             dgvImportOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvImportOrders.ScrollBars = ScrollBars.Vertical;
 
             AddColumns();
 
-            dgvImportOrders.Columns["ImportId"].FillWeight = 80;
+            dgvImportOrders.Columns["InvoiceId"].FillWeight = 80;
             dgvImportOrders.Columns["Supplier"].FillWeight = 180;
             dgvImportOrders.Columns["Date"].FillWeight = 90;
             dgvImportOrders.Columns["Items"].FillWeight = 60;
@@ -75,7 +76,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
         private void AddColumns()
         {
-            dgvImportOrders.Columns.Add("ImportId", "Invoice ID");
+            dgvImportOrders.Columns.Add("InvoiceId", "Invoice ID");
             dgvImportOrders.Columns.Add("Supplier", "Supplier");
             dgvImportOrders.Columns.Add("Date", "Date");
             dgvImportOrders.Columns.Add("Items", "Items");
@@ -124,18 +125,18 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
                 foreach (ReturnOrder order in returns)
                 {
-                    if (order.ImportInvoiceId == invoice.ImportId)
+                    if (order.ImportInvoiceId == invoice.InvoiceId)
                     {
                         returnText = "Returned";
-                        returnId = order.ReturnOrderId;
+                        returnId = order.InvoiceId;
                         break;
                     }
                 }
 
                 int row = dgvImportOrders.Rows.Add(
-                    invoice.ImportId,
+                    invoice.InvoiceId,
                     supplierName,
-                    invoice.ImportDate.ToString("yyyy-MM-dd"),
+                    invoice.CreatedDate.ToString("yyyy-MM-dd"),
                     invoice.OrderDetails.Count,
                     "Completed",
                     returnText,
@@ -145,10 +146,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
                 dgvImportOrders.Rows[row].Cells["ReturnStatus"].Tag = returnId;
 
-                dgvImportOrders.Rows[row].Cells["Status"].Style.BackColor =
-                    Color.FromArgb(220, 252, 231);
-                dgvImportOrders.Rows[row].Cells["Status"].Style.ForeColor =
-                    Color.SeaGreen;
+                dgvImportOrders.Rows[row].Cells["Status"].Style.ForeColor =Color.SeaGreen;
+
+                dgvImportOrders.Rows[row].Cells["Status"].Style.Font =new Font("Segoe UI", 10, FontStyle.Bold);
 
                 if (returnText == "Returned")
                 {
@@ -179,13 +179,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
             if (columnName == "Action")
             {
-                string importId =
+                string InvoiceId =
                     dgvImportOrders.Rows[e.RowIndex]
-                    .Cells["ImportId"].Value?.ToString() ?? "";
+                    .Cells["InvoiceId"].Value?.ToString() ?? "";
 
                 ImportInvoice? invoice =
                     _importRepository.GetAll()
-                    .Find(x => x.ImportId == importId);
+                    .Find(x => x.InvoiceId == InvoiceId);
 
                 if (invoice != null)
                 {
@@ -225,13 +225,14 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         {
             if (e.RowIndex < 0) return;
 
-            string importId =
+            string InvoiceId =
                 dgvImportOrders.Rows[e.RowIndex]
-                .Cells["ImportId"].Value?.ToString() ?? "";
+                .Cells["InvoiceId"].Value?.ToString() ?? "";
 
-            ImportInvoice? invoice =
-                _importRepository.GetAll()
-                .Find(x => x.ImportId == importId);
+            ImportInvoice invoice =
+    _importRepository.FindById(
+        InvoiceId
+    );
 
             if (invoice != null)
             {
@@ -250,9 +251,16 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         private void btnCreate_Click(object sender, EventArgs e)
         {
             CreateImportOrder form = new CreateImportOrder();
+
+            form.ImportCreated += Form_ImportCreated;
+
             form.ShowDialog();
+        }
+        private void Form_ImportCreated(object sender, EventArgs e)
+        {
             LoadImportInvoices();
         }
+
 
         private void btnReturn_Click(object sender, EventArgs e)
         {

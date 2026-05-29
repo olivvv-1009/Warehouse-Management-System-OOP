@@ -56,7 +56,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         // ================= FIND =================
 
         public ReturnOrder? FindById(
-            string returnOrderId)
+            string InvoiceId)
         {
             int i;
 
@@ -68,8 +68,8 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             {
                 if (
                     _returnOrders[i]
-                        .ReturnOrderId
-                    == returnOrderId
+                        .InvoiceId
+                    == InvoiceId
                 )
                 {
                     return _returnOrders[i];
@@ -100,12 +100,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         // ================= ADD DETAIL =================
 
         public bool AddDetail(
-            string returnOrderId,
+            string InvoiceId,
             ReturnOrderDetail detail)
         {
             ReturnOrder? returnOrder =
                 FindById(
-                    returnOrderId
+                    InvoiceId
                 );
 
             if (
@@ -145,9 +145,9 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             {
                 if (
                     _returnOrders[i]
-                        .ReturnOrderId
+                        .InvoiceId
                     == updatedOrder
-                        .ReturnOrderId
+                        .InvoiceId
                 )
                 {
                     _returnOrders[i] =
@@ -165,7 +165,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         // ================= DELETE =================
 
         public bool Delete(
-            string returnOrderId)
+            string InvoiceId)
         {
             int i;
 
@@ -177,8 +177,8 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             {
                 if (
                     _returnOrders[i]
-                        .ReturnOrderId
-                    == returnOrderId
+                        .InvoiceId
+                    == InvoiceId
                 )
                 {
                     _returnOrders

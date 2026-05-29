@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 using WarehouseManagementSystem.WinForms.Files;
 using WarehouseManagementSystem.WinForms.Models;
@@ -51,19 +50,33 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         }
 
         public void Update(
-            ExportInvoice invoice)
+    ExportInvoice invoice)
         {
             List<ExportInvoice>
                 invoices =
                     GetAll();
 
-            int index =
-                invoices.FindIndex(
-                    x =>
-                    x.ExportId
+            int index = -1;
+
+            int i;
+
+            for (
+                i = 0;
+                i < invoices.Count;
+                i++
+            )
+            {
+                if (
+                    invoices[i]
+                        .InvoiceId
                     ==
-                    invoice.ExportId
-                );
+                    invoice.InvoiceId
+                )
+                {
+                    index = i;
+                    break;
+                }
+            }
 
             if (index >= 0)
             {

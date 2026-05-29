@@ -184,13 +184,13 @@ namespace WarehouseManagementSystem.WinForms.Services
                     )
                     {
                         if (
-                            import.ImportDate
+                            import.CreatedDate
                             >
                             latestDate
                         )
                         {
                             latestDate =
-                                import.ImportDate;
+                                import.CreatedDate;
 
                             price =
                                 detail.UnitPrice;

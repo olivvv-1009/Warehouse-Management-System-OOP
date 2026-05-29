@@ -1,10 +1,10 @@
 ﻿[
   {
-    "ExportId": "EXP20260001",
+    "InvoiceId": "EXP0001",
     "EmployeeName": "Lê Minh Anh",
     "Destination": "TechHome Đà Nẵng",
     "TotalAmount": 0,
-    "ExportDate": "2026-05-20T10:30:00",
+    "CreatedDate": "2026-05-20T10:30:00",
     "OrderDetails": [
       {
         "ProductId": "PR0001",
@@ -21,11 +21,11 @@
     ]
   },
   {
-    "ExportId": "EXP20260002",
+    "InvoiceId": "EXP0002",
     "EmployeeName": "Lê Minh Anh",
     "Destination": "TechHome Hà Nội",
     "TotalAmount": 0,
-    "ExportDate": "2026-05-21T10:30:00",
+    "CreatedDate": "2026-05-21T10:30:00",
     "OrderDetails": [
       {
         "ProductId": "PR0005",
@@ -42,11 +42,11 @@
     ]
   },
   {
-    "ExportId": "EXP20260003",
+    "InvoiceId": "EXP0003",
     "EmployeeName": "Đinh Thị Anh Thư",
     "Destination": "TechHome Cần Thơ",
     "TotalAmount": 0,
-    "ExportDate": "2026-05-23T10:30:00",
+    "CreatedDate": "2026-05-23T10:30:00",
     "OrderDetails": [
       {
         "ProductId": "PR0006",
@@ -63,11 +63,11 @@
     ]
   },
   {
-    "ExportId": "EXP20260004",
+    "InvoiceId": "EXP0004",
     "EmployeeName": "Nguyễn Đinh Thảo Nhi",
     "Destination": "TechHome Hà Nội",
     "TotalAmount": 118000,
-    "ExportDate": "2026-05-24T09:00:00",
+    "CreatedDate": "2026-05-24T09:00:00",
     "OrderDetails": [
       {
         "ProductId": "PR0012",
@@ -94,11 +94,11 @@
     ]
   },
   {
-    "ExportId": "EXP20260005",
+    "InvoiceId": "EXP0005",
     "EmployeeName": "Lê Minh Anh",
     "Destination": "TechHome Quận 1",
     "TotalAmount": 70000,
-    "ExportDate": "2026-05-25T14:10:00",
+    "CreatedDate": "2026-05-25T14:10:00",
     "OrderDetails": [
       {
         "ProductId": "PR0010",
@@ -125,11 +125,11 @@
     ]
   },
   {
-    "ExportId": "EXP20260006",
+    "InvoiceId": "EXP0006",
     "EmployeeName": "Đinh Thị Anh Thư",
     "Destination": "TechHome Gò Vấp",
     "TotalAmount": 146000,
-    "ExportDate": "2026-05-26T15:20:00",
+    "CreatedDate": "2026-05-26T15:20:00",
     "OrderDetails": [
       {
         "ProductId": "PR0013",

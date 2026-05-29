@@ -1,10 +1,10 @@
 ﻿[
     {
-        "ImportId": "IMP20260001",
+        "InvoiceId": "IMP0001",
         "SupplierId": "SP0001",
         "TotalAmount": 922000,
         "EmployeeName": "Lê Minh Anh",
-        "ImportDate": "2026-05-10T08:30:00",
+        "CreatedDate": "2026-05-10T08:30:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0001",
@@ -13,51 +13,18 @@
                 "UnitPrice": 4500,
                 "TotalPrice": 540000,
                 "LocationCode": "A-R01-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
-            },
-            {
-                "ProductId": "PR0002",
-                "BatchId": "BAT-PR0002-01",
-                "Quantity": 80,
-                "UnitPrice": 3900,
-                "TotalPrice": 312000,
-                "LocationCode": "A-R02-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
-            },
-            {
-                "ProductId": "PR0003",
-                "BatchId": "BAT-PR0003-01",
-                "Quantity": 350,
-                "UnitPrice": 120,
-                "TotalPrice": 42000,
-                "LocationCode": "C-R01-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
-            },
-            {
-                "ProductId": "PR0004",
-                "BatchId": "BAT-PR0004-01",
-                "Quantity": 200,
-                "UnitPrice": 140,
-                "TotalPrice": 28000,
-                "LocationCode": "C-R02-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
+                "Zone": "A",
+                "Rack": "R01",
+                "Shelf": "S01"
             }
         ]
     },
     {
-        "ImportId": "IMP20260002",
+        "InvoiceId": "IMP0002",
         "SupplierId": "SP0002",
         "TotalAmount": 325500,
         "EmployeeName": "Đinh Thị Anh Thư",
-        "ImportDate": "2026-05-12T09:00:00",
+        "CreatedDate": "2026-05-12T09:00:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0005",
@@ -66,29 +33,18 @@
                 "UnitPrice": 1600,
                 "TotalPrice": 240000,
                 "LocationCode": "B-R01-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
-            },
-            {
-                "ProductId": "PR0007",
-                "BatchId": "BAT-PR0007-01",
-                "Quantity": 90,
-                "UnitPrice": 950,
-                "TotalPrice": 85500,
-                "LocationCode": "D-R01-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
+                "Zone": "B",
+                "Rack": "R01",
+                "Shelf": "S01"
             }
         ]
     },
     {
-        "ImportId": "IMP20260003",
+        "InvoiceId": "IMP0003",
         "SupplierId": "SP0003",
         "TotalAmount": 196750,
         "EmployeeName": "Nguyễn Hữu Thông",
-        "ImportDate": "2026-05-13T10:15:00",
+        "CreatedDate": "2026-05-13T10:15:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0006",
@@ -97,29 +53,18 @@
                 "UnitPrice": 1450,
                 "TotalPrice": 108750,
                 "LocationCode": "B-R02-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
-            },
-            {
-                "ProductId": "PR0008",
-                "BatchId": "BAT-PR0008-01",
-                "Quantity": 100,
-                "UnitPrice": 880,
-                "TotalPrice": 88000,
-                "LocationCode": "D-R02-S01",
-                "Zone": "",
-                "Rack": "",
-                "Shelf": ""
+                "Zone": "B",
+                "Rack": "R02",
+                "Shelf": "S01"
             }
         ]
     },
     {
-        "ImportId": "IMP20260004",
+        "InvoiceId": "IMP0004",
         "SupplierId": "SP0003",
         "TotalAmount": 1100000000,
         "EmployeeName": "Đinh Thị Anh Thư",
-        "ImportDate": "2026-05-15T03:13:56.3601459+07:00",
+        "CreatedDate": "2026-05-15T03:13:56.3601459+07:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0006",
@@ -135,11 +80,11 @@
         ]
     },
     {
-        "ImportId": "IMP20260005",
+        "InvoiceId": "IMP0005",
         "SupplierId": "SP0002",
         "TotalAmount": 640000000,
         "EmployeeName": "Đinh Thị Anh Thư",
-        "ImportDate": "2026-05-15T03:20:37.5996945+07:00",
+        "CreatedDate": "2026-05-15T03:20:37.5996945+07:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0005",
@@ -155,11 +100,11 @@
         ]
     },
     {
-        "ImportId": "IMP20260006",
+        "InvoiceId": "IMP0006",
         "SupplierId": "SP0001",
         "TotalAmount": 134000000,
         "EmployeeName": "Đinh Thị Anh Thư",
-        "ImportDate": "2026-05-15T03:25:38.4297274+07:00",
+        "CreatedDate": "2026-05-15T03:25:38.4297274+07:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0002",
@@ -171,26 +116,15 @@
                 "Zone": "A",
                 "Rack": "R02",
                 "Shelf": "S01"
-            },
-            {
-                "ProductId": "PR0001",
-                "BatchId": "BAT-PR0001-02",
-                "Quantity": 20,
-                "UnitPrice": 700000,
-                "TotalPrice": 14000000,
-                "LocationCode": "A-R01-S01",
-                "Zone": "A",
-                "Rack": "R01",
-                "Shelf": "S01"
             }
         ]
     },
     {
-        "ImportId": "IMP20260007",
+        "InvoiceId": "IMP0007",
         "SupplierId": "SP0002",
         "TotalAmount": 500000000,
         "EmployeeName": "Đinh Thị Anh Thư",
-        "ImportDate": "2026-05-15T03:30:16.9726173+07:00",
+        "CreatedDate": "2026-05-15T03:30:16.9726173+07:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0007",
@@ -206,11 +140,11 @@
         ]
     },
     {
-        "ImportId": "IMP20260008",
+        "InvoiceId": "IMP0008",
         "SupplierId": "SP0002",
         "TotalAmount": 30000000,
         "EmployeeName": "Lê Minh Anh",
-        "ImportDate": "2026-05-28T22:34:13.0053122+07:00",
+        "CreatedDate": "2026-05-28T22:34:13.0053122+07:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0005",
@@ -226,11 +160,11 @@
         ]
     },
     {
-        "ImportId": "IMP20260009",
+        "InvoiceId": "IMP0009",
         "SupplierId": "SP0002",
         "TotalAmount": 1750000000,
         "EmployeeName": "Lê Minh Anh",
-        "ImportDate": "2026-05-28T22:38:38.8957181+07:00",
+        "CreatedDate": "2026-05-28T22:38:38.8957181+07:00",
         "OrderDetails": [
             {
                 "ProductId": "PR0016",

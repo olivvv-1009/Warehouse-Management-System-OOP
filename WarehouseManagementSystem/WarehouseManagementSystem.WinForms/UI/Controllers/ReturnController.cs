@@ -33,29 +33,29 @@ namespace WarehouseManagementSystem.WinForms.UI.Controllers
         }
 
         public bool AddProductToReturnOrder(
-            string returnOrderId,
+            string InvoiceId,
             ReturnOrderDetail detail)
         {
             return _service
                 .AddProductToReturnOrder(
-                    returnOrderId,
+                    InvoiceId,
                     detail
                 );
         }
 
         public ReturnOrder FindById(
-            string returnOrderId)
+            string InvoiceId)
         {
             return _service.FindById(
-                returnOrderId
+                InvoiceId
             );
         }
 
         public void Delete(
-            string returnOrderId)
+            string InvoiceId)
         {
             _service.Delete(
-                returnOrderId
+                InvoiceId
             );
         }
 

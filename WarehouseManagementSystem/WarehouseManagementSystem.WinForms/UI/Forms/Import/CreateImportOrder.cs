@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 using WarehouseManagementSystem.WinForms.Controllers;
 using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.UI.Forms.inventory;
 using WarehouseManagementSystem.WinForms.Utils;
 
 namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
@@ -11,6 +13,9 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
     public partial class CreateImportOrder : Form
     {
         private readonly ImportController _importController;
+        public event EventHandler ImportCreated;
+        private InventoryForm inventoryForm;
+
 
         public CreateImportOrder()
         {
@@ -33,6 +38,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             flowProducts.FlowDirection = FlowDirection.TopDown;
             flowProducts.HorizontalScroll.Enabled = true;
             flowProducts.HorizontalScroll.Visible = true;
+
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            dateTimePicker1.MaxDate = DateTime.Today;
+            dateTimePicker1.Value = DateTime.Today;
 
             CreateHeader();
             LoadSuppliers();
@@ -383,6 +393,16 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                         "Success",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    if (ImportCreated != null)
+                    {
+                        ImportCreated(this, EventArgs.Empty);
+                    }
+
+                    if (inventoryForm != null)
+                    {
+                        inventoryForm.ReloadData();
+                    }
+
                     this.Close();
                 }
                 else
@@ -402,6 +422,16 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        public CreateImportOrder(InventoryForm form)
+        {
+            InitializeComponent();
+
+            _importController =
+                new ImportController();
+
+            inventoryForm = form;
         }
 
         // ─── Button: Cancel ───────────────────────────────────────
