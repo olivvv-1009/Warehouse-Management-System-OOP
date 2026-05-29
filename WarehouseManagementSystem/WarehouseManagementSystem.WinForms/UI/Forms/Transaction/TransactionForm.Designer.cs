@@ -66,7 +66,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             tableMain.RowCount = 4;
             tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
             tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));
-            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 108F));
+            tableMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 104F));
             tableMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableMain.Size = new Size(1036, 554);
             tableMain.TabIndex = 0;
@@ -231,7 +231,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             panelCards.Controls.Add(cardExport);
             panelCards.Dock = DockStyle.Fill;
             panelCards.Location = new Point(20, 156);
-            panelCards.Margin = new Padding(0, 0, 0, 8);
+            panelCards.Margin = new Padding(0, 4, 0, 4);
             panelCards.Name = "panelCards";
             panelCards.Size = new Size(996, 100);
             panelCards.TabIndex = 2;
@@ -240,21 +240,21 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             // 
             cardTotalTx.Location = new Point(0, 0);
             cardTotalTx.Name = "cardTotalTx";
-            cardTotalTx.Size = new Size(200, 100);
+            cardTotalTx.Size = new Size(200, 88);
             cardTotalTx.TabIndex = 0;
             // 
             // cardImport
             // 
             cardImport.Location = new Point(0, 0);
             cardImport.Name = "cardImport";
-            cardImport.Size = new Size(200, 100);
+            cardImport.Size = new Size(200, 88);
             cardImport.TabIndex = 1;
             // 
             // cardExport
             // 
             cardExport.Location = new Point(0, 0);
             cardExport.Name = "cardExport";
-            cardExport.Size = new Size(200, 100);
+            cardExport.Size = new Size(200, 88);
             cardExport.TabIndex = 2;
             // 
             // dgvTransactions
