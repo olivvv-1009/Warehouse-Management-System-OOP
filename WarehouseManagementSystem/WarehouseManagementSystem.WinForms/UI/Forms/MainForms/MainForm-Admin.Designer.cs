@@ -32,6 +32,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            btnSettings = new Button();
             btnDashboard = new Button();
             btnProducts = new Button();
             btnInventory = new Button();
@@ -41,7 +42,6 @@
             btnEmployee = new Button();
             btnTransactions = new Button();
             btnReport = new Button();
-            btnBack = new Button();
             tableLayoutPanel3 = new TableLayoutPanel();
             label1 = new Label();
             label2 = new Label();
@@ -116,9 +116,9 @@
             tableLayoutPanel2.Controls.Add(btnEmployee, 0, 7);
             tableLayoutPanel2.Controls.Add(btnTransactions, 0, 8);
             tableLayoutPanel2.Controls.Add(btnReport, 0, 9);
-            tableLayoutPanel2.Controls.Add(btnBack, 0, 10);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel4, 0, 12);
+            tableLayoutPanel2.Controls.Add(btnSettings, 0, 10);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.ForeColor = Color.White;
             tableLayoutPanel2.Location = new Point(0, 0);
@@ -140,6 +140,18 @@
             tableLayoutPanel2.Size = new Size(199, 589);
             tableLayoutPanel2.TabIndex = 0;
             // 
+            // btnSettings
+            // 
+            btnSettings.BackColor = Color.SlateGray;
+            btnSettings.Dock = DockStyle.Fill;
+            btnSettings.Location = new Point(3, 450);
+            btnSettings.Name = "btnSettings";
+            btnSettings.Size = new Size(193, 37);
+            btnSettings.TabIndex = 14;
+            btnSettings.Text = "Settings";
+            btnSettings.UseVisualStyleBackColor = false;
+            btnSettings.Click += btnSettings_Click;
+            // 
             // btnDashboard
             // 
             btnDashboard.BackColor = Color.SlateGray;
@@ -151,6 +163,7 @@
             btnDashboard.TabIndex = 0;
             btnDashboard.Text = "Dashboard";
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // btnProducts
             // 
@@ -162,6 +175,7 @@
             btnProducts.TabIndex = 1;
             btnProducts.Text = "Products";
             btnProducts.UseVisualStyleBackColor = false;
+            btnProducts.Click += btnProducts_Click;
             // 
             // btnInventory
             // 
@@ -174,6 +188,7 @@
             btnInventory.TabIndex = 2;
             btnInventory.Text = "Inventory";
             btnInventory.UseVisualStyleBackColor = false;
+            btnInventory.Click += btnInventory_Click;
             // 
             // btnImport
             // 
@@ -186,6 +201,7 @@
             btnImport.TabIndex = 3;
             btnImport.Text = "Import Orders";
             btnImport.UseVisualStyleBackColor = false;
+            btnImport.Click += btnImport_Click;
             // 
             // btnExport
             // 
@@ -198,6 +214,7 @@
             btnExport.TabIndex = 4;
             btnExport.Text = "Export Orders";
             btnExport.UseVisualStyleBackColor = false;
+            btnExport.Click += btnExport_Click;
             // 
             // btnSupplier
             // 
@@ -210,6 +227,7 @@
             btnSupplier.TabIndex = 5;
             btnSupplier.Text = "Suppliers";
             btnSupplier.UseVisualStyleBackColor = false;
+            btnSupplier.Click += btnSupplier_Click;
             // 
             // btnEmployee
             // 
@@ -221,6 +239,7 @@
             btnEmployee.TabIndex = 6;
             btnEmployee.Text = "Employees";
             btnEmployee.UseVisualStyleBackColor = false;
+            btnEmployee.Click += btnEmployee_Click;
             // 
             // btnTransactions
             // 
@@ -232,6 +251,7 @@
             btnTransactions.TabIndex = 7;
             btnTransactions.Text = "Transactions";
             btnTransactions.UseVisualStyleBackColor = false;
+            btnTransactions.Click += btnTransaction_Click;
             // 
             // btnReport
             // 
@@ -243,17 +263,7 @@
             btnReport.TabIndex = 8;
             btnReport.Text = "Reports";
             btnReport.UseVisualStyleBackColor = false;
-            // 
-            // btnBack
-            // 
-            btnBack.BackColor = Color.SlateGray;
-            btnBack.Dock = DockStyle.Fill;
-            btnBack.Location = new Point(3, 450);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(193, 37);
-            btnBack.TabIndex = 9;
-            btnBack.Text = "Backup and Data";
-            btnBack.UseVisualStyleBackColor = false;
+            btnReport.Click += btnReport_Click;
             // 
             // tableLayoutPanel3
             // 
@@ -345,25 +355,25 @@
             tableLayoutPanel5.Location = new Point(208, 3);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 2;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 90F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100.000008F));
             tableLayoutPanel5.Size = new Size(951, 589);
             tableLayoutPanel5.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 61);
+            panel1.Location = new Point(3, 63);
             panel1.Name = "panel1";
-            panel1.Size = new Size(945, 525);
+            panel1.Size = new Size(945, 523);
             panel1.TabIndex = 0;
             // 
             // tableLayoutPanel6
             // 
             tableLayoutPanel6.ColumnCount = 3;
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 84.50135F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.4986525F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 71F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80.58749F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.4125156F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 162F));
             tableLayoutPanel6.Controls.Add(btnOut, 2, 0);
             tableLayoutPanel6.Controls.Add(tableLayoutPanel7, 1, 0);
             tableLayoutPanel6.Controls.Add(label5, 0, 0);
@@ -372,19 +382,21 @@
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel6.Size = new Size(945, 52);
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
+            tableLayoutPanel6.Size = new Size(945, 54);
             tableLayoutPanel6.TabIndex = 1;
             // 
             // btnOut
             // 
-            btnOut.Dock = DockStyle.Right;
-            btnOut.Location = new Point(876, 3);
+            btnOut.Dock = DockStyle.Fill;
+            btnOut.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnOut.Location = new Point(786, 3);
             btnOut.Name = "btnOut";
-            btnOut.Size = new Size(66, 46);
+            btnOut.Size = new Size(156, 48);
             btnOut.TabIndex = 0;
             btnOut.Text = "Out";
             btnOut.UseVisualStyleBackColor = true;
+            btnOut.Click += btnOut_Click;
             // 
             // tableLayoutPanel7
             // 
@@ -393,45 +405,50 @@
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel7.Controls.Add(lbName, 0, 0);
             tableLayoutPanel7.Controls.Add(lbRole, 0, 1);
-            tableLayoutPanel7.Location = new Point(741, 3);
+            tableLayoutPanel7.Dock = DockStyle.Fill;
+            tableLayoutPanel7.Location = new Point(634, 3);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
             tableLayoutPanel7.RowCount = 2;
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 58.695652F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 41.304348F));
-            tableLayoutPanel7.Size = new Size(100, 46);
+            tableLayoutPanel7.Size = new Size(146, 48);
             tableLayoutPanel7.TabIndex = 1;
             // 
             // lbName
             // 
             lbName.AutoSize = true;
+            lbName.BackColor = Color.LightSteelBlue;
             lbName.Dock = DockStyle.Fill;
+            lbName.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbName.Location = new Point(3, 0);
             lbName.Name = "lbName";
-            lbName.Size = new Size(94, 27);
+            lbName.Size = new Size(140, 28);
             lbName.TabIndex = 0;
             lbName.Text = "Name";
-            lbName.TextAlign = ContentAlignment.MiddleRight;
+            lbName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lbRole
             // 
             lbRole.AutoSize = true;
+            lbRole.BackColor = Color.SteelBlue;
             lbRole.Dock = DockStyle.Fill;
-            lbRole.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbRole.Location = new Point(3, 27);
+            lbRole.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbRole.ForeColor = Color.White;
+            lbRole.Location = new Point(3, 28);
             lbRole.Name = "lbRole";
-            lbRole.Size = new Size(94, 19);
+            lbRole.Size = new Size(140, 20);
             lbRole.TabIndex = 1;
             lbRole.Text = "Role";
-            lbRole.TextAlign = ContentAlignment.MiddleRight;
+            lbRole.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
-            label5.Size = new Size(732, 52);
+            label5.Size = new Size(625, 54);
             label5.TabIndex = 2;
             label5.Text = "Warehouse Management System";
             label5.TextAlign = ContentAlignment.MiddleLeft;
@@ -444,6 +461,7 @@
             Controls.Add(mainpanel);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             mainpanel.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -475,7 +493,6 @@
         private Button btnEmployee;
         private Button btnTransactions;
         private Button btnReport;
-        private Button btnBack;
         private TableLayoutPanel tableLayoutPanel3;
         private Label label1;
         private Label label2;
@@ -490,5 +507,6 @@
         private Label lbName;
         private Label lbRole;
         private Label label5;
+        private Button btnSettings;
     }
 }

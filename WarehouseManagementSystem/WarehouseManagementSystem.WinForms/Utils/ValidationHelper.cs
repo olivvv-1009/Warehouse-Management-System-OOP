@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarehouseManagementSystem.WinForms.UI.ConsoleUI
+namespace WarehouseManagementSystem.WinForms.Utils
 {
-    internal class Menu
+    internal class ValidationHelper
     {
     }
 }

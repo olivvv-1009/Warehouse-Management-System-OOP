@@ -1,0 +1,63 @@
+﻿[
+  {
+    "ProfileId": "PRF0001",
+    "AccountId": "ACC001",
+    "EmployeeId": "EMP0001",
+    "FullName": "L\u00EA Minh Anh",
+    "DateOfBirth": "2006-02-26",
+    "Gender": "Female",
+    "PhoneNumber": "0901000002",
+    "Email": "minhanh@gmail.com",
+    "Address": "B\u00E0 R\u1ECBa - V\u0169ng T\u00E0u",
+    "Role": "Admin"
+  },
+  {
+    "ProfileId": "PRF0002",
+    "AccountId": "ACC002",
+    "EmployeeId": "EMP0002",
+    "FullName": "\u0110inh Th\u1ECB Anh Th\u01B0",
+    "DateOfBirth": "2005-08-12",
+    "Gender": "Female",
+    "PhoneNumber": "0902000002",
+    "Email": "anhthu@gmail.com",
+    "Address": "TP. H\u1ED3 Ch\u00ED Minh",
+    "Role": "Staff"
+  },
+  {
+    "ProfileId": "PRF0003",
+    "AccountId": "ACC003",
+    "EmployeeId": "EMP0003",
+    "FullName": "Nguy\u1EC5n H\u1EEFu Th\u00F4ng",
+    "DateOfBirth": "2005-11-03",
+    "Gender": "Male",
+    "PhoneNumber": "0903000003",
+    "Email": "huuthong@gmail.com",
+    "Address": "\u0110\u1ED3ng Nai",
+    "Role": "Staff"
+  },
+  {
+    "ProfileId": "PRF0004",
+    "AccountId": "ACC004",
+    "EmployeeId": "EMP0004",
+    "FullName": "Nguy\u1EC5n \u0110inh Th\u1EA3o Nhi",
+    "DateOfBirth": "2006-02-18",
+    "Gender": "Female",
+    "PhoneNumber": "0904000004",
+    "Email": "thaonhi@gmail.com",
+    "Address": "B\u00ECnh D\u01B0\u01A1ng",
+    "Role": "Staff"
+  },
+  {
+    "ProfileId": "PRF0005",
+    "AccountId": "ACC005",
+    "EmployeeId": "EMP0005",
+    "FullName": "Ng\u00F4 Th\u1ECB Thu Duy\u00EAn",
+    "DateOfBirth": "2026-05-11",
+    "Gender": "Female",
+    "PhoneNumber": "222222",
+    "Email": "hjhjh",
+    "Address": "uui",
+    "Role": "Admin"
+  }
+]
+
