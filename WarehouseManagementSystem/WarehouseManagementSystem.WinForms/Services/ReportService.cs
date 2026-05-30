@@ -21,7 +21,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         public List<InventoryReport> GetInventoryReport()
         {
             List<Product> products = repo.GetProducts();
-            List<InventoryItem> inventory = repo.GetInventory();
+            List<Batch> inventory = repo.GetInventory();
 
             List<InventoryReport> result =
                 new List<InventoryReport>();
@@ -37,7 +37,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                     if (inventory[j].ProductId == p.ProductID)
                     {
                         currentStock =
-                            currentStock + inventory[j].Quantity;
+                            currentStock + inventory[j].AvailableQuantity;
                     }
                 }
 

@@ -108,7 +108,7 @@ namespace WarehouseManagementSystem.WinForms.Services
                     )
                     {
                         totalQty +=
-                            batches[j].Quantity;
+                            batches[j].RemainingQuantity;
                     }
                 }
 
@@ -292,7 +292,7 @@ GetLowStockItems()
                     )
                     {
                         totalQty +=
-                            batches[j].Quantity;
+                            batches[j].RemainingQuantity;
                     }
                 }
 

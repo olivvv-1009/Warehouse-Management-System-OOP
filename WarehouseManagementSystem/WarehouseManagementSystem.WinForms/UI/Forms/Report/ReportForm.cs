@@ -306,7 +306,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Report
                 {
                     if (batches[j].ProductId == p.ProductID)
                     {
-                        total += batches[j].Quantity;
+                        total += batches[j].AvailableQuantity;
                     }
 
                     j++;
