@@ -1,4 +1,9 @@
-﻿namespace WarehouseManagementSystem.WinForms.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WarehouseManagementSystem.WinForms.Models
 {
     public class Account
     {

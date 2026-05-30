@@ -22,207 +22,241 @@ namespace WarehouseManagementSystem.WinForms.Services
             _fifoRule = new FifoRule();
         }
 
-		public bool CreateExportInvoice(
-	string employeeName,
-	string destination,
-	List<OrderDetail> details)
-		{
-			List<Batch> allBatches =
-				_batchRepository.GetAll();
+        public bool CreateExportInvoice(
+    string employeeName,
+    string destination,
+    List<OrderDetail> details)
+        {
+            List<Batch> allBatches =
+                _batchRepository.GetAll();
 
-			// Validate trước
-			foreach (
-				OrderDetail detail
-				in details
-			)
-			{
-				List<Batch> batches =
-					new List<Batch>();
+            foreach (
+                OrderDetail detail
+                in details
+            )
+            {
+                List<Batch> batches =
+                    new List<Batch>();
 
-				foreach (
-					Batch batch
-					in allBatches
-				)
-				{
-					if (
-						batch.ProductId
-						==
-						detail.ProductId
-					)
-					{
-						batches.Add(
-							batch
-						);
-					}
-				}
+                foreach (
+                    Batch batch
+                    in allBatches
+                )
+                {
+                    if (
+                        batch.ProductId ==
+                        detail.ProductId
+                    )
+                    {
+                        batches.Add(batch);
+                    }
+                }
 
-				List<FifoDeduction>
-					tempDeductions;
+                List<FifoDeduction>
+                    tempDeductions;
 
-				bool ok =
-					_fifoRule.Apply(
-						batches,
-						detail.Quantity,
-						out tempDeductions
-					);
+                bool ok =
+                    _fifoRule.Apply(
+                        batches,
+                        detail.Quantity,
+                        out tempDeductions
+                    );
 
-				if (!ok)
-				{
-					return false;
-				}
-			}
+                if (!ok)
+                {
+                    return false;
+                }
+            }
 
-			// Apply FIFO
-			foreach (
-				OrderDetail detail
-				in details
-			)
-			{
-				List<Batch> batches =
-					new List<Batch>();
+            List<OrderDetail> exportDetails =
+                new List<OrderDetail>();
 
-				foreach (
-					Batch batch
-					in allBatches
-				)
-				{
-					if (
-						batch.ProductId
-						==
-						detail.ProductId
-					)
-					{
-						batches.Add(
-							batch
-						);
-					}
-				}
+            foreach (
+                OrderDetail detail
+                in details
+            )
+            {
+                List<Batch> batches =
+                    new List<Batch>();
 
-				List<FifoDeduction>
-					deductions;
+                foreach (
+                    Batch batch
+                    in allBatches
+                )
+                {
+                    if (
+                        batch.ProductId ==
+                        detail.ProductId
+                    )
+                    {
+                        batches.Add(batch);
+                    }
+                }
 
-				_fifoRule.Apply(
-					batches,
-					detail.Quantity,
-					out deductions
-				);
+                List<FifoDeduction>
+                    deductions;
 
-				foreach (
-					FifoDeduction deduction
-					in deductions
-				)
-				{
-					Batch batch = null;
+                _fifoRule.Apply(
+                    batches,
+                    detail.Quantity,
+                    out deductions
+                );
 
-					foreach (
-						Batch item
-						in allBatches
-					)
-					{
-						if (
-							item.BatchId
-							==
-							deduction.BatchId
-						)
-						{
-							batch = item;
-							break;
-						}
-					}
+                foreach (
+                    FifoDeduction deduction
+                    in deductions
+                )
+                {
+                    Batch batch = null;
 
-					if (batch != null)
-					{
-						batch.ExportedQuantity +=deduction.QuantityToDeduct;
+                    foreach (
+                        Batch item
+                        in allBatches
+                    )
+                    {
+                        if (
+                            item.BatchId ==
+                            deduction.BatchId
+                        )
+                        {
+                            batch = item;
+                            break;
+                        }
+                    }
 
-						batch.RemainingQuantity -=
-							deduction.QuantityToDeduct;
+                    if (batch == null)
+                    {
+                        continue;
+                    }
 
-						if (batch.RemainingQuantity <= 0)
-						{
-							batch.Status = "Out of Stock";
-						}
-					}
-				}
-			}
+                    exportDetails.Add(
+                        new OrderDetail
+                        {
+                            ProductId =
+                                batch.ProductId,
 
-			_batchRepository.Update(
-				allBatches
-			);
+                            BatchId =
+                                batch.BatchId,
 
-			// Tạo invoice
-			List<ExportInvoice>
-	invoices =
-		_exportRepository
-			.GetAll();
+                            Quantity =
+                                deduction.QuantityToDeduct,
 
-			List<string>
-				invoiceIds =
-					new List<string>();
+                            UnitPrice =
+                                detail.UnitPrice,
 
-			foreach (
-				ExportInvoice item
-				in invoices
-			)
-			{
-				invoiceIds.Add(
-					item.InvoiceId
-				);
-			}
+                            TotalPrice =
+                                deduction.QuantityToDeduct
+                                * detail.UnitPrice,
 
-			int nextNumber =
-				IdGenerator
-					.GetNextNumber(
-						invoiceIds,
-						"EXP"
-					);
+                            LocationCode =
+                                batch.LocationCode,
+                        }
+                    );
 
-			decimal totalAmount = 0;
+                    batch.ExportedQuantity +=
+                        deduction.QuantityToDeduct;
 
-			foreach (
-				OrderDetail detail
-				in details
-			)
-			{
-				totalAmount +=
-					detail.TotalPrice;
-			}
+                    batch.RemainingQuantity -=
+                        deduction.QuantityToDeduct;
 
-			ExportInvoice invoice =
-				new ExportInvoice();
+                    if (
+                        batch.RemainingQuantity <= 0
+                    )
+                    {
+                        batch.Status =
+                            "Out of Stock";
+                    }
+                }
+            }
 
-			invoice.InvoiceId =
-				IdGenerator
-					.GenerateExportId(
-						nextNumber
-					);
+            _batchRepository.Update(
+                allBatches
+            );
 
-			invoice.EmployeeName =
-				employeeName;
+            List<ExportInvoice>
+                invoices =
+                    _exportRepository
+                        .GetAll();
 
-			invoice.Destination =
-				destination;
+            List<string>
+                invoiceIds =
+                    new List<string>();
 
-			invoice.CreatedDate =
-				DateTime.Now;
+            foreach (
+                ExportInvoice item
+                in invoices
+            )
+            {
+                invoiceIds.Add(
+                    item.InvoiceId
+                );
+            }
 
-			invoice.Status =
-				"Completed";
+            int nextNumber =
+                IdGenerator
+                    .GetNextNumber(
+                        invoiceIds,
+                        "EXP"
+                    );
 
-			invoice.OrderDetails =
-				details;
+            decimal totalAmount = 0;
 
-			invoice.TotalAmount =
-				totalAmount;
+            foreach (
+                OrderDetail detail
+                in exportDetails
+            )
+            {
+                totalAmount +=
+                    detail.TotalPrice;
+            }
 
-			_exportRepository.Add(invoice);
+            ExportInvoice invoice =
+                new ExportInvoice();
 
-            foreach (OrderDetail detail in details)
-                CreateTransaction(detail.ProductId, detail.Quantity, invoice.InvoiceId);
+            invoice.InvoiceId =
+                IdGenerator
+                    .GenerateExportId(
+                        nextNumber
+                    );
+
+            invoice.EmployeeName =
+                employeeName;
+
+            invoice.Destination =
+                destination;
+
+            invoice.CreatedDate =
+                DateTime.Now;
+
+            invoice.Status =
+                "Completed";
+
+            invoice.OrderDetails =
+                exportDetails;
+
+            invoice.TotalAmount =
+                totalAmount;
+
+            _exportRepository.Add(
+                invoice
+            );
+
+            foreach (
+                OrderDetail detail
+                in exportDetails
+            )
+            {
+                CreateTransaction(
+                    detail.ProductId,
+                    detail.Quantity,
+                    invoice.InvoiceId
+                );
+            }
 
             return true;
         }
 
-		private void CreateTransaction(
+        private void CreateTransaction(
 	string productId,
 	int quantity,
 	string InvoiceId)
@@ -338,20 +372,20 @@ namespace WarehouseManagementSystem.WinForms.Services
 
 				if (batch != null)
 				{
-					batch.ExportedQuantity +=d.QuantityToDeduct;
+                    batch.ExportedQuantity +=
+     d.QuantityToDeduct;
 
-					batch.RemainingQuantity -=
-						d.QuantityToDeduct;
+                    batch.RemainingQuantity -=
+                        d.QuantityToDeduct;
 
-					if (
-						batch.RemainingQuantity
-						<= 0
-					)
-					{
-						batch.Status =
-							"Out of Stock";
-					}
-				}
+                    if (
+                        batch.RemainingQuantity <= 0
+                    )
+                    {
+                        batch.Status =
+                            "Out of Stock";
+                    }
+                }
 			}
 
 			_batchRepository
@@ -624,11 +658,10 @@ namespace WarehouseManagementSystem.WinForms.Services
 						);
 					}
 				}
+                List<FifoDeduction>
+    deductions;
 
-				List<FifoDeduction>
-					deductions;
-
-				bool ok =
+                bool ok =
 					_fifoRule.Apply(
 						batches,
 						detail.Quantity,
