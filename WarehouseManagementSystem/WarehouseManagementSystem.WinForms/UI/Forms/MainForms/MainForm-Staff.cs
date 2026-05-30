@@ -29,6 +29,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
                 lbName.Text = user.Username;
                 lbRole.Text = user.Role;
             }
+            LoadView(new DashboardForm());
         }
         private void LoadView(UserControl view)
         {

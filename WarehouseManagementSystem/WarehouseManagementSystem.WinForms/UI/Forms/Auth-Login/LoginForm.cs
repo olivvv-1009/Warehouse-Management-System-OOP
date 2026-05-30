@@ -36,16 +36,18 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms
 
                     MessageBox.Show("Login successful!");
 
+                    Form mainForm;
+
                     if (user.Role == "Admin")
                     {
-                        Form1 admin = new Form1();
-                        admin.Show();
+                        mainForm = new Form1();
                     }
                     else
                     {
-                        MainForm_Staff staff = new MainForm_Staff();
-                        staff.Show();
+                        mainForm = new MainForm_Staff();
                     }
+
+                    mainForm.Show();
 
                     this.Hide();
                 }

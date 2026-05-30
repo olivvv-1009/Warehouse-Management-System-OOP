@@ -51,6 +51,7 @@ namespace WarehouseManagementSystem.WinForms
                     lbName.Text = user.Username;
                 }
             }
+            LoadView(new DashboardForm());
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
