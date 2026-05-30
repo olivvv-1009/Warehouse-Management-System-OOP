@@ -128,8 +128,26 @@ namespace WarehouseManagementSystem.WinForms.UI.Suppliers
 
                 if (result == DialogResult.Yes)
                 {
-                    controller.Delete(supplierId);
-                    ReloadAfterChange();
+                    bool success = controller.Delete(supplierId);
+
+                    if (success)
+                    {
+                        MessageBox.Show(
+                            "Delete successful!"
+                        );
+
+                        ReloadAfterChange();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "Cannot delete supplier because products from this supplier still exist in warehouse.",
+                            "Delete Failed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                    }
+
                 }
             }
         }
