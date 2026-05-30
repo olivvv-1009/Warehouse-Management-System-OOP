@@ -133,6 +133,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             numQuantity.Location = new Point(230, 18);
             numQuantity.Width = 80;
             numQuantity.Minimum = 1;
+            numQuantity.Maximum = 10000;
 
             TextBox txtPrice = new TextBox();
             txtPrice.Name = "txtPrice";
@@ -240,9 +241,119 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
             int quantity = (int)numQuantity.Value;
 
+            foreach (Control control in flowProducts.Controls)
+            {
+                if (control is not Panel otherRow)
+                    continue;
+
+                if (otherRow == row)
+                    continue;
+
+                ComboBox? otherProduct =
+                    otherRow.Controls["cbProduct"]
+                    as ComboBox;
+
+                Label? otherZone =
+                    otherRow.Controls["lbZone"]
+                    as Label;
+
+                Label? otherRack =
+                    otherRow.Controls["lbRack"]
+                    as Label;
+
+                if (
+                    otherProduct == null ||
+                    otherZone == null ||
+                    otherRack == null
+                )
+                {
+                    continue;
+                }
+
+                if (
+                    otherProduct.SelectedValue == null
+                )
+                {
+                    continue;
+                }
+
+                string otherProductId =
+                    otherProduct.SelectedValue
+                        .ToString() ?? "";
+            }
+
+            List<string> usedRacks =
+    new List<string>();
+
+            foreach (Control control in flowProducts.Controls)
+            {
+                if (control is not Panel otherRow)
+                    continue;
+
+                if (otherRow == row)
+                    continue;
+
+                ComboBox? otherProduct =
+                    otherRow.Controls["cbProduct"]
+                    as ComboBox;
+
+                Label? otherZone =
+                    otherRow.Controls["lbZone"]
+                    as Label;
+
+                Label? otherRack =
+                    otherRow.Controls["lbRack"]
+                    as Label;
+
+                if (
+                    otherProduct == null ||
+                    otherZone == null ||
+                    otherRack == null
+                )
+                {
+                    continue;
+                }
+
+                if (
+                    otherProduct.SelectedValue == null
+                )
+                {
+                    continue;
+                }
+
+                string otherProductId =
+                    otherProduct.SelectedValue
+                        .ToString() ?? "";
+
+                if (
+                    otherProductId != productId &&
+                    !string.IsNullOrWhiteSpace(
+                        otherRack.Text
+                    )
+                )
+                {
+                    usedRacks.Add(
+                        otherZone.Text +
+                        "-" +
+                        otherRack.Text
+                    );
+                }
+            }
+
             WarehouseLocation? location =
-                _importController.AutoAssignLocation(
-                    productId, quantity);
+    _importController.AutoAssignLocation(
+        productId,
+        quantity,
+        usedRacks
+    );
+
+            if (location != null)
+            {
+                string rackKey =
+                    location.Zone +
+                    "-" +
+                    location.Rack;
+            }
 
             if (location == null)
             {
@@ -256,9 +367,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             lbZone.Text = location.Zone;
             lbRack.Text = location.Rack;
             lbShelf.Text = location.Shelf;
+            int available =
+    location.Capacity -
+    location.UsedCapacity;
+
             lbCapacity.Text =
-                "Capacity: "
-                + location.UsedCapacity
+                "Available: "
+                + available
                 + "/"
                 + location.Capacity;
         }

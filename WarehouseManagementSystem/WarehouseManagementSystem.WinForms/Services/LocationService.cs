@@ -12,6 +12,8 @@ namespace WarehouseManagementSystem.WinForms.Services
 
         private readonly LocationAssignmentRule
             _assignmentRule;
+        private readonly BatchRepository
+    _batchRepository;
 
         public LocationService()
         {
@@ -20,6 +22,8 @@ namespace WarehouseManagementSystem.WinForms.Services
 
             _assignmentRule =
                 new LocationAssignmentRule();
+            _batchRepository =
+    new BatchRepository();
         }
 
         public List<WarehouseLocation>
@@ -47,21 +51,68 @@ namespace WarehouseManagementSystem.WinForms.Services
         }
 
         public WarehouseLocation
-            FindBestLocation(
-                string productId,
-                string category,
-                int quantity)
+    FindBestLocation(
+    string productId,
+    string category,
+    int quantity,
+    List<string> usedRacks
+)
         {
+            RebuildLocationCapacity();
             List<WarehouseLocation> locations =
                 _locationRepository
                     .GetAll();
 
             return _assignmentRule
-                .FindAvailableLocation(
-                    locations,
-                    productId,
-                    category,
-                    quantity
+    .FindAvailableLocation(
+        locations,
+        productId,
+        category,
+        quantity,
+        usedRacks
+    );
+        }
+        public void RebuildLocationCapacity()
+        {
+            List<WarehouseLocation> locations =
+                _locationRepository.GetAll();
+
+            List<Batch> batches =
+                _batchRepository.GetAll();
+
+            int i;
+
+            for (i = 0; i < locations.Count; i++)
+            {
+                locations[i].UsedCapacity = 0;
+            }
+
+            int j;
+
+            for (j = 0; j < batches.Count; j++)
+            {
+                Batch batch = batches[j];
+
+                int k;
+
+                for (k = 0; k < locations.Count; k++)
+                {
+                    if (
+                        locations[k].LocationCode ==
+                        batch.LocationCode
+                    )
+                    {
+                        locations[k].UsedCapacity +=
+                            batch.RemainingQuantity;
+
+                        break;
+                    }
+                }
+            }
+
+            _locationRepository
+                .UpdateLocations(
+                    locations
                 );
         }
     }
