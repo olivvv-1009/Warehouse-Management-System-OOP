@@ -1,4 +1,8 @@
-﻿using WarehouseManagementSystem.WinForms.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Interfaces
 {

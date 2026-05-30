@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
 using WarehouseManagementSystem.WinForms.Utils;
