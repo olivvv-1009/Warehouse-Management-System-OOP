@@ -1,6 +1,6 @@
 ﻿namespace WarehouseManagementSystem.WinForms.Models
 {
-    public class ImportExportSummary
+    public class ImportExportSummary : Report
     {
         public int TotalImport;
         public int TotalExport;

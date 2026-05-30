@@ -1,6 +1,6 @@
 ﻿namespace WarehouseManagementSystem.WinForms.Models
 {
-    public class LowStockReport
+    public class LowStockReport : Report    
     {
         public string Product { get; set; }
         public string Category { get; set; }

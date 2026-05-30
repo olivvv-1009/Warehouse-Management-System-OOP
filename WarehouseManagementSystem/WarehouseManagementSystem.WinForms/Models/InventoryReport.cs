@@ -1,4 +1,5 @@
-﻿public class InventoryReport
+﻿namespace WarehouseManagementSystem.WinForms.Models;
+public class InventoryReport : Report
 {
     public string Product { get; set; }
     public string Category { get; set; }
