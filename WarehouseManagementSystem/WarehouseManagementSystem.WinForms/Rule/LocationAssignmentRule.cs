@@ -1,22 +1,30 @@
 ﻿using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Models;
+using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Rule
 {
     public class LocationAssignmentRule
     {
         public WarehouseLocation
-            FindAvailableLocation(
-                List<WarehouseLocation> locations,
-                string productId,
-                string category,
-                int quantity)
+FindAvailableLocation(
+    List<WarehouseLocation> locations,
+    string productId,
+    string category,
+    int quantity,
+    List<string> usedRacks
+)
         {
             int i;
 
             string oldZone = "";
 
             string oldRack = "";
+
+            WarehouseLocation bestLocation =
+                null;
+
+            int maxRemaining = -1;
 
             // =================
             // RULE 1
@@ -36,17 +44,6 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 if (
                     locations[i].ProductId
                         == productId
-                    &&
-                    remainingCapacity
-                        >= quantity
-                )
-                {
-                    return locations[i];
-                }
-
-                if (
-                    locations[i].ProductId
-                        == productId
                 )
                 {
                     oldZone =
@@ -54,13 +51,34 @@ namespace WarehouseManagementSystem.WinForms.Rule
 
                     oldRack =
                         locations[i].Rack;
+
+                    if (
+                        remainingCapacity >= quantity
+                        &&
+                        remainingCapacity >
+                        maxRemaining
+                    )
+                    {
+                        maxRemaining =
+                            remainingCapacity;
+
+                        bestLocation =
+                            locations[i];
+                    }
                 }
+            }
+
+            if (bestLocation != null)
+            {
+                return bestLocation;
             }
 
             // =================
             // RULE 2
             // SAME RACK
             // =================
+
+            maxRemaining = -1;
 
             for (
                 i = 0;
@@ -83,12 +101,26 @@ namespace WarehouseManagementSystem.WinForms.Rule
                     locations[i].Rack
                         == oldRack
                     &&
-                    remainingCapacity
-                        >= quantity
+                    remainingCapacity >= quantity
                 )
                 {
-                    return locations[i];
+                    if (
+                        remainingCapacity >
+                        maxRemaining
+                    )
+                    {
+                        maxRemaining =
+                            remainingCapacity;
+
+                        bestLocation =
+                            locations[i];
+                    }
                 }
+            }
+
+            if (bestLocation != null)
+            {
+                return bestLocation;
             }
 
             // =================
@@ -129,6 +161,8 @@ namespace WarehouseManagementSystem.WinForms.Rule
                 targetZone = "E";
             }
 
+            maxRemaining = -1;
+
             for (
                 i = 0;
                 i < locations.Count;
@@ -139,23 +173,42 @@ namespace WarehouseManagementSystem.WinForms.Rule
                     locations[i].Capacity -
                     locations[i].UsedCapacity;
 
+                string rackKey =
+    locations[i].Zone
+    + "-"
+    + locations[i].Rack;
+
                 if (
-                    string.IsNullOrWhiteSpace(
-                        locations[i].ProductId
-                    )
-                    &&
-                    locations[i].Zone
-                        == targetZone
-                    &&
-                    remainingCapacity
-                        >= quantity
-                )
+    !usedRacks.Contains(
+        rackKey
+    )
+    &&
+    string.IsNullOrWhiteSpace(
+        locations[i].ProductId
+    )
+    &&
+    locations[i].Zone
+        == targetZone
+    &&
+    remainingCapacity >= quantity
+)
                 {
-                    return locations[i];
+                    if (
+                        remainingCapacity >
+                        maxRemaining
+                    )
+                    {
+                        maxRemaining =
+                            remainingCapacity;
+
+                        bestLocation =
+                            locations[i];
+                    }
                 }
             }
 
-            return null;
+            return bestLocation;
         }
+
     }
 }

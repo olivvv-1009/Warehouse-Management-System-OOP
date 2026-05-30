@@ -123,14 +123,22 @@ namespace WarehouseManagementSystem.WinForms.Services
                     return false;
                 }
 
+                List<string> usedRacks =
+    new List<string>();
+
                 WarehouseLocation location =
                     _locationRule
                         .FindAvailableLocation(
                             locations,
                             item.ProductId,
                             product.Category,
-                            item.Quantity
+                            item.Quantity,
+                            usedRacks
                         );
+                if (location == null)
+                {
+                    return false;
+                }
 
                 if (location == null)
                 {
@@ -213,7 +221,9 @@ namespace WarehouseManagementSystem.WinForms.Services
             }
 
             _locationRepository
-                .Update();
+    .UpdateLocations(
+        locations
+    );
 
             List<ImportInvoice> invoices =
                 _importRepository

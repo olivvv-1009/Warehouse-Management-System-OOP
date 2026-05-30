@@ -67,29 +67,29 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             LoadData();
         }
 
-        private void PanelTitle_Resize(object sender, EventArgs e)
+        private void PanelTitle_Resize(object? sender, EventArgs e)
         {
             lblAutoGen.Location = new Point(panelTitle.Width - 340, 8);
         }
 
-        private void ChkStart_CheckedChanged(object sender, EventArgs e)
+        private void ChkStart_CheckedChanged(object? sender, EventArgs e)
         {
             dtpStart.Enabled = chkStart.Checked;
             ApplyFilter();
         }
 
-        private void ChkEnd_CheckedChanged(object sender, EventArgs e)
+        private void ChkEnd_CheckedChanged(object? sender, EventArgs e)
         {
             dtpEnd.Enabled = chkEnd.Checked;
             ApplyFilter();
         }
 
-        private void PanelCards_Resize(object sender, EventArgs e)
+        private void PanelCards_Resize(object? sender, EventArgs e)
         {
             LayoutCards();
         }
 
-        private void PanelCards_VisibleChanged(object sender, EventArgs e)
+        private void PanelCards_VisibleChanged(object? sender, EventArgs e)
         {
             LayoutCards();
         }
@@ -121,11 +121,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
             lblLabel.TextAlign = ContentAlignment.MiddleLeft;
 
             lblValue.Text = defaultVal;
-            lblValue.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblValue.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
             lblValue.ForeColor = valueColor;
             lblValue.AutoSize = false;
-            lblValue.Location = new Point(16, 38);
-            lblValue.Size = new Size(card.Width - 32, 44);
+            lblValue.Location = new Point(16, 34);
+            lblValue.Size = new Size(card.Width - 32, 46);
             lblValue.TextAlign = ContentAlignment.MiddleLeft;
 
             card.Controls.Add(lblLabel);
@@ -134,18 +134,23 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Transaction
 
         private void LayoutCards()
         {
-            int w = panelCards.ClientSize.Width;
-            int h = panelCards.ClientSize.Height;
+            // Trừ padding 20px mỗi bên để align với panelTitle và panelFilter
+            int padding = 20;
+            int w = panelCards.ClientSize.Width - padding * 2;
             int gap = 12;
             int cardW = (w - gap * 2) / 3;
+            int cardH = 88;
+            int topY = (panelCards.ClientSize.Height - cardH) / 2;
+            if (topY < 0) topY = 0;
 
             if (cardW < 80) return;
 
-            cardTotalTx.SetBounds(0, 0, cardW, h);
-            cardImport.SetBounds(cardW + gap, 0, cardW, h);
-            cardExport.SetBounds((cardW + gap) * 2, 0, cardW, h);
+            cardTotalTx.SetBounds(padding, topY, cardW, cardH);
+            cardImport.SetBounds(padding + cardW + gap, topY, cardW, cardH);
+            cardExport.SetBounds(padding + (cardW + gap) * 2, topY, cardW, cardH);
 
-            foreach (var card in new[] { cardTotalTx, cardImport, cardExport })
+            Panel[] cards = new Panel[] { cardTotalTx, cardImport, cardExport };
+            foreach (Panel card in cards)
             {
                 foreach (Control c in card.Controls)
                 {

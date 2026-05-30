@@ -60,10 +60,6 @@ namespace WarehouseManagementSystem.WinForms.Repositories
 
         private void SaveData()
         {
-            System.Windows.Forms.MessageBox.Show(
-        "SaveData Called"
-    );
-
             FileHelper.WriteJsonList(
                 FilePath,
                 _batches

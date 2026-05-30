@@ -12,16 +12,16 @@ namespace WarehouseManagementSystem.WinForms.Services
         private readonly ProductRepository
             _productRepository;
 
-        private readonly InventoryRepository
-            _inventoryRepository;
+        private readonly TransactionRepository
+    _transactionRepository;
 
         public ProductService()
         {
             _productRepository =
                 new ProductRepository();
 
-            _inventoryRepository =
-                new InventoryRepository();
+            _transactionRepository =
+                new TransactionRepository();
         }
 
         /// <summary>
@@ -133,8 +133,7 @@ namespace WarehouseManagementSystem.WinForms.Services
         /// Delete product
         /// Only if product has no inventory
         /// </summary>
-        public void DeleteProduct(
-            string productId)
+        public void DeleteProduct(string productId)
         {
             if (string.IsNullOrWhiteSpace(productId))
             {
@@ -142,13 +141,17 @@ namespace WarehouseManagementSystem.WinForms.Services
                     "Product ID cannot be empty");
             }
 
-            List<InventoryItem> inventoryItems = _inventoryRepository
-        .GetByProductId(productId);
+            List<Transaction> transactions =
+                _transactionRepository.GetAll();
 
-            if (inventoryItems.Count > 0)
+            bool hasTransaction =
+                transactions.Any(t =>
+                    t.ProductId == productId);
+
+            if (hasTransaction)
             {
                 throw new InvalidOperationException(
-                    "Cannot delete product with inventory");
+                    "Cannot delete product because it has transaction history");
             }
 
             _productRepository.Delete(productId);

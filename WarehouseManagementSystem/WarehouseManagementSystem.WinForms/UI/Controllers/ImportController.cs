@@ -71,9 +71,11 @@ namespace WarehouseManagementSystem.WinForms.Controllers
         }
 
         public WarehouseLocation
-            AutoAssignLocation(
-                string productId,
-                int quantity)
+    AutoAssignLocation(
+    string productId,
+    int quantity,
+    List<string> usedRacks
+)
         {
             List<ProductDisplayModel>
                 products =
@@ -104,12 +106,13 @@ namespace WarehouseManagementSystem.WinForms.Controllers
             }
 
             WarehouseLocation location =
-                _locationService
-                    .FindBestLocation(
-                        productId,
-                        category,
-                        quantity
-                    );
+     _locationService
+         .FindBestLocation(
+             productId,
+             category,
+             quantity,
+             usedRacks
+         );
 
             return location;
         }

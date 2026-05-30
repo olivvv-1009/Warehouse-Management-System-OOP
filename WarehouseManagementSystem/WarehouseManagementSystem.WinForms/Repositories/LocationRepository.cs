@@ -47,6 +47,14 @@ namespace WarehouseManagementSystem.WinForms.Repositories
     );
         }
 
+        public void UpdateLocations(
+    List<WarehouseLocation> locations)
+        {
+            _locations = locations;
+
+            SaveData();
+        }
+
         public WarehouseLocation FindByCode(
             string locationCode)
         {
