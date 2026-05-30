@@ -42,7 +42,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
             dateTimePicker1.MaxDate = DateTime.Today;
-            dateTimePicker1.Value = DateTime.Today;
+
 
             CreateHeader();
             LoadSuppliers();

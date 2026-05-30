@@ -50,6 +50,7 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         public List<ReturnOrder>
             GetAll()
         {
+            LoadData();
             return _returnOrders;
         }
 

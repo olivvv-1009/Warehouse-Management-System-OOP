@@ -30,6 +30,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
 
         private ReturnOrder
             _returnOrder;
+        public event EventHandler ReturnCreated;
 
         public ReturnSupplier()
         {
@@ -635,6 +636,11 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
             {
                 MessageBox.Show(
                     "Return order created successfully."
+                );
+
+                ReturnCreated?.Invoke(
+                    this,
+                    EventArgs.Empty
                 );
 
                 this.Close();

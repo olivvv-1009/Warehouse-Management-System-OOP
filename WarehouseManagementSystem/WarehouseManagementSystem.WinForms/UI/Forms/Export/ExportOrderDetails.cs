@@ -43,8 +43,6 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             base.OnLoad(e);
             BuildBatchSection();
 
-            // Hook resize để rebuild khi user kéo cửa sổ
-            flowBatches.Resize += (s, _) => BuildBatchSection();
         }
 
         // ─── Xây dựng section Products & Batch Allocations ───────
@@ -56,8 +54,13 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
             flowBatches.WrapContents = false;
             flowBatches.FlowDirection = FlowDirection.TopDown;
 
-            int w = flowBatches.ClientSize.Width;
-            int cardWidth = w > 80 ? w - 20 : 700; // trừ scrollbar + padding
+            int cardWidth =
+    flowBatches.Width - 40;
+
+            if (cardWidth < 700)
+            {
+                cardWidth = 700;
+            }
 
             // ── Tiêu đề "Products & Batch Allocations" ──
             Label sectionLbl = new Label();
@@ -182,7 +185,7 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Export
                 lblBatchId.TextAlign = ContentAlignment.MiddleLeft;
 
                 // "X units from yyyy-MM-dd" bên phải
-                string importStr = batch.CreatedDate.ToString("yyyy-MM-dd");
+                string importStr = batch.LocationCode.ToString();
                 Label lblBatchInfo = new Label();
                 lblBatchInfo.Text = $"{qty} units from {importStr}";
                 lblBatchInfo.Font = new Font("Segoe UI", 9.5F);

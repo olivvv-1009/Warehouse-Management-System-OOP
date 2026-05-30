@@ -262,10 +262,23 @@ namespace WarehouseManagementSystem.WinForms.UI.Forms.Import
         }
 
 
-        private void btnReturn_Click(object sender, EventArgs e)
+        private void btnReturn_Click(
+    object sender,
+    EventArgs e)
         {
-            ReturnSupplier form = new ReturnSupplier();
+            ReturnSupplier form =
+                new ReturnSupplier();
+
+            form.ReturnCreated +=
+                Form_ReturnCreated;
+
             form.ShowDialog();
+        }
+
+        private void Form_ReturnCreated(
+            object sender,
+            EventArgs e)
+        {
             LoadImportInvoices();
         }
 
