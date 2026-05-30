@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WarehouseManagementSystem.WinForms.Files;
 using WarehouseManagementSystem.WinForms.Interfaces;
 using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Repositories;
@@ -98,11 +99,37 @@ namespace WarehouseManagementSystem.WinForms.Services
             return true;
         }
 
+        private bool HasInventory(string supplierId)
+        {
+            List<Batch> batches =
+                FileHelper.ReadJsonList<Batch>("batch.json");
+
+            if (batches == null)
+                return false;
+
+            foreach (Batch batch in batches)
+            {
+                if (batch.SupplierId == supplierId
+                    && batch.Quantity > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public bool Delete(string id)
         {
+            if (HasInventory(id))
+            {
+                return false;
+            }
+
             repo.Delete(id);
 
             return true;
         }
+
     }
 }
