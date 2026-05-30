@@ -18,13 +18,13 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             return list;
         }
 
-        public List<InventoryItem> GetInventory()
+        public List<Batch> GetInventory()
         {
-            List<InventoryItem> list =
-                FileHelper.ReadJsonList<InventoryItem>("inventory.json");
+            List<Batch> list =
+                FileHelper.ReadJsonList<Batch>("batch.json");
 
             if (list == null)
-                list = new List<InventoryItem>();
+                list = new List<Batch>();
 
             return list;
         }
