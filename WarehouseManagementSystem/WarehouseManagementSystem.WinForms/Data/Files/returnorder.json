@@ -1,1 +1,59 @@
-﻿[]
+﻿[
+  {
+    "EmployeeId": "EMP0001",
+    "ImportInvoiceId": "IMP0010",
+    "SupplierId": "SP0015",
+    "Details": [
+      {
+        "ProductId": "PR0015",
+        "BatchId": "BAT-PR0015-01",
+        "Quantity": 5,
+        "UnitPrice": 1235,
+        "ReturnReason": "Broken",
+        "TotalPrice": 6175
+      }
+    ],
+    "InvoiceId": "RT0001",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-31T01:07:57.3163534+07:00",
+    "Status": "Pending"
+  },
+  {
+    "EmployeeId": "EMP0001",
+    "ImportInvoiceId": "IMP0004",
+    "SupplierId": "SP0002",
+    "Details": [
+      {
+        "ProductId": "PR0010",
+        "BatchId": "BAT-PR0010-01",
+        "Quantity": 23,
+        "UnitPrice": 1500,
+        "ReturnReason": "Don\u0027t hear anything",
+        "TotalPrice": 34500
+      }
+    ],
+    "InvoiceId": "RT0002",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-31T01:09:42.3809146+07:00",
+    "Status": "Pending"
+  },
+  {
+    "EmployeeId": "EMP0001",
+    "ImportInvoiceId": "IMP0008",
+    "SupplierId": "SP0006",
+    "Details": [
+      {
+        "ProductId": "PR0012",
+        "BatchId": "BAT-PR0012-01",
+        "Quantity": 2,
+        "UnitPrice": 4500,
+        "ReturnReason": "Wrong color",
+        "TotalPrice": 9000
+      }
+    ],
+    "InvoiceId": "RT0003",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-31T01:10:41.7045685+07:00",
+    "Status": "Pending"
+  }
+]

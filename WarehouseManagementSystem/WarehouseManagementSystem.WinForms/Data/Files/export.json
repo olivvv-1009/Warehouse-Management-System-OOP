@@ -1,1 +1,216 @@
-﻿[]
+﻿[
+  {
+    "EmployeeName": "L\u00EA Minh Anh",
+    "Destination": "\u0110i\u1EC7n M\u00E1y TechHome Qu\u1EADn 1",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0010",
+        "BatchId": "",
+        "Quantity": 100,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0007",
+        "BatchId": "",
+        "Quantity": 110,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0014",
+        "BatchId": "",
+        "Quantity": 75,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      }
+    ],
+    "InvoiceId": "EXP0001",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-04-30T01:00:35.6764573+07:00",
+    "Status": "Completed"
+  },
+  {
+    "EmployeeName": "L\u00EA Minh Anh",
+    "Destination": "TechHome C\u1EA7n Th\u01A1",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0007",
+        "BatchId": "",
+        "Quantity": 2,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0004",
+        "BatchId": "",
+        "Quantity": 150,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      }
+    ],
+    "InvoiceId": "EXP0002",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-01T01:01:35.3841266+07:00",
+    "Status": "Completed"
+  },
+  {
+    "EmployeeName": "L\u00EA Minh Anh",
+    "Destination": "TechHome G\u00F2 V\u1EA5p",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0010",
+        "BatchId": "",
+        "Quantity": 5,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0013",
+        "BatchId": "",
+        "Quantity": 30,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0011",
+        "BatchId": "",
+        "Quantity": 135,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      }
+    ],
+    "InvoiceId": "EXP0003",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-20T01:02:25.7003367+07:00",
+    "Status": "Completed"
+  },
+  {
+    "EmployeeName": "L\u00EA Minh Anh",
+    "Destination": "TechHome H\u00E0 N\u1ED9i",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0006",
+        "BatchId": "",
+        "Quantity": 78,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0003",
+        "BatchId": "",
+        "Quantity": 335,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0005",
+        "BatchId": "",
+        "Quantity": 112,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      }
+    ],
+    "InvoiceId": "EXP0004",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-22T01:03:36.9378778+07:00",
+    "Status": "Completed"
+  },
+  {
+    "EmployeeName": "L\u00EA Minh Anh",
+    "Destination": "TechHome \u0110\u00E0 N\u1EB5ng",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0015",
+        "BatchId": "",
+        "Quantity": 239,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      },
+      {
+        "ProductId": "PR0015",
+        "BatchId": "",
+        "Quantity": 189,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      }
+    ],
+    "InvoiceId": "EXP0005",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-25T01:04:38.256641+07:00",
+    "Status": "Completed"
+  },
+  {
+    "EmployeeName": "L\u00EA Minh Anh",
+    "Destination": "\u0110i\u1EC7n M\u00E1y TechHome Qu\u1EADn 1",
+    "OrderDetails": [
+      {
+        "ProductId": "PR0011",
+        "BatchId": "",
+        "Quantity": 57,
+        "UnitPrice": 0,
+        "TotalPrice": 0,
+        "LocationCode": "",
+        "Zone": "",
+        "Rack": "",
+        "Shelf": ""
+      }
+    ],
+    "InvoiceId": "EXP0006",
+    "TotalAmount": 0,
+    "CreatedDate": "2026-05-25T01:05:08.9990834+07:00",
+    "Status": "Completed"
+  }
+]
