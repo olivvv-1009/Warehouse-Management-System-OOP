@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Files;
+using WarehouseManagementSystem.WinForms.Interfaces;
 using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    public class SupplierRepository
+    public class SupplierRepository : IRepository<Supplier>
     {
         private const string FilePath =
             "supplier.json";
@@ -14,6 +15,11 @@ namespace WarehouseManagementSystem.WinForms.Repositories
         public SupplierRepository()
         {
             LoadData();
+        }
+        public void Save(List<Supplier> items)
+        {
+            suppliers = items;
+            SaveData();
         }
 
         private void LoadData()

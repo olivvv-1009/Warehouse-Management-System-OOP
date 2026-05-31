@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using WarehouseManagementSystem.WinForms.Models;
 using WarehouseManagementSystem.WinForms.Files;
+using WarehouseManagementSystem.WinForms.Interfaces;
+using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    public class ProductRepository
+    public class ProductRepository : IRepository<Product>
     {
         private const string FileName = "products.json";
         private List<Product> _products;
@@ -31,6 +32,12 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             {
                 _products = new List<Product>();
             }
+        }
+
+        public void Save(List<Product> items)
+        {
+            _products = items;
+            Save();
         }
 
         public List<Product> GetAll()

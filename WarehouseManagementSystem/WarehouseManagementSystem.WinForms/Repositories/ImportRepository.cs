@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using WarehouseManagementSystem.WinForms.Files;
+using WarehouseManagementSystem.WinForms.Interfaces;
 using WarehouseManagementSystem.WinForms.Models;
 
 namespace WarehouseManagementSystem.WinForms.Repositories
 {
-    public class ImportRepository
+    public class ImportRepository : IRepository<ImportInvoice>
     {
         private const string FilePath =
             "import.json";
@@ -51,11 +52,9 @@ namespace WarehouseManagementSystem.WinForms.Repositories
             SaveData();
         }
 
-        public void Update(
-            List<ImportInvoice> invoices)
+        public void Save(List<ImportInvoice> items)
         {
-            _invoices = invoices;
-
+            _invoices = items;
             SaveData();
         }
 
